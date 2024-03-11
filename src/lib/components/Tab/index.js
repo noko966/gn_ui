@@ -1,7 +1,7 @@
 import React from "react";
 
-const Button = ({ title = 'click me' }) => {
+const Tab = ({ title = 'title' }) => {
   return <button className="dg_button_root">{title}</button>;
 };
 
-export default Button;
+export default Tab;
