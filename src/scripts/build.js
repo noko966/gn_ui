@@ -29,13 +29,15 @@ function copyAndTranspileFiles(srcFolder, outFolder) {
       copyAndTranspileFiles(srcPath, outPath);
     } else {
       // Transpile file
-      const { code } = babel.transformFileSync(srcPath, {
-        presets: ["@babel/preset-env", "@babel/preset-react"],
-      });
+      // const { code } = babel.transformFileSync(srcPath, {
+      //   presets: ["@babel/preset-env", "@babel/preset-react"],
+      // });
+
+      const code = fs.readFileSync(srcPath, 'utf-8');
 
       // Ensure file extension is .js
-      const outPathWithJsExt = outPath.replace(/\.[^/.]+$/, "") + ".js";
-      fs.writeFileSync(outPathWithJsExt, code, "utf-8");
+      // const outPathWithJsExt = outPath.replace(/\.[^/.]+$/, "") + ".js";
+      fs.writeFileSync(outPath, code, "utf-8");
     }
   });
 }

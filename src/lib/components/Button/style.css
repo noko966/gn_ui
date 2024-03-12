@@ -1,0 +1,13 @@
+.dg_button_root{
+    font-size: 13px;
+    color: var(--buttonTxt);
+    background: var(--buttonBg);
+    border-radius: 6px;
+    outline: none;
+    padding: 13px 16px;
+    width: 100%;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+}

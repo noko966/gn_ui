@@ -79,3 +79,10 @@ body {
   color: var(--sidebarTxt2);
   font-weight: 700;
 }
+
+
+.CL_UI_component_preview_row{
+  display: flex;
+  row-gap: 4px;
+  column-gap: 4px;
+}

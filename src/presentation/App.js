@@ -1,19 +1,64 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import 'highlight.js/styles/github.css';
+import hljs from 'highlight.js';
+import javascript from 'highlight.js/lib/languages/javascript';
+import 'highlight.js/styles/github-dark-dimmed.css';
 import Button from "./components/Button";
 import Input from "./components/Input";
 import Tab from "./components/Tab";
-const ButtonSource = `import React from "react";
 
-const Button = ({ title = 'click me' }) => {
-  return <button className="dg_button_root">{title}</button>;
-};
+import './styles/ui.css'
+import '../lib/styles/global.css'
+import '../lib/styles/variables.css'
+hljs.registerLanguage('javascript', javascript);
 
-export default Button;
-`;
-const InputSource = `import React from "react";
+const App = () => {
+
+  useEffect(() => {
+    // Highlight all code blocks
+    document.querySelectorAll('pre code').forEach((block) => {
+      hljs.highlightBlock(block);
+    });
+  }, []); // Empty dependency array means this effect runs once on mount
+  return (
+    <Router>
+      <div className="CL_UI_root">
+        <aside className="CL_UI_aside_root">
+          <div className="CL_UI_root_logo">
+          </div>
+          <h3>Components</h3>
+          <div className="CL_UI_aside_links">
+            <Link to="/">Docs</Link>
+            <Link to="/button">Button</Link>
+            <Link to="/input">Input</Link>
+            <Link to="/tab">Tab</Link>
+          </div>
+        </aside>
+        <main className="CL_UI_main_root">
+          <div className="CL_UI_presentation_root">
+            <div className='CL_UI_component_preview_root'>
+              <Routes>
+                <Route path="/button" element={<div className='CL_UI_component_preview_row'>
+                  <Button />
+                  <Button />
+                  <Button />
+                  <Button />
+                  <Button />
+                  <Button />
+                </div>} />
+                <Route path="/input" element={<Input />} />
+                <Route path="/Tab" element={<Tab />} />
+              </Routes>
+
+              
+
+            </div>
+
+            <pre>
+                <code>
+                  {`
+import React from "react";
 
 const Input = ({ placeholder }) => {
   return (
@@ -24,51 +69,15 @@ const Input = ({ placeholder }) => {
 };
 
 export default Input;
-`;
-const TabSource = `import React from "react";
+`}
+                </code>
+              </pre>
 
-const Tab = ({ title = 'title' }) => {
-  return <button className="dg_button_root">{title}</button>;
+          </div>
+        </main>
+      </div>
+    </Router>
+  );
 };
 
-export default Tab;
-`;
-
-const App = () => (
-  <Router>
-    <nav>
-      <Link to="/">Home</Link>
-      {/* Add other navigation links here */}
-    </nav>
-    <Routes>
-      
-      <Route path="/button" element={
-        <div>
-          <h2>Button</h2>
-          <Button />
-          <pre><code className="javascript">ButtonSource</code></pre>
-        </div>
-      } />
-    
-      <Route path="/input" element={
-        <div>
-          <h2>Input</h2>
-          <Input />
-          <pre><code className="javascript">InputSource</code></pre>
-        </div>
-      } />
-    
-      <Route path="/tab" element={
-        <div>
-          <h2>Tab</h2>
-          <Tab />
-          <pre><code className="javascript">TabSource</code></pre>
-        </div>
-      } />
-    
-    </Routes>
-  </Router>
-);
-
 export default App;
-  
