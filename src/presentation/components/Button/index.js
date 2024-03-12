@@ -1,7 +1,16 @@
-import React from "react";
+"use strict";
 
-const Button = ({ title = 'click me' }) => {
-  return <button className="dg_button_root">{title}</button>;
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+var _react = _interopRequireDefault(require("react"));
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+var Button = function Button(_ref) {
+  var _ref$title = _ref.title,
+    title = _ref$title === void 0 ? 'click me' : _ref$title;
+  return /*#__PURE__*/_react["default"].createElement("button", {
+    className: "dg_button_root"
+  }, title);
 };
-
-export default Button;
+var _default = exports["default"] = Button;

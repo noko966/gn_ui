@@ -5,14 +5,14 @@ const path = require("path");
 const srcDir = path.join(__dirname, "../", "lib", "components");
 const outDir = path.join(__dirname, "../", "presentation", "components");
 
-console.log(srcDir, outDir);
-
+// Function to ensure directory exists or create it
 function ensureDirSync(dirPath) {
   if (!fs.existsSync(dirPath)) {
     fs.mkdirSync(dirPath, { recursive: true });
   }
 }
 
+// Function to copy and transpile files recursively
 function copyAndTranspileFiles(srcFolder, outFolder) {
   ensureDirSync(outFolder);
 
