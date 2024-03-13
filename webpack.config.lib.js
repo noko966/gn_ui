@@ -1,21 +1,16 @@
 // webpack.config.js
 const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 module.exports = {
-  mode: 'development',
+  mode: "development",
   entry: path.join(__dirname, "src", "lib", "index.js"),
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "library"),
     filename: "digi-library.js",
     library: "DigiLibrary",
     libraryTarget: "umd",
   },
-  plugins: [
-    new HtmlWebpackPlugin({
-      template: path.join(__dirname, "public", "index.html"),
-    }),
-  ],
+  plugins: [new MiniCssExtractPlugin()],
   module: {
     rules: [
       {
@@ -36,6 +31,10 @@ module.exports = {
           "sass-loader", // Compiles Sass to CSS
         ],
       },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
     ],
   },
   resolve: {
@@ -44,8 +43,5 @@ module.exports = {
   externals: {
     react: "react",
     "react-dom": "react-dom",
-  },
-  devServer: {
-    port: 4000,
   },
 };

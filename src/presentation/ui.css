@@ -58,7 +58,7 @@ body {
   padding: 50px;
 }
 
-.CL_UI_presentation_root h2{
+.CL_UI_presentation_root h2 {
   color: var(--txt);
   font-size: 12em;
 }
@@ -80,8 +80,7 @@ body {
   font-weight: 700;
 }
 
-
-.CL_UI_component_preview_row{
+.CL_UI_component_preview_row {
   display: flex;
   row-gap: 4px;
   column-gap: 4px;

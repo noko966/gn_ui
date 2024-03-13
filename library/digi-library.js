@@ -48,7 +48,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Button: () => (/* reexport safe */ _components_Button_Button_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]),\n/* harmony export */   Input: () => (/* reexport safe */ _components_Input_Input_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"])\n/* harmony export */ });\n/* harmony import */ var _components_Input_Input_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/Input/Input.js */ \"./src/lib/components/Input/Input.js\");\n/* harmony import */ var _components_Button_Button_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Button/Button.js */ \"./src/lib/components/Button/Button.js\");\n\n\n\n//# sourceURL=webpack://DigiLibrary/./src/lib/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   Button: () => (/* reexport safe */ _components_Button_Button_js__WEBPACK_IMPORTED_MODULE_3__[\"default\"]),\n/* harmony export */   Input: () => (/* reexport safe */ _components_Input_Input_js__WEBPACK_IMPORTED_MODULE_2__[\"default\"])\n/* harmony export */ });\n/* harmony import */ var _styles_global_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./styles/global.css */ \"./src/lib/styles/global.css\");\n/* harmony import */ var _styles_variables_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./styles/variables.css */ \"./src/lib/styles/variables.css\");\n/* harmony import */ var _components_Input_Input_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/Input/Input.js */ \"./src/lib/components/Input/Input.js\");\n/* harmony import */ var _components_Button_Button_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/Button/Button.js */ \"./src/lib/components/Button/Button.js\");\n\n\n\n\n\n//# sourceURL=webpack://DigiLibrary/./src/lib/index.js?");
 
 /***/ }),
 
@@ -93,6 +93,28 @@ eval("\n\n/*\n  MIT License http://www.opensource.org/licenses/mit-license.php\n
 
 "use strict";
 eval("\n\nmodule.exports = function (i) {\n  return i[1];\n};\n\n//# sourceURL=webpack://DigiLibrary/./node_modules/css-loader/dist/runtime/noSourceMaps.js?");
+
+/***/ }),
+
+/***/ "./src/lib/styles/global.css":
+/*!***********************************!*\
+  !*** ./src/lib/styles/global.css ***!
+  \***********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://DigiLibrary/./src/lib/styles/global.css?");
+
+/***/ }),
+
+/***/ "./src/lib/styles/variables.css":
+/*!**************************************!*\
+  !*** ./src/lib/styles/variables.css ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://DigiLibrary/./src/lib/styles/variables.css?");
 
 /***/ }),
 

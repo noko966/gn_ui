@@ -1,16 +1,20 @@
 // webpack.config.js
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
+  mode: "development",
   entry: path.join(__dirname, "src", "presentation", "index.js"),
   output: {
     path: path.resolve(__dirname, "dist"),
+    filename: "digi-demo.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, "public", "index.html"),
+      template: path.resolve(__dirname, "public", "index.html"),
     }),
+    new MiniCssExtractPlugin(),
   ],
   module: {
     rules: [
@@ -25,10 +29,6 @@ module.exports = {
         },
       },
       {
-        test: /\.css$/,
-        use: ["style-loader", "css-loader"],
-      },
-      {
         test: /\.s[ac]ss$/i,
         use: [
           "style-loader", // Creates `style` nodes from JS strings
@@ -36,16 +36,18 @@ module.exports = {
           "sass-loader", // Compiles Sass to CSS
         ],
       },
+      {
+        test: /\.css$/i,
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
+      },
     ],
   },
   resolve: {
     extensions: [".js", ".jsx"],
   },
-  externals: {
-    react: "react",
-    "react-dom": "react-dom",
-  },
+
   devServer: {
-    port: 3000,
+    port: 4040,
+    open: true,
   },
 };
