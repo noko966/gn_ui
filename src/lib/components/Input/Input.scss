@@ -1,0 +1,19 @@
+.dg_input_root{
+    font-size: 13px;
+    outline: none;
+    padding: 13px 16px;
+    width: 100%;
+    text-transform: uppercase;
+    border: none;
+    cursor: pointer;
+}
+
+.dg_input{
+    appearance: none;
+    border: 0;
+    outline: 0;
+    color: var(--inputTxt);
+    background: var(--inputBg);
+    border-radius: 6px;
+    font-weight: 500;
+}

@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+import "./Input.scss";
 
 const Input = ({ placeholder }) => {
   return (
@@ -6,6 +8,10 @@ const Input = ({ placeholder }) => {
       <input className="dg_input" type="text" placeholder={placeholder} />
     </div>
   );
+};
+
+Input.propTypes = {
+  placeholder: PropTypes.string.isRequired,
 };
 
 export default Input;
