@@ -1,7 +1,9 @@
 import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-import "../../Library/main.css";
+import "../../Library/global.css";
+import "../../Library/variables.css";
+import "../../Library/fonts.css";
 import "./ui.css";
 
 import { Button, Input, Event } from "../../library/digi-library.js";
@@ -35,11 +37,19 @@ const App = () => {
           <div className="CL_UI_presentation_root">
             <div className="CL_UI_component_preview_root">
               <Routes>
+                <Route path="/" element={<div>G N UI presentation Lib</div>} />
                 <Route path="/button" element={<Button>button</Button>} />
                 <Route
                   path="/event"
                   element={
                     <>
+                      <Event />
+                      <Event />
+                      <Event />
+                      <Event />
+                      <Event />
+                      <Event />
+                      <Event />
                       <Event />
                     </>
                   }
