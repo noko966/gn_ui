@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import "../../Library/main.css";
 import "./ui.css";
 
-import { Button, Input } from "../../library/digi-library.js";
+import { Button, Input, Event } from "../../library/digi-library.js";
 
 // import hljs from "highlight.js";
 // import javascript from "highlight.js/lib/languages/javascript";
@@ -27,7 +27,8 @@ const App = () => {
           <div className="CL_UI_aside_links">
             <Link to="/">Docs</Link>
             <Link to="/button">Button</Link>
-            <Link to="/input">input</Link>
+            <Link to="/input">Input</Link>
+            <Link to="/event">Event</Link>
           </div>
         </aside>
         <main className="CL_UI_main_root">
@@ -35,6 +36,14 @@ const App = () => {
             <div className="CL_UI_component_preview_root">
               <Routes>
                 <Route path="/button" element={<Button>button</Button>} />
+                <Route
+                  path="/event"
+                  element={
+                    <>
+                      <Event />
+                    </>
+                  }
+                />
                 <Route
                   path="/input"
                   element={<Input placeholder={"placeholder"} />}
