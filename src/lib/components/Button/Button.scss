@@ -1,13 +1,21 @@
 .dg_button_root{
+    appearance: none;
+    -webkit-appearance: noe;
     font-size: 13px;
     color: var(--buttonTxt);
     background: var(--buttonBg);
     border-radius: 6px;
     outline: none;
     padding: 13px 16px;
-    width: 100%;
+    // width: 100%;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
     font-weight: 500;
+    transition: all 0.3s;
+}
+
+.dg_button_root:hover{
+    background: var(--buttonBg2);
+    color: var(--buttonTxt);
 }

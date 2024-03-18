@@ -10,15 +10,13 @@ const Event = ({ children }) => {
         <span>Basketball </span>
         <span>(325)</span>
       </div>
-
-      <i className="sport_front_icon-3"></i>
+      <i className="dg_icon_angle_bottom"></i>
     </div>
   );
 };
 
 Event.propTypes = {
-  label: PropTypes.string.isRequired,
-  onClick: PropTypes.func,
+  label: PropTypes.string,
 };
 
 export default Event;

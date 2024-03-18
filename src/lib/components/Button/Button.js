@@ -7,7 +7,7 @@ const Button = ({ title = "click me" }) => {
 };
 
 Button.propTypes = {
-  label: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   onClick: PropTypes.func,
 };
 

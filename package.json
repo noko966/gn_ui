@@ -5,7 +5,6 @@
   "main": "index.js",
   "scripts": {
     "generate-app": "node src/scripts/build.js",
-    "present": "npm run generate-app && webpack serve --mode development --open",
     "build": "webpack --mode production",
     "build:lib": "webpack --config webpack.config.lib.js",
     "build:present": "webpack-dev-server --config webpack.config.present.js"
