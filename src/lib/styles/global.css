@@ -25,3 +25,8 @@ video {
 html {
   font-family: "Roboto", sans-serif;
 }
+
+:root,
+:host {
+  font-size: 12px;
+}

@@ -6,8 +6,8 @@ addons.setConfig({
     base: "dark",
     brandTitle: "Digitain Component Library",
     brandUrl: "https://www.digitain.com/",
-    brandImage:
-      "https://www.digitain.com/wp-content/themes/digitain_wp_theme/assets/img/digitain_logo.png",
+    // brandImage:
+    //   "https://www.digitain.com/wp-content/themes/digitain_wp_theme/assets/img/digitain_logo.png",
     brandTarget: "_self",
   }),
 });
