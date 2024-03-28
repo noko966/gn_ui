@@ -1,4 +1,5 @@
 .dg_button_root{
+    --button_height: 36px;
     appearance: none;
     -webkit-appearance: noe;
     font-size: 13px;
@@ -6,16 +7,39 @@
     background: var(--buttonBg);
     border-radius: 6px;
     outline: none;
-    padding: 13px 16px;
+    padding: 0 8px;
+    height: var(--button_height);
     // width: 100%;
     text-transform: uppercase;
     border: none;
     cursor: pointer;
     font-weight: 500;
     transition: all 0.3s;
-}
-
-.dg_button_root:hover{
-    background: var(--buttonBg2);
-    color: var(--buttonTxt);
+    display: flex;
+    align-items: center;
+    &.dg_button_state_disabled{
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+    &:hover{
+        background: var(--buttonBgHover);
+        color: var(--buttonTxt);
+    }
+    &.dg_button_type_secondary{
+        color: var(--buttonSecondaryTxt);
+        background: var(--buttonSecondaryBg);
+        &:hover{
+            background: var(--buttonSecondaryBgHover);
+            color: var(--buttonSecondaryTxt);
+        }
+    }
+    &.dg_button_type_with_icon{
+        > span {
+            padding-inline-start: 4px;
+        }
+    }
+    i {
+        flex-shrink: 0;
+    }
 }

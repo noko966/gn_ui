@@ -46,7 +46,7 @@
     url("./fonts/sportIcons_outlined/icon_font.woff2?v000") format("woff2"),
     url("./fonts/sportIcons_outlined/icon_font.woff?v000") format("woff"),
     url("./fonts/sportIcons_outlined/icon_font.ttf?v000") format("truetype");
-  font-weight: 300;
+  font-weight: 100;
   font-style: normal;
   font-display: block;
   /*unicode-range: U+E000-E06A;*/
@@ -1992,7 +1992,7 @@
   flex-shrink: 0;
   width: 24px;
   height: 24px;
-  line-height: 23px;
+  line-height: 26px;
   font-size: 35px;
   text-align: center;
   vertical-align: middle;
@@ -3449,4 +3449,17 @@ Glyphs list
 
 .dg_icon_my__bets::before {
   content: "\e19b";
+}
+
+
+.dg_icons_outline [class^="sport_front_icon-"],
+.dg_icons_outline [class*=" sport_front_icon-"],
+.dg_icons_outline[class^="sport_front_icon-"],
+.dg_icons_outline[class*=" sport_front_icon-"],
+.dg_icons_outline [class^="dg_icon_"],
+.dg_icons_outline [class*=" dg_icon_"],
+.dg_icons_outline[class^="dg_icon_"],
+.dg_icons_outline[class*=" dg_icon_"]
+{
+  font-weight: 100;
 }

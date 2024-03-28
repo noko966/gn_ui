@@ -19,33 +19,49 @@ export default {
     backgroundColor: { control: "color" },
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn() },
+  args: {
+    onClick: fn(),
+    isPrimary: false,
+    sportIconStyle: 400,
+    isWithIcon: false,
+    iconClassName: 'dg_icon_lock',
+    isDisabled: false,
+    title: "simple button",
+    iconPositionStart: false,
+  },
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary = {
   args: {
-    primary: true,
-    title: "Button",
+    isPrimary: true,
+    sportIconStyle: 400,
+    isWithIcon: false,
+    iconClassName: '',
+    isDisabled: false,
+    title: "primary button",
   },
 };
 
 export const Secondary = {
   args: {
-    title: "Button",
+    isPrimary: false,
+    sportIconStyle: 400,
+    isWithIcon: false,
+    iconClassName: '',
+    isDisabled: false,
+    title: "secondary button",
   },
 };
 
-export const Large = {
+export const PrimaryWithSportIcon = {
   args: {
-    size: "large",
-    title: "Button",
+    isPrimary: true,
+    sportIconStyle: 400,
+    isWithIcon: true,
+    iconClassName: 'sport_front_icon-1',
+    isDisabled: false,
+    title: "primary button",
   },
 };
 
-export const Small = {
-  args: {
-    size: "small",
-    title: "Button",
-  },
-};

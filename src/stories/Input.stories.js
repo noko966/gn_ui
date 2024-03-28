@@ -1,5 +1,5 @@
 import { fn } from "@storybook/test";
-import { Input, Event } from "../../library/digi-library.js";
+import { Input } from "../../library/digi-library.js"
 import "../../library/global.css";
 import "../../library/variables.css";
 import "../../library/fonts.css";
@@ -19,33 +19,55 @@ export default {
     backgroundColor: { control: "color" },
   },
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: { onClick: fn() },
+  args: {
+    onClick: fn(),
+    sportIconStyle: 400,
+    isSearcgInput: false,
+    isDatePickerInput: false,
+    isDisabled: false
+
+  },
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary = {
+export const Default = {
   args: {
-    primary: true,
-    placeholder: "Button",
+    placeholder: "type here",
+    sportIconStyle: 400,
+    isSearcgInput: false,
+    isDatePickerInput: false,
+    isDisabled: false
   },
 };
 
-export const Secondary = {
+export const Search = {
   args: {
-    placeholder: "Button",
+    placeholder: "type to search",
+    sportIconStyle: 400,
+    isSearcgInput: true,
+    isDatePickerInput: false,
+    isDisabled: false
+
   },
 };
 
-export const Large = {
+export const Date = {
   args: {
-    size: "large",
-    placeholder: "Button",
+    placeholder: "10/03/2022",
+    sportIconStyle: 400,
+    isSearcgInput: false,
+    isDatePickerInput: true,
+    isDisabled: false
   },
 };
 
-export const Small = {
+export const Disabled = {
   args: {
-    size: "small",
-    placeholder: "Button",
+    placeholder: "input disabled",
+    sportIconStyle: 400,
+    isSearcgInput: false,
+    isDatePickerInput: false,
+    isDisabled: true
   },
 };
+
