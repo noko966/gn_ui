@@ -31,11 +31,14 @@ const AsianOdd = ({ factor, isActive, isDisabled }) => {
   return <div className={oddClassName}>{factor}</div>;
 };
 
-const EsportOdd = ({ factor, isActive, isDisabled }) => {
+const EsportOdd = ({ factor, isActive, isDisabled, variant }) => {
   const oddClassName = classNames({
     dg_odd_es: true,
     dg_odd_es_state_active: isActive,
     dg_odd_es_state_disabled: isDisabled,
+    esn_odd_variant_result_p1: variant === "result_p1",
+    esn_odd_variant_result_x: variant === "result_x",
+    esn_odd_variant_result_p2: variant === "result_p2",
   });
   return (
     <div className={oddClassName}>
@@ -50,7 +53,7 @@ const EsportOdd = ({ factor, isActive, isDisabled }) => {
 // etc.
 
 // Main component
-const OddsComponent = ({ region, factor, isActive, isDisabled }) => {
+const OddsComponent = ({ region, factor, isActive, isDisabled, variant }) => {
   const Component =
     {
       european: EuropeanOdd,
@@ -61,7 +64,12 @@ const OddsComponent = ({ region, factor, isActive, isDisabled }) => {
     }[region] || EuropeanOdd;
 
   return (
-    <Component factor={factor} isActive={isActive} isDisabled={isDisabled} />
+    <Component
+      factor={factor}
+      isActive={isActive}
+      isDisabled={isDisabled}
+      variant={variant}
+    />
   );
 };
 

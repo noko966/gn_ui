@@ -62,3 +62,30 @@ export const Esport = {
     region: "esport",
   },
 };
+export const EsportResultP1 = {
+  args: {
+    factor: "1.447",
+    isActive: false,
+    isDisabled: false,
+    region: "esport",
+    variant: "result_p1",
+  },
+};
+export const EsportResultP2 = {
+  args: {
+    factor: "1.447",
+    isActive: false,
+    isDisabled: false,
+    region: "esport",
+    variant: "result_p2",
+  },
+};
+export const EsportResultX = {
+  args: {
+    factor: "1.01",
+    isActive: false,
+    isDisabled: false,
+    region: "esport",
+    variant: "result_x",
+  },
+};
