@@ -1,0 +1,138 @@
+.dg_odd {
+    --odd_width: 56px;
+    --odd_height: 36px;
+    font-size: 13px;
+    font-weight: 500;
+    width: var(--odd_width);
+    height: var(--odd_height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--oddRadius);
+    text-decoration: none;
+    flex-shrink: 0;
+    flex-grow: 0;
+    cursor: pointer;
+    transition: all .3s ease,color .3s;
+    background: var(--oddG);
+    color: var(--oddTxt);
+    &:hover{
+        background: var(--oddBgHover);
+        color: var(--oddTxt);
+    }
+    &.dg_odd_state_active{
+        background: var(--oddActiveG);
+        color: var(--oddActiveTxt);
+    }
+    &.dg_odd_state_disabled{
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}
+
+.dg_odd_afr{
+    --odd_width: 100px;
+    --odd_height: 36px;
+    font-size: 13px;
+    font-weight: 500;
+    width: var(--odd_width);
+    height: var(--odd_height);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: calc(var(--oddRadius) * 2);
+    text-decoration: none;
+    flex-shrink: 0;
+    flex-grow: 0;
+    cursor: pointer;
+    transition: all .3s ease,color .3s;
+    background: var(--oddG);
+    color: var(--oddTxt);
+}
+
+.dg_odd_as{
+    background-color: initial;
+    border-radius: 1px;
+    background: transparent;
+    color: var(--oddTxt2);
+    padding: 4px;
+    position: relative;
+    text-align: center;
+    width: auto;
+    &:hover{
+        background: var(--oddBgHover);
+        color: var(--oddTxt);
+    }
+    &.dg_odd_state_active{
+        background: var(--oddActiveG);
+        color: var(--oddActiveTxt);
+    }
+    &.dg_odd_state_disabled{
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}
+
+.dg_odd_es{
+    --fszArg: 14px;
+    --heightArg: 14px;
+    --fszFac: 16px;
+    --heightFac: 16px;
+    --oddHeight: 40px;
+    --oddHeightInner: 32px;
+    background: var(--oddG);
+    position: relative;
+    align-items: center;
+    background-color: var(--oddBg);
+    border: var(--oddBorderWidth) solid;
+    border-color: var(--oddAccent);
+    border-radius: 4px;
+    color: var(--oddTxt);
+    display: flex;
+    height: var(--oddHeight);
+    padding-left: 8px;
+    padding-right: 8px;
+    transition: background .1s, color .1s;
+    .esn_odd_inner{
+        border-radius: 0;
+        flex-direction: column;
+        height: var(--oddHeightInner);
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        z-index: 6;
+    }
+    .dg_odd_es_market{
+        color: var(--oddTxt2);
+        flex-shrink: 0;
+        font-size: var(--fszArg);
+        height: var(--heightArg);
+        line-height: var(--heightArg);
+        margin-bottom: 2px;
+        width: 100%;
+    }
+    .dg_odd_es_factor{
+        align-items: center;
+        display: flex;
+        flex-shrink: 0;
+        font-size: var(--fszFac);
+        height: var(--heightFac);
+        line-height: var(--heightFac);
+        width: 100%;
+    }
+    &:hover{
+        background: var(--oddBgHover);
+        color: var(--oddTxt);
+    }
+    &.dg_odd_state_active{
+        background: var(--oddActiveG);
+        color: var(--oddActiveTxt);
+    }
+    &.dg_odd_state_disabled{
+        pointer-events: none;
+        cursor: not-allowed;
+        opacity: 0.5;
+    }
+}

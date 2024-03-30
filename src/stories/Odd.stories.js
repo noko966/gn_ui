@@ -1,13 +1,13 @@
 import { fn } from "@storybook/test";
-import { Button, Input, Event } from "../../library/digi-library.js";
+import { Odd } from "../../library/digi-library.js";
 import "../../library/global.css";
 import "../../library/variables.css";
 import "../../library/fonts.css";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
-  title: "Digitain/Button",
-  component: Button,
+  title: "Digitain/Odd",
+  component: Odd,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
@@ -21,46 +21,44 @@ export default {
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: {
     onClick: fn(),
-    isPrimary: false,
-    sportIconStyle: 400,
-    isWithIcon: false,
-    iconClassName: "dg_icon_lock",
+    factor: "1.2",
+    isActive: false,
     isDisabled: false,
-    title: "simple button",
-    iconPositionStart: false,
+    region: "european",
   },
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary = {
+export const European = {
   args: {
-    isPrimary: true,
-    sportIconStyle: 400,
-    isWithIcon: false,
-    iconClassName: "",
+    factor: "1.2",
+    isActive: false,
     isDisabled: false,
-    title: "primary button",
+    region: "european",
+  },
+};
+export const African = {
+  args: {
+    factor: "1.2",
+    isActive: false,
+    isDisabled: false,
+    region: "african",
+  },
+};
+export const Asian = {
+  args: {
+    factor: "1.2",
+    isActive: false,
+    isDisabled: false,
+    region: "asian",
   },
 };
 
-export const Secondary = {
+export const Esport = {
   args: {
-    isPrimary: false,
-    sportIconStyle: 400,
-    isWithIcon: false,
-    iconClassName: "",
+    factor: "1.447",
+    isActive: false,
     isDisabled: false,
-    title: "secondary button",
-  },
-};
-
-export const PrimaryWithSportIcon = {
-  args: {
-    isPrimary: true,
-    sportIconStyle: 400,
-    isWithIcon: true,
-    iconClassName: "sport_front_icon-1",
-    isDisabled: false,
-    title: "primary button",
+    region: "esport",
   },
 };
