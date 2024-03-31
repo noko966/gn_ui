@@ -1,9 +1,7 @@
 import React from "react"; // Add this line
 import { fn } from "@storybook/test";
 import { Dropdown } from "../../library/digi-library.js";
-import "../../library/global.css";
-import "../../library/variables.css";
-import "../../library/fonts.css";
+
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
