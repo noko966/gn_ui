@@ -2,8 +2,11 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
+import Icon from "../../../SportIcon/index.js";
 
-const EuropeanView = ({ child, isActive, isDisabled }) => {
+
+
+const EuropeanView = ({ child, isActive, isDisabled, sportId, count, iconVariant }) => {
   const ViewClassName = classNames({
     [`view_european_${"side_bar_item"}`]: true,
     ["state_active"]: isActive,
@@ -11,10 +14,10 @@ const EuropeanView = ({ child, isActive, isDisabled }) => {
   });
   return (
     <div className={ViewClassName}>
-      <i className="sport_front_icon-1" />
+      <Icon variant={iconVariant} sportId={sportId}/>
       <div>
         <span>{child}</span>
-        <strong>{50}</strong>
+        <strong>{count}</strong>
       </div>
       <i className="state_change_icon dg_icon_angle_bottom" />
     </div>
@@ -23,6 +26,7 @@ const EuropeanView = ({ child, isActive, isDisabled }) => {
 
 EuropeanView.propTypes = {
   child: PropTypes.string.isRequired,
+  sportId: PropTypes.number,
   isActive: PropTypes.bool,
   isDisabled: PropTypes.bool,
 };

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import EuropeanView from "./-moleculs/European/index.js";
 import EsportView from "./-moleculs/Esport/index.js";
 
-const SideItemComponent = ({ child, view, isActive, isDisabled, variant }) => {
+const SideItemComponent = ({ child, view, isActive, isDisabled, variant, sportId, iconVariant }) => {
   const Component =
     {
       european: EuropeanView,
@@ -17,6 +17,8 @@ const SideItemComponent = ({ child, view, isActive, isDisabled, variant }) => {
 
   return (
     <Component
+    iconVariant={iconVariant}
+      sportId={sportId}
       child={child}
       view={view}
       isActive={isActive}
@@ -27,8 +29,8 @@ const SideItemComponent = ({ child, view, isActive, isDisabled, variant }) => {
 };
 
 SideItemComponent.propTypes = {
-  region: PropTypes.string.isRequired,
-  factor: PropTypes.number.isRequired,
+  view: PropTypes.string.isRequired,
+  sportId: PropTypes.number,
   isActive: PropTypes.bool,
   isDisabled: PropTypes.bool,
 };

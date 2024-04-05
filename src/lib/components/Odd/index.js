@@ -57,9 +57,9 @@ const OddsComponent = ({ region, factor, isActive, isDisabled, variant }) => {
   const Component =
     {
       european: EuropeanView,
-      african: AfricanOdd,
-      asian: AsianOdd,
-      esport: EsportOdd,
+      african: AfricanView,
+      asian: AsianView,
+      esport: EsportView,
       // Add other components as needed
     }[region] || EuropeanView;
 

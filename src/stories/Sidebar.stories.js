@@ -13,12 +13,23 @@ export default {
   tags: ["autodocs"],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
-    backgroundColor: { control: "color" },
+    view: { control: "select", options: [
+      "european", "esport",
+    ] },
+    sportId: { control: "select", options: [
+      1,2,3,4,5,6,7,8,9,10,11,12,13
+    ] },
+    iconVariant: { control: "select", options: [
+      400, 300
+    ] },
   },
+  
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: {
     onClick: fn(),
     child: "Text",
+    iconVariant: 400,
+    sportId: 1,
     isActive: false,
     isDisabled: false,
     view: "european",
@@ -29,6 +40,7 @@ export default {
 export const European = {
   args: {
     child: "Text",
+    sportId: 1,
     isActive: true,
     isDisabled: false,
     view: "european",
@@ -37,6 +49,7 @@ export const European = {
 export const EuropeanActive = {
   args: {
     child: "Text Active",
+    sportId: 2,
     isActive: true,
     isDisabled: false,
     view: "european",
@@ -45,6 +58,7 @@ export const EuropeanActive = {
 export const EuropeanDisabled = {
   args: {
     child: "Text Disabled",
+    sportId: 2,
     isActive: false,
     isDisabled: true,
     view: "european",
