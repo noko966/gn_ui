@@ -29,4 +29,13 @@ html {
 :root,
 :host {
   font-size: 12px;
+
+  --paddingX: 4px;
+  --paddingX2: 8px;
+  --paddingX3: 12px;
+  --paddingX4: 16px;
+
+  --paddingY: 3px;
+  --paddingY3: 6px;
+  --paddingY4: 9px;
 }

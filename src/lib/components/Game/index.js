@@ -4,7 +4,7 @@ import classNames from "classnames";
 import "./index.scss";
 
 // Separate component files
-const EuropeanView = ({ factor, isActive, isDisabled }) => {
+const EuropeanOdd = ({ factor, isActive, isDisabled }) => {
   const oddClassName = classNames({
     dg_odd: true,
     dg_odd_state_active: isActive,
@@ -13,7 +13,7 @@ const EuropeanView = ({ factor, isActive, isDisabled }) => {
   return <div className={oddClassName}>{factor}</div>;
 };
 
-const AfricanView = ({ factor, isActive, isDisabled }) => {
+const AfricanOdd = ({ factor, isActive, isDisabled }) => {
   const oddClassName = classNames({
     dg_odd_afr: true,
     dg_odd_afr_state_active: isActive,
@@ -22,7 +22,7 @@ const AfricanView = ({ factor, isActive, isDisabled }) => {
   return <div className={oddClassName}>{factor}</div>;
 };
 
-const AsianView = ({ factor, isActive, isDisabled }) => {
+const AsianOdd = ({ factor, isActive, isDisabled }) => {
   const oddClassName = classNames({
     dg_odd_as: true,
     dg_odd_as_state_active: isActive,
@@ -31,7 +31,7 @@ const AsianView = ({ factor, isActive, isDisabled }) => {
   return <div className={oddClassName}>{factor}</div>;
 };
 
-const EsportView = ({ factor, isActive, isDisabled, variant }) => {
+const EsportOdd = ({ factor, isActive, isDisabled, variant }) => {
   const oddClassName = classNames({
     dg_odd_es: true,
     dg_odd_es_state_active: isActive,
@@ -56,12 +56,12 @@ const EsportView = ({ factor, isActive, isDisabled, variant }) => {
 const OddsComponent = ({ region, factor, isActive, isDisabled, variant }) => {
   const Component =
     {
-      european: EuropeanView,
+      european: EuropeanOdd,
       african: AfricanOdd,
       asian: AsianOdd,
       esport: EsportOdd,
       // Add other components as needed
-    }[region] || EuropeanView;
+    }[region] || EuropeanOdd;
 
   return (
     <Component

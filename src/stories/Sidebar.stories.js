@@ -1,10 +1,10 @@
 import { fn } from "@storybook/test";
-import { Button, Input, Event } from "../../library/digi-library.js";
+import { SideItem } from "../../library/digi-library.js";
 
 // More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
-  title: "Digitain/Button",
-  component: Button,
+  title: "Digitain/SideItem",
+  component: SideItem,
   parameters: {
     // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: "centered",
@@ -18,46 +18,60 @@ export default {
   // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
   args: {
     onClick: fn(),
-    isPrimary: false,
-    sportIconStyle: 400,
-    isWithIcon: false,
-    iconClassName: "dg_icon_lock",
+    child: "Text",
+    isActive: false,
     isDisabled: false,
-    title: "simple button",
-    iconPositionStart: false,
+    view: "european",
   },
 };
 
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const Primary = {
+export const European = {
   args: {
-    isPrimary: true,
-    sportIconStyle: 400,
-    isWithIcon: false,
-    iconClassName: "",
+    child: "Text",
+    isActive: true,
     isDisabled: false,
-    title: "primary button",
+    view: "european",
+  },
+};
+export const EuropeanActive = {
+  args: {
+    child: "Text Active",
+    isActive: true,
+    isDisabled: false,
+    view: "european",
+  },
+};
+export const EuropeanDisabled = {
+  args: {
+    child: "Text Disabled",
+    isActive: false,
+    isDisabled: true,
+    view: "european",
   },
 };
 
-export const Secondary = {
+export const Esport = {
   args: {
-    isPrimary: false,
-    sportIconStyle: 400,
-    isWithIcon: false,
-    iconClassName: "",
+    child: "Text",
+    isActive: true,
     isDisabled: false,
-    title: "secondary button",
+    view: "esport",
   },
 };
-
-export const PrimaryWithSportIcon = {
+export const EsportActive = {
   args: {
-    isPrimary: true,
-    sportIconStyle: 400,
-    isWithIcon: true,
-    iconClassName: "sport_front_icon-1",
+    child: "Text Active",
+    isActive: true,
     isDisabled: false,
-    title: "primary button",
+    view: "esport",
+  },
+};
+export const EsportDisabled = {
+  args: {
+    child: "Text Disabled",
+    isActive: false,
+    isDisabled: true,
+    view: "esport",
   },
 };

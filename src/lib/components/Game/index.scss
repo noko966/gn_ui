@@ -1,0 +1,230 @@
+.dg_odd {
+  --odd_width: 56px;
+  --odd_height: 36px;
+  font-size: 13px;
+  font-weight: 500;
+  width: var(--odd_width);
+  height: var(--odd_height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--oddRadius);
+  text-decoration: none;
+  flex-shrink: 0;
+  flex-grow: 0;
+  cursor: pointer;
+  transition:
+    all 0.3s ease,
+    color 0.3s;
+  background: var(--oddG);
+  color: var(--oddTxt);
+  &:hover {
+    background: var(--oddBgHover);
+    color: var(--oddTxt);
+  }
+  &.dg_odd_state_active {
+    background: var(--oddActiveG);
+    color: var(--oddActiveTxt);
+  }
+  &.dg_odd_state_disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.dg_odd_afr {
+  --odd_width: 100px;
+  --odd_height: 36px;
+  font-size: 13px;
+  font-weight: 500;
+  width: var(--odd_width);
+  height: var(--odd_height);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: calc(var(--oddRadius) * 2);
+  text-decoration: none;
+  flex-shrink: 0;
+  flex-grow: 0;
+  cursor: pointer;
+  transition:
+    all 0.3s ease,
+    color 0.3s;
+  background: var(--oddG);
+  color: var(--oddTxt);
+}
+
+.dg_odd_as {
+  background-color: initial;
+  border-radius: 1px;
+  background: transparent;
+  color: var(--oddTxt2);
+  padding: 4px;
+  position: relative;
+  text-align: center;
+  width: auto;
+  &:hover {
+    background: var(--oddBgHover);
+    color: var(--oddTxt);
+  }
+  &.dg_odd_state_active {
+    background: var(--oddActiveG);
+    color: var(--oddActiveTxt);
+  }
+  &.dg_odd_state_disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.dg_odd_es {
+  --skewWidth: 36px;
+  --step: 51%;
+  --step2: -51%;
+  --stepC: calc(var(--step) - 10px);
+  --stepC2: calc(var(--step2) + 10px);
+  --stakeAngle: 25deg;
+  --stakeAngle2: -25deg;
+  --fszArg: 14px;
+  --heightArg: 14px;
+  --fszFac: 16px;
+  --heightFac: 16px;
+  --oddHeight: 40px;
+  --oddHeightInner: 32px;
+  --oddBorderWidth: 1px;
+  background: var(--oddG);
+  position: relative;
+  align-items: center;
+  border: var(--oddBorderWidth) solid;
+  border-color: var(--oddAccent);
+  border-radius: 4px;
+  color: var(--oddTxt);
+  display: flex;
+  height: var(--oddHeight);
+  padding-left: 8px;
+  padding-right: 8px;
+  transition:
+    background 0.1s,
+    color 0.1s;
+  cursor: pointer;
+  .esn_odd_inner {
+    border-radius: 0;
+    flex-direction: column;
+    height: var(--oddHeightInner);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    z-index: 6;
+  }
+  .dg_odd_es_market {
+    color: var(--oddTxt2);
+    flex-shrink: 0;
+    font-size: var(--fszArg);
+    height: var(--heightArg);
+    line-height: var(--heightArg);
+    margin-bottom: 2px;
+    width: 100%;
+  }
+  .dg_odd_es_factor {
+    align-items: center;
+    display: flex;
+    flex-shrink: 0;
+    font-size: var(--fszFac);
+    height: var(--heightFac);
+    line-height: var(--heightFac);
+    width: 100%;
+  }
+  &:hover {
+    background: var(--oddActiveG) !important;
+    color: var(--oddActiveTxt) !important;
+    &::before,
+    &::after {
+      background: var(--oddActiveG) !important;
+      color: var(--oddActiveTxt) !important;
+    }
+  }
+  &.dg_odd_state_active {
+    background: var(--oddActiveG) !important;
+    color: var(--oddActiveTxt) !important;
+  }
+  &.dg_odd_state_disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  &.esn_odd_variant_result_p1::after {
+    background: inherit;
+    border: var(--oddBorderWidth) solid;
+    border-left: 0;
+    border-radius: 4px;
+    border-bottom-left-radius: 0;
+    border-color: var(--oddAccent);
+    border-top-left-radius: 0;
+    content: "";
+    display: block;
+    height: var(--oddHeight);
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: skew(var(--stakeAngle)) translateX(var(--step)) translateY(-50%);
+    transition: inherit;
+    width: var(--skewWidth);
+    z-index: 4;
+  }
+  &.esn_odd_variant_result_p2::after {
+    background: inherit;
+    border: var(--oddBorderWidth) solid;
+    border-right: 0;
+    border-radius: 4px;
+    border-bottom-right-radius: 0;
+    border-color: var(--oddAccent);
+    border-top-right-radius: 0;
+    content: "";
+    display: block;
+    height: var(--oddHeight);
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: skew(var(--stakeAngle2)) translateX(var(--step2))
+      translateY(-50%);
+    transition: inherit;
+    width: var(--skewWidth);
+    z-index: 4;
+  }
+  &.esn_odd_variant_result_x::before,
+  &.esn_odd_variant_result_x::after {
+    background-color: var(--oddBg);
+    border: var(--oddBorderWidth) solid;
+    border-color: var(--oddAccent);
+    border-radius: 4px;
+    content: "";
+    display: block;
+    height: var(--oddHeight);
+    position: absolute;
+    top: 50%;
+    transition: inherit;
+    width: var(--skewWidth);
+    z-index: 4;
+  }
+  &.esn_odd_variant_result_x::before {
+    content: "";
+    border-bottom-left-radius: 0;
+    border-left: 0;
+    border-top-left-radius: 0;
+    right: 0;
+    transform: skew(var(--stakeAngle2)) translateX(var(--stepC))
+      translateY(-50%);
+  }
+  &.esn_odd_variant_result_x::after {
+    content: "";
+    border-bottom-right-radius: 0;
+    border-right: 0;
+    border-top-right-radius: 0;
+    left: 0;
+    transform: skew(var(--stakeAngle)) translateX(var(--stepC2))
+      translateY(-50%);
+  }
+}
