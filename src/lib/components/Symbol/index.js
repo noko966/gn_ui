@@ -20,7 +20,7 @@ const SymbolComponent = ({ variant, sportId }) => {
 };
 
 SymbolComponent.propTypes = {
-  variant: PropTypes.object,
+  variant: PropTypes,
 };
 
 export default SymbolComponent;

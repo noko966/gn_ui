@@ -1,0 +1,25 @@
+.view_esport_scroll_y {
+  position: relative;
+  overflow-y: scroll; /* Enables vertical scrolling */
+  // height: 100vh;
+
+  &::-webkit-scrollbar {
+    width: 6px; /* Scrollbar width */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: var(--dominantBg3); /* Track color */
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--dominantBg3); /* Thumb color */
+    border-radius: 10px; /* Thumb border radius */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--dominantBg3Hover); /* Thumb hover color */
+  }
+  &.view_esport_scroll_y_full_height {
+    height: 100%;
+  }
+}

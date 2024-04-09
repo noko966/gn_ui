@@ -4,7 +4,6 @@ import classNames from "classnames";
 import "./index.scss";
 import Symbol from "../../../Symbol/index.js";
 
-
 const EsportView = ({
   child,
   isActive,

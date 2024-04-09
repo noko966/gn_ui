@@ -8,3 +8,4 @@ export { default as Odd } from "./components/Odd/index.js";
 export { default as Symbol } from "./components/Symbol/index.js";
 export { default as SideItem } from "./components/SideItem/index.js";
 export { default as Flag } from "./components/Flag/index.js";
+export { default as Scroll } from "./components/Layouts/Scroll/index.js";

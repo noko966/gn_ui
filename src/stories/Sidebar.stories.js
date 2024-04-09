@@ -37,42 +37,6 @@ export default {
   },
 };
 
-export const SidebarEuropeanFull = {
-  render: (args) => (
-    <div style={{ width: "190px" }} {...args}>
-      <SideItem child="item one" view="european" sportId={2} />
-      <SideItem child="item two" view="european" sportId={3} />
-      <SideItem child="item three" view="european" sportId={10} />
-      <SideItem child="item three" view="european" sportId={10} />
-      <SideItem
-        child="country one"
-        view="european"
-        fId={166}
-        isVariantCountry={true}
-      />
-      <SideItem
-        child="country one"
-        view="european"
-        fId={166}
-        isVariantCountry={true}
-      />
-      <SideItem
-        child="country one"
-        view="european"
-        fId={166}
-        isVariantCountry={true}
-      />
-      <SideItem
-        child="country one"
-        view="european"
-        fId={166}
-        isVariantCountry={true}
-      />
-      <SideItem child="item one" view="european" sportId={11} />
-    </div>
-  ),
-};
-
 // More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const European = {
   args: {

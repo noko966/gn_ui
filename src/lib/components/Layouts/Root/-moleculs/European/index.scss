@@ -1,0 +1,12 @@
+.view_european_root {
+  --sidebar_start_width: 272px;
+  --sidebar_end_width: 456px;
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--bodyBg);
+  color: var(--bodyTxt);
+
+  display: grid;
+  grid-template-columns: var(--sidebar_start_width) 1fr var(--sidebar_end_width);
+}
