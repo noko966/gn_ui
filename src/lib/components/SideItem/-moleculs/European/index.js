@@ -2,19 +2,33 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
-import Icon from "../../../SportIcon/index.js";
+import Symbol from "../../../Symbol/index.js";
+import Flag from "../../../Flag/index.js";
 
-
-
-const EuropeanView = ({ child, isActive, isDisabled, sportId, count, iconVariant }) => {
+const EuropeanView = ({
+  child,
+  isVariantCountry,
+  isActive,
+  isDisabled,
+  sportId,
+  fId,
+  count,
+  iconVariant,
+}) => {
   const ViewClassName = classNames({
     [`view_european_${"side_bar_item"}`]: true,
+    [`view_european_${"side_bar_item_country"}`]: isVariantCountry,
     ["state_active"]: isActive,
     ["state_disabled"]: isDisabled,
   });
   return (
     <div className={ViewClassName}>
-      <Icon variant={iconVariant} sportId={sportId}/>
+      {!isVariantCountry ? (
+        <Symbol variant={iconVariant} sportId={sportId} />
+      ) : (
+        <Flag fId={fId} />
+      )}
+
       <div>
         <span>{child}</span>
         <strong>{count}</strong>

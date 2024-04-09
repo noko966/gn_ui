@@ -1,0 +1,12 @@
+.dg_flag {
+  width: var(--flagWidth);
+  height: var(--flagHeight);
+  flex-shrink: 0;
+  background-repeat: no-repeat;
+  background-size: var(--flagWidth);
+  background-image: url("./images/flags/default.png");
+}
+
+.dg_flag-113 {
+  background-image: url("./images/flags/133.png");
+}

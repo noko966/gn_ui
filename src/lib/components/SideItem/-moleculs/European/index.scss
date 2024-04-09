@@ -6,7 +6,7 @@
     --gameFsz2: 13px;
     --iconFsz: 44px;
     background: var(--menu_1Bg);
-    color: var(--menu_2Txt2);
+    color: var(--menu_1Txt2);
     border-color: var(--menu_1Border);
     height: var(--gameHeight);
     display: flex;
@@ -20,6 +20,7 @@
       color var(--tns),
       border-color var(--tns),
       opacity var(--tns);
+
     > div {
       flex-grow: 1;
       min-width: 1px;
@@ -55,5 +56,10 @@
       opacity: 0.4;
       pointer-events: none;
     }
+  }
+  &_side_bar_item_country {
+    background: var(--menu_2Bg);
+    color: var(--menu_2Txt2);
+    border-color: var(--menu_2Border);
   }
 }

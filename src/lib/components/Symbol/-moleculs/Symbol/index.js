@@ -18,30 +18,34 @@ const Mapping = {
   11: "icon_11",
   12: "icon_12",
   13: "icon_13",
-}
+  14: "icon_14",
+  15: "icon_15",
+  16: "icon_16",
+  17: "icon_17",
+  18: "icon_18",
+  19: "icon_19",
+  20: "icon_20",
+};
 
 const Variants = {
   300: "dg_icon_300",
   400: "dg_icon_400",
-}
+};
 
-
-const SportIcon = ({ sportId, variant  }) => {
+const Symbol = ({ sportId, variant }) => {
   const iconClassName = Mapping[sportId] || "icon_36";
   const iconVariantClassName = Variants[variant] || "dg_icon_400";
   const ViewClassName = classNames({
-    "dg_icon": true,
+    dg_icon: true,
     [iconClassName]: true,
     [iconVariantClassName]: true,
   });
-  return (
-      <i className={ViewClassName} />
-  );
+  return <i className={ViewClassName} />;
 };
 
-SportIcon.propTypes = {
+Symbol.propTypes = {
   sportId: PropTypes.number,
   variant: PropTypes.number,
 };
 
-export default SportIcon;
+export default Symbol;

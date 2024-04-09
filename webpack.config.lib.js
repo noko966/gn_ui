@@ -24,6 +24,10 @@ module.exports = {
           from: path.join(__dirname, "src", "lib", "fonts"),
           to: path.resolve(__dirname, "library", "fonts"),
         },
+        {
+          from: path.join(__dirname, "src", "lib", "images"),
+          to: path.resolve(__dirname, "library", "images"),
+        },
       ],
     }),
   ],

@@ -38,4 +38,7 @@ html {
   --paddingY: 3px;
   --paddingY3: 6px;
   --paddingY4: 9px;
+
+  --flagWidth: 24px;
+  --flagHeight: 18px;
 }
