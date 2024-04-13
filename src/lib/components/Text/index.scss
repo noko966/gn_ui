@@ -1,0 +1,9 @@
+.dg_text {
+  font-size: var(--global_font_size);
+}
+
+.dg_text_trimmed {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -5,7 +5,7 @@ import classNames from "classnames";
 import EuropeanView from "./-moleculs/European/index.js";
 import EsportView from "./-moleculs/Esport/index.js";
 
-const RootComponent = ({ children, view, fullHeight, fullHeight, isRTL }) => {
+const RootComponent = ({ children, view, fullHeight, isRTL }) => {
   const Component =
     {
       european: EuropeanView,

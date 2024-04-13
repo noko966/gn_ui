@@ -1,12 +1,13 @@
 {
   "name": "clbuilder",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "library/digi-library.js",
   "scripts": {
     "generate-app": "node src/scripts/build.js",
     "build": "webpack --mode production",
     "build:lib": "webpack --config webpack.config.lib.js",
+    "present": "webpack serve --config webpack.config.present.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
     "sb": "npm run build:lib && npm run storybook"

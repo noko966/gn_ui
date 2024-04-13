@@ -9,3 +9,6 @@ export { default as Symbol } from "./components/Symbol/index.js";
 export { default as SideItem } from "./components/SideItem/index.js";
 export { default as Flag } from "./components/Flag/index.js";
 export { default as Scroll } from "./components/Layouts/Scroll/index.js";
+export { default as Root } from "./components/Layouts/Root/index.js";
+export { default as Text } from "./components/Text/index.js";
+export { default as SidebarItem } from "./components/SidebarItem/index.js";

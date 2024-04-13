@@ -1,6 +1,6 @@
 .view_european_scroll_y {
   position: relative;
-  overflow-y: scroll; /* Enables vertical scrolling */
+  overflow-y: auto; /* Enables vertical scrolling */
   // height: 100vh;
 
   &::-webkit-scrollbar {

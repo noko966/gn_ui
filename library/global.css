@@ -41,4 +41,6 @@ html {
 
   --flagWidth: 24px;
   --flagHeight: 18px;
+
+  --global_font_size: 13px;
 }

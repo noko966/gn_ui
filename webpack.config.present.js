@@ -5,14 +5,14 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
   mode: "development",
-  entry: path.join(__dirname, "src", "presentation", "index.js"),
+  entry: path.join(__dirname, "src", "preview.js"),
   output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "digi-demo.js",
+    path: path.resolve(__dirname, "demo"),
+    filename: "digi_present.js",
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "public", "index.html"),
+      template: path.resolve(__dirname, "src", "public", "index.html"),
     }),
     new MiniCssExtractPlugin(),
   ],
@@ -46,12 +46,25 @@ module.exports = {
       },
     ],
   },
-  resolve: {
-    extensions: [".js", ".jsx"],
-  },
+  // externals: {
+  //   react: "react",
+  //   "react-dom": "react-dom",
+  // },
+  // resolve: {
+  //   extensions: [
+  //     path.resolve(__dirname, "src", "node_modules"),
+  //     path.resolve(__dirname, "node_modules"),
+  //   ],
+  // },
 
   devServer: {
-    port: 4040,
+    static: {
+      directory: path.join(__dirname, "src", "public/"),
+    },
+    port: 3000,
+    compress: true,
+    // port: 8080,
     open: true,
+    hot: true,
   },
 };
