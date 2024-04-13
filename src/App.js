@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "../library/global.css";
-import "../library/fonts.css";
-import "../library/flags.css";
-import "../library/variables.css";
+// import "../library/global.css";
+// import "../library/fonts.css";
+// import "../library/flags.css";
+// import "../library/variables.css";
 import { Root, Scroll, Text, SidebarItem } from "../library/digi-library";
 
 const getData = () => {
