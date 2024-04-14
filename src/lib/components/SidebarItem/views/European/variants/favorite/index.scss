@@ -1,12 +1,12 @@
-.view_european_side_bar_item_country {
+.view_european_side_bar_item_favorite {
   --gameHeight: 36px;
   --tns: 0.2s ease-in;
   --gameFsz: 13px;
   --gameFsz2: 13px;
   --iconFsz: 44px;
-  background: var(--menu_2Bg);
-  color: var(--menu_2Txt2);
-  border-color: var(--menu_2Border);
+  background: var(--menu_1Bg);
+  color: var(--menu_1Txt);
+  border-color: var(--menu_1Border);
   height: var(--gameHeight);
   display: flex;
   align-items: center;
@@ -14,18 +14,19 @@
   padding-inline-start: var(--paddingX3);
   // border-radius: 2px;
   cursor: pointer;
-  transition:
-    background var(--tns),
-    color var(--tns),
-    border-color var(--tns),
+  transition: background var(--tns) color var(--tns) border-color var(--tns)
     opacity var(--tns);
+
+  .fav_icon {
+    color: var(--menu_1Accent);
+  }
 
   > div {
     flex-grow: 1;
     min-width: 1px;
-    padding-inline-start: var(--paddingX);
-    padding-inline-end: var(--paddingX);
-    > .country_name {
+    padding-inline-start: var(--paddingX2);
+    padding-inline-end: var(--paddingX2);
+    > .fav_name {
       font-size: var(--gameFsz);
       color: var(--menu_2Txt);
       flex-shrink: 0;
@@ -34,12 +35,12 @@
       text-overflow: ellipsis;
       white-space: nowrap;
     }
-    > .country_count {
-      font-size: var(--gameFsz2);
-      color: var(--menu_2Txt2);
-      flex-shrink: 0;
-      text-align: end;
-    }
+  }
+  > .fav_count {
+    font-size: var(--gameFsz2);
+    color: var(--menu_1Accent);
+    flex-shrink: 0;
+    text-align: end;
   }
 
   .state_change_icon {
@@ -60,8 +61,8 @@
     pointer-events: none;
   }
   &:hover {
-    background: var(--menu_2BgHover);
-    color: var(--menu_2Txt2);
-    border-color: var(--menu_2Border);
+    background: var(--menu_1BgHover);
+    color: var(--menu_1Txt);
+    border-color: var(--menu_1Border);
   }
 }

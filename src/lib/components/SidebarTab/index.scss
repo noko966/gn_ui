@@ -1,0 +1,52 @@
+.view_european_side_bar_tab {
+  --tabHeight: 40px;
+  --tns: 0.2s ease-in;
+  --tabFsz: 13px;
+  --tabFsz2: 13px;
+  --badgeBg: var(--dominantBg);
+  --badgeTxt: var(--dominantTxt);
+  --badgeActiveBg: #cb0000;
+  --badgeActiveTxt: #fff;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: 0;
+  border: 0;
+  padding-inline-start: var(--paddingX);
+  padding-inline-end: var(--paddingX);
+  height: var(--tabHeight);
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: var(--tabG);
+  color: var(--tabTxt);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  font-size: 13px;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  transition: background var(--tns) color var(--tns);
+  > .tab_badge {
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-size: 13px;
+    background: var(--badgeBg);
+    color: var(--dominantTxt);
+  }
+  &.state_active {
+    background: var(--tabActiveG);
+    color: var(--tabActiveTxt);
+    > .tab_badge {
+      --badgeBg: var(--dominantBg);
+      --badgeTxt: var(--dominantTxt);
+    }
+  }
+}
+
+.view_european_side_bar_tabs {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}

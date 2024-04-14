@@ -12,7 +12,7 @@
   align-items: center;
   padding-inline-end: var(--paddingX3);
   padding-inline-start: var(--paddingX3);
-  border-radius: 2px;
+  // border-radius: 2px;
   cursor: pointer;
   transition:
     background var(--tns),
@@ -23,8 +23,8 @@
   > div {
     flex-grow: 1;
     min-width: 1px;
-    padding-inline-start: var(--paddingX);
-    padding-inline-end: var(--paddingX);
+    padding-inline-start: var(--paddingX2);
+    padding-inline-end: var(--paddingX2);
     > .sport_name {
       font-size: var(--gameFsz);
       color: var(--menu_2Txt);

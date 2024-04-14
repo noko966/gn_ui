@@ -1,11 +1,13 @@
 import React from "react";
-import classNames from "classnames";
+
 // import "./index.scss";
 import European from "./views/European/index.js";
 
 const SideBarItemComponent = ({
   view,
   variant,
+  favCount,
+  name,
   countryName,
   countryId,
   eventCount,
@@ -29,6 +31,8 @@ const SideBarItemComponent = ({
     <Component
       view={view}
       variant={variant}
+      favcount={favCount}
+      name={name}
       countryName={countryName}
       countryId={countryId}
       eventCount={eventCount}
