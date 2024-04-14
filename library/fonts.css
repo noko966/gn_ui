@@ -3,7 +3,8 @@
   font-display: swap;
   font-style: normal;
   font-weight: 400;
-  src: url("./fonts/roboto/roboto-v30-latin-regular.woff2") format("woff2"),
+  src:
+    url("./fonts/roboto/roboto-v30-latin-regular.woff2") format("woff2"),
     url("./fonts/roboto/roboto-v30-latin-regular.ttf") format("truetype");
 }
 @font-face {
@@ -11,7 +12,8 @@
   font-family: "Roboto";
   font-style: normal;
   font-weight: 500;
-  src: url("./fonts/roboto/roboto-v30-latin-500.woff2") format("woff2"),
+  src:
+    url("./fonts/roboto/roboto-v30-latin-500.woff2") format("woff2"),
     url("./fonts/roboto/roboto-v30-latin-500.ttf") format("truetype");
 }
 @font-face {
@@ -19,7 +21,8 @@
   font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
-  src: url("./fonts/roboto/roboto-v30-latin-700.woff2") format("woff2"),
+  src:
+    url("./fonts/roboto/roboto-v30-latin-700.woff2") format("woff2"),
     /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
       url("./fonts/roboto/roboto-v30-latin-700.ttf") format("truetype");
 }
@@ -27,7 +30,8 @@
 @font-face {
   font-family: "dg_sport_icon";
   src: url("./fonts/sportIcons_filled/icon_font.eot?v000");
-  src: url("./fonts/sportIcons_filled/icon_font.eot?#iefix&v000")
+  src:
+    url("./fonts/sportIcons_filled/icon_font.eot?#iefix&v000")
       format("embedded-opentype"),
     url("./fonts/sportIcons_filled/icon_font.woff2?v000") format("woff2"),
     url("./fonts/sportIcons_filled/icon_font.woff?v000") format("woff"),
@@ -41,7 +45,8 @@
 @font-face {
   font-family: "dg_sport_icon";
   src: url("./fonts/sportIcons_outlined/icon_font.eot?v000");
-  src: url("./fonts/sportIcons_outlined/icon_font.eot?#iefix&v000")
+  src:
+    url("./fonts/sportIcons_outlined/icon_font.eot?#iefix&v000")
       format("embedded-opentype"),
     url("./fonts/sportIcons_outlined/icon_font.woff2?v000") format("woff2"),
     url("./fonts/sportIcons_outlined/icon_font.woff?v000") format("woff"),
@@ -2061,14 +2066,6 @@
   content: "\e12b";
 }
 
-.sport_front_icon-star-empty:before {
-  content: "\e0ba";
-}
-
-.sport_front_icon-star-filled:before {
-  content: "\e0bb";
-}
-
 .sport_front_icon-check:before {
   content: "\e0bc";
 }
@@ -2145,8 +2142,14 @@
   content: "\e0ce";
 }
 
-.sport_front_icon-settings:before {
+.sport_front_icon-settings:before,
+.icon_settings:before {
   content: "\e0cF";
+}
+
+.dg_icon_settings:before,
+.icon_settings_v2:before {
+  content: "\e14E";
 }
 
 .sport_front_icon-documents:before {
@@ -2297,14 +2300,6 @@
   content: "\e034";
 }
 
-.sport_front_icon-star-empty-modern:before {
-  content: "\e0f4";
-}
-
-.sport_front_icon-star-filled-modern:before {
-  content: "\e0f5";
-}
-
 .sport_front_icon-statistics-modern:before {
   content: "\e0f6";
 }
@@ -2387,10 +2382,6 @@
 
 .sport_front_icon-copy:before {
   content: "\e10A";
-}
-
-.sport_front_icon-calculator:before {
-  content: "\e10B";
 }
 
 .sport_front_icon-burger:before {
@@ -2563,12 +2554,29 @@
   content: "\e13A";
 }
 
-.dg_icon_star:before {
+.dg_icon_star:before,
+.icon_star_out:before {
   content: "\e13B";
 }
 
-.dg_icon_star_filled:before {
+.dg_icon_star_filled:before,
+.icon_star_fil:before {
   content: "\e13C";
+}
+
+.sport_front_icon-star-empty-modern:before {
+  content: "\e0f4";
+}
+
+.sport_front_icon-star-filled-modern:before {
+  content: "\e0f5";
+}
+.sport_front_icon-star-empty:before {
+  content: "\e0ba";
+}
+
+.sport_front_icon-star-filled:before {
+  content: "\e0bb";
 }
 
 .dg_icon_check:before {
@@ -2627,7 +2635,8 @@
   content: "\e14A";
 }
 
-.dg_icon_info:before {
+.dg_icon_info:before,
+.icon_info:before {
   content: "\e14B";
 }
 
@@ -2641,10 +2650,6 @@
 
 .dg_icon_transfer:before {
   content: "\e14D";
-}
-
-.dg_icon_settings:before {
-  content: "\e14E";
 }
 
 .dg_icon_document:before {
@@ -2699,7 +2704,8 @@
   content: "\e15C";
 }
 
-.dg_icon_tv:before {
+.dg_icon_tv:before,
+.icon_stream:before {
   content: "\e15D";
 }
 
@@ -2707,8 +2713,14 @@
   content: "\e160";
 }
 
-.dg_icon_calculator:before {
+.dg_icon_calculator:before,
+.icon_calc_v2:before {
   content: "\e161";
+}
+
+.sport_front_icon-calculator:before,
+.icon_calc:before {
+  content: "\e10B";
 }
 
 .dg_icon_lucky_wheel:before {
@@ -2727,19 +2739,23 @@
   content: "\e165";
 }
 
-.dg_icon_angle_top:before {
+.dg_icon_angle_top:before,
+.icon_angle_up:before {
   content: "\e138";
 }
 
-.dg_icon_angle_bottom:before {
+.dg_icon_angle_bottom:before,
+.icon_angle_down:before {
   content: "\e139";
 }
 
-.dg_icon_angle_left:before {
+.dg_icon_angle_left:before,
+.icon_angle_left:before {
   content: "\e166";
 }
 
-.dg_icon_angle_right:before {
+.dg_icon_angle_right:before,
+.icon_angle_right:before {
   content: "\e167";
 }
 
@@ -2979,7 +2995,6 @@
   content: "\e19b";
 }
 
-
 .dg_icons_outline [class^="sport_front_icon-"],
 .dg_icons_outline [class*=" sport_front_icon-"],
 .dg_icons_outline[class^="sport_front_icon-"],
@@ -2987,16 +3002,12 @@
 .dg_icons_outline [class^="dg_icon_"],
 .dg_icons_outline [class*=" dg_icon_"],
 .dg_icons_outline[class^="dg_icon_"],
-.dg_icons_outline[class*=" dg_icon_"]
-{
+.dg_icons_outline[class*=" dg_icon_"] {
   font-weight: 100;
 }
 
-
-
-
 /*Fonts Refuctor*/
-.dg_icon{
+.dg_icon {
   font-family: "dg_sport_icon";
   display: inline-block;
   flex-shrink: 0;
@@ -3018,7 +3029,7 @@
   direction: ltr !important;
 }
 
-.dg_icon_300{
+.dg_icon_300 {
   font-weight: 300;
 }
 
@@ -3478,8 +3489,51 @@
   content: "\e071";
 }
 
-.icon_115:before {
+.icon_115::before {
   content: "\e072";
+}
+.icon_116::before {
+  content: "\e073";
+}
+.icon_117::before {
+  content: "\e074";
+}
+.icon_118::before {
+  content: "\e075";
+}
+.icon_119::before {
+  content: "\e076";
+}
+.icon_120::before {
+  content: "\e077";
+}
+.icon_121::before {
+  content: "\e078";
+}
+.icon_122::before {
+  content: "\e079";
+}
+.icon_123::before {
+  content: "\e07a";
+}
+.icon_124::before {
+  content: "\e07b";
+}
+
+.icon_125:before {
+  content: "\e07c";
+}
+.icon_126:before {
+  content: "\e07d";
+}
+.icon_127:before {
+  content: "\e07e";
+}
+.icon_128:before {
+  content: "\e080";
+}
+.icon_129:before {
+  content: "\e081";
 }
 
 .sport_front_icon-116:before {

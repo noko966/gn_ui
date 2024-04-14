@@ -74,7 +74,7 @@
   --txt2: var(--inputTxt2);
   --txt3: var(--inputTxt3);
   --rad: var(--inputRadius);
-
+  height: var(--height);
   border-radius: var(--rad);
   min-width: 100%;
   position: relative;

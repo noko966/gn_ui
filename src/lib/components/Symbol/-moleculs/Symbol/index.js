@@ -134,6 +134,21 @@ const Mapping = {
   127: "icon_127",
   128: "icon_128",
   129: "icon_129",
+
+  star_fil: "icon_star_fil",
+  star_out: "icon_star_out",
+  calculator: "icon_calc",
+  calculator_v2: "icon_calc_v2",
+  settings: "icon_settings",
+  settings_v2: "icon_settings_v2",
+  angle_up: "icon_angle_up",
+  angle_right: "icon_angle_up",
+  angle_up: "icon_angle_up",
+  angle_down: "icon_angle_down",
+  angle_right: "icon_angle_right",
+  angle_left: "icon_angle_left",
+  stream: "icon_stream",
+  info: "icon_info",
 };
 
 const Variants = {

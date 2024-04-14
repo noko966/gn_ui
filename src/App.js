@@ -13,6 +13,7 @@ import {
   SidebarTab,
   Search_European,
   European_Button_var_settings,
+  European_Buttons_Row_settings,
 } from "../library/digi-library";
 
 const getData = () => {
@@ -48,10 +49,35 @@ const getData = () => {
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div style={{ height: "100svh" }} className="App">
         <Root>
+          <Search_European placeholder={"search here ..."} />
+          <div className="european_view_home_nav_row">
+            <div className="european_view_home_nav_item">
+              <span>home</span>
+            </div>
+            <div className="european_view_home_nav_item">
+              <span>live event list</span>
+            </div>
+            <div className="european_view_home_nav_item">
+              <span>multi view</span>
+            </div>
+            <div className="european_view_home_nav_item">
+              <span>results</span>
+            </div>
+            <div className="european_view_home_nav_item">
+              <span>calendar</span>
+            </div>
+          </div>
+          <European_Buttons_Row_settings>
+            <European_Button_var_settings
+              icon={<Symbol sportId={"calculator_v2"} />}
+            />
+            <European_Button_var_settings
+              icon={<Symbol sportId={"settings_v2"} />}
+            />
+          </European_Buttons_Row_settings>
           <Scroll>
-            <Search_European placeholder={"search here ..."} />
             <SidebarTabs>
               <SidebarTab title="Prematch" count={200}>
                 <SidebarItem
@@ -94,16 +120,66 @@ class App extends Component {
                 ))}
               </SidebarTab>
             </SidebarTabs>
+          </Scroll>
 
-            <Text text="text" />
+          <Scroll>
+            <div className="european_view_home_events_widgets_list">
+              {Array.from({ length: 10 }, (_, index) => (
+                <>
+                  <div className="european_view_home_events_widget_root">
+                    <div className="european_view_home_event_header">
+                      <Symbol sportId={"angle_up"} />
+                      <div>
+                        <Text
+                          customClassName={"ev_name"}
+                          text={getData().sportName}
+                        />
+                        <Text
+                          customClassName={"ev_count"}
+                          text={getData().sportId}
+                        />
+                      </div>
+                      <Symbol sportId={index + 1} />
+                    </div>
+                    {Array.from({ length: 10 }, (_, index) => (
+                      <div className="european_view_home_event_row">
+                        <div className="team_container">
+                          <Text customClassName={"ev_score h"} text={0} />
+                          <Text
+                            customClassName={"ev_team h"}
+                            text={"team name"}
+                          />
+                          <Text customClassName={"ev_score a"} text={0} />
+                          <Text
+                            customClassName={"ev_team a"}
+                            text={"team name 2"}
+                          />
+                        </div>
+                        <div className="icons_container">
+                          <Symbol sportId={"stream"} />
+                          <Symbol sportId={"info"} />
+                          <Symbol sportId={"stream"} />
+                        </div>
+                        <div className="time_container">
+                          <Text text={`${87} '`} />
+                        </div>
+                        <div className="odds_container">
+                          <div className="european_view_home_odd">-</div>
+                          <div className="european_view_home_odd">-</div>
+                          <div className="european_view_home_odd">-</div>
+                        </div>
+                        <div className="rest_container">
+                          <div className="european_view_home_rest">{`+${15}`}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              ))}
+            </div>
           </Scroll>
 
           <Scroll></Scroll>
-
-          <Scroll>
-            <European_Button_var_settings icon={<Symbol sportId={20} />} />
-            <European_Button_var_settings icon={<Symbol sportId={10} />} />
-          </Scroll>
         </Root>
       </div>
     );

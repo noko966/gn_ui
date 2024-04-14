@@ -1,15 +1,17 @@
 .view_european_root {
+  --root_gap: 8px;
+  --sidebar_row_height: auto;
   --sidebar_start_width: 272px;
   --sidebar_end_width: 456px;
   position: relative;
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: var(--bodyBg);
   color: var(--bodyTxt);
-
   display: grid;
+  grid-template-rows: var(--sidebar_row_height) 1fr;
   grid-template-columns: var(--sidebar_start_width) 1fr var(--sidebar_end_width);
-  column-gap: 8px;
-  padding-inline-start: 8px;
-  padding-inline-end: 8px;
+  row-gap: var(--root_gap);
+  column-gap: var(--root_gap);
+  padding: var(--root_gap);
 }

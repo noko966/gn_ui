@@ -38,7 +38,7 @@ const European_Button_var_settings = ({ onClick, icon }) => {
   const buttonClassName = classNames({
     view_european_settings_button: true,
   });
-  const isValidIcon = icon && icon.type && icon.type.name === "Symbol";
+  const isValidIcon = icon && icon.type && icon.type.name === "SymbolComponent";
   return (
     <button onClick={onClick} className={buttonClassName}>
       {isValidIcon ? icon : <span>Invalid icon</span>}
@@ -46,4 +46,11 @@ const European_Button_var_settings = ({ onClick, icon }) => {
   );
 };
 
-export { Button, European_Button_var_settings };
+const European_Buttons_Row_settings = ({ children }) => {
+  const buttonRowClassName = classNames({
+    view_european_settings_buttons_row: true,
+  });
+  return <div className={buttonRowClassName}>{children}</div>;
+};
+
+export { Button, European_Button_var_settings, European_Buttons_Row_settings };
