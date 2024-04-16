@@ -1,0 +1,112 @@
+
+    /* Rules page */
+
+    :root, :host {
+        --bodyBg:  #514A4A;
+        --bodyTxt: #fff;
+
+        --accentBg: #C7961A;
+
+        --dominantG: #595151;
+        --dominantBg: #595151;
+        --dominantBg2: #746969;
+        --dominantBg3: #817575;
+        --dominantTxt: #fff;
+        --dominantTxt2: #cdcbcb;
+
+        --menu_1G: #6c6262;
+        --menu_1Bg2: #877a7a;
+        --menu_1Txt: #fff;
+
+        --menu_2G: #746969;
+        --menu_2Bg2: #8e8282;
+        --menu_2Txt: #fff;
+
+        --menu_3G: #796f6f;
+
+        --headerG: #817676;
+
+        --borderRadius: undefinedpx;
+
+    }
+    .tg_native_styled_scroll::-webkit-scrollbar-track {
+    background: var(--bodyBg);
+    }
+    .tg_native_styled_scroll::-webkit-scrollbar-thumb {
+        background: var(--dominantBg2);
+    }
+    .tg_native_styled_scroll::-webkit-scrollbar-thumb:hover {
+        background: var(--dominantBg3);
+    }
+    .logo {
+        background: url('images/ClientLogo/undefined/big.png') no-repeat;
+        width: 115px;
+        height: 36px;
+        background-size: contain;
+    }
+    @media screen and (max-width: 1024px) {
+        .logo {
+            background: url('images/ClientLogo/undefined/sm.png') no-repeat;
+            width: 30px;
+            height: 30px;
+            background-size: contain;
+        }
+    }
+    body {
+        background-color: var(--bodyBg);
+        color: var(--bodyTxt);
+    }
+    header{ 
+        background: var(--headerG);
+        box-shadow: 3px 1px 4px rgba(0,0,0,0.3);
+    }
+    .languages .select-list,
+    .langRow{ 
+        background-color: var(--dominantBg2);
+    }
+    .langRow .txt{
+        color: var(--dominantTxt2);
+    }
+    .langRow:hover{ 
+        background-color: var(--dominantBg3);
+    }
+    .languages #selLang > a {
+        border-radius: var(--borderRadius);
+    }
+    .expandable-list{ 
+        background-color: var(--bodyBg);
+    }
+    .main-col {
+       background: var(--dominantBg);
+        color: var(--dominantTxt);
+    }
+    .expandable-list .menuleft .menuleft a {
+        background: var(--menu_1G);
+        color: var(--menu_1Txt);
+    }
+    .expandable-list .menuleft .menuleft a:hover{
+        background: var(--menu_1Bg2);
+    }
+    .expandable-list .menuleft ul li a{ 
+        background: var(--menu_2G);
+        color: var(--menu_2Txt);
+    }
+    .expandable-list .menuleft ul li a:hover{
+        background-color: var(--menu_2Bg2);
+    }
+    .expandable-list .menuleft ul li.active a{
+        background: var(--menu_3G);
+    }
+    .content-head{ 
+        color: var(--accentBg);
+    }
+    .mob_nav{
+        color: var(--dominantTxt2);  
+    }
+    .subMenu .arrow,
+    .languages #selLang > a:after{
+        color: var(--dominantTxt2);
+    }
+
+  
+  

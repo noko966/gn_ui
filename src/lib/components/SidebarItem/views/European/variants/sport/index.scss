@@ -6,7 +6,7 @@
   --iconFsz: 44px;
   background: var(--menu_1Bg);
   color: var(--menu_1Txt);
-  border-color: var(--menu_1Border);
+  border-bottom: 1px solid var(--menu_1Border);
   height: var(--gameHeight);
   display: flex;
   align-items: center;

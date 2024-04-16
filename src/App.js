@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import cn from 'classnames';
 // import "../library/global.css";
 // import "../library/fonts.css";
 // import "../library/flags.css";
@@ -14,6 +15,7 @@ import {
   Search_European,
   European_Button_var_settings,
   European_Buttons_Row_settings,
+  Odd
 } from "../library/digi-library";
 
 const getData = () => {
@@ -45,6 +47,12 @@ const getData = () => {
   };
   return res;
 };
+
+const demoRandom = () => {
+  return Math.floor(Math.random() * 6) + 2;
+}
+
+
 
 class App extends Component {
   render() {
@@ -86,7 +94,7 @@ class App extends Component {
                   name="favorites"
                   favCount={0}
                 />
-                {Array.from({ length: 10 }, (_, index) => (
+                {Array.from({ length: demoRandom() }, (_, index) => (
                   <SidebarItem
                     key={index + 1}
                     view={"european"}
@@ -97,7 +105,7 @@ class App extends Component {
                   />
                 ))}
 
-                {Array.from({ length: 6 }, (_, index) => (
+                {Array.from({ length: demoRandom() }, (_, index) => (
                   <SidebarItem
                     view={"european"}
                     variant={"country"}
@@ -108,7 +116,7 @@ class App extends Component {
                 ))}
               </SidebarTab>
               <SidebarTab title="Live">
-                {Array.from({ length: 30 }, (_, index) => (
+                {Array.from({ length: demoRandom() }, (_, index) => (
                   <SidebarItem
                     key={index + 1}
                     view={"european"}
@@ -123,10 +131,20 @@ class App extends Component {
           </Scroll>
 
           <Scroll>
-            <div className="european_view_home_events_widgets_list">
-              {Array.from({ length: 10 }, (_, index) => (
-                <>
+            <div className="home_page_widgets_wrapper">
+              <div className="european_view_home_events_widgets_list">
+                {Array.from({ length: demoRandom() }, (_, index) => (
                   <div className="european_view_home_events_widget_root">
+                    <div className="european_view_home_event_filter">
+                      <span className="widget_name">{"Live events"}</span>
+                      <div className="european_view_home_event_tabs_row">
+                        {Array.from({ length: demoRandom() }, (_, index) => (
+                          <button key={index} className="european_view_home_event_tab">
+                            <Symbol sportId={index} />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
                     <div className="european_view_home_event_header">
                       <Symbol sportId={"angle_up"} />
                       <div>
@@ -141,8 +159,26 @@ class App extends Component {
                       </div>
                       <Symbol sportId={index + 1} />
                     </div>
-                    {Array.from({ length: 10 }, (_, index) => (
-                      <div className="european_view_home_event_row">
+
+                    <div className="european_view_home_event_legend">
+                      <div className="legend_item_start">{'event'}</div>
+                      <div className="legend_item_center">{'time'}</div>
+                      <div className="event_odds_x3">
+
+                        <div className="odd_w" >
+                          {'win1'}
+                        </div>
+                        <div className="odd_w" >
+                          {'draw'}
+                        </div>
+                        <div className="odd_w" >
+                          {'win2'}
+                        </div>
+                      </div>
+                      <div className="legend_item_center">{'more'}</div>
+                    </div>
+                    {Array.from({ length: demoRandom() }, (_, index) => (
+                      <div key={index} className="european_view_home_event_row">
                         <div className="team_container">
                           <Text customClassName={"ev_score h"} text={0} />
                           <Text
@@ -164,9 +200,10 @@ class App extends Component {
                           <Text text={`${87} '`} />
                         </div>
                         <div className="odds_container">
-                          <div className="european_view_home_odd">-</div>
-                          <div className="european_view_home_odd">-</div>
-                          <div className="european_view_home_odd">-</div>
+                          <Odd view='european' factor={1.88} />
+                          <Odd view='european' factor={0.12} />
+                          <Odd view='european' factor={3.55} />
+
                         </div>
                         <div className="rest_container">
                           <div className="european_view_home_rest">{`+${15}`}</div>
@@ -174,8 +211,132 @@ class App extends Component {
                       </div>
                     ))}
                   </div>
-                </>
-              ))}
+                ))}
+              </div>
+              <div className="european_view_home_events_widgets_list">
+                {Array.from({ length: demoRandom() }, (_, index) => (
+                  <div className="european_view_home_events_widget_root">
+                    <div className="european_view_home_event_filter">
+                      <span className="widget_name">{"Live events"}</span>
+                      <div className="european_view_home_event_tabs_row">
+                        {Array.from({ length: demoRandom() }, (_, index) => (
+                          <button key={index} className="european_view_home_event_tab">
+                            <Symbol sportId={index} />
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                    <div className="european_view_home_event_header">
+                      <Symbol sportId={"angle_up"} />
+                      <div>
+                        <Text
+                          customClassName={"ev_name"}
+                          text={getData().sportName}
+                        />
+                        <Text
+                          customClassName={"ev_count"}
+                          text={getData().sportId}
+                        />
+                      </div>
+                      <Symbol sportId={index + 1} />
+                    </div>
+                    <div className="european_view_home_event_legend">
+                      <div className="legend_item_start">{'event'}</div>
+                      <div className="legend_item_center">{'time'}</div>
+                      <div className="event_odds_x3">
+
+                        <div className="odd_w" >
+                          {'win1'}
+                        </div>
+                        <div className="odd_w" >
+                          {'draw'}
+                        </div>
+                        <div className="odd_w" >
+                          {'win2'}
+                        </div>
+                      </div>
+                      <div className="legend_item_center">{'more'}</div>
+                    </div>
+                    {Array.from({ length: demoRandom() }, (_, index) => (
+                      <div key={index} className="european_view_home_event_row">
+                        <div className="team_container">
+                          <Text customClassName={"ev_score h"} text={0} />
+                          <Text
+                            customClassName={"ev_team h"}
+                            text={"team name"}
+                          />
+                          <Text customClassName={"ev_score a"} text={0} />
+                          <Text
+                            customClassName={"ev_team a"}
+                            text={"team name 2"}
+                          />
+                        </div>
+                        <div className="icons_container">
+                          <Symbol sportId={"stream"} />
+                          <Symbol sportId={"info"} />
+                          <Symbol sportId={"stream"} />
+                        </div>
+                        <div className="time_container">
+                          <Text text={`${87} '`} />
+                        </div>
+                        <div className="odds_container">
+                          <Odd view='european' factor={1.88} />
+                          <Odd view='european' factor={0.12} />
+                          <Odd view='european' factor={3.55} />
+                        </div>
+                        <div className="rest_container">
+                          <div className="european_view_home_rest">{`+${15}`}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ))}
+                <div className="european_view_home_events_widget_root">
+                  <div className="european_view_home_event_filter">
+                    <span className="widget_name">{"Toto expert"}</span>
+                    <div className="european_view_home_event_tabs_row">
+                      {Array.from({ length: demoRandom() }, (_, index) => (
+                        <button key={index} className="european_view_home_event_tab">
+                          <Symbol sportId={index} />
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {Array.from({ length: demoRandom() }, (_, index) => (
+                    <div key={index} className="european_view_home_event_row">
+                      <div className="team_container">
+                        <Text customClassName={"ev_score h"} text={0} />
+                        <Text
+                          customClassName={"ev_team h"}
+                          text={"team name"}
+                        />
+                        <Text customClassName={"ev_score a"} text={0} />
+                        <Text
+                          customClassName={"ev_team a"}
+                          text={"team name 2"}
+                        />
+                      </div>
+                      <div className="icons_container">
+                        <Symbol sportId={"stream"} />
+                        <Symbol sportId={"info"} />
+                        <Symbol sportId={"stream"} />
+                      </div>
+                      <div className="time_container">
+                        <Text text={`${87} '`} />
+                      </div>
+                      <div className="odds_container">
+                        <Odd isActive={true} view='european' factor={1.88} />
+                        <Odd view='european' factor={0.12} />
+                        <Odd view='european' factor={3.55} />
+                      </div>
+                      <div className="rest_container">
+                        <div className="european_view_home_rest">{`+${15}`}</div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </Scroll>
 

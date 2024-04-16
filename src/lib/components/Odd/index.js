@@ -3,15 +3,7 @@ import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
 
-// Separate component files
-const EuropeanView = ({ factor, isActive, isDisabled }) => {
-  const oddClassName = classNames({
-    dg_odd: true,
-    dg_odd_state_active: isActive,
-    dg_odd_state_disabled: isDisabled,
-  });
-  return <div className={oddClassName}>{factor}</div>;
-};
+import EuropeanView from "./views/european/index"
 
 const AfricanView = ({ factor, isActive, isDisabled }) => {
   const oddClassName = classNames({
@@ -53,7 +45,7 @@ const EsportView = ({ factor, isActive, isDisabled, variant }) => {
 // etc.
 
 // Main component
-const OddsComponent = ({ region, factor, isActive, isDisabled, variant }) => {
+const OddsComponent = ({ view, factor, isActive, isDisabled, variant }) => {
   const Component =
     {
       european: EuropeanView,
@@ -61,10 +53,11 @@ const OddsComponent = ({ region, factor, isActive, isDisabled, variant }) => {
       asian: AsianView,
       esport: EsportView,
       // Add other components as needed
-    }[region] || EuropeanView;
+    }[view] || EuropeanView;
 
   return (
     <Component
+      view={view}
       factor={factor}
       isActive={isActive}
       isDisabled={isDisabled}

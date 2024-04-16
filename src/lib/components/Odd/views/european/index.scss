@@ -1,0 +1,56 @@
+/*Odd*/
+.european_view_home_odd {
+    width: var(--odd_width);
+    height: var(--odd_height);
+    border-radius: var(--oddRadius);
+    background: var(--oddBg);
+    color: var(--oddTxt);
+    border: 1px solid var(--oddBgHover);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background var(--trn) color var(--trn) border-color var(--trn);
+    &:hover{
+    background: var(--oddBgHover);
+    color: var(--oddTxt);
+    border-color: var(--oddBg2);
+    }
+}
+
+.state_active{
+    border-radius: var(--oddActiveRadius);
+    background: var(--oddActiveBg);
+    color: var(--oddActiveTxt);
+    border-color: var(--oddActiveBgHover);
+}
+
+.oddDown {
+    animation: anim_odd_state_down 7s 1
+}
+
+.oddUp {
+    animation: anim_odd_state_up 7s 1
+}
+
+
+@keyframes anim_odd_state_up {
+    0% {
+        box-shadow: inset 0 -2px 0 0 #e31010
+    }
+
+    100% {
+        box-shadow: inset 0 -2px 0 0 e31010
+    }
+}
+
+@keyframes anim_odd_state_down {
+    0% {
+        box-shadow: inset 0 2px 0 0 #558606
+    }
+
+    100% {
+        box-shadow: inset 0 2px 0 0 #558606
+    }
+}

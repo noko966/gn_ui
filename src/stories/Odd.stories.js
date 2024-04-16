@@ -21,7 +21,7 @@ export default {
     factor: "1.2",
     isActive: false,
     isDisabled: false,
-    region: "european",
+    view: "european",
   },
 };
 
@@ -31,7 +31,7 @@ export const European = {
     factor: "1.2",
     isActive: false,
     isDisabled: false,
-    region: "european",
+    view: "european",
   },
 };
 export const African = {
@@ -39,7 +39,7 @@ export const African = {
     factor: "1.2",
     isActive: false,
     isDisabled: false,
-    region: "african",
+    view: "african",
   },
 };
 export const Asian = {
@@ -47,7 +47,7 @@ export const Asian = {
     factor: "1.2",
     isActive: false,
     isDisabled: false,
-    region: "asian",
+    view: "asian",
   },
 };
 
@@ -56,7 +56,7 @@ export const Esport = {
     factor: "1.447",
     isActive: false,
     isDisabled: false,
-    region: "esport",
+    view: "esport",
   },
 };
 export const EsportResultP1 = {
@@ -64,7 +64,7 @@ export const EsportResultP1 = {
     factor: "1.447",
     isActive: false,
     isDisabled: false,
-    region: "esport",
+    view: "esport",
     variant: "result_p1",
   },
 };
@@ -73,7 +73,7 @@ export const EsportResultP2 = {
     factor: "1.447",
     isActive: false,
     isDisabled: false,
-    region: "esport",
+    view: "esport",
     variant: "result_p2",
   },
 };
@@ -82,7 +82,7 @@ export const EsportResultX = {
     factor: "1.01",
     isActive: false,
     isDisabled: false,
-    region: "esport",
+    view: "esport",
     variant: "result_x",
   },
 };
