@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 // import "./index.scss";
 import Symbol from "./-moleculs/Symbol/index.js";
 
-const SymbolComponent = ({ variant, sportId }) => {
+const SymbolComponent = ({ variant, sportId, size }) => {
   const Component =
     {
       Symbol: Symbol,
@@ -14,7 +14,7 @@ const SymbolComponent = ({ variant, sportId }) => {
       // asian: AsianView,
       // esport: EsportView,
       // Add other components as needed
-    }[(variant, sportId)] || Symbol;
+    }[(variant, sportId, size)] || Symbol;
 
   return <Component sportId={sportId} variant={variant} />;
 };

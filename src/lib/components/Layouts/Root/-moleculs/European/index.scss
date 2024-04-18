@@ -1,4 +1,5 @@
 .view_european_root {
+  --widgets_layout_cols: 100%;
   --root_gap: 8px;
   --sidebar_row_height: auto;
   --sidebar_start_width: 272px;
@@ -14,4 +15,11 @@
   row-gap: var(--root_gap);
   column-gap: var(--root_gap);
   padding: var(--root_gap);
+}
+
+@media only screen and (max-width: 600px) {
+  .view_european_root {
+    --widgets_layout_cols: calc(50% - var(--layout_gap) / 2)
+      calc(50% - var(--layout_gap) / 2);
+  }
 }

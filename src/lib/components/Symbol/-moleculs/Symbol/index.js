@@ -156,13 +156,21 @@ const Variants = {
   400: "dg_icon_400",
 };
 
-const Symbol = ({ sportId, variant }) => {
+const sizeMapping = {
+  sm: "dg_icon_xs", // Change these class names based on your actual CSS
+  md: "dg_icon_s",
+  lg: "",
+};
+
+const Symbol = ({ sportId, variant, size = "lg" }) => {
   const iconClassName = Mapping[sportId] || "icon_36";
   const iconVariantClassName = Variants[variant] || "dg_icon_400";
+  const iconSizeClassName = sizeMapping[size];
   const ViewClassName = classNames({
     dg_icon: true,
     [iconClassName]: true,
     [iconVariantClassName]: true,
+    [iconSizeClassName]: true,
   });
   return <i className={ViewClassName} />;
 };

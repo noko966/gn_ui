@@ -30,7 +30,6 @@ html {
 :host {
   font-size: 12px;
 
-  --paddingX: 4px;
   --paddingX2: 8px;
   --paddingX3: 12px;
   --paddingX4: 16px;
@@ -65,6 +64,8 @@ html {
   text-transform: uppercase;
   display: flex;
   align-items: center;
+  transition: color 0.2s;
+  cursor: pointer;
 }
 .european_view_home_nav_item:last-child:after {
   display: none;
@@ -86,6 +87,10 @@ html {
   display: block;
 }
 
+.european_view_home_nav_item:hover > span {
+  color: var(--bodyTxt);
+}
+
 .european_view_home_events_widgets_list {
   display: grid;
   grid-template-rows: repeat(6, min-content);
@@ -95,13 +100,13 @@ html {
 .european_view_home_events_widget_root {
 }
 
-.european_view_home_widgets_list{
+.european_view_home_widgets_list {
   display: grid;
   grid-template-rows: repeat(6, min-content);
   row-gap: 8px;
 }
 
-.european_view_home_widget_header{
+.european_view_home_widget_header {
   --evHeight: 40px;
   --tns: 0.2s ease-in;
   --evFsz: 13px;
@@ -119,17 +124,68 @@ html {
   transition: background var(--tns) color var(--tns) border-color var(--tns);
 }
 
-.european_view_home_widget_header .w_text{
+.european_view_home_widget_header .w_text {
   flex-grow: 1;
   min-width: 1px;
   padding-inline-start: var(--paddingX2);
   padding-inline-end: var(--paddingX2);
 }
 
-.european_view_home_widget_content{
+.european_view_home_widget_content {
   background: var(--modalBg);
   color: var(--modalTxt);
   height: 200px;
 }
 
+/*Sidebar Item live*/
+.view_european_side_bar_item_live {
+  background: var(--menu_3G);
+  color: var(--menu_3Txt2);
+  border-bottom: 1px solid var(--menu_3Border);
+  padding: var(--paddingX2) var(--paddingX3);
+}
 
+.view_european_side_bar_item_live > .child_row_top {
+  display: grid;
+  grid-template-columns: 24px 1fr;
+  column-gap: var(--paddingX2);
+  align-items: center;
+}
+
+.view_european_side_bar_item_live .child_row_top_team_and_score {
+  display: grid;
+  grid-template-columns: 1fr 30px 32px;
+  grid-template-rows: 16px 16px;
+  column-gap: 4px;
+  row-gap: 4px;
+}
+
+.view_european_side_bar_item_live .sbi_team {
+  color: var(--menu_3Txt);
+}
+.view_european_side_bar_item_live .sbi_score {
+  align-items: center;
+  justify-content: flex-end;
+  color: var(--menu_3Accent);
+  font-weight: 500;
+}
+
+.child_row_bot {
+  display: flex;
+  flex-direction: row;
+  column-gap: var(--paddingX);
+  row-gap: var(--paddingX);
+  margin-top: var(--paddingX);
+}
+
+.live_score_token {
+  display: flex;
+  flex-direction: row;
+  column-gap: var(--paddingX);
+}
+
+.live_score_token > .s {
+  display: flex;
+  flex-direction: row;
+  column-gap: 2px;
+}
