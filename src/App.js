@@ -4,6 +4,40 @@ import cn from 'classnames';
 // import "../library/fonts.css";
 // import "../library/flags.css";
 // import "../library/variables.css";
+
+const EVENTS_DATA = [
+  {
+    HTN: "Real Madrid",
+    ATN: "Barcelona",
+    HTSc: 1,
+    ATSc: 2,
+    HasLI: true,
+    HasLC: true,
+    Time: "28'",
+    MoreCount: 5
+  },
+  {
+    HTN: "Manchester United",
+    ATN: "Liverpool",
+    HTSc: 3,
+    ATSc: 3,
+    HasLI: false,
+    HasLC: true,
+    Time: "45'",
+    MoreCount: 7
+  },
+  {
+    HTN: "Los Angeles Lakers",
+    ATN: "Boston Celtics",
+    HTSc: 102,
+    ATSc: 99,
+    HasLI: true,
+    HasLC: false,
+    Time: "48'",
+    MoreCount: 10
+  }
+];
+
 import {
   Root,
   Symbol,
@@ -15,7 +49,8 @@ import {
   Search_European,
   European_Button_var_settings,
   European_Buttons_Row_settings,
-  Odd
+  Odd,
+  HomeEventWidgetRow,
 } from "../library/digi-library";
 
 const getData = () => {
@@ -177,39 +212,19 @@ class App extends Component {
                       </div>
                       <div className="legend_item_center">{'more'}</div>
                     </div>
-                    {Array.from({ length: demoRandom() }, (_, index) => (
-                      <div key={index} className="european_view_home_event_row">
-                        <div className="team_container">
-                          <Text customClassName={"ev_score h"} text={0} />
-                          <Text
-                            customClassName={"ev_team h"}
-                            text={"team name"}
-                          />
-                          <Text customClassName={"ev_score a"} text={0} />
-                          <Text
-                            customClassName={"ev_team a"}
-                            text={"team name 2"}
-                          />
-                        </div>
-                        <div className="icons_container">
-                          <Symbol sportId={"stream"} />
-                          <Symbol sportId={"info"} />
-                          <Symbol sportId={"stream"} />
-                        </div>
-                        <div className="time_container">
-                          <Text text={`${87} '`} />
-                        </div>
-                        <div className="odds_container">
-                          <Odd view='european' factor={1.88} />
-                          <Odd view='european' factor={0.12} />
-                          <Odd view='european' factor={3.55} />
-
-                        </div>
-                        <div className="rest_container">
-                          <div className="european_view_home_rest">{`+${15}`}</div>
-                        </div>
-                      </div>
-                    ))}
+                    {EVENTS_DATA.map((d, i) => {
+                      return <HomeEventWidgetRow
+                        key={i}
+                        HTN={d.HTN}
+                        ATN={d.ATN}
+                        HTSc={d.HTSc}
+                        ATSc={d.ATSc}
+                        HasLI={d.HasLI}
+                        HasLC={d.HasLC}
+                        Time={d.Time}
+                        MoreCount={d.MoreCount}
+                      />
+                    })}
                   </div>
                 ))}
               </div>
@@ -257,38 +272,19 @@ class App extends Component {
                       </div>
                       <div className="legend_item_center">{'more'}</div>
                     </div>
-                    {Array.from({ length: demoRandom() }, (_, index) => (
-                      <div key={index} className="european_view_home_event_row">
-                        <div className="team_container">
-                          <Text customClassName={"ev_score h"} text={0} />
-                          <Text
-                            customClassName={"ev_team h"}
-                            text={"team name"}
-                          />
-                          <Text customClassName={"ev_score a"} text={0} />
-                          <Text
-                            customClassName={"ev_team a"}
-                            text={"team name 2"}
-                          />
-                        </div>
-                        <div className="icons_container">
-                          <Symbol sportId={"stream"} />
-                          <Symbol sportId={"info"} />
-                          <Symbol sportId={"stream"} />
-                        </div>
-                        <div className="time_container">
-                          <Text text={`${87} '`} />
-                        </div>
-                        <div className="odds_container">
-                          <Odd view='european' factor={1.88} />
-                          <Odd view='european' factor={0.12} />
-                          <Odd view='european' factor={3.55} />
-                        </div>
-                        <div className="rest_container">
-                          <div className="european_view_home_rest">{`+${15}`}</div>
-                        </div>
-                      </div>
-                    ))}
+                    {EVENTS_DATA.map((d, i) => {
+                      return <HomeEventWidgetRow
+                        key={i}
+                        HTN={d.HTN}
+                        ATN={d.ATN}
+                        HTSc={d.HTSc}
+                        ATSc={d.ATSc}
+                        HasLI={d.HasLI}
+                        HasLC={d.HasLC}
+                        Time={d.Time}
+                        MoreCount={d.MoreCount}
+                      />
+                    })}
                   </div>
                 ))}
                 <div className="european_view_home_events_widget_root">
@@ -303,44 +299,64 @@ class App extends Component {
                     </div>
                   </div>
 
-                  {Array.from({ length: demoRandom() }, (_, index) => (
-                    <div key={index} className="european_view_home_event_row">
-                      <div className="team_container">
-                        <Text customClassName={"ev_score h"} text={0} />
-                        <Text
-                          customClassName={"ev_team h"}
-                          text={"team name"}
-                        />
-                        <Text customClassName={"ev_score a"} text={0} />
-                        <Text
-                          customClassName={"ev_team a"}
-                          text={"team name 2"}
-                        />
-                      </div>
-                      <div className="icons_container">
-                        <Symbol sportId={"stream"} />
-                        <Symbol sportId={"info"} />
-                        <Symbol sportId={"stream"} />
-                      </div>
-                      <div className="time_container">
-                        <Text text={`${87} '`} />
-                      </div>
-                      <div className="odds_container">
-                        <Odd isActive={true} view='european' factor={1.88} />
-                        <Odd view='european' factor={0.12} />
-                        <Odd view='european' factor={3.55} />
-                      </div>
-                      <div className="rest_container">
-                        <div className="european_view_home_rest">{`+${15}`}</div>
-                      </div>
-                    </div>
-                  ))}
+                  <div className="european_view_home_event_expert_legend">
+                    <div className="legend_item_start">{'event'}</div>
+                    <div className="legend_item_center">{'time'}</div>
+                    <div className="legend_item_start">{'bet'}</div>
+                    <div className="legend_item_center">{'odds'}</div>
+                  </div>
+
+                  {EVENTS_DATA.map((d, i) => {
+                    return <HomeEventWidgetRow
+                      variant={"expert"}
+                      key={i}
+                      HTN={d.HTN}
+                      ATN={d.ATN}
+                      Bet={d.Bet}
+                      Time={d.Time}
+                    />
+                  })}
+
+
                 </div>
               </div>
             </div>
           </Scroll>
 
-          <Scroll></Scroll>
+          <Scroll>
+            <div className="european_view_home_widgets_list">
+              <div className="european_view_home_widget_root">
+                <div className="european_view_home_widget_header">
+                  <Text
+                    customClassName={"w_text"}
+                    text={"Bet Checker"}
+                  />
+                  <Symbol sportId={"angle_down"} />
+                </div>
+
+                <div className="european_view_home_widget_content">
+
+                </div>
+              </div>
+
+              <div className="european_view_home_widget_root">
+                <div className="european_view_home_widget_header">
+                  <Text
+                    customClassName={"w_text"}
+                    text={"Check Better"}
+                  />
+                  <Symbol sportId={"angle_down"} />
+                </div>
+
+                <div className="european_view_home_widget_content">
+
+                </div>
+              </div>
+
+            </div>
+
+
+          </Scroll>
         </Root>
       </div>
     );

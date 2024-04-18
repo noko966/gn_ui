@@ -10,7 +10,8 @@
     "present": "webpack serve --config webpack.config.present.js",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "sb": "npm run build:lib && npm run storybook"
+    "sb": "npm run build:lib && npm run storybook",
+    "st": "npm run build:lib && npm run present"
   },
   "keywords": [],
   "author": "",
