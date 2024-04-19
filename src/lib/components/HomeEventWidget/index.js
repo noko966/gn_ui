@@ -2,10 +2,26 @@ import React from "react";
 import classNames from "classnames";
 import "./index.scss";
 
-import EuropeanView from "./views/european/index"
+import EuropeanView from "./views/european/index";
 
 // Main component
-const HomeEventWidgetRow = ({ view,variant, HTN,ATN,HTSc,ATSc, HasLI, HasLC, Time, MoreCount, Bet   }) => {
+const HomeEventWidgetRow = ({
+  view,
+  variant,
+  HTN,
+  ATN,
+  HTSc,
+  ATSc,
+  HasLI,
+  HasLC,
+  Date,
+  Time,
+  MoreCount,
+  Bet,
+  Arg,
+  EID,
+  LN,
+}) => {
   const Component =
     {
       european: EuropeanView,
@@ -13,7 +29,7 @@ const HomeEventWidgetRow = ({ view,variant, HTN,ATN,HTSc,ATSc, HasLI, HasLC, Tim
       // asian: AsianView,
       // esport: EsportView,
       // Add other components as needed
-    }[view, variant] || EuropeanView;
+    }[(view, variant)] || EuropeanView;
 
   return (
     <Component
@@ -26,10 +42,14 @@ const HomeEventWidgetRow = ({ view,variant, HTN,ATN,HTSc,ATSc, HasLI, HasLC, Tim
       HasLI={HasLI}
       HasLC={HasLC}
       Time={Time}
+      Date={Date}
       Bet={Bet}
       MoreCount={MoreCount}
+      Arg={Arg}
+      EID={EID}
+      LN={LN}
     />
   );
 };
 
-export {HomeEventWidgetRow};
+export { HomeEventWidgetRow };

@@ -51,6 +51,7 @@ import {
   European_Buttons_Row_settings,
   Odd,
   HomeEventWidgetRow,
+  Button,
 } from "../library/digi-library";
 
 const getData = () => {
@@ -159,6 +160,9 @@ class App extends Component {
                     sportId={getData().sportId}
                   />
                 ))}
+                <div className="view_european_side_bar_item_live_legend">
+                  {"Women. UTR Pro Tennis Series. Australia"}
+                </div>
                 {Array.from({ length: 5 }, (_, index) => (
                   <div key={index} className="view_european_side_bar_item_live">
                     <div className="child_row_top">
@@ -202,12 +206,12 @@ class App extends Component {
           <Scroll>
             <div className="home_page_widgets_wrapper">
               <div className="european_view_home_events_widgets_list">
-                {Array.from({ length: demoRandom() }, (_, index) => (
+                {Array.from({ length: 3 }, (_, index) => (
                   <div className="european_view_home_events_widget_root">
                     <div className="european_view_home_event_filter">
                       <span className="widget_name">{"Live events"}</span>
                       <div className="european_view_home_event_tabs_row">
-                        {Array.from({ length: demoRandom() }, (_, index) => (
+                        {Array.from({ length: 5 }, (_, index) => (
                           <button
                             key={index}
                             className="european_view_home_event_tab"
@@ -267,12 +271,15 @@ class App extends Component {
                 ))}
               </div>
               <div className="european_view_home_events_widgets_list">
-                {Array.from({ length: demoRandom() }, (_, index) => (
-                  <div className="european_view_home_events_widget_root">
+                {Array.from({ length: 2 }, (_, index) => (
+                  <div
+                    key={index}
+                    className="european_view_home_events_widget_root"
+                  >
                     <div className="european_view_home_event_filter">
-                      <span className="widget_name">{"Live events"}</span>
+                      <span className="widget_name">{"upcoming events"}</span>
                       <div className="european_view_home_event_tabs_row">
-                        {Array.from({ length: demoRandom() }, (_, index) => (
+                        {Array.from({ length: 6 }, (_, index) => (
                           <button
                             key={index}
                             className="european_view_home_event_tab"
@@ -321,13 +328,19 @@ class App extends Component {
                         />
                       );
                     })}
+                    <div className="european_view_home_events_widget_more">
+                      <Symbol
+                        customClassName="state_indicator"
+                        sportId={"angle_down"}
+                      />
+                    </div>
                   </div>
                 ))}
                 <div className="european_view_home_events_widget_root">
                   <div className="european_view_home_event_filter">
                     <span className="widget_name">{"Toto expert"}</span>
                     <div className="european_view_home_event_tabs_row">
-                      {Array.from({ length: demoRandom() }, (_, index) => (
+                      {Array.from({ length: 3 }, (_, index) => (
                         <button
                           key={index}
                           className="european_view_home_event_tab"
@@ -357,6 +370,66 @@ class App extends Component {
                       />
                     );
                   })}
+                  <div className="european_view_home_events_widget_more">
+                    <Symbol
+                      customClassName="state_indicator"
+                      sportId={"angle_down"}
+                    />
+                  </div>
+                </div>
+
+                <div className="european_view_home_events_widget_root">
+                  <div className="european_view_home_event_filter">
+                    <span className="widget_name">
+                      {"Multi bet of the day"}
+                    </span>
+                  </div>
+                  <div className="view_european_multi_bet_widget_controls">
+                    <div className="mbw_controls">
+                      <button className="mbw_control_p">
+                        <Symbol sportId={"angle_left"} />
+                      </button>
+                      <button className="mbw_control_p">
+                        <Symbol sportId={"angle_right"} />
+                      </button>
+                    </div>
+                    <div className="mbw_name">
+                      <Text text={"N1"} />
+                    </div>
+                  </div>
+
+                  {EVENTS_DATA.map((d, i) => {
+                    return (
+                      <HomeEventWidgetRow
+                        variant={"nultiBet"}
+                        key={i}
+                        HTN={"Team name home"}
+                        ATN={"Team name away"}
+                        Bet={"Res: win 1"}
+                        Date={"20-04"}
+                        Time={"19-00"}
+                        Arg={"5.21"}
+                        EID={"12355"}
+                        LN={"League name"}
+                        sportId={1}
+                      />
+                    );
+                  })}
+                  <div className="view_european_multi_bet_widget_footer">
+                    <div>
+                      <Text text={""} />
+                    </div>
+                    <div>
+                      <Text text={"5.54"} />
+                    </div>
+                    <div>
+                      <Button
+                        variant="accent"
+                        icon={<Symbol sportId={"boost"} />}
+                        text={"8.45"}
+                      />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -370,7 +443,14 @@ class App extends Component {
                   <Symbol sportId={"angle_down"} />
                 </div>
 
-                <div className="european_view_home_widget_content"></div>
+                <div className="european_view_home_widget_content">
+                  <Button
+                    variant="accent"
+                    className="child_btn"
+                    icon={<Symbol sportId={"boost"} />}
+                    text={"Check"}
+                  />
+                </div>
               </div>
 
               <div className="european_view_home_widget_root">
@@ -379,7 +459,23 @@ class App extends Component {
                   <Symbol sportId={"angle_down"} />
                 </div>
 
-                <div className="european_view_home_widget_content"></div>
+                <div className="european_view_home_widget_content">
+                  <div className="action_container">
+                    <Button
+                      className="child_btn"
+                      icon={<Symbol sportId={"boost"} />}
+                      text={"Generate"}
+                      variant="accent"
+                    />
+                  </div>
+                  <div className="action_container">
+                    <Button
+                      className="child_btn"
+                      icon={<Symbol sportId={"boost"} />}
+                      text={"Generate"}
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </Scroll>

@@ -1,49 +1,3 @@
-.dg_button_root {
-  --button_height: 36px;
-  appearance: none;
-  -webkit-appearance: noe;
-  font-size: 13px;
-  color: var(--buttonTxt);
-  background: var(--buttonBg);
-  border-radius: 6px;
-  outline: none;
-  padding: 0 8px;
-  height: var(--button_height);
-  // width: 100%;
-  text-transform: uppercase;
-  border: none;
-  cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s;
-  display: flex;
-  align-items: center;
-  &.dg_button_state_disabled {
-    pointer-events: none;
-    cursor: not-allowed;
-    opacity: 0.5;
-  }
-  &:hover {
-    background: var(--buttonBgHover);
-    color: var(--buttonTxt);
-  }
-  &.dg_button_type_secondary {
-    color: var(--buttonSecondaryTxt);
-    background: var(--buttonSecondaryBg);
-    &:hover {
-      background: var(--buttonSecondaryBgHover);
-      color: var(--buttonSecondaryTxt);
-    }
-  }
-  &.dg_button_type_with_icon {
-    > span {
-      padding-inline-start: 4px;
-    }
-  }
-  i {
-    flex-shrink: 0;
-  }
-}
-
 .view_european_settings_button {
   --w: 44px;
   --h: 36px;
@@ -79,4 +33,60 @@
   display: flex;
   column-gap: 8px;
   justify-content: flex-end;
+}
+
+.view_european_btn {
+  --h: 36px;
+  appearance: none;
+  border: none;
+  outline: 0;
+  -webkit-appearance: none;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--buttonSecondaryG);
+  color: var(--buttonSecondaryTxt);
+  border: 1px solid var(--buttonSecondaryBgHover);
+  border-radius: var(--buttonSecondaryRadius);
+  height: var(--h);
+  padding-inline-start: var(--paddingX3);
+  padding-inline-end: var(--paddingX3);
+  // width: 100%;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.view_european_btn:hover {
+  background: var(--buttonSecondaryBgHover);
+  color: var(--buttonSecondaryTxt);
+  border-color: var(--buttonSecondaryBgHover);
+}
+
+.view_european_btn.variant_accent {
+  background: var(--buttonG);
+  color: var(--buttonTxt);
+  border: 1px solid var(--buttonBgHover);
+  border-radius: var(--buttonRadius);
+}
+
+.view_european_btn.variant_accent:hover {
+  background: var(--buttonBgHover);
+  color: var(--buttonTxt);
+  border-color: var(--buttonBgHover);
+}
+
+.view_european_btn.layout_with_icon {
+  padding-inline-start: var(--paddingX);
+  padding-inline-end: var(--paddingX3);
+  column-gap: var(--paddingX);
+}
+
+.view_european_btn.layout_with_icon i {
+  flex-shrink: 0;
 }

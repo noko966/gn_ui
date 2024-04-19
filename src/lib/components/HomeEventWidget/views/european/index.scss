@@ -61,8 +61,8 @@
     );
   padding-inline-start: var(--paddingX3);
   padding-inline-end: var(--paddingX2);
-  padding-top: var(--paddingX);
-  padding-bottom: var(--paddingX);
+  padding-top: var(--paddingY2);
+  padding-bottom: var(--paddingY2);
   transition: background var(--tns) color var(--tns) border-color var(--tns);
 }
 
@@ -99,28 +99,69 @@
   column-gap: 8px;
 }
 
-.european_view_home_event_row.variant_expert_home_event_row {
+.european_view_home_event_row.grid_layout_expert {
   grid-template-columns: 1fr var(--ev_time_width) 200px var(--odd_width);
 }
 
-.european_view_home_event_row.variant_expert_home_event_row .team_container {
+.european_view_home_event_row.grid_layout_expert .team_container {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto auto;
   column-gap: 6px;
 }
 
-.european_view_home_event_row.variant_expert_home_event_row .bet_container {
+.european_view_home_event_row.grid_layout_expert .bet_container {
   display: flex;
   align-items: center;
   color: var(--eventTxt3);
   justify-content: flex-start;
 }
 
-.european_view_home_event_row.variant_expert_home_event_row .odd_container {
+.european_view_home_event_row.grid_layout_expert .odd_container {
   display: flex;
   width: var(--odd_width);
   flex-shrink: 0;
+}
+
+.european_view_home_event_row.grid_layout_multi_bet {
+  grid-template-columns: 24px var(--ev_time_width) 1fr 162px 48px;
+  align-items: center;
+  padding-top: 0;
+  padding-bottom: 0;
+  height: 48px;
+  padding-inline-end: 0;
+}
+
+.european_view_home_event_row .multi_bet_team_container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+}
+.european_view_home_event_row .multi_bet_team_container > div {
+  display: flex;
+  justify-content: center;
+  column-gap: var(--paddingX);
+}
+.european_view_home_event_row .multi_bet_time_container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+.european_view_home_event_row .multi_bet_time_container > div {
+  display: flex;
+  align-items: center;
+}
+.bet_container {
+  display: flex;
+  align-items: center;
+}
+.arg_container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-inline-start: 1px solid var(--eventBorder);
 }
 
 .european_view_home_rest {
@@ -148,6 +189,7 @@
   display: flex;
   align-items: center;
   width: 100%;
+  height: 40px;
 }
 
 .european_view_home_event_filter > .widget_name {

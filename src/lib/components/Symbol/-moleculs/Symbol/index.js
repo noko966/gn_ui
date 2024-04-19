@@ -149,6 +149,7 @@ const Mapping = {
   angle_left: "icon_angle_left",
   stream: "icon_stream",
   info: "icon_info",
+  boost: "icon_double",
 };
 
 const Variants = {

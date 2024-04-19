@@ -17,7 +17,7 @@
   padding: var(--root_gap);
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 1200px) {
   .view_european_root {
     --widgets_layout_cols: calc(50% - var(--layout_gap) / 2)
       calc(50% - var(--layout_gap) / 2);

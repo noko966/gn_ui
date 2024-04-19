@@ -30,18 +30,20 @@ html {
 :host {
   font-size: 12px;
 
+  --paddingY: 3px;
+  --paddingY2: 5px;
+  --paddingY3: 9px;
+
+  --paddingX: 4px;
   --paddingX2: 8px;
   --paddingX3: 12px;
   --paddingX4: 16px;
-
-  --paddingY: 3px;
-  --paddingY3: 6px;
-  --paddingY4: 9px;
 
   --flagWidth: 24px;
   --flagHeight: 18px;
 
   --global_font_size: 13px;
+  --global_font_size_xs: 9px;
 
   --layout_gap: 16px;
   --tns: 0.2s;
@@ -132,9 +134,17 @@ html {
 }
 
 .european_view_home_widget_content {
+  display: grid;
   background: var(--modalBg);
   color: var(--modalTxt);
-  height: 200px;
+  /* height: 200px; */
+  padding: var(--paddingY3) var(--paddingX3);
+  column-gap: var(--paddingX2);
+  row-gap: var(--paddingY2);
+}
+
+.european_view_home_widget_content .child_btn {
+  width: 100%;
 }
 
 /*Sidebar Item live*/
@@ -173,19 +183,90 @@ html {
 .child_row_bot {
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   column-gap: var(--paddingX);
   row-gap: var(--paddingX);
   margin-top: var(--paddingX);
+  padding-left: var(--paddingX2);
+  padding-right: var(--paddingX2);
 }
 
 .live_score_token {
   display: flex;
   flex-direction: row;
   column-gap: var(--paddingX);
+  flex-shrink: 0;
 }
 
-.live_score_token > .s {
+.live_score_token > .spr {
+  color: var(--menu_3Txt3);
+  flex-shrink: 0;
+}
+
+/*champ header*/
+.view_european_side_bar_item_live_legend {
+  font-size: var(--global_font_size_xs);
+  background: var(--subHeaderG);
+  color: var(--subHeaderTxt2);
+  height: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  padding: 0 var(--paddingX3);
   display: flex;
-  flex-direction: row;
-  column-gap: 2px;
+  align-items: center;
+}
+
+.view_european_multi_bet_widget_controls {
+  --width: 28px;
+  display: grid;
+  height: var(--width);
+  align-items: center;
+  background: var(--subHeaderG);
+  color: var(--subHeaderTxt2);
+  border-bottom: 1px solid var(--subHeaderBorder);
+  grid-template-columns: calc(var(--width) * 2) 1fr;
+}
+
+.view_european_multi_bet_widget_controls > .mbw_controls {
+  display: flex;
+  align-items: center;
+}
+
+.view_european_multi_bet_widget_controls > .mbw_controls > button {
+  -webkit-appearance: none;
+  appearance: none;
+  width: var(--width);
+  height: var(--width);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  outline: 0;
+  cursor: pointer;
+  color: var(--subHeaderTxt2);
+  border-inline-end: 1px solid var(--subHeaderBorder);
+  flex-shrink: 0;
+  background-color: transparent;
+}
+
+.view_european_multi_bet_widget_controls > .mbw_controls > button:hover {
+  color: var(--subHeaderTxt);
+}
+
+.view_european_multi_bet_widget_controls > .mbw_name {
+  padding-inline-start: var(--paddingX2);
+  padding-inline-end: var(--paddingX2);
+}
+
+.view_european_multi_bet_widget_footer {
+  display: grid;
+  grid-template-columns: 1fr 100px auto;
+  align-items: center;
+  background-color: var(--eventBg);
+  color: var(--eventTxt2);
+  padding-top: var(--paddingY2);
+  padding-bottom: var(--paddingY2);
+  padding-inline-start: var(--paddingX3);
+  padding-inline-end: var(--paddingX2);
 }

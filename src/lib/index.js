@@ -3,8 +3,8 @@
 export { Search_European, Input } from "./components/Input/Input.js";
 export {
   European_Button_var_settings,
-  Button,
   European_Buttons_Row_settings,
+  Button,
 } from "./components/Button/Button.js";
 export { default as Event } from "./components/Event/Event.js";
 export { default as Dropdown } from "./components/Dropdown/Dropdown.js";
