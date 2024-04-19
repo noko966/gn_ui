@@ -179,6 +179,7 @@
   align-items: center;
   column-gap: var(--paddingX2);
   cursor: pointer;
+  color: currentColor;
 }
 
 .view_european_control_wrapper span {
@@ -209,6 +210,7 @@
   transition:
     opacity 0.2s,
     color 0.2s;
+  color: currentColor;
 }
 
 .view_european_control_wrapper input + .state_imitator > .state_active {
@@ -221,6 +223,7 @@
 
 .view_european_control_wrapper input:checked + .state_imitator > .state_active {
   opacity: 1;
+  color: var(--accentBg);
 }
 
 .view_european_control_wrapper
