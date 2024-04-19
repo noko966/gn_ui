@@ -53,3 +53,67 @@
     box-shadow: inset 0 2px 0 0 #558606;
   }
 }
+
+
+.european_view_odd_full_wrapper{
+ display: flex;
+ align-items: center;
+ column-gap: var(--paddingX2);
+ width: 100%;
+}
+
+.european_view_odd_full_wrapper .of_name{
+  flex-grow: 1;
+  min-width: 1px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.european_view_odd_full_wrapper.of_layout_col{
+  flex-direction: column;
+  column-gap: 0;
+  row-gap: var(--paddingY2);
+}
+
+.european_view_odd_full_wrapper.of_layout_col .of_name{
+  justify-content: center;
+}
+
+.european_view_odd{
+  width: var(--odd_width);
+  height: var(--odd_height);
+  border-radius: var(--oddRadius);
+  background: var(--oddBg);
+  color: var(--oddTxt);
+  border: 1px solid var(--oddBgHover);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background var(--trn) color var(--trn) border-color var(--trn);
+  &:hover {
+    background: var(--oddBgHover);
+    color: var(--oddTxt);
+    border-color: var(--oddBg2);
+  }
+}
+
+.european_view_odd.state_active {
+  border-radius: var(--oddActiveRadius);
+  background: var(--oddActiveBg);
+  color: var(--oddActiveTxt);
+  border-color: var(--oddActiveBgHover);
+}
+
+.european_view_odd.oddDown {
+  animation: anim_odd_state_down 7s 1;
+}
+
+.european_view_odd.oddUp {
+  animation: anim_odd_state_up 7s 1;
+}

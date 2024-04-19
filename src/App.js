@@ -201,6 +201,13 @@ class App extends Component {
                     </div>
                   </div>
                 ))}
+                <div className="view_european_side_bar_item_odds_root">
+                  <div className="sbo_layout">
+                    <Odd variant="full" layout="col" factor={'1.01'} market={'p1'}/>
+                    <Odd variant="full" layout="col" factor={'1.01'} market={'x'}/>
+                    <Odd variant="full" layout="col" factor={'1.01'} market={'p2'}/>
+                  </div>
+                </div>
               </SidebarTab>
             </SidebarTabs>
           </Scroll>

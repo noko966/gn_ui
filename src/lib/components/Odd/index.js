@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
 
@@ -45,7 +44,7 @@ const EsportView = ({ factor, isActive, isDisabled, variant }) => {
 // etc.
 
 // Main component
-const OddsComponent = ({ view, factor, isActive, isDisabled, variant }) => {
+const OddsComponent = ({ view, isActive, isDisabled, factor, up, down, market, layout, variant, }) => {
   const Component =
     {
       european: EuropeanView,
@@ -58,19 +57,16 @@ const OddsComponent = ({ view, factor, isActive, isDisabled, variant }) => {
   return (
     <Component
       view={view}
-      factor={factor}
+      variant={variant}
       isActive={isActive}
       isDisabled={isDisabled}
-      variant={variant}
+      factor={factor}
+      up={up}
+      down={down}
+      market={market}
+      layout={layout}
     />
   );
-};
-
-OddsComponent.propTypes = {
-  region: PropTypes.string.isRequired,
-  factor: PropTypes.number.isRequired,
-  isActive: PropTypes.bool,
-  isDisabled: PropTypes.bool,
 };
 
 export default OddsComponent;
