@@ -2440,11 +2440,13 @@
   content: "\e11D";
 }
 
-.sport_front_icon-modern_checked:before {
+.sport_front_icon-modern_checked:before,
+.icon_control_checked:before {
   content: "\e11E";
 }
 
-.sport_front_icon-modern_unchecked:before {
+.sport_front_icon-modern_unchecked:before,
+.icon_control_unchecked:before {
   content: "\e11F";
 }
 

@@ -51,6 +51,7 @@ import {
   European_Button_var_settings,
   European_Buttons_Row_settings,
   Odd,
+  Radio,
   HomeEventWidgetRow,
   Button,
 } from "../library/digi-library";
@@ -460,6 +461,10 @@ class App extends Component {
                 </div>
 
                 <div className="european_view_home_widget_content">
+                  <div className="layout_2x">
+                    <Radio label="other" name="w11" />
+                    <Radio label="sport tournament" name="w11" />
+                  </div>
                   <div className="layout_2x">
                     <Input label={"ttt"} placeholder="Your Stake is .." />
                     <Input label={"ttt"} placeholder="win amount" />

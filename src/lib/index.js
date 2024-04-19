@@ -1,6 +1,6 @@
 // import "./styles/global.css";
 // import "./styles/variables.css";
-export { Search_European, Input } from "./components/Input/Input.js";
+export { Search_European, Input, Radio } from "./components/Input/Input.js";
 export {
   European_Button_var_settings,
   European_Buttons_Row_settings,

@@ -167,3 +167,65 @@
   flex-direction: column;
   row-gap: var(--paddingY2);
 }
+
+.view_european_control_root {
+  --size: 32px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.view_european_control_wrapper {
+  display: flex;
+  align-items: center;
+  column-gap: var(--paddingX2);
+  cursor: pointer;
+}
+
+.view_european_control_wrapper span {
+  text-transform: capitalize;
+}
+
+.view_european_control_wrapper input {
+  display: none;
+}
+
+.view_european_control_wrapper input + .state_imitator {
+  width: var(--size);
+  height: var(--size);
+  flex-shrink: 0;
+  position: relative;
+}
+
+.view_european_control_wrapper .state_active,
+.view_european_control_wrapper .state_passive {
+  width: var(--size);
+  height: var(--size);
+  display: flex;
+  align-items: center;
+  justify-self: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transition:
+    opacity 0.2s,
+    color 0.2s;
+}
+
+.view_european_control_wrapper input + .state_imitator > .state_active {
+  opacity: 0;
+}
+
+.view_european_control_wrapper input + .state_imitator > .state_passive {
+  opacity: 1;
+}
+
+.view_european_control_wrapper input:checked + .state_imitator > .state_active {
+  opacity: 1;
+}
+
+.view_european_control_wrapper
+  input:checked
+  + .state_imitator
+  > .state_passive {
+  opacity: 0;
+}

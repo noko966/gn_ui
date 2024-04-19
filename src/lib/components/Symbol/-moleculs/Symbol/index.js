@@ -150,6 +150,8 @@ const Mapping = {
   stream: "icon_stream",
   info: "icon_info",
   boost: "icon_double",
+  control_unchecked: "icon_control_unchecked",
+  control_checked: "icon_control_checked",
 };
 
 const Variants = {
@@ -163,7 +165,7 @@ const sizeMapping = {
   lg: "",
 };
 
-const Symbol = ({ sportId, variant, size = "lg" }) => {
+const Symbol = ({ sportId, variant, size = "lg", className }) => {
   const iconClassName = Mapping[sportId] || "icon_36";
   const iconVariantClassName = Variants[variant] || "dg_icon_400";
   const iconSizeClassName = sizeMapping[size];
@@ -172,6 +174,7 @@ const Symbol = ({ sportId, variant, size = "lg" }) => {
     [iconClassName]: true,
     [iconVariantClassName]: true,
     [iconSizeClassName]: true,
+    [className]: className,
   });
   return <i className={ViewClassName} />;
 };
