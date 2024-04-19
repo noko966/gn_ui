@@ -17,9 +17,6 @@
   padding: var(--root_gap);
 }
 
-@media only screen and (min-width: 1200px) {
-  .view_european_root {
-    --widgets_layout_cols: calc(50% - var(--layout_gap) / 2)
-      calc(50% - var(--layout_gap) / 2);
-  }
+.view_european_root.dl {
+  --widgets_layout_cols: 1fr 1fr;
 }
