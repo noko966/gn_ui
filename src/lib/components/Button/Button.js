@@ -15,7 +15,7 @@ const European_Button_var_settings = ({ onClick, icon }) => {
 };
 
 const buttonVariantMapping = {
-  normal: "variant_normal", // Change these class names based on your actual CSS
+  normal: "variant_normal",
   accent: "variant_accent",
   outline: "variant_outline",
 };

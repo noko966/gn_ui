@@ -2,30 +2,37 @@ import React from "react";
 import classNames from "classnames";
 import "./Input.scss";
 
+const inputVariantMapping = {
+  normal: "variant_normal",
+  outline: "variant_outline",
+};
+
 const Input = ({
+  onChange,
+  icon,
   placeholder,
-  isSearcgInput,
-  isDatePickerInput,
-  sportIconStyle = 400,
   isDisabled,
+  variant = "normal",
+  className,
+  label,
 }) => {
+  const variantClassName = inputVariantMapping[variant];
+  const isValidIcon = icon && icon.type && icon.type.name === "SymbolComponent";
+
   const inputClassName = classNames({
-    dg_input_root: true,
-    dg_icons_outline: sportIconStyle === 100,
-    dg_input_type_search: isSearcgInput,
-    dg_input_type_date: isDatePickerInput,
-    dg_input_state_disabled: isDisabled,
+    view_european_input_root: true,
+    state_disabled: isDisabled,
+    [variantClassName]: true,
+    layout_with_icon: isValidIcon,
+    [className]: className,
+    layout_with_label: label,
   });
   return (
     <div className={inputClassName}>
-      {isSearcgInput && <i className="dg_icon_search" />}
-      <input
-        className="dg_input"
-        type="text"
-        placeholder={placeholder}
-        disabled={isDisabled}
-      />
-      {isDatePickerInput && <i className="dg_icon_date_picker" />}
+      {label && <label>{label}</label>}
+      <div className="view_european_input_wrapper">
+        <input onChange={onChange} type="text" placeholder={placeholder} />
+      </div>
     </div>
   );
 };

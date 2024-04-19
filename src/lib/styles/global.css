@@ -140,7 +140,13 @@ html {
   /* height: 200px; */
   padding: var(--paddingY3) var(--paddingX3);
   column-gap: var(--paddingX2);
-  row-gap: var(--paddingY2);
+  row-gap: var(--paddingY3);
+}
+
+.layout_2x {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--paddingX2);
 }
 
 .european_view_home_widget_content .child_btn {

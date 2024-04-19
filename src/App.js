@@ -47,6 +47,7 @@ import {
   SidebarTabs,
   SidebarTab,
   Search_European,
+  Input,
   European_Button_var_settings,
   European_Buttons_Row_settings,
   Odd,
@@ -447,7 +448,6 @@ class App extends Component {
                   <Button
                     variant="accent"
                     className="child_btn"
-                    icon={<Symbol sportId={"boost"} />}
                     text={"Check"}
                   />
                 </div>
@@ -460,19 +460,15 @@ class App extends Component {
                 </div>
 
                 <div className="european_view_home_widget_content">
-                  <div className="action_container">
-                    <Button
-                      className="child_btn"
-                      icon={<Symbol sportId={"boost"} />}
-                      text={"Generate"}
-                      variant="accent"
-                    />
+                  <div className="layout_2x">
+                    <Input label={"ttt"} placeholder="Your Stake is .." />
+                    <Input label={"ttt"} placeholder="win amount" />
                   </div>
                   <div className="action_container">
                     <Button
                       className="child_btn"
-                      icon={<Symbol sportId={"boost"} />}
                       text={"Generate"}
+                      variant="accent"
                     />
                   </div>
                 </div>
