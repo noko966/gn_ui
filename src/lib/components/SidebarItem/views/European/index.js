@@ -4,6 +4,7 @@ import classNames from "classnames";
 import Sport from "./variants/sport/index.js";
 import Country from "./variants/country/index.js";
 import Favorite from "./variants/favorite/index.js";
+import League from "./variants/league/index.js";
 // import tournament from "./variants/tournament/index.js";
 
 const SideBarItemVariant = ({
@@ -20,12 +21,14 @@ const SideBarItemVariant = ({
   iconVariant,
   isActive,
   isDisabled,
+  leagueName,
 }) => {
   const Component =
     {
       sport: Sport,
       country: Country,
       favorite: Favorite,
+      league: League,
       // tournament: tournament,
       // asian: AsianView,
       // esport: EsportView,
@@ -36,7 +39,7 @@ const SideBarItemVariant = ({
     <Component
       view={view}
       variant={variant}
-      favcount={favCount}
+      favCount={favCount}
       name={name}
       countryName={countryName}
       countryId={countryId}
@@ -47,6 +50,7 @@ const SideBarItemVariant = ({
       iconVariant={iconVariant}
       isActive={isActive}
       isDisabled={isDisabled}
+      leagueName={leagueName}
     />
   );
 };

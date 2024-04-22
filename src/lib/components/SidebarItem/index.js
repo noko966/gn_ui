@@ -12,6 +12,7 @@ const SideBarItemComponent = ({
   countryId,
   eventCount,
   sportName,
+  leagueName,
   sportId,
   sportCount,
   iconVariant,
@@ -25,7 +26,7 @@ const SideBarItemComponent = ({
       // asian: AsianView,
       // esport: EsportView,
       // Add other components as needed
-    }[(view, variant)] || European;
+    }[view] || European;
 
   return (
     <Component
@@ -37,6 +38,7 @@ const SideBarItemComponent = ({
       countryId={countryId}
       eventCount={eventCount}
       sportName={sportName}
+      leagueName={leagueName}
       sportId={sportId}
       sportCount={sportCount}
       iconVariant={iconVariant}

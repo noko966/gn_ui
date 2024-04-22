@@ -1,0 +1,107 @@
+/*Range*/
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  cursor: pointer;
+  outline: none;
+  border-radius: 2px;
+  height: 2px;
+  background: var(--bodyBg);
+}
+
+/* Thumb: webkit */
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 18px;
+  width: 18px;
+  background-color: var(--dominantTxt);
+  border-radius: 50%;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+/* Thumb: Firefox */
+input[type="range"]::-moz-range-thumb {
+  height: 18px;
+  width: 18px;
+  background-color: var(--dominantTxt);
+  border-radius: 50%;
+  border: none;
+  transition: 0.2s ease-in-out;
+}
+
+/* Hover, active & focus Thumb: Webkit */
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 2px var(--accentBg);
+}
+input[type="range"]:active::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px var(--accentBg);
+}
+input[type="range"]:focus::-webkit-slider-thumb {
+  box-shadow: 0 0 0 2px var(--accentBg);
+}
+
+/* Hover, active & focus Thumb: Firfox */
+
+input[type="range"]::-moz-range-thumb:hover {
+  box-shadow: 0 0 0 2px var(--accentBg);
+}
+input[type="range"]:active::-moz-range-thumb {
+  box-shadow: 0 0 0 2px var(--accentBg);
+}
+input[type="range"]:focus::-moz-range-thumb {
+  box-shadow: 0 0 0 2px var(--accentBg);
+}
+
+.european_view_range_slider_root {
+  padding-inline-start: var(--paddingX3);
+  padding-inline-end: var(--paddingX3);
+  background: var(--tabActiveG);
+  color: var(--tabActiveTxt);
+  height: 36px;
+}
+
+.european_view_range_slider_root > .rs_layout {
+  display: grid;
+  grid-template-columns: 70px 1fr;
+  align-items: center;
+  column-gap: var(--paddingX2);
+}
+
+.european_view_range_slider_root .rs_layout_text {
+  display: flex;
+  flex-direction: column;
+}
+
+.european_view_range_slider_root .rs_val {
+  color: var(--tabActiveAccent);
+}
+
+.european_view_range_slider_root .rs_txt {
+  color: var(--tabActiveTxt2);
+}
+
+.european_view_range_slider_wrapper {
+  position: relative;
+}
+
+.rs_sliderticks {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.rs_sliderticks span {
+  display: flex;
+  justify-content: center;
+  width: 1px;
+  height: 2px;
+  background: var(--bodyBg);
+}

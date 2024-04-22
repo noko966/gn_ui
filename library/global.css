@@ -94,8 +94,8 @@ html {
 }
 
 .european_view_home_events_widgets_list {
-  display: grid;
-  grid-template-rows: repeat(6, min-content);
+  display: flex;
+  flex-direction: column;
   row-gap: 8px;
 }
 
@@ -277,8 +277,7 @@ html {
   padding-inline-end: var(--paddingX2);
 }
 
-
-.view_european_side_bar_item_odds_root{
+.view_european_side_bar_item_odds_root {
   background-color: var(--eventBg);
   color: var(--eventTxt2);
   padding-top: var(--paddingY2);
@@ -287,8 +286,23 @@ html {
   padding-inline-end: var(--paddingX2);
 }
 
-.view_european_side_bar_item_odds_root > .sbo_layout{
+.view_european_side_bar_item_odds_root > .sbo_layout {
   display: flex;
   align-items: center;
   column-gap: var(--paddingX2);
+}
+
+/*prematch */
+.european_view_prematch_wrapper {
+  display: grid;
+  grid-template-columns: var(--widgets_layout_cols);
+  column-gap: var(--layout_gap);
+  height: 100%;
+}
+
+.european_view_prematch_list {
+  display: flex;
+  flex-direction: column;
+  row-gap: 8px;
+  height: 100%;
 }

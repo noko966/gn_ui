@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { useState, Component, useRef } from "react";
 import cn from "classnames";
 // import "../library/global.css";
 // import "../library/fonts.css";
@@ -54,6 +54,7 @@ import {
   Radio,
   HomeEventWidgetRow,
   Button,
+  Control,
 } from "../library/digi-library";
 
 const getData = () => {
@@ -124,6 +125,7 @@ class App extends Component {
           <Scroll>
             <SidebarTabs>
               <SidebarTab title="Prematch" count={200}>
+                <Control onChange={() => {}} />
                 <SidebarItem
                   view={"european"}
                   variant={"favorite"}
@@ -150,6 +152,22 @@ class App extends Component {
                     countryId={getData().countryId}
                   />
                 ))}
+
+                <SidebarItem
+                  view={"european"}
+                  variant={"league"}
+                  leagueName="league name"
+                />
+                <SidebarItem
+                  view={"european"}
+                  variant={"league"}
+                  leagueName="league name"
+                />
+                <SidebarItem
+                  view={"european"}
+                  variant={"league"}
+                  leagueName="league name"
+                />
               </SidebarTab>
               <SidebarTab title="Live">
                 {Array.from({ length: demoRandom() }, (_, index) => (
@@ -203,9 +221,24 @@ class App extends Component {
                 ))}
                 <div className="view_european_side_bar_item_odds_root">
                   <div className="sbo_layout">
-                    <Odd variant="full" layout="col" factor={'1.01'} market={'p1'}/>
-                    <Odd variant="full" layout="col" factor={'1.01'} market={'x'}/>
-                    <Odd variant="full" layout="col" factor={'1.01'} market={'p2'}/>
+                    <Odd
+                      variant="full"
+                      layout="col"
+                      factor={"1.01"}
+                      market={"p1"}
+                    />
+                    <Odd
+                      variant="full"
+                      layout="col"
+                      factor={"1.01"}
+                      market={"x"}
+                    />
+                    <Odd
+                      variant="full"
+                      layout="col"
+                      factor={"1.01"}
+                      market={"p2"}
+                    />
                   </div>
                 </div>
               </SidebarTab>
@@ -213,7 +246,7 @@ class App extends Component {
           </Scroll>
 
           <Scroll>
-            <div className="home_page_widgets_wrapper">
+            {/* <div className="home_page_widgets_wrapper">
               <div className="european_view_home_events_widgets_list">
                 {Array.from({ length: 3 }, (_, index) => (
                   <div className="european_view_home_events_widget_root">
@@ -441,6 +474,32 @@ class App extends Component {
                   </div>
                 </div>
               </div>
+            </div> */}
+            <div className="european_view_prematch_wrapper">
+              <Scroll>
+                <div className="european_view_prematch_list">
+                  {Array.from({ length: 10 }, (_, index) => (
+                    <div key={index} className="european_view_home_widget_root">
+                      <div
+                        style={{ height: "600px" }}
+                        className="european_view_home_widget_content"
+                      ></div>
+                    </div>
+                  ))}
+                </div>
+              </Scroll>
+              <Scroll>
+                <div className="european_view_prematch_list">
+                  {Array.from({ length: 10 }, (_, index) => (
+                    <div key={index} className="european_view_home_widget_root">
+                      <div
+                        style={{ height: "600px" }}
+                        className="european_view_home_widget_content"
+                      ></div>
+                    </div>
+                  ))}
+                </div>
+              </Scroll>
             </div>
           </Scroll>
 

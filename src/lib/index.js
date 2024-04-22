@@ -18,3 +18,4 @@ export { default as Text } from "./components/Text/index.js";
 export { default as SidebarItem } from "./components/SidebarItem/index.js";
 export { SidebarTabs, SidebarTab } from "./components/SidebarTab/index.js";
 export { HomeEventWidgetRow } from "./components/HomeEventWidget/index.js";
+export { Control } from "./components/Control/index.js";
