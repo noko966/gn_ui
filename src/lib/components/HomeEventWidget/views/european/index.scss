@@ -56,7 +56,7 @@
   border-bottom: 1px solid var(--eventBorder);
   display: grid;
   column-gap: 8px;
-  grid-template-columns: 1fr var(--ev_icons_width) var(--ev_time_width) 184px var(
+  grid-template-columns: 1fr var(--ev_icons_width) var(--ev_time_width) auto var(
       --ev_more_width
     );
   padding-inline-start: var(--paddingX3);
@@ -84,6 +84,7 @@
   justify-content: flex-end;
   align-items: center;
   color: var(--eventAccent);
+  font-weight: 500;
 }
 
 .european_view_home_event_row .time_container {
@@ -91,12 +92,6 @@
   align-items: center;
   color: var(--eventTxt3);
   justify-content: center;
-}
-
-.european_view_home_event_row .odds_container {
-  display: grid;
-  grid-template-columns: repeat(3, var(--odd_width));
-  column-gap: 8px;
 }
 
 .european_view_home_event_row.grid_layout_expert {
@@ -195,8 +190,9 @@
 .european_view_home_event_filter > .widget_name {
   color: var(--bodyAccent);
   text-transform: uppercase;
-  font-weight: 500;
+  font-weight: 700;
   transform: translate3d(0, 0, 0);
+  font-size: 14px;
   flex-grow: 1;
 }
 

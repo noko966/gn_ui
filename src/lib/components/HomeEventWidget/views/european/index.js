@@ -14,6 +14,7 @@ const HomeEventRow = ({
   HasLC,
   Time,
   MoreCount,
+  children
 }) => {
   const componentCn = cn({
     european_view_home_event_row: true,
@@ -35,9 +36,7 @@ const HomeEventRow = ({
         <Text text={Time} />
       </div>
       <div className="odds_container">
-        <Odd view="european" factor={1.88} />
-        <Odd view="european" factor={0.12} />
-        <Odd view="european" factor={3.55} />
+        {children}
       </div>
       <div className="rest_container">
         <div className="european_view_home_rest">{`+${MoreCount}`}</div>
@@ -133,6 +132,7 @@ const HomeEventWidgetRowVariant = ({
   Arg,
   EID,
   LN,
+  children
 }) => {
   const Component =
     {
@@ -158,6 +158,7 @@ const HomeEventWidgetRowVariant = ({
       Arg={Arg}
       EID={EID}
       LN={LN}
+      children={children}
     />
   );
 };

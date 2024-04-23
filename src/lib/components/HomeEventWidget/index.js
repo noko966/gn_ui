@@ -1,5 +1,4 @@
 import React from "react";
-import classNames from "classnames";
 import "./index.scss";
 
 import EuropeanView from "./views/european/index";
@@ -21,6 +20,7 @@ const HomeEventWidgetRow = ({
   Arg,
   EID,
   LN,
+  children
 }) => {
   const Component =
     {
@@ -48,6 +48,7 @@ const HomeEventWidgetRow = ({
       Arg={Arg}
       EID={EID}
       LN={LN}
+      children={children}
     />
   );
 };

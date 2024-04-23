@@ -98,6 +98,7 @@ input[type="range"]:focus::-moz-range-thumb {
   width: 100%;
   top: 0;
   z-index: 5;
+  pointer-events: none;
 }
 
 .rs_sliderticks span {

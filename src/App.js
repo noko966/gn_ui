@@ -324,11 +324,14 @@ const HomePage = () => {
             <div className="european_view_home_event_legend">
               <div className="legend_item_start">{"event"}</div>
               <div className="legend_item_center">{"time"}</div>
-              <div className="event_odds_x3">
-                <div className="odd_w">{"win1"}</div>
-                <div className="odd_w">{"draw"}</div>
-                <div className="odd_w">{"win2"}</div>
-              </div>
+              
+              {
+                <div className="odds_layout odds_layout_3">
+                  <div className={"odd_w"}>{"p1"}</div>
+                  <div className={"odd_w"}>{"x"}</div>
+                  <div className={"odd_w"}>{"p2"}</div>
+                </div>
+              }
               <div className="legend_item_center">{"more"}</div>
             </div>
             {EVENTS_DATA.map((d, i) => {
@@ -343,7 +346,15 @@ const HomePage = () => {
                   HasLC={d.HasLC}
                   Time={d.Time}
                   MoreCount={d.MoreCount}
-                />
+                >
+                  {
+                    <div className="odds_layout odds_layout_3">
+                      <Odd factor={"1.01"} market={"p1"} />
+                      <Odd factor={"1.01"} market={"x"} />
+                      <Odd factor={"1.01"} market={"p2"} />
+                    </div>
+                  }
+                </HomeEventWidgetRow>
               );
             })}
             <div className="european_view_home_events_widget_more">
@@ -391,11 +402,10 @@ const HomePage = () => {
             <div className="european_view_home_event_legend">
               <div className="legend_item_start">{"event"}</div>
               <div className="legend_item_center">{"time"}</div>
-              <div className="event_odds_x3">
-                <div className="odd_w">{"win1"}</div>
-                <div className="odd_w">{"draw"}</div>
-                <div className="odd_w">{"win2"}</div>
-              </div>
+              <div className="odds_layout odds_layout_2">
+                  <div className={"odd_w"}>{"p1"}</div>
+                  <div className={"odd_w"}>{"p2"}</div>
+                </div>
               <div className="legend_item_center">{"more"}</div>
             </div>
             {EVENTS_DATA.map((d, i) => {
@@ -410,7 +420,14 @@ const HomePage = () => {
                   HasLC={d.HasLC}
                   Time={d.Time}
                   MoreCount={d.MoreCount}
-                />
+                >
+                   {
+                    <div className="odds_layout odds_layout_2">
+                      <Odd factor={"1.01"} market={"p1"} />
+                      <Odd factor={"1.01"} market={"p2"} />
+                    </div>
+                  }
+                </HomeEventWidgetRow>
               );
             })}
             <div className="european_view_home_events_widget_more">
