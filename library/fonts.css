@@ -2729,7 +2729,8 @@
   content: "\e162";
 }
 
-.dg_icon_cash_out:before {
+.dg_icon_cash_out:before,
+.icon_cash_out:before {
   content: "\e163";
 }
 

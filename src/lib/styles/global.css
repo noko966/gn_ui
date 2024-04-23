@@ -325,7 +325,8 @@ html {
 .european_view_match_event_root {
 }
 
-.european_view_match_event_header {
+.european_view_match_event_header,
+.european_view_match_market_event_header {
   --header_height: 44px;
   background: var(--headerG);
   color: var(--headerTxt2);
@@ -335,6 +336,14 @@ html {
   padding-inline-start: var(--paddingX2);
   padding-inline-end: var(--paddingX2);
   height: var(--header_height);
+}
+
+.european_view_match_market_event_header > .mev_layout {
+  display: grid;
+  grid-template-columns: 24px 24px 1fr 24px;
+  column-gap: var(--paddingX2);
+  height: 100%;
+  align-items: center;
 }
 
 .match_event_header_layout {
@@ -387,9 +396,23 @@ html {
   padding-bottom: var(--paddingY2);
 }
 
-.european_view_match_event_content .me_layout {
+.odds_layout {
+  display: grid;
+  grid-template-columns: 100%;
+  column-gap: var(--paddingX2);
+  align-items: center;
+}
+
+.odds_layout.odds_layout_3 {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   column-gap: var(--paddingX2);
+  align-items: center;
+}
+.odds_layout.odds_layout_2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--paddingX2);
+  row-gap: var(--paddingY2);
   align-items: center;
 }

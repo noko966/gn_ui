@@ -506,7 +506,7 @@ class App extends Component {
                           </div>
                         </div>
                         <div className="european_view_match_event_content">
-                          <div className="me_layout">
+                          <div className="odds_layout odds_layout_3">
                             <Odd variant="full" factor={"1.01"} market={"p1"} />
                             <Odd variant="full" factor={"1.01"} market={"x"} />
                             <Odd variant="full" factor={"1.01"} market={"p2"} />
@@ -518,33 +518,29 @@ class App extends Component {
                 </Scroll>
                 <Scroll>
                   <div className="european_view_prematch_list">
-                    {Array.from({ length: 20 }, (_, index) => (
+                    {Array.from({ length: 6 }, (_, index) => (
                       <div
                         key={index}
                         className="european_view_match_event_root"
                       >
-                        <div className="european_view_match_event_header">
-                          <div className="match_event_header_layout">
-                            <div className="match_event_header_layout_teams">
-                              <Text text={"team one"} />
-                              <Text text={"team one"} />
+                        <div className="european_view_match_market_event_header">
+                          <div className="mev_layout">
+                            <div className="mev_star">
+                              <Symbol sportId="star_out" />
                             </div>
-                            <div className="match_event_header_layout_id">
-                              <Text text={"#12345"} />
+                            <div className="mev_collapse_indicator">
+                              <Symbol sportId="angle_down" />
                             </div>
-                            <div className="match_event_header_layout_date">
-                              <Text text={"21-05"} />
+                            <div className="mev_name">
+                              <Text text={"market name"} />
                             </div>
-                            <div className="match_event_header_layout_time">
-                              <Text text={"19:16"} />
-                            </div>
-                            <div className="match_event_header_layout_more">
-                              <button className="match_event_more">{`+${31}`}</button>
+                            <div className="mev_icon">
+                              <Symbol sportId="star_out" />
                             </div>
                           </div>
                         </div>
                         <div className="european_view_match_event_content">
-                          <div className="me_layout">
+                          <div className="odds_layout odds_layout_3">
                             <Odd variant="full" factor={"1.01"} market={"p1"} />
                             <Odd variant="full" factor={"1.01"} market={"x"} />
                             <Odd variant="full" factor={"1.01"} market={"p2"} />
@@ -552,6 +548,136 @@ class App extends Component {
                         </div>
                       </div>
                     ))}
+
+                    <div className="european_view_match_event_root">
+                      <div className="european_view_match_market_event_header">
+                        <div className="mev_layout">
+                          <div className="mev_star">
+                            <Symbol sportId="star_out" />
+                          </div>
+                          <div className="mev_collapse_indicator">
+                            <Symbol sportId="angle_down" />
+                          </div>
+                          <div className="mev_name">
+                            <Text text={"market name"} />
+                          </div>
+                          <div className="mev_icon">
+                            <Symbol sportId="cash_out" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="european_view_match_event_content">
+                        <div className="odds_layout">
+                          <Odd
+                            variant="full"
+                            factor={"1.01"}
+                            market={"score"}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="european_view_match_event_root">
+                      <div className="european_view_match_market_event_header">
+                        <div className="mev_layout">
+                          <div className="mev_star">
+                            <Symbol sportId="star_out" />
+                          </div>
+                          <div className="mev_collapse_indicator">
+                            <Symbol sportId="angle_down" />
+                          </div>
+                          <div className="mev_name">
+                            <Text text={"market name"} />
+                          </div>
+                          <div className="mev_icon">
+                            <Symbol sportId="cash_out" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="european_view_match_event_content">
+                        <div className="odds_layout odds_layout_2">
+                          <Odd variant="full" factor={"1.01"} market={"over"} />
+                          <Odd
+                            variant="full"
+                            factor={"0.25"}
+                            market={"under"}
+                          />
+                          <Odd variant="full" factor={"1.01"} market={"over"} />
+                          <Odd
+                            variant="full"
+                            factor={"0.25"}
+                            market={"under"}
+                          />
+                          <Odd variant="full" factor={"1.01"} market={"over"} />
+                          <Odd
+                            variant="full"
+                            factor={"0.25"}
+                            market={"under"}
+                          />
+                          <Odd variant="full" factor={"1.01"} market={"over"} />
+                          <Odd
+                            variant="full"
+                            factor={"0.25"}
+                            market={"under"}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="european_view_match_event_root">
+                      <div className="european_view_match_market_event_header">
+                        <div className="mev_layout">
+                          <div className="mev_star">
+                            <Symbol sportId="star_out" />
+                          </div>
+                          <div className="mev_collapse_indicator">
+                            <Symbol sportId="angle_down" />
+                          </div>
+                          <div className="mev_name">
+                            <Text text={"market name"} />
+                          </div>
+                          <div className="mev_icon">
+                            <Symbol sportId="cash_out" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="european_view_match_event_content">
+                        <div className="odds_layout odds_layout_2">
+                          <Odd variant="full" factor={"1.01"} market={"over"} />
+                          <Odd
+                            variant="full"
+                            factor={"0.25"}
+                            market={"under"}
+                          />
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="european_view_match_event_root">
+                      <div className="european_view_match_market_event_header">
+                        <div className="mev_layout">
+                          <div className="mev_star">
+                            <Symbol sportId="star_out" />
+                          </div>
+                          <div className="mev_collapse_indicator">
+                            <Symbol sportId="angle_down" />
+                          </div>
+                          <div className="mev_name">
+                            <Text text={"market name"} />
+                          </div>
+                          <div className="mev_icon">
+                            <Symbol sportId="cash_out" />
+                          </div>
+                        </div>
+                      </div>
+                      <div className="european_view_match_event_content">
+                        <div className="odds_layout odds_layout_3">
+                          <Odd variant="full" factor={"1.01"} market={"p1"} />
+                          <Odd variant="full" factor={"1.01"} market={"x"} />
+                          <Odd variant="full" factor={"1.01"} market={"p2"} />
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </Scroll>
               </div>
