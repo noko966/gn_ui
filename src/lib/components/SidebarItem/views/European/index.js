@@ -54,7 +54,7 @@ const League = ({ isActive, isDisabled, name, count, iconVariant }) => {
   });
   return (
     <div className={rootClassName}>
-      <Favorite onChange={()=>{}}/>
+      <Favorite onChange={() => { }} />
       <div className="layout_fill">
         <Text customClassName={"n"} text={name} />
         <Text customClassName={"c"} text={`(${count})`} />
@@ -84,6 +84,45 @@ const FavVariant = ({ isActive, isDisabled, name, count, iconVariant }) => {
   )
 }
 
+
+const Live = ({ isActive, isDisabled, ht, at, hs, as, time, HasLI }) => {
+  const rootClassName = classNames({
+    [`view_european_side_bar_item_live`]: true,
+    state_active: isActive,
+    state_disabled: isDisabled,
+  });
+  return (
+    <div className={rootClassName}>
+      <div className="_row_start">
+        <Favorite onChange={() => { }} />
+        <div className="layout_fill">
+          <div className="layout_t_s"><Text customClassName={"n"} text={ht} /><Text customClassName={"s"} text={hs} /></div>
+          <div className="layout_t_s"><Text customClassName={"n"} text={at} /><Text customClassName={"s"} text={as} /></div>
+        </div>
+        <div className="layout_end">
+          {HasLI && <Symbol sportId={"stream"} />}
+          <Text customClassName={"t"} text={time} />
+        </div>
+      </div>
+      <div className="_row_end">
+        <Text text={"("} />
+        <div className="live_score_token">
+          <Text text={"0"} />
+          <Text customClassName="spr" text={":"} />
+          <Text text={"1"} />
+        </div>
+        <div className="live_score_token">
+          <Text text={"0"} />
+          <Text customClassName="spr" text={":"} />
+          <Text text={"1"} />
+        </div>
+
+        <Text text={")"} />
+      </div>
+    </div>
+  )
+}
+
 const SideBarItemVariant = ({
   view,
   variant,
@@ -93,6 +132,12 @@ const SideBarItemVariant = ({
   iconVariant,
   isActive,
   isDisabled,
+  ht,
+  at,
+  hs,
+  as,
+  time,
+  HasLI
 }) => {
   const Component =
     {
@@ -100,6 +145,7 @@ const SideBarItemVariant = ({
       country: Country,
       favorite: FavVariant,
       league: League,
+      live: Live
 
     }[variant] || Sport;
 
@@ -113,6 +159,12 @@ const SideBarItemVariant = ({
       isActive={isActive}
       isDisabled={isDisabled}
       iconVariant={iconVariant}
+      ht={ht}
+      at={at}
+      hs={hs}
+      as={as}
+      time={time}
+      HasLI={HasLI}
     />
   );
 };

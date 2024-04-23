@@ -73,6 +73,12 @@
   column-gap: 6px;
 }
 
+.european_view_home_event_row  .ev_team {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .european_view_home_event_row .icons_container {
   display: grid;
   grid-template-columns: repeat(3, 24px);
@@ -202,16 +208,15 @@
 }
 
 .european_view_home_event_tab {
-  --tabWidth: 50px;
+  // --tabWidth: 50px;
   --tabHeight: 40px;
   flex-shrink: 0;
   -webkit-appearance: none;
   appearance: none;
   outline: 0;
   border: 0;
-  padding-inline-start: var(--paddingX);
-  padding-inline-end: var(--paddingX);
-  width: var(--tabWidth);
+  padding-inline-start: var(--paddingX2);
+  padding-inline-end: var(--paddingX2);
   height: var(--tabHeight);
   cursor: pointer;
   text-align: center;

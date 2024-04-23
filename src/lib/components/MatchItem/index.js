@@ -3,21 +3,19 @@ import React from "react";
 // import "./index.scss";
 import European from "./views/European/index.js";
 
-const SideBarItemComponent = ({
+const MatchItemComponent = ({
   view,
   variant,
-  name,
-  id,
-  count,
-  iconVariant,
-  isActive,
-  isDisabled,
   ht,
   at,
-  hs,
-  as,
+  id,
+  date,
   time,
-  HasLI
+  more,
+  children,
+  isActive,
+  isDisabled
+
 }) => {
   const Component =
     {
@@ -26,22 +24,20 @@ const SideBarItemComponent = ({
 
   return (
     <Component
+
       view={view}
       variant={variant}
-      name={name}
-      id={id}
-      count={count}
-      isActive={isActive}
-      isDisabled={isDisabled}
-      iconVariant={iconVariant}
       ht={ht}
       at={at}
-      hs={hs}
-      as={as}
+      id={id}
+      date={date}
       time={time}
-      HasLI={HasLI}
+      more={more}
+      children={children}
+      isActive={isActive}
+      isDisabled={isDisabled}
     />
   );
 };
 
-export default SideBarItemComponent;
+export default MatchItemComponent;

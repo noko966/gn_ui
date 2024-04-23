@@ -17,7 +17,8 @@ import {
   HomeEventWidgetRow,
   Button,
   Control,
-  Favorite
+  Favorite,
+  MatchItem
 } from "../library/digi-library";
 
 const PrematchPage = () => {
@@ -28,38 +29,24 @@ const PrematchPage = () => {
         <Scroll>
           <div className="european_view_prematch_list">
             {Array.from({ length: 10 }, (_, index) => (
-              <div
-                key={index}
-                className="european_view_match_event_root"
+              <MatchItem
+                variant="game"
+                ht={"team name one"}
+                at={"team name two"}
+                id={"1254788"}
+                date={"24.03"}
+                time={"12:30"}
+                more={"40"}
+
               >
-                <div className="european_view_match_event_header">
-                  <div className="match_event_header_layout">
-                    <div className="match_event_header_layout_teams">
-                      <Text text={"team one"} />
-                      <Text text={"team one"} />
-                    </div>
-                    <div className="match_event_header_layout_id">
-                      <Text text={"#12345"} />
-                    </div>
-                    <div className="match_event_header_layout_date">
-                      <Text text={"21-05"} />
-                    </div>
-                    <div className="match_event_header_layout_time">
-                      <Text text={"19:16"} />
-                    </div>
-                    <div className="match_event_header_layout_more">
-                      <button className="match_event_more">{`+${31}`}</button>
-                    </div>
-                  </div>
-                </div>
-                <div className="european_view_match_event_content">
+                {
                   <div className="odds_layout odds_layout_3">
                     <Odd variant="full" factor={"1.01"} market={"p1"} />
                     <Odd variant="full" factor={"1.01"} market={"x"} />
                     <Odd variant="full" factor={"1.01"} market={"p2"} />
                   </div>
-                </div>
-              </div>
+                }
+              </MatchItem>
             ))}
           </div>
         </Scroll>
@@ -291,19 +278,96 @@ const HomePage = () => {
   return (
     <div className="home_page_widgets_wrapper">
       <div className="european_view_home_events_widgets_list">
-        {Array.from({ length: 3 }, (_, index) => (
+        <div className="european_view_home_events_widget_root">
+          <div className="european_view_home_event_filter">
+            <span className="widget_name">{"Live events"}</span>
+            <div className="european_view_home_event_tabs_row">
+              <button
+                className="european_view_home_event_tab state_active"
+              >
+                <Text text="now" />
+              </button>
+              <button
+                className="european_view_home_event_tab"
+              >
+                <Text text="coming up" />
+
+              </button>
+            </div>
+          </div>
+          <div className="european_view_home_event_header">
+            <Symbol sportId={"angle_up"} />
+            <div>
+              <Text
+                customClassName={"ev_name"}
+                text={getData().sportName}
+              />
+              <Text
+                customClassName={"ev_count"}
+                text={getData().sportId}
+              />
+            </div>
+            <Symbol sportId={5} />
+          </div>
+
+          <div className="european_view_home_event_legend">
+            <div className="legend_item_start">{"event"}</div>
+            <div className="legend_item_center">{"time"}</div>
+
+            {
+              <div className="odds_layout odds_layout_3">
+                <div className={"odd_w"}>{"p1"}</div>
+                <div className={"odd_w"}>{"x"}</div>
+                <div className={"odd_w"}>{"p2"}</div>
+              </div>
+            }
+            <div className="legend_item_center">{"more"}</div>
+          </div>
+          {EVENTS_DATA.map((d, i) => {
+            return (
+              <HomeEventWidgetRow
+                key={i}
+                HTN={d.HTN}
+                ATN={d.ATN}
+                HTSc={d.HTSc}
+                ATSc={d.ATSc}
+                HasLI={d.HasLI}
+                HasLC={d.HasLC}
+                Time={d.Time}
+                MoreCount={d.MoreCount}
+              >
+                {
+                  <div className="odds_layout odds_layout_3">
+                    <Odd factor={"1.01"} market={"p1"} />
+                    <Odd factor={"1.01"} market={"x"} />
+                    <Odd factor={"1.01"} market={"p2"} />
+                  </div>
+                }
+              </HomeEventWidgetRow>
+            );
+          })}
+          <div className="european_view_home_events_widget_more">
+            <Symbol
+              customClassName="state_indicator"
+              sportId={"angle_down"}
+            />
+          </div>
+        </div>
+        {Array.from({ length: 2 }, (_, index) => (
           <div className="european_view_home_events_widget_root">
             <div className="european_view_home_event_filter">
               <span className="widget_name">{"Live events"}</span>
               <div className="european_view_home_event_tabs_row">
-                {Array.from({ length: 5 }, (_, index) => (
-                  <button
-                    key={index}
-                    className="european_view_home_event_tab"
-                  >
-                    <Symbol sportId={index} />
-                  </button>
-                ))}
+                <button
+                  className="european_view_home_event_tab state_active"
+                >
+                  <Symbol sportId={1} />
+                </button>
+                <button
+                  className="european_view_home_event_tab"
+                >
+                  <Symbol sportId={5} />
+                </button>
               </div>
             </div>
             <div className="european_view_home_event_header">
@@ -324,7 +388,7 @@ const HomePage = () => {
             <div className="european_view_home_event_legend">
               <div className="legend_item_start">{"event"}</div>
               <div className="legend_item_center">{"time"}</div>
-              
+
               {
                 <div className="odds_layout odds_layout_3">
                   <div className={"odd_w"}>{"p1"}</div>
@@ -403,9 +467,9 @@ const HomePage = () => {
               <div className="legend_item_start">{"event"}</div>
               <div className="legend_item_center">{"time"}</div>
               <div className="odds_layout odds_layout_2">
-                  <div className={"odd_w"}>{"p1"}</div>
-                  <div className={"odd_w"}>{"p2"}</div>
-                </div>
+                <div className={"odd_w"}>{"p1"}</div>
+                <div className={"odd_w"}>{"p2"}</div>
+              </div>
               <div className="legend_item_center">{"more"}</div>
             </div>
             {EVENTS_DATA.map((d, i) => {
@@ -421,7 +485,7 @@ const HomePage = () => {
                   Time={d.Time}
                   MoreCount={d.MoreCount}
                 >
-                   {
+                  {
                     <div className="odds_layout odds_layout_2">
                       <Odd factor={"1.01"} market={"p1"} />
                       <Odd factor={"1.01"} market={"p2"} />
@@ -704,40 +768,16 @@ class App extends Component {
                     {"Women. UTR Pro Tennis Series. Australia"}
                   </div>
                   {Array.from({ length: 5 }, (_, index) => (
-                    <div key={index} className="view_european_side_bar_item_live">
-                      <div className="child_row_top">
-                        <Symbol sportId="star_out" />
-                        <div className="child_row_top_team_and_score">
-                          <Text
-                            customClassName="sbi_team h"
-                            text={"home team name"}
-                          />
-                          <Text customClassName="sbi_score h" text={0} />
-                          <Symbol sportId="stream" size="sm" />
-                          <Text
-                            customClassName="sbi_tean a"
-                            text={"away team score"}
-                          />
-                          <Text customClassName="sbi_score a" text={0} />
-                          <Text text={"3:25"} />
-                        </div>
-                      </div>
-                      <div className="child_row_bot">
-                        <Text text={"("} />
-                        <div className="live_score_token">
-                          <Text text={"0"} />
-                          <Text customClassName="spr" text={":"} />
-                          <Text text={"1"} />
-                        </div>
-                        <div className="live_score_token">
-                          <Text text={"0"} />
-                          <Text customClassName="spr" text={":"} />
-                          <Text text={"1"} />
-                        </div>
-
-                        <Text text={")"} />
-                      </div>
-                    </div>
+                    <SidebarItem
+                      key={index}
+                      variant='live'
+                      ht="team one"
+                      at="team one"
+                      hs="1"
+                      as="10"
+                      time="12-50"
+                      HasLI={true}
+                    />
                   ))}
                   <div className="view_european_side_bar_item_odds_root">
                     <div className="sbo_layout">

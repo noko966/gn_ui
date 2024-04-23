@@ -155,61 +155,7 @@ html {
   width: 100%;
 }
 
-/*Sidebar Item live*/
-.view_european_side_bar_item_live {
-  background: var(--menu_3G);
-  color: var(--menu_3Txt2);
-  border-bottom: 1px solid var(--menu_3Border);
-  padding: var(--paddingX2) var(--paddingX3);
-}
 
-.view_european_side_bar_item_live > .child_row_top {
-  display: grid;
-  grid-template-columns: 24px 1fr;
-  column-gap: var(--paddingX2);
-  align-items: center;
-}
-
-.view_european_side_bar_item_live .child_row_top_team_and_score {
-  display: grid;
-  grid-template-columns: 1fr 30px 32px;
-  grid-template-rows: 16px 16px;
-  column-gap: 4px;
-  row-gap: 4px;
-}
-
-.view_european_side_bar_item_live .sbi_team {
-  color: var(--menu_3Txt);
-}
-.view_european_side_bar_item_live .sbi_score {
-  align-items: center;
-  justify-content: flex-end;
-  color: var(--menu_3Accent);
-  font-weight: 500;
-}
-
-.child_row_bot {
-  display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  column-gap: var(--paddingX);
-  row-gap: var(--paddingX);
-  margin-top: var(--paddingX);
-  padding-left: var(--paddingX2);
-  padding-right: var(--paddingX2);
-}
-
-.live_score_token {
-  display: flex;
-  flex-direction: row;
-  column-gap: var(--paddingX);
-  flex-shrink: 0;
-}
-
-.live_score_token > .spr {
-  color: var(--menu_3Txt3);
-  flex-shrink: 0;
-}
 
 /*champ header*/
 .view_european_side_bar_item_live_legend {
@@ -323,80 +269,7 @@ html {
   height: 100%;
 }
 
-/*event line*/
-.european_view_match_event_root {
-}
 
-.european_view_match_event_header,
-.european_view_match_market_event_header {
-  --header_height: 44px;
-  background: var(--headerG);
-  color: var(--headerTxt2);
-  border-bottom: 1px solid var(--headerBorder);
-  border-top-left-radius: var(--headerRadius);
-  border-top-right-radius: var(--headerRadius);
-  padding-inline-start: var(--paddingX2);
-  padding-inline-end: var(--paddingX2);
-  height: var(--header_height);
-}
-
-.european_view_match_market_event_header > .mev_layout {
-  display: grid;
-  grid-template-columns: 24px 24px 1fr 24px;
-  column-gap: var(--paddingX2);
-  height: 100%;
-  align-items: center;
-}
-
-.match_event_header_layout {
-  display: grid;
-  grid-template-columns: 1fr repeat(4, auto);
-  column-gap: var(--paddingX2);
-  height: 100%;
-  align-items: center;
-}
-
-.match_event_header_layout > .match_event_header_layout_teams {
-  display: flex;
-  flex-direction: column;
-}
-
-.match_event_header_layout > .match_event_header_layout_id,
-.match_event_header_layout > .match_event_header_layout_date,
-.match_event_header_layout > .match_event_header_layout_time {
-}
-
-.match_event_header_layout_teams > .dg_text {
-  font-weight: 500;
-  color: var(--headerTxt);
-}
-
-.match_event_more {
-  width: 60px;
-  height: 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 2px;
-  background: var(--showMoreG);
-  color: var(--showMoreTxt);
-  appearance: none;
-  border: none;
-  outline: 0;
-  -webkit-appearance: none;
-  font-size: 13px;
-  font-weight: 500;
-  cursor: pointer;
-}
-
-.european_view_match_event_content {
-  background: var(--eventG);
-  color: var(--eventTxt2);
-  padding-inline-start: var(--paddingX2);
-  padding-inline-end: var(--paddingX2);
-  padding-top: var(--paddingY2);
-  padding-bottom: var(--paddingY2);
-}
 
 .odds_layout {
   display: grid;

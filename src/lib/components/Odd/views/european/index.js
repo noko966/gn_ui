@@ -68,4 +68,6 @@ const OddVariant = ({
   );
 };
 
+
+
 export default OddVariant;
