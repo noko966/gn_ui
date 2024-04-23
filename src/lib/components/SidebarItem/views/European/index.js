@@ -1,58 +1,124 @@
 import React from "react";
 import classNames from "classnames";
-// import "./index.scss";
-import Sport from "./variants/sport/index.js";
-import Country from "./variants/country/index.js";
-import Favorite from "./variants/favorite/index.js";
-import League from "./variants/league/index.js";
-// import tournament from "./variants/tournament/index.js";
+import Symbol from "../../../Symbol/index.js";
+import Favorite from "../../../Favorite/index.js";
+import Text from "../../../Text/index.js";
+import Flag from "../../../Flag/index.js";
+import "./index.scss";
+
+const Sport = ({ id, isActive, isDisabled, name, count, iconVariant }) => {
+  const rootClassName = classNames({
+    [`view_european_side_bar_item_base`]: true,
+    variant_sport: true,
+    state_active: isActive,
+    state_disabled: isDisabled,
+  });
+  return (
+    <div className={rootClassName}>
+      <Symbol variant={iconVariant} sportId={id} />
+      <div className="layout_fill">
+        <Text customClassName={"n"} text={name} />
+        <Text customClassName={"c"} text={`(${count})`} />
+      </div>
+      <i className="state_change_icon dg_icon_angle_bottom" />
+    </div>
+  )
+}
+
+
+const Country = ({ id, isActive, isDisabled, name, count, iconVariant }) => {
+  const rootClassName = classNames({
+    [`view_european_side_bar_item_base`]: true,
+    variant_country: true,
+    state_active: isActive,
+    state_disabled: isDisabled,
+  });
+  return (
+    <div className={rootClassName}>
+      <Flag fId={id} />
+      <div className="layout_fill">
+        <Text customClassName={"n"} text={name} />
+        <Text customClassName={"c"} text={`(${count})`} />
+      </div>
+      <i className="state_change_icon dg_icon_angle_bottom" />
+    </div>
+  )
+}
+
+const League = ({ isActive, isDisabled, name, count, iconVariant }) => {
+  const rootClassName = classNames({
+    [`view_european_side_bar_item_base`]: true,
+    variant_league: true,
+    state_active: isActive,
+    state_disabled: isDisabled,
+  });
+  return (
+    <div className={rootClassName}>
+      <Favorite onChange={()=>{}}/>
+      <div className="layout_fill">
+        <Text customClassName={"n"} text={name} />
+        <Text customClassName={"c"} text={`(${count})`} />
+      </div>
+      <i className="state_change_icon dg_icon_angle_bottom" />
+    </div>
+  )
+}
+
+
+const FavVariant = ({ isActive, isDisabled, name, count, iconVariant }) => {
+  const rootClassName = classNames({
+    [`view_european_side_bar_item_base`]: true,
+    variant_favorite: true,
+    state_active: isActive,
+    state_disabled: isDisabled,
+  });
+  return (
+    <div className={rootClassName}>
+      <Symbol variant={iconVariant} sportId={'star_out'} />
+      <div className="layout_fill">
+        <Text customClassName={"n"} text={name} />
+        <Text customClassName={"c"} text={`(${count})`} />
+      </div>
+      <i className="state_change_icon dg_icon_angle_bottom" />
+    </div>
+  )
+}
 
 const SideBarItemVariant = ({
   view,
   variant,
-  favCount,
   name,
-  countryName,
-  countryId,
-  eventCount,
-  sportName,
-  sportId,
-  sportCount,
+  id,
+  count,
   iconVariant,
   isActive,
   isDisabled,
-  leagueName,
 }) => {
   const Component =
     {
       sport: Sport,
       country: Country,
-      favorite: Favorite,
+      favorite: FavVariant,
       league: League,
-      // tournament: tournament,
-      // asian: AsianView,
-      // esport: EsportView,
-      // Add other components as needed
+
     }[variant] || Sport;
 
   return (
     <Component
       view={view}
       variant={variant}
-      favCount={favCount}
       name={name}
-      countryName={countryName}
-      countryId={countryId}
-      eventCount={eventCount}
-      sportName={sportName}
-      sportId={sportId}
-      sportCount={sportCount}
-      iconVariant={iconVariant}
+      id={id}
+      count={count}
       isActive={isActive}
       isDisabled={isDisabled}
-      leagueName={leagueName}
+      iconVariant={iconVariant}
     />
   );
 };
 
 export default SideBarItemVariant;
+
+
+
+

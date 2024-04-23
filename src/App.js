@@ -1,10 +1,24 @@
 import React, { useState, Component, useRef } from "react";
 import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
-import cn from "classnames";
-// import "../library/global.css";
-// import "../library/fonts.css";
-// import "../library/flags.css";
-// import "../library/variables.css";
+import {
+  Root,
+  Symbol,
+  Scroll,
+  Text,
+  SidebarItem,
+  SidebarTabs,
+  SidebarTab,
+  Search_European,
+  Input,
+  European_Button_var_settings,
+  European_Buttons_Row_settings,
+  Odd,
+  Radio,
+  HomeEventWidgetRow,
+  Button,
+  Control,
+  Favorite
+} from "../library/digi-library";
 
 const PrematchPage = () => {
   return (
@@ -124,9 +138,7 @@ const PrematchPage = () => {
               >
                 <div className="european_view_match_market_event_header">
                   <div className="mev_layout">
-                    <div className="mev_star">
-                      <Symbol sportId="star_out" />
-                    </div>
+                    <Favorite onChange={() => { }} />
                     <div className="mev_collapse_indicator">
                       <Symbol sportId="angle_down" />
                     </div>
@@ -151,9 +163,7 @@ const PrematchPage = () => {
             <div className="european_view_match_event_root">
               <div className="european_view_match_market_event_header">
                 <div className="mev_layout">
-                  <div className="mev_star">
-                    <Symbol sportId="star_out" />
-                  </div>
+                  <Favorite onChange={() => { }} />
                   <div className="mev_collapse_indicator">
                     <Symbol sportId="angle_down" />
                   </div>
@@ -179,9 +189,7 @@ const PrematchPage = () => {
             <div className="european_view_match_event_root">
               <div className="european_view_match_market_event_header">
                 <div className="mev_layout">
-                  <div className="mev_star">
-                    <Symbol sportId="star_out" />
-                  </div>
+                  <Favorite onChange={() => { }} />
                   <div className="mev_collapse_indicator">
                     <Symbol sportId="angle_down" />
                   </div>
@@ -226,9 +234,7 @@ const PrematchPage = () => {
             <div className="european_view_match_event_root">
               <div className="european_view_match_market_event_header">
                 <div className="mev_layout">
-                  <div className="mev_star">
-                    <Symbol sportId="star_out" />
-                  </div>
+                  <Favorite onChange={() => { }} />
                   <div className="mev_collapse_indicator">
                     <Symbol sportId="angle_down" />
                   </div>
@@ -255,9 +261,7 @@ const PrematchPage = () => {
             <div className="european_view_match_event_root">
               <div className="european_view_match_market_event_header">
                 <div className="mev_layout">
-                  <div className="mev_star">
-                    <Symbol sportId="star_out" />
-                  </div>
+                  <Favorite onChange={() => { }} />
                   <div className="mev_collapse_indicator">
                     <Symbol sportId="angle_down" />
                   </div>
@@ -550,24 +554,7 @@ const EVENTS_DATA = [
   },
 ];
 
-import {
-  Root,
-  Symbol,
-  Scroll,
-  Text,
-  SidebarItem,
-  SidebarTabs,
-  SidebarTab,
-  Search_European,
-  Input,
-  European_Button_var_settings,
-  European_Buttons_Row_settings,
-  Odd,
-  Radio,
-  HomeEventWidgetRow,
-  Button,
-  Control,
-} from "../library/digi-library";
+
 
 const getData = () => {
   const arrSport = [1, 10, 4, 46, 6, 39];
@@ -646,16 +633,16 @@ class App extends Component {
                     view={"european"}
                     variant={"favorite"}
                     name="favorites"
-                    favCount={0}
+                    count={0}
                   />
                   {Array.from({ length: demoRandom() }, (_, index) => (
                     <SidebarItem
                       key={index + 1}
                       view={"european"}
                       variant={"sport"}
-                      sportName={getData().sportName}
-                      sportCount={index + 1}
-                      sportId={getData().sportId}
+                      name={getData().sportName}
+                      count={index + 1}
+                      id={getData().sportId}
                     />
                   ))}
 
@@ -663,26 +650,26 @@ class App extends Component {
                     <SidebarItem
                       view={"european"}
                       variant={"country"}
-                      countryName={getData().countryName}
-                      eventCount={index + 1}
-                      countryId={getData().countryId}
+                      name={getData().countryName}
+                      count={index + 1}
+                      id={getData().countryId}
                     />
                   ))}
 
                   <SidebarItem
                     view={"european"}
                     variant={"league"}
-                    leagueName="league name"
+                    name="league name"
                   />
                   <SidebarItem
                     view={"european"}
                     variant={"league"}
-                    leagueName="league name"
+                    name="league name"
                   />
                   <SidebarItem
                     view={"european"}
                     variant={"league"}
-                    leagueName="league name"
+                    name="league name"
                   />
                 </SidebarTab>
                 <SidebarTab title="Live">
@@ -691,9 +678,9 @@ class App extends Component {
                       key={index + 1}
                       view={"european"}
                       variant={"sport"}
-                      sportName={getData().sportName}
-                      sportCount={index + 1}
-                      sportId={getData().sportId}
+                      name={getData().sportName}
+                      count={index + 1}
+                      id={getData().sportId}
                     />
                   ))}
                   <div className="view_european_side_bar_item_live_legend">

@@ -6,15 +6,9 @@ import European from "./views/European/index.js";
 const SideBarItemComponent = ({
   view,
   variant,
-  favCount,
   name,
-  countryName,
-  countryId,
-  eventCount,
-  sportName,
-  leagueName,
-  sportId,
-  sportCount,
+  id,
+  count,
   iconVariant,
   isActive,
   isDisabled,
@@ -22,28 +16,18 @@ const SideBarItemComponent = ({
   const Component =
     {
       european: European,
-      // esport: EsportView,
-      // asian: AsianView,
-      // esport: EsportView,
-      // Add other components as needed
     }[view] || European;
 
   return (
     <Component
       view={view}
       variant={variant}
-      favcount={favCount}
       name={name}
-      countryName={countryName}
-      countryId={countryId}
-      eventCount={eventCount}
-      sportName={sportName}
-      leagueName={leagueName}
-      sportId={sportId}
-      sportCount={sportCount}
-      iconVariant={iconVariant}
+      id={id}
+      count={count}
       isActive={isActive}
       isDisabled={isDisabled}
+      iconVariant={iconVariant}
     />
   );
 };

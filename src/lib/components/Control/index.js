@@ -51,6 +51,7 @@ const Control = ({ isDisabled, className, variant = "normal" }) => {
             <span></span>
             <span></span>
             <span></span>
+            <span></span>
           </div>
         </div>
       </div>

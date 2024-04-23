@@ -20,6 +20,8 @@ input[type="range"]::-webkit-slider-thumb {
   border-radius: 50%;
   border: none;
   transition: 0.2s ease-in-out;
+  position: relative;
+  z-index: 10;
 }
 
 /* Thumb: Firefox */
@@ -86,22 +88,23 @@ input[type="range"]:focus::-moz-range-thumb {
 
 .european_view_range_slider_wrapper {
   position: relative;
+  height: 18px;
 }
 
 .rs_sliderticks {
   display: flex;
   justify-content: space-between;
-  padding: 0 10px;
   position: absolute;
   width: 100%;
-  top: 50%;
-  transform: translateY(-50%);
+  top: 0;
+  z-index: 5;
 }
 
 .rs_sliderticks span {
   display: flex;
   justify-content: center;
+  background: var(--tabActiveG);
   width: 1px;
-  height: 2px;
-  background: var(--bodyBg);
+  height: 18px;
+  flex-shrink: 0;
 }
