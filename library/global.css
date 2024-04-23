@@ -68,6 +68,7 @@ html {
   align-items: center;
   transition: color 0.2s;
   cursor: pointer;
+  text-decoration: none;
 }
 .european_view_home_nav_item:last-child:after {
   display: none;
@@ -78,6 +79,7 @@ html {
   flex-shrink: 0;
   padding-inline-end: var(--paddingX2);
   padding-inline-start: var(--paddingX2);
+  font-weight: 500;
 }
 
 .european_view_home_nav_item::after {
@@ -415,4 +417,52 @@ html {
   column-gap: var(--paddingX2);
   row-gap: var(--paddingY2);
   align-items: center;
+}
+
+
+/*event details tab*/
+.european_view_event_tabs_wrapper{
+  /* overflow-x: auto; */
+  /* width: 100%; */
+}
+
+.european_view_event_tab{
+  flex-shrink: 0;
+  --h: 30px;
+  appearance: none;
+  border: none;
+  outline: 0;
+  -webkit-appearance: none;
+  font-size: 12px;
+  font-weight: 500;
+  background: var(--tabG);
+  color: var(--tabTxt2);
+  border-top-left-radius: var(--tabRadius);
+  border-top-right-radius: var(--tabRadius);
+  border: 1px solid var(--tabBgHover);
+  height: var(--h);
+  padding-inline-start: var(--paddingX2);
+  padding-inline-end: var(--paddingX2);
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.european_view_event_tab.state_selected{
+  background: var(--tabActiveG);
+  color: var(--tabActiveTxt);
+  border-color: var(--tabActiveBgHover);
+}
+
+
+.european_view_event_tabs_wrapper{
+  display: flex;
+  align-items: center;
+  column-gap: var(--paddingX2);
+  padding-top: var(--paddingY2);
+  padding-bottom: var(--paddingY2);
 }

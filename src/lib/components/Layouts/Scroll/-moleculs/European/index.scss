@@ -1,10 +1,38 @@
-.view_european_scroll_y {
+.view_european_scroll_y{
   position: relative;
   overflow-y: auto; /* Enables vertical scrolling */
   // height: 100vh;
 
   &::-webkit-scrollbar {
-    width: 6px; /* Scrollbar width */
+    width: 6px; /* Scrollbar w */
+    height: 6px; /* Scrollbar h */
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: var(--dominantBg3Hover); /* Thumb color */
+    border-radius: 0; /* Thumb border radius */
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: var(--dominantBg3Hover); /* Thumb hover color */
+  }
+  &.view_european_scroll_y_full_height {
+    height: 100%;
+  }
+}
+
+
+.view_european_scroll_x{
+  position: relative;
+  overflow-x: auto; /* Enables vertical scrolling */
+  // height: 100vh;
+
+  &::-webkit-scrollbar {
+    height: 6px; /* Scrollbar h */
   }
 
   &::-webkit-scrollbar-track {
