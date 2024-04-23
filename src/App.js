@@ -475,31 +475,86 @@ class App extends Component {
                 </div>
               </div>
             </div> */}
-            <div className="european_view_prematch_wrapper">
-              <Scroll>
-                <div className="european_view_prematch_list">
-                  {Array.from({ length: 10 }, (_, index) => (
-                    <div key={index} className="european_view_home_widget_root">
+            <div className="european_view_prematch_root">
+              <div className="european_view_prematch_filter"></div>
+              <div className="european_view_prematch_content_layout">
+                <Scroll>
+                  <div className="european_view_prematch_list">
+                    {Array.from({ length: 10 }, (_, index) => (
                       <div
-                        style={{ height: "600px" }}
-                        className="european_view_home_widget_content"
-                      ></div>
-                    </div>
-                  ))}
-                </div>
-              </Scroll>
-              <Scroll>
-                <div className="european_view_prematch_list">
-                  {Array.from({ length: 10 }, (_, index) => (
-                    <div key={index} className="european_view_home_widget_root">
+                        key={index}
+                        className="european_view_match_event_root"
+                      >
+                        <div className="european_view_match_event_header">
+                          <div className="match_event_header_layout">
+                            <div className="match_event_header_layout_teams">
+                              <Text text={"team one"} />
+                              <Text text={"team one"} />
+                            </div>
+                            <div className="match_event_header_layout_id">
+                              <Text text={"#12345"} />
+                            </div>
+                            <div className="match_event_header_layout_date">
+                              <Text text={"21-05"} />
+                            </div>
+                            <div className="match_event_header_layout_time">
+                              <Text text={"19:16"} />
+                            </div>
+                            <div className="match_event_header_layout_more">
+                              <button className="match_event_more">{`+${31}`}</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="european_view_match_event_content">
+                          <div className="me_layout">
+                            <Odd variant="full" factor={"1.01"} market={"p1"} />
+                            <Odd variant="full" factor={"1.01"} market={"x"} />
+                            <Odd variant="full" factor={"1.01"} market={"p2"} />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Scroll>
+                <Scroll>
+                  <div className="european_view_prematch_list">
+                    {Array.from({ length: 20 }, (_, index) => (
                       <div
-                        style={{ height: "600px" }}
-                        className="european_view_home_widget_content"
-                      ></div>
-                    </div>
-                  ))}
-                </div>
-              </Scroll>
+                        key={index}
+                        className="european_view_match_event_root"
+                      >
+                        <div className="european_view_match_event_header">
+                          <div className="match_event_header_layout">
+                            <div className="match_event_header_layout_teams">
+                              <Text text={"team one"} />
+                              <Text text={"team one"} />
+                            </div>
+                            <div className="match_event_header_layout_id">
+                              <Text text={"#12345"} />
+                            </div>
+                            <div className="match_event_header_layout_date">
+                              <Text text={"21-05"} />
+                            </div>
+                            <div className="match_event_header_layout_time">
+                              <Text text={"19:16"} />
+                            </div>
+                            <div className="match_event_header_layout_more">
+                              <button className="match_event_more">{`+${31}`}</button>
+                            </div>
+                          </div>
+                        </div>
+                        <div className="european_view_match_event_content">
+                          <div className="me_layout">
+                            <Odd variant="full" factor={"1.01"} market={"p1"} />
+                            <Odd variant="full" factor={"1.01"} market={"x"} />
+                            <Odd variant="full" factor={"1.01"} market={"p2"} />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </Scroll>
+              </div>
             </div>
           </Scroll>
 
