@@ -17,6 +17,7 @@ const StateWrapper = ({ children }) => {
   });
 
   return <>{childrenWithProps}</>;
+  
 
   // Cloning children and passing additional props
   // const EnhancedChild = withExtraProp(ChildComponent, isActive, setIsActive);
