@@ -1,0 +1,7 @@
+.view_european_content {
+  display: none;
+  // background-color: var(--eventBg);
+  &.state_active {
+    display: block;
+  }
+}

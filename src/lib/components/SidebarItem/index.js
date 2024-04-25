@@ -1,4 +1,4 @@
-import React from "react";
+import React, { createContext, useContext, useState } from "react";
 
 // import "./index.scss";
 import European from "./views/European/index.js";
@@ -11,13 +11,14 @@ const SideBarItemComponent = ({
   count,
   iconVariant,
   isActive,
+  setIsActive,
   isDisabled,
   ht,
   at,
   hs,
   as,
   time,
-  HasLI
+  HasLI,
 }) => {
   const Component =
     {
@@ -32,6 +33,7 @@ const SideBarItemComponent = ({
       id={id}
       count={count}
       isActive={isActive}
+      setIsActive={setIsActive}
       isDisabled={isDisabled}
       iconVariant={iconVariant}
       ht={ht}

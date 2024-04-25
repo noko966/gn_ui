@@ -5,8 +5,15 @@ import Favorite from "../../../Favorite/index.js";
 import Text from "../../../Text/index.js";
 import Flag from "../../../Flag/index.js";
 import "./index.scss";
-
-const Sport = ({ id, isActive, isDisabled, name, count, iconVariant }) => {
+const Sport = ({
+  id,
+  isActive,
+  setIsActive,
+  isDisabled,
+  name,
+  count,
+  iconVariant,
+}) => {
   const rootClassName = classNames({
     [`view_european_side_bar_item_base`]: true,
     variant_sport: true,
@@ -14,7 +21,7 @@ const Sport = ({ id, isActive, isDisabled, name, count, iconVariant }) => {
     state_disabled: isDisabled,
   });
   return (
-    <div className={rootClassName}>
+    <div onClick={setIsActive} className={rootClassName}>
       <Symbol variant={iconVariant} sportId={id} />
       <div className="layout_fill">
         <Text customClassName={"n"} text={name} />
@@ -22,11 +29,18 @@ const Sport = ({ id, isActive, isDisabled, name, count, iconVariant }) => {
       </div>
       <i className="state_change_icon dg_icon_angle_bottom" />
     </div>
-  )
-}
+  );
+};
 
-
-const Country = ({ id, isActive, isDisabled, name, count, iconVariant }) => {
+const Country = ({
+  id,
+  isActive,
+  setIsActive,
+  isDisabled,
+  name,
+  count,
+  iconVariant,
+}) => {
   const rootClassName = classNames({
     [`view_european_side_bar_item_base`]: true,
     variant_country: true,
@@ -34,7 +48,7 @@ const Country = ({ id, isActive, isDisabled, name, count, iconVariant }) => {
     state_disabled: isDisabled,
   });
   return (
-    <div className={rootClassName}>
+    <div onClick={setIsActive} className={rootClassName}>
       <Flag fId={id} />
       <div className="layout_fill">
         <Text customClassName={"n"} text={name} />
@@ -42,10 +56,17 @@ const Country = ({ id, isActive, isDisabled, name, count, iconVariant }) => {
       </div>
       <i className="state_change_icon dg_icon_angle_bottom" />
     </div>
-  )
-}
+  );
+};
 
-const League = ({ isActive, isDisabled, name, count, iconVariant }) => {
+const League = ({
+  isActive,
+  setIsActive,
+  isDisabled,
+  name,
+  count,
+  iconVariant,
+}) => {
   const rootClassName = classNames({
     [`view_european_side_bar_item_base`]: true,
     variant_league: true,
@@ -53,19 +74,25 @@ const League = ({ isActive, isDisabled, name, count, iconVariant }) => {
     state_disabled: isDisabled,
   });
   return (
-    <div className={rootClassName}>
-      <Favorite onChange={() => { }} />
+    <div onClick={setIsActive} className={rootClassName}>
+      <Favorite onChange={() => {}} />
       <div className="layout_fill">
         <Text customClassName={"n"} text={name} />
         <Text customClassName={"c"} text={`(${count})`} />
       </div>
       <i className="state_change_icon dg_icon_angle_bottom" />
     </div>
-  )
-}
+  );
+};
 
-
-const FavVariant = ({ isActive, isDisabled, name, count, iconVariant }) => {
+const FavVariant = ({
+  isActive,
+  setIsActive,
+  isDisabled,
+  name,
+  count,
+  iconVariant,
+}) => {
   const rootClassName = classNames({
     [`view_european_side_bar_item_base`]: true,
     variant_favorite: true,
@@ -73,31 +100,46 @@ const FavVariant = ({ isActive, isDisabled, name, count, iconVariant }) => {
     state_disabled: isDisabled,
   });
   return (
-    <div className={rootClassName}>
-      <Symbol variant={iconVariant} sportId={'star_out'} />
+    <div onClick={setIsActive} className={rootClassName}>
+      <Symbol variant={iconVariant} sportId={"star_out"} />
       <div className="layout_fill">
         <Text customClassName={"n"} text={name} />
         <Text customClassName={"c"} text={`(${count})`} />
       </div>
       <i className="state_change_icon dg_icon_angle_bottom" />
     </div>
-  )
-}
+  );
+};
 
-
-const Live = ({ isActive, isDisabled, ht, at, hs, as, time, HasLI }) => {
+const Live = ({
+  isActive,
+  setIsActive,
+  isDisabled,
+  ht,
+  at,
+  hs,
+  as,
+  time,
+  HasLI,
+}) => {
   const rootClassName = classNames({
     [`view_european_side_bar_item_live`]: true,
     state_active: isActive,
     state_disabled: isDisabled,
   });
   return (
-    <div className={rootClassName}>
+    <div onClick={setIsActive} className={rootClassName}>
       <div className="_row_start">
-        <Favorite onChange={() => { }} />
+        <Favorite onChange={() => {}} />
         <div className="layout_fill">
-          <div className="layout_t_s"><Text customClassName={"n"} text={ht} /><Text customClassName={"s"} text={hs} /></div>
-          <div className="layout_t_s"><Text customClassName={"n"} text={at} /><Text customClassName={"s"} text={as} /></div>
+          <div className="layout_t_s">
+            <Text customClassName={"n"} text={ht} />
+            <Text customClassName={"s"} text={hs} />
+          </div>
+          <div className="layout_t_s">
+            <Text customClassName={"n"} text={at} />
+            <Text customClassName={"s"} text={as} />
+          </div>
         </div>
         <div className="layout_end">
           {HasLI && <Symbol sportId={"stream"} />}
@@ -120,8 +162,8 @@ const Live = ({ isActive, isDisabled, ht, at, hs, as, time, HasLI }) => {
         <Text text={")"} />
       </div>
     </div>
-  )
-}
+  );
+};
 
 const SideBarItemVariant = ({
   view,
@@ -131,13 +173,14 @@ const SideBarItemVariant = ({
   count,
   iconVariant,
   isActive,
+  setIsActive,
   isDisabled,
   ht,
   at,
   hs,
   as,
   time,
-  HasLI
+  HasLI,
 }) => {
   const Component =
     {
@@ -145,8 +188,7 @@ const SideBarItemVariant = ({
       country: Country,
       favorite: FavVariant,
       league: League,
-      live: Live
-
+      live: Live,
     }[variant] || Sport;
 
   return (
@@ -157,6 +199,7 @@ const SideBarItemVariant = ({
       id={id}
       count={count}
       isActive={isActive}
+      setIsActive={setIsActive}
       isDisabled={isDisabled}
       iconVariant={iconVariant}
       ht={ht}
@@ -170,7 +213,3 @@ const SideBarItemVariant = ({
 };
 
 export default SideBarItemVariant;
-
-
-
-

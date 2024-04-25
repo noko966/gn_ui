@@ -2,9 +2,9 @@
 }
 .european_view_match_header_base {
   --header_height: 44px;
-  background: var(--headerG);
+  background: var(--headerBgHover);
   color: var(--headerTxt2);
-  border-bottom: 1px solid var(--headerBorder);
+  border-bottom: 1px solid var(--headerBg2);
   border-top-left-radius: var(--headerRadius);
   border-top-right-radius: var(--headerRadius);
   padding-inline-start: var(--paddingX2);
@@ -13,6 +13,20 @@
   display: flex;
   align-items: center;
   column-gap: var(--paddingX2);
+  cursor: pointer;
+  transition:
+    background 0.2s linear,
+    color 0.2s linear;
+
+  &.state_active {
+    background: var(--headerBg);
+    color: var(--headerTxt2);
+  }
+
+  &:hover {
+    background: var(--headerBg);
+    color: var(--headerTxt2);
+  }
 }
 
 .european_view_match_header_base > .layout_start {

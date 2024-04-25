@@ -40,7 +40,7 @@ const EuropeanView = ({ children, fullHeight, view, isRTL }) => {
     [getClass()]: true,
   });
   return (
-    <main view={view} isRTL={isRTL} className={ViewClassName} ref={rootRef}>
+    <main view={view} className={ViewClassName} ref={rootRef}>
       {children}
     </main>
   );
