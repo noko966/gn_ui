@@ -14,7 +14,7 @@ const HomeEventRow = ({
   HasLC,
   Time,
   MoreCount,
-  children
+  children,
 }) => {
   const componentCn = cn({
     european_view_home_event_row: true,
@@ -35,9 +35,7 @@ const HomeEventRow = ({
       <div className="time_container">
         <Text text={Time} />
       </div>
-      <div className="odds_container">
-        {children}
-      </div>
+      <div className="eu_ew_odds_container">{children}</div>
       <div className="rest_container">
         <div className="european_view_home_rest">{`+${MoreCount}`}</div>
       </div>
@@ -45,7 +43,7 @@ const HomeEventRow = ({
   );
 };
 
-const HomeEventRowExpert = ({ HTN, ATN, Bet, Time }) => {
+const HomeEventRowExpert = ({ HTN, ATN, Bet, Time, children }) => {
   const componentCn = cn({
     "european_view_home_event_row grid_layout_expert": true,
   });
@@ -61,9 +59,7 @@ const HomeEventRowExpert = ({ HTN, ATN, Bet, Time }) => {
       <div className="bet_container">
         <Text customClassName={"ev_team a"} text={Bet} />
       </div>
-      <div className="odd_container">
-        <Odd view="european" factor={3.55} />
-      </div>
+      <div className="odd_container">{children}</div>
     </div>
   );
 };
@@ -132,7 +128,7 @@ const HomeEventWidgetRowVariant = ({
   Arg,
   EID,
   LN,
-  children
+  children,
 }) => {
   const Component =
     {
@@ -158,8 +154,9 @@ const HomeEventWidgetRowVariant = ({
       Arg={Arg}
       EID={EID}
       LN={LN}
-      children={children}
-    />
+    >
+      {children}
+    </Component>
   );
 };
 

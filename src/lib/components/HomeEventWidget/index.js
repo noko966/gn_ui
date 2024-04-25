@@ -20,7 +20,7 @@ const HomeEventWidgetRow = ({
   Arg,
   EID,
   LN,
-  children
+  children,
 }) => {
   const Component =
     {
@@ -48,9 +48,10 @@ const HomeEventWidgetRow = ({
       Arg={Arg}
       EID={EID}
       LN={LN}
-      children={children}
-    />
+    >
+      {children}
+    </Component>
   );
 };
 
-export { HomeEventWidgetRow };
+export default HomeEventWidgetRow;

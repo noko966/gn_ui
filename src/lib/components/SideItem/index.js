@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 // import "./index.scss";
 import EuropeanView from "./-moleculs/European/index.js";
@@ -38,13 +37,6 @@ const SideItemComponent = ({
       fId={fId}
     />
   );
-};
-
-SideItemComponent.propTypes = {
-  view: PropTypes.string.isRequired,
-  sportId: PropTypes.number,
-  isActive: PropTypes.bool,
-  isDisabled: PropTypes.bool,
 };
 
 export default SideItemComponent;

@@ -13,12 +13,13 @@ import {
   European_Button_var_settings,
   European_Buttons_Row_settings,
   Odd,
+  OddsWrapper,
   Radio,
   HomeEventWidgetRow,
   Button,
   Control,
   Favorite,
-  MatchItem
+  MatchItem,
 } from "../library/digi-library";
 
 const PrematchPage = () => {
@@ -30,6 +31,7 @@ const PrematchPage = () => {
           <div className="european_view_prematch_list">
             {Array.from({ length: 10 }, (_, index) => (
               <MatchItem
+                key={index}
                 variant="game"
                 ht={"team name one"}
                 at={"team name two"}
@@ -37,41 +39,19 @@ const PrematchPage = () => {
                 date={"24.03"}
                 time={"12:30"}
                 more={"40"}
-
               >
                 {
-                  <div className="odds_layout odds_layout_3">
+                  <OddsWrapper>
                     <Odd variant="full" factor={"1.01"} market={"p1"} />
                     <Odd variant="full" factor={"1.01"} market={"x"} />
                     <Odd variant="full" factor={"1.01"} market={"p2"} />
-                  </div>
+                  </OddsWrapper>
                 }
               </MatchItem>
             ))}
           </div>
         </Scroll>
         <Scroll>
-          <div className="european_view_match_event_header">
-            <div className="match_event_header_layout">
-              <div className="match_event_header_layout_teams">
-                <Text text={"team one"} />
-                <Text text={"team one"} />
-              </div>
-              <div className="match_event_header_layout_id">
-                <Text text={"#12345"} />
-              </div>
-              <div className="match_event_header_layout_date">
-                <Text text={"21-05"} />
-              </div>
-              <div className="match_event_header_layout_time">
-                <Text text={"19:16"} />
-              </div>
-              <div className="match_event_header_layout_more">
-                <button className="match_event_more">{`+${31}`}</button>
-              </div>
-            </div>
-          </div>
-
           <div className="european_view_event_tabs_root view_european_scroll_x">
             <div className="european_view_event_tabs_wrapper">
               <button className="european_view_event_tab state_selected">
@@ -118,161 +98,36 @@ const PrematchPage = () => {
           </div>
 
           <div className="european_view_prematch_list">
-            {Array.from({ length: 6 }, (_, index) => (
-              <div
+            {Array.from({ length: 16 }, (_, index) => (
+              <MatchItem
+                hasCashout={true}
                 key={index}
-                className="european_view_match_event_root"
+                variant="market"
+                mn={"market name"}
               >
-                <div className="european_view_match_market_event_header">
-                  <div className="mev_layout">
-                    <Favorite onChange={() => { }} />
-                    <div className="mev_collapse_indicator">
-                      <Symbol sportId="angle_down" />
-                    </div>
-                    <div className="mev_name">
-                      <Text text={"market name"} />
-                    </div>
-                    <div className="mev_icon">
-                      <Symbol sportId="star_out" />
-                    </div>
-                  </div>
-                </div>
-                <div className="european_view_match_event_content">
-                  <div className="odds_layout odds_layout_3">
-                    <Odd variant="full" factor={"1.01"} market={"p1"} />
-                    <Odd variant="full" factor={"1.01"} market={"x"} />
-                    <Odd variant="full" factor={"1.01"} market={"p2"} />
-                  </div>
-                </div>
-              </div>
+                {
+                  <OddsWrapper>
+                    {Array.from(
+                      { length: Math.floor(Math.random() * 6) + 1 },
+                      (_, index) => (
+                        <Odd
+                          key={index}
+                          variant="full"
+                          factor="1.01"
+                          market={`market name ${index}`}
+                        />
+                      )
+                    )}
+                  </OddsWrapper>
+                }
+              </MatchItem>
             ))}
-
-            <div className="european_view_match_event_root">
-              <div className="european_view_match_market_event_header">
-                <div className="mev_layout">
-                  <Favorite onChange={() => { }} />
-                  <div className="mev_collapse_indicator">
-                    <Symbol sportId="angle_down" />
-                  </div>
-                  <div className="mev_name">
-                    <Text text={"market name"} />
-                  </div>
-                  <div className="mev_icon">
-                    <Symbol sportId="cash_out" />
-                  </div>
-                </div>
-              </div>
-              <div className="european_view_match_event_content">
-                <div className="odds_layout">
-                  <Odd
-                    variant="full"
-                    factor={"1.01"}
-                    market={"score"}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="european_view_match_event_root">
-              <div className="european_view_match_market_event_header">
-                <div className="mev_layout">
-                  <Favorite onChange={() => { }} />
-                  <div className="mev_collapse_indicator">
-                    <Symbol sportId="angle_down" />
-                  </div>
-                  <div className="mev_name">
-                    <Text text={"market name"} />
-                  </div>
-                  <div className="mev_icon">
-                    <Symbol sportId="cash_out" />
-                  </div>
-                </div>
-              </div>
-              <div className="european_view_match_event_content">
-                <div className="odds_layout odds_layout_2">
-                  <Odd variant="full" factor={"1.01"} market={"over"} />
-                  <Odd
-                    variant="full"
-                    factor={"0.25"}
-                    market={"under"}
-                  />
-                  <Odd variant="full" factor={"1.01"} market={"over"} />
-                  <Odd
-                    variant="full"
-                    factor={"0.25"}
-                    market={"under"}
-                  />
-                  <Odd variant="full" factor={"1.01"} market={"over"} />
-                  <Odd
-                    variant="full"
-                    factor={"0.25"}
-                    market={"under"}
-                  />
-                  <Odd variant="full" factor={"1.01"} market={"over"} />
-                  <Odd
-                    variant="full"
-                    factor={"0.25"}
-                    market={"under"}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="european_view_match_event_root">
-              <div className="european_view_match_market_event_header">
-                <div className="mev_layout">
-                  <Favorite onChange={() => { }} />
-                  <div className="mev_collapse_indicator">
-                    <Symbol sportId="angle_down" />
-                  </div>
-                  <div className="mev_name">
-                    <Text text={"market name"} />
-                  </div>
-                  <div className="mev_icon">
-                    <Symbol sportId="cash_out" />
-                  </div>
-                </div>
-              </div>
-              <div className="european_view_match_event_content">
-                <div className="odds_layout odds_layout_2">
-                  <Odd variant="full" factor={"1.01"} market={"over"} />
-                  <Odd
-                    variant="full"
-                    factor={"0.25"}
-                    market={"under"}
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div className="european_view_match_event_root">
-              <div className="european_view_match_market_event_header">
-                <div className="mev_layout">
-                  <Favorite onChange={() => { }} />
-                  <div className="mev_collapse_indicator">
-                    <Symbol sportId="angle_down" />
-                  </div>
-                  <div className="mev_name">
-                    <Text text={"market name"} />
-                  </div>
-                  <div className="mev_icon">
-                    <Symbol sportId="cash_out" />
-                  </div>
-                </div>
-              </div>
-              <div className="european_view_match_event_content">
-                <div className="odds_layout odds_layout_3">
-                  <Odd variant="full" factor={"1.01"} market={"p1"} />
-                  <Odd variant="full" factor={"1.01"} market={"x"} />
-                  <Odd variant="full" factor={"1.01"} market={"p2"} />
-                </div>
-              </div>
-            </div>
           </div>
         </Scroll>
       </div>
-    </div>)
-}
+    </div>
+  );
+};
 
 const HomePage = () => {
   return (
@@ -282,30 +137,19 @@ const HomePage = () => {
           <div className="european_view_home_event_filter">
             <span className="widget_name">{"Live events"}</span>
             <div className="european_view_home_event_tabs_row">
-              <button
-                className="european_view_home_event_tab state_active"
-              >
+              <button className="european_view_home_event_tab state_active">
                 <Text text="now" />
               </button>
-              <button
-                className="european_view_home_event_tab"
-              >
+              <button className="european_view_home_event_tab">
                 <Text text="coming up" />
-
               </button>
             </div>
           </div>
           <div className="european_view_home_event_header">
             <Symbol sportId={"angle_up"} />
             <div>
-              <Text
-                customClassName={"ev_name"}
-                text={getData().sportName}
-              />
-              <Text
-                customClassName={"ev_count"}
-                text={getData().sportId}
-              />
+              <Text customClassName={"ev_name"} text={getData().sportName} />
+              <Text customClassName={"ev_count"} text={getData().sportId} />
             </div>
             <Symbol sportId={5} />
           </div>
@@ -315,7 +159,7 @@ const HomePage = () => {
             <div className="legend_item_center">{"time"}</div>
 
             {
-              <div className="odds_layout odds_layout_3">
+              <div className="eu_ew_l_odds_container odds_layout odds_layout_3">
                 <div className={"odd_w"}>{"p1"}</div>
                 <div className={"odd_w"}>{"x"}</div>
                 <div className={"odd_w"}>{"p2"}</div>
@@ -337,35 +181,28 @@ const HomePage = () => {
                 MoreCount={d.MoreCount}
               >
                 {
-                  <div className="odds_layout odds_layout_3">
+                  <OddsWrapper>
                     <Odd factor={"1.01"} market={"p1"} />
                     <Odd factor={"1.01"} market={"x"} />
                     <Odd factor={"1.01"} market={"p2"} />
-                  </div>
+                  </OddsWrapper>
                 }
               </HomeEventWidgetRow>
             );
           })}
           <div className="european_view_home_events_widget_more">
-            <Symbol
-              customClassName="state_indicator"
-              sportId={"angle_down"}
-            />
+            <Symbol customClassName="state_indicator" sportId={"angle_down"} />
           </div>
         </div>
         {Array.from({ length: 2 }, (_, index) => (
-          <div className="european_view_home_events_widget_root">
+          <div key={index} className="european_view_home_events_widget_root">
             <div className="european_view_home_event_filter">
               <span className="widget_name">{"Live events"}</span>
               <div className="european_view_home_event_tabs_row">
-                <button
-                  className="european_view_home_event_tab state_active"
-                >
+                <button className="european_view_home_event_tab state_active">
                   <Symbol sportId={1} />
                 </button>
-                <button
-                  className="european_view_home_event_tab"
-                >
+                <button className="european_view_home_event_tab">
                   <Symbol sportId={5} />
                 </button>
               </div>
@@ -373,14 +210,8 @@ const HomePage = () => {
             <div className="european_view_home_event_header">
               <Symbol sportId={"angle_up"} />
               <div>
-                <Text
-                  customClassName={"ev_name"}
-                  text={getData().sportName}
-                />
-                <Text
-                  customClassName={"ev_count"}
-                  text={getData().sportId}
-                />
+                <Text customClassName={"ev_name"} text={getData().sportName} />
+                <Text customClassName={"ev_count"} text={getData().sportId} />
               </div>
               <Symbol sportId={index + 1} />
             </div>
@@ -411,13 +242,11 @@ const HomePage = () => {
                   Time={d.Time}
                   MoreCount={d.MoreCount}
                 >
-                  {
-                    <div className="odds_layout odds_layout_3">
-                      <Odd factor={"1.01"} market={"p1"} />
-                      <Odd factor={"1.01"} market={"x"} />
-                      <Odd factor={"1.01"} market={"p2"} />
-                    </div>
-                  }
+                  <OddsWrapper>
+                    <Odd factor={"1.01"} market={"p1"} />
+                    <Odd factor={"1.01"} market={"x"} />
+                    <Odd factor={"1.01"} market={"p2"} />
+                  </OddsWrapper>
                 </HomeEventWidgetRow>
               );
             })}
@@ -432,18 +261,12 @@ const HomePage = () => {
       </div>
       <div className="european_view_home_events_widgets_list">
         {Array.from({ length: 2 }, (_, index) => (
-          <div
-            key={index}
-            className="european_view_home_events_widget_root"
-          >
+          <div key={index} className="european_view_home_events_widget_root">
             <div className="european_view_home_event_filter">
               <span className="widget_name">{"upcoming events"}</span>
               <div className="european_view_home_event_tabs_row">
                 {Array.from({ length: 6 }, (_, index) => (
-                  <button
-                    key={index}
-                    className="european_view_home_event_tab"
-                  >
+                  <button key={index} className="european_view_home_event_tab">
                     <Symbol sportId={index} />
                   </button>
                 ))}
@@ -452,14 +275,8 @@ const HomePage = () => {
             <div className="european_view_home_event_header">
               <Symbol sportId={"angle_up"} />
               <div>
-                <Text
-                  customClassName={"ev_name"}
-                  text={getData().sportName}
-                />
-                <Text
-                  customClassName={"ev_count"}
-                  text={getData().sportId}
-                />
+                <Text customClassName={"ev_name"} text={getData().sportName} />
+                <Text customClassName={"ev_count"} text={getData().sportId} />
               </div>
               <Symbol sportId={index + 1} />
             </div>
@@ -507,10 +324,7 @@ const HomePage = () => {
             <span className="widget_name">{"Toto expert"}</span>
             <div className="european_view_home_event_tabs_row">
               {Array.from({ length: 3 }, (_, index) => (
-                <button
-                  key={index}
-                  className="european_view_home_event_tab"
-                >
+                <button key={index} className="european_view_home_event_tab">
                   <Symbol sportId={index} />
                 </button>
               ))}
@@ -533,22 +347,21 @@ const HomePage = () => {
                 ATN={d.ATN}
                 Bet={d.Bet}
                 Time={d.Time}
-              />
+              >
+                <div className="odds_layout">
+                  <Odd factor={"1.01"} market={"p1"} />
+                </div>
+              </HomeEventWidgetRow>
             );
           })}
           <div className="european_view_home_events_widget_more">
-            <Symbol
-              customClassName="state_indicator"
-              sportId={"angle_down"}
-            />
+            <Symbol customClassName="state_indicator" sportId={"angle_down"} />
           </div>
         </div>
 
         <div className="european_view_home_events_widget_root">
           <div className="european_view_home_event_filter">
-            <span className="widget_name">
-              {"Multi bet of the day"}
-            </span>
+            <span className="widget_name">{"Multi bet of the day"}</span>
           </div>
           <div className="view_european_multi_bet_widget_controls">
             <div className="mbw_controls">
@@ -599,8 +412,8 @@ const HomePage = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
 const EVENTS_DATA = [
   {
@@ -634,8 +447,6 @@ const EVENTS_DATA = [
     MoreCount: 10,
   },
 ];
-
-
 
 const getData = () => {
   const arrSport = [1, 10, 4, 46, 6, 39];
@@ -674,15 +485,17 @@ const demoRandom = () => {
 class App extends Component {
   render() {
     return (
-
       <BrowserRouter>
-
         <div style={{ height: "100svh" }} className="App">
           <Root>
             <Search_European placeholder={"search here ..."} />
             <div className="european_view_home_nav_row">
-              <Link className="european_view_home_nav_item" to="/"><span>home</span></Link>
-              <Link className="european_view_home_nav_item" to="/line"><span>line event list</span></Link>
+              <Link className="european_view_home_nav_item" to="/">
+                <span>home</span>
+              </Link>
+              <Link className="european_view_home_nav_item" to="/line">
+                <span>line event list</span>
+              </Link>
 
               <div className="european_view_home_nav_item">
                 <span>live event list</span>
@@ -706,10 +519,9 @@ class App extends Component {
               />
             </European_Buttons_Row_settings>
             <Scroll>
-
               <SidebarTabs>
                 <SidebarTab title="Prematch" count={200}>
-                  <Control onChange={() => { }} />
+                  <Control onChange={() => {}} />
                   <SidebarItem
                     view={"european"}
                     variant={"favorite"}
@@ -729,6 +541,7 @@ class App extends Component {
 
                   {Array.from({ length: demoRandom() }, (_, index) => (
                     <SidebarItem
+                      key={index}
                       view={"european"}
                       variant={"country"}
                       name={getData().countryName}
@@ -770,7 +583,7 @@ class App extends Component {
                   {Array.from({ length: 5 }, (_, index) => (
                     <SidebarItem
                       key={index}
-                      variant='live'
+                      variant="live"
                       ht="team one"
                       at="team one"
                       hs="1"
@@ -803,7 +616,6 @@ class App extends Component {
                   </div>
                 </SidebarTab>
               </SidebarTabs>
-
             </Scroll>
 
             <Scroll>
@@ -857,10 +669,8 @@ class App extends Component {
               </div>
             </Scroll>
           </Root>
-
         </div>
       </BrowserRouter>
-
     );
   }
 }

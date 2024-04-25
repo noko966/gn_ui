@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
 
@@ -14,10 +13,6 @@ const EsportView = ({ children, fullHeight, view, isRTL }) => {
       {children}
     </main>
   );
-};
-
-EsportView.propTypes = {
-  children: PropTypes.object,
 };
 
 export default EsportView;

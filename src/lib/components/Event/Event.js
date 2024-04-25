@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import "./Event.scss";
 
 const Event = ({ children }) => {
@@ -13,10 +12,6 @@ const Event = ({ children }) => {
       <i className="dg_icon_angle_bottom"></i>
     </div>
   );
-};
-
-Event.propTypes = {
-  label: PropTypes.string,
 };
 
 export default Event;

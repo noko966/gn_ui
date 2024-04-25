@@ -8,7 +8,7 @@ export {
 } from "./components/Button/Button.js";
 export { default as Event } from "./components/Event/Event.js";
 export { default as Dropdown } from "./components/Dropdown/Dropdown.js";
-export { default as Odd } from "./components/Odd/index.js";
+export { OddsWrapper, Odd } from "./components/Odd/index.js";
 export { default as Symbol } from "./components/Symbol/index.js";
 export { default as SideItem } from "./components/SideItem/index.js";
 export { default as Flag } from "./components/Flag/index.js";
@@ -19,5 +19,5 @@ export { default as Text } from "./components/Text/index.js";
 export { default as SidebarItem } from "./components/SidebarItem/index.js";
 export { default as MatchItem } from "./components/MatchItem/index.js";
 export { SidebarTabs, SidebarTab } from "./components/SidebarTab/index.js";
-export { HomeEventWidgetRow } from "./components/HomeEventWidget/index.js";
+export { default as HomeEventWidgetRow } from "./components/HomeEventWidget/index.js";
 export { Control } from "./components/Control/index.js";

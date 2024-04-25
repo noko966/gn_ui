@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
 
@@ -71,13 +70,6 @@ const OddsComponent = ({ region, factor, isActive, isDisabled, variant }) => {
       variant={variant}
     />
   );
-};
-
-OddsComponent.propTypes = {
-  region: PropTypes.string.isRequired,
-  factor: PropTypes.number.isRequired,
-  isActive: PropTypes.bool,
-  isDisabled: PropTypes.bool,
 };
 
 export default OddsComponent;

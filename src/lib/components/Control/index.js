@@ -45,7 +45,7 @@ const Control = ({ isDisabled, className, variant = "normal" }) => {
             min="0"
             max="7"
           />
-          <div class="rs_sliderticks">
+          <div className="rs_sliderticks">
             <span></span>
             <span></span>
             <span></span>

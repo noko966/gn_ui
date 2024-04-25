@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
 import Symbol from "../../../Symbol/index.js";
@@ -24,12 +23,6 @@ const EsportView = ({
       <strong>{count}</strong>
     </div>
   );
-};
-
-EsportView.propTypes = {
-  child: PropTypes.string.isRequired,
-  isActive: PropTypes.bool,
-  isDisabled: PropTypes.bool,
 };
 
 export default EsportView;

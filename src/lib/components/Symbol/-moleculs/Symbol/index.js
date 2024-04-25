@@ -1,5 +1,4 @@
 import React from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
 
@@ -178,11 +177,6 @@ const Symbol = ({ sportId, variant, size = "lg", className }) => {
     [className]: className,
   });
   return <i className={ViewClassName} />;
-};
-
-Symbol.propTypes = {
-  sportId: PropTypes.number,
-  variant: PropTypes.number,
 };
 
 export default Symbol;

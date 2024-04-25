@@ -14,8 +14,9 @@ const MatchItemComponent = ({
   more,
   children,
   isActive,
-  isDisabled
-
+  isDisabled,
+  mn,
+  hasCashout,
 }) => {
   const Component =
     {
@@ -24,7 +25,6 @@ const MatchItemComponent = ({
 
   return (
     <Component
-
       view={view}
       variant={variant}
       ht={ht}
@@ -36,6 +36,8 @@ const MatchItemComponent = ({
       children={children}
       isActive={isActive}
       isDisabled={isDisabled}
+      mn={mn}
+      hasCashout={hasCashout}
     />
   );
 };

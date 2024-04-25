@@ -46,7 +46,6 @@ html {
   --global_font_size_xs: 9px;
 
   --layout_gap: 16px;
-  --tns: 0.2s;
 
   --odd_width: 56px;
   --odd_height: 30px;
@@ -154,8 +153,6 @@ html {
 .european_view_home_widget_content .child_btn {
   width: 100%;
 }
-
-
 
 /*champ header*/
 .view_european_side_bar_item_live_legend {
@@ -269,37 +266,13 @@ html {
   height: 100%;
 }
 
-
-
-.odds_layout {
-  display: grid;
-  grid-template-columns: 100%;
-  column-gap: var(--paddingX2);
-  align-items: center;
-}
-
-.odds_layout.odds_layout_3 {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  column-gap: var(--paddingX2);
-  align-items: center;
-}
-.odds_layout.odds_layout_2 {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  column-gap: var(--paddingX2);
-  row-gap: var(--paddingY2);
-  align-items: center;
-}
-
-
 /*event details tab*/
-.european_view_event_tabs_wrapper{
+.european_view_event_tabs_wrapper {
   /* overflow-x: auto; */
   /* width: 100%; */
 }
 
-.european_view_event_tab{
+.european_view_event_tab {
   flex-shrink: 0;
   --h: 30px;
   appearance: none;
@@ -317,7 +290,9 @@ html {
   padding-inline-start: var(--paddingX2);
   padding-inline-end: var(--paddingX2);
   cursor: pointer;
-  transition: background 0.2s, color 0.2s;
+  transition:
+    background 0.2s,
+    color 0.2s;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -325,14 +300,13 @@ html {
   cursor: pointer;
 }
 
-.european_view_event_tab.state_selected{
+.european_view_event_tab.state_selected {
   background: var(--tabActiveG);
   color: var(--tabActiveTxt);
   border-color: var(--tabActiveBgHover);
 }
 
-
-.european_view_event_tabs_wrapper{
+.european_view_event_tabs_wrapper {
   display: flex;
   align-items: center;
   column-gap: var(--paddingX2);

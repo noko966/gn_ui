@@ -1,6 +1,7 @@
 import React from "react";
 import cn from "classnames";
 import "./index.scss";
+import classNames from "classnames";
 
 const Odd = ({ isActive, isDisabled, factor, up, down }) => {
   const componentCn = cn({
@@ -14,15 +15,22 @@ const Odd = ({ isActive, isDisabled, factor, up, down }) => {
     <div>
       <div className={componentCn}>{factor}</div>
     </div>
+  );
+};
 
-  )
-}
-
-const OddFull = ({ isActive, isDisabled, factor, up, down, market, layout = "row" }) => {
+const OddFull = ({
+  isActive,
+  isDisabled,
+  factor,
+  up,
+  down,
+  market,
+  layout = "row",
+}) => {
   const layoutMapping = {
     row: "of_layout_row",
     col: "of_layout_col",
-  }
+  };
   const layoutClassName = layoutMapping[layout];
   const rootCn = cn({
     european_view_odd_full_wrapper: true,
@@ -40,13 +48,18 @@ const OddFull = ({ isActive, isDisabled, factor, up, down, market, layout = "row
       <span className="of_name">{market}</span>
       <div className={componentCn}>{factor}</div>
     </div>
-
-  )
-}
-
+  );
+};
 
 const OddVariant = ({
-  isActive, isDisabled, factor, up, down, market, layout, variant,
+  isActive,
+  isDisabled,
+  factor,
+  up,
+  down,
+  market,
+  layout,
+  variant,
 }) => {
   const Component =
     {
@@ -67,7 +80,5 @@ const OddVariant = ({
     />
   );
 };
-
-
 
 export default OddVariant;

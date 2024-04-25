@@ -1,8 +1,8 @@
-import React from "react";
+import React, { isValidElement, Children } from "react";
 import classNames from "classnames";
 import "./index.scss";
 
-import EuropeanView from "./views/european/index"
+import EuropeanView from "./views/european/index";
 
 const AfricanView = ({ factor, isActive, isDisabled }) => {
   const oddClassName = classNames({
@@ -44,7 +44,17 @@ const EsportView = ({ factor, isActive, isDisabled, variant }) => {
 // etc.
 
 // Main component
-const OddsComponent = ({ view, isActive, isDisabled, factor, up, down, market, layout, variant, }) => {
+const Odd = ({
+  view,
+  isActive,
+  isDisabled,
+  factor,
+  up,
+  down,
+  market,
+  layout,
+  variant,
+}) => {
   const Component =
     {
       european: EuropeanView,
@@ -69,4 +79,38 @@ const OddsComponent = ({ view, isActive, isDisabled, factor, up, down, market, l
   );
 };
 
-export default OddsComponent;
+const OddsWrapper = ({ children }) => {
+  const areChildrenOdd = Children.toArray(children).every(
+    (child) => isValidElement(child) && child.type === Odd
+  );
+  // Get the count of children
+  const oddsCount = Children.count(children);
+  // Determine the final count based on specified conditions
+  let finalCount;
+  if (oddsCount === 1) {
+    finalCount = 1;
+  } else if (oddsCount >= 2) {
+    finalCount = 2;
+  }
+  if (oddsCount === 3) {
+    finalCount = 3;
+  }
+  const thisClassName = classNames({
+    odds_layout: true,
+    [`odds_layout_${finalCount || 0}`]: areChildrenOdd,
+  });
+  return (
+    <div className={thisClassName}> {areChildrenOdd ? children : null}</div>
+  );
+};
+// const OddsWrapperComponent = ({ view, children }) => {
+//   const Component =
+//     {
+//       european: European,
+//       // Add other components as needed
+//     }[view] || EuOddWrapper;
+
+//   return <Component view={view} children={children} />;
+// };
+
+export { Odd, OddsWrapper };

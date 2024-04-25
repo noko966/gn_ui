@@ -1,5 +1,4 @@
 import React, { useState, useRef, useEffect } from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./Dropdown.scss";
 
@@ -65,16 +64,6 @@ const Dropdown = ({ options, onChange, defaultValue }) => {
       )}
     </div>
   );
-};
-
-Dropdown.propTypes = {
-  option: PropTypes.array,
-  onClick: PropTypes.func,
-  isWithIcon: PropTypes.bool,
-  iconClassName: PropTypes.string,
-  isDisabled: PropTypes.bool,
-  iconPositionStart: PropTypes.bool,
-  sportIconStyle: PropTypes.number,
 };
 
 export default Dropdown;

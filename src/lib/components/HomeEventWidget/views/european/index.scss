@@ -73,7 +73,7 @@
   column-gap: 6px;
 }
 
-.european_view_home_event_row  .ev_team {
+.european_view_home_event_row .ev_team {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -317,4 +317,8 @@
 
 .european_view_home_events_widget_more.state_active {
   transform: rotate(180deg);
+}
+
+.eu_ew_l_odds_container {
+  column-gap: var(--paddingX2);
 }

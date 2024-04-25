@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import PropTypes from "prop-types";
 import classNames from "classnames";
 import "./index.scss";
 
@@ -45,10 +44,6 @@ const EuropeanView = ({ children, fullHeight, view, isRTL }) => {
       {children}
     </main>
   );
-};
-
-EuropeanView.propTypes = {
-  children: PropTypes.object,
 };
 
 export default EuropeanView;

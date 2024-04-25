@@ -11,7 +11,8 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background var(--trn) color var(--trn) border-color var(--trn);
+  transition: background 0.2s ease-in color 0.2s ease-in border-color 0.2s
+    ease-in;
   &:hover {
     background: var(--oddBgHover);
     color: var(--oddTxt);
@@ -54,15 +55,16 @@
   }
 }
 
-
-.european_view_odd_full_wrapper{
- display: flex;
- align-items: center;
- column-gap: var(--paddingX2);
- width: 100%;
+.european_view_odd_full_wrapper {
+  display: flex;
+  align-items: center;
+  padding: var(--paddingY2) var(--paddingX2);
+  border-top: 1px solid var(--eventBorder);
+  width: 100%;
+  column-gap: var(--paddingX2);
 }
 
-.european_view_odd_full_wrapper .of_name{
+.european_view_odd_full_wrapper .of_name {
   flex-grow: 1;
   min-width: 1px;
   overflow: hidden;
@@ -73,17 +75,17 @@
   justify-content: flex-end;
 }
 
-.european_view_odd_full_wrapper.of_layout_col{
+.european_view_odd_full_wrapper.of_layout_col {
   flex-direction: column;
   column-gap: 0;
   row-gap: var(--paddingY2);
 }
 
-.european_view_odd_full_wrapper.of_layout_col .of_name{
+.european_view_odd_full_wrapper.of_layout_col .of_name {
   justify-content: center;
 }
 
-.european_view_odd{
+.european_view_odd {
   width: var(--odd_width);
   height: var(--odd_height);
   border-radius: var(--oddRadius);
@@ -95,7 +97,8 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: background var(--trn) color var(--trn) border-color var(--trn);
+  transition: background 0.2s ease-in color 0.2s ease-in border-color 0.2s
+    ease-in;
   &:hover {
     background: var(--oddBgHover);
     color: var(--oddTxt);
@@ -116,4 +119,38 @@
 
 .european_view_odd.oddUp {
   animation: anim_odd_state_up 7s 1;
+}
+
+.odds_layout {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.odds_layout > .european_view_odd_full_wrapper {
+  flex-shrink: 0;
+  width: 100%;
+}
+.odds_layout.odds_layout_3 > .european_view_odd_full_wrapper {
+  flex-shrink: 0;
+  width: 33.333%;
+  border-top: 0;
+}
+.odds_layout.odds_layout_2 > .european_view_odd_full_wrapper {
+  flex-shrink: 0;
+  width: 50%;
+}
+
+.odds_layout.odds_layout_2
+  > .european_view_odd_full_wrapper:last-child:nth-child(odd) {
+  width: 100%; /* Make last element full width */
+}
+
+.odds_layout.odds_layout_2 > .european_view_odd_full_wrapper:first-child,
+.odds_layout.odds_layout_2 > .european_view_odd_full_wrapper:nth-child(2) {
+  border-top: 0;
+}
+
+.eu_ew_odds_container .odds_layout {
+  column-gap: var(--paddingX2);
 }
