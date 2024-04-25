@@ -2955,7 +2955,8 @@
   content: "\e191";
 }
 
-.dg_icon_market_swap:before {
+.dg_icon_market_swap:before,
+.icon_swap:before {
   content: "\e192";
 }
 
