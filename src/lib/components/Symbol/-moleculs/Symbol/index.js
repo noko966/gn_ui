@@ -151,7 +151,7 @@ const Mapping = {
   boost: "icon_double",
   control_unchecked: "icon_control_unchecked",
   control_checked: "icon_control_checked",
-  cash_out: "icon_cash_out",
+  swap: "icon_swap",
 };
 
 const Variants = {

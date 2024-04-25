@@ -117,6 +117,33 @@ const Market = ({ mn, children, isActive, isDisabled, hasCashout }) => {
   );
 };
 
+const MarketsHeader = ({ ht, at,  date, time, isDisabled, isActive }) => {
+
+  const rootClassName = classNames({
+    [`european_view_match_header_base`]: true,
+    variant_markets_header: true,
+    state_active: isActive,
+    state_disabled: isDisabled,
+  });
+
+  return (
+      <div className={rootClassName}>
+        <div className="layout_start">
+          <div className="layout_t">
+            <Text customClassName={"n"} text={ht} />
+            <Text customClassName={"n"} text={at} />
+          </div>
+        </div>
+        <div className="layout_end">
+          <Text text={date} />
+          <Text text={time} />
+          <Symbol sportId={"swap"}/>
+        </div>
+      </div>
+      
+  );
+};
+
 const MatchItemVariant = ({
   view,
   variant,
@@ -136,6 +163,7 @@ const MatchItemVariant = ({
     {
       game: Game,
       market: Market,
+      marketsHeader: MarketsHeader,
       // country: Country,
     }[variant] || Sport;
 
