@@ -10,7 +10,6 @@ export { default as Event } from "./components/Event/Event.js";
 export { default as Dropdown } from "./components/Dropdown/Dropdown.js";
 export { OddsWrapper, Odd } from "./components/Odd/index.js";
 export { default as Symbol } from "./components/Symbol/index.js";
-export { default as SideItem } from "./components/SideItem/index.js";
 export { default as Flag } from "./components/Flag/index.js";
 export { default as Favorite } from "./components/Favorite/index.js";
 export { default as Scroll } from "./components/Layouts/Scroll/index.js";
@@ -24,3 +23,4 @@ export { Control } from "./components/Control/index.js";
 export { default as Content } from "./components/Content/index.js";
 
 export { default as StateWrapper } from "./components/StateWrapper/index.js";
+export { default as Collapse } from "./components/Collapse/index.js";

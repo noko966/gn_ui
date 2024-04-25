@@ -22,6 +22,7 @@ import {
   MatchItem,
   StateWrapper,
   Content,
+  Collapse,
 } from "../library/digi-library";
 
 const PrematchPage = () => {
@@ -147,54 +148,64 @@ const HomePage = () => {
               </button>
             </div>
           </div>
-          <div className="european_view_home_event_header">
-            <Symbol sportId={"angle_up"} />
-            <div>
-              <Text customClassName={"ev_name"} text={getData().sportName} />
-              <Text customClassName={"ev_count"} text={getData().sportId} />
-            </div>
-            <Symbol sportId={5} />
-          </div>
-
-          <div className="european_view_home_event_legend">
-            <div className="legend_item_start">{"event"}</div>
-            <div className="legend_item_center">{"time"}</div>
-
-            {
-              <div className="eu_ew_l_odds_container odds_layout odds_layout_3">
-                <div className={"odd_w"}>{"p1"}</div>
-                <div className={"odd_w"}>{"x"}</div>
-                <div className={"odd_w"}>{"p2"}</div>
+          <Collapse
+            toggler={
+              <div className="european_view_home_event_header">
+                <Symbol sportId={"angle_up"} />
+                <div>
+                  <Text
+                    customClassName={"ev_name"}
+                    text={getData().sportName}
+                  />
+                  <Text customClassName={"ev_count"} text={getData().sportId} />
+                </div>
+                <Symbol sportId={5} />
               </div>
             }
-            <div className="legend_item_center">{"more"}</div>
-          </div>
-          {EVENTS_DATA.map((d, i) => {
-            return (
-              <HomeEventWidgetRow
-                key={i}
-                HTN={d.HTN}
-                ATN={d.ATN}
-                HTSc={d.HTSc}
-                ATSc={d.ATSc}
-                HasLI={d.HasLI}
-                HasLC={d.HasLC}
-                Time={d.Time}
-                MoreCount={d.MoreCount}
-              >
-                {
-                  <OddsWrapper>
-                    <Odd factor={"1.01"} market={"p1"} />
-                    <Odd factor={"1.01"} market={"x"} />
-                    <Odd factor={"1.01"} market={"p2"} />
-                  </OddsWrapper>
-                }
-              </HomeEventWidgetRow>
-            );
-          })}
-          <div className="european_view_home_events_widget_more">
-            <Symbol customClassName="state_indicator" sportId={"angle_down"} />
-          </div>
+          >
+            <div>
+              <div className="european_view_home_event_legend">
+                <div className="legend_item_start">{"event"}</div>
+                <div className="legend_item_center">{"time"}</div>
+
+                <div className="eu_ew_l_odds_container odds_layout odds_layout_3">
+                  <div className={"odd_w"}>{"p1"}</div>
+                  <div className={"odd_w"}>{"x"}</div>
+                  <div className={"odd_w"}>{"p2"}</div>
+                </div>
+                <div className="legend_item_center">{"more"}</div>
+              </div>
+              {EVENTS_DATA.map((d, i) => {
+                return (
+                  <HomeEventWidgetRow
+                    key={i}
+                    HTN={d.HTN}
+                    ATN={d.ATN}
+                    HTSc={d.HTSc}
+                    ATSc={d.ATSc}
+                    HasLI={d.HasLI}
+                    HasLC={d.HasLC}
+                    Time={d.Time}
+                    MoreCount={d.MoreCount}
+                  >
+                    {
+                      <OddsWrapper>
+                        <Odd factor={"1.01"} market={"p1"} />
+                        <Odd factor={"1.01"} market={"x"} />
+                        <Odd factor={"1.01"} market={"p2"} />
+                      </OddsWrapper>
+                    }
+                  </HomeEventWidgetRow>
+                );
+              })}
+            </div>
+            <div className="european_view_home_events_widget_more">
+              <Symbol
+                customClassName="state_indicator"
+                sportId={"angle_down"}
+              />
+            </div>
+          </Collapse>
         </div>
         {Array.from({ length: 2 }, (_, index) => (
           <div key={index} className="european_view_home_events_widget_root">
