@@ -18,7 +18,7 @@ export { default as Text } from "./components/Text/index.js";
 export { default as SidebarItem } from "./components/SidebarItem/index.js";
 export { MarketFilter, MatchItem } from "./components/MatchItem/index.js";
 export { SidebarTabs, SidebarTab } from "./components/SidebarTab/index.js";
-export { default as HomeEventWidgetRow } from "./components/HomeEventWidget/index.js";
+export {HomeEventWidgetRow, HomeEventWidgetLegend, HomeEventWidgetLegendExpert } from "./components/HomeEventWidget/index.js";
 export { Control } from "./components/Control/index.js";
 export { default as Content } from "./components/Content/index.js";
 

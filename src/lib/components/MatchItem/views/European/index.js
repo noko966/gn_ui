@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import classNames from "classnames";
 import Symbol from "../../../Symbol/index.js";
 import Favorite from "../../../Favorite/index.js";
@@ -66,7 +66,7 @@ const Market = ({ mn, children, isActive, isDisabled, hasCashout }) => {
     sub_state_visible: isVisible,
   });
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Calculate and log the children props
     let count = 0;
     const calculateHeight = (c) => {
@@ -159,7 +159,7 @@ const MarketFilter = ({ isDisabled, isActive, id, name, info }) => {
   return (
     <div className={rootClassName}>
       <div className="layout_start">
-        <Symbol sportId={"icon_double"} />
+        <Symbol sportId={"double"} />
         <Symbol sportId={id} />
         <div className="layout_t">
           <Text customClassName={"n"} text={name} />

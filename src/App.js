@@ -24,417 +24,15 @@ import {
   Content,
   Collapse,
   MarketFilter,
+  HomeEventWidgetLegend
 } from "../library/digi-library";
 
-const PrematchPage = () => {
-  return (
-    <div className="european_view_prematch_root">
-      <MarketFilter id={1} name="name heading" info={false} />
-      <div className="european_view_prematch_content_layout">
-        <Scroll>
-          <div className="european_view_prematch_list">
-            {Array.from({ length: 10 }, (_, index) => (
-              <MatchItem
-                key={index}
-                variant="game"
-                ht={"team name one"}
-                at={"team name two"}
-                id={"1254788"}
-                date={"24.03"}
-                time={"12:30"}
-                more={"40"}
-              >
-                {
-                  <OddsWrapper>
-                    <Odd variant="full" factor={"1.01"} market={"p1"} />
-                    <Odd variant="full" factor={"1.01"} market={"x"} />
-                    <Odd variant="full" factor={"1.01"} market={"p2"} />
-                  </OddsWrapper>
-                }
-              </MatchItem>
-            ))}
-          </div>
-        </Scroll>
-        <Scroll>
-          <MatchItem
-            variant="marketsHeader"
-            ht={"home team name"}
-            at={"away team name"}
-            date={"12.04"}
-            time={"15:44"}
-          />
-          <div className="european_view_event_tabs_root view_european_scroll_x">
-            <div className="european_view_event_tabs_wrapper">
-              <button className="european_view_event_tab state_selected">
-                <i />
-                <Text text="main" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="handicaps" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="totals" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="1st quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="2nd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-            </div>
-          </div>
+import HomePage from "./Home";
+import PrematchPage from "./Prematch";
+import LivePage from "./Live";
 
-          <div className="european_view_prematch_list">
-            {Array.from({ length: 16 }, (_, index) => (
-              <MatchItem
-                hasCashout={true}
-                key={index}
-                variant="market"
-                mn={"market name"}
-              >
-                {
-                  <OddsWrapper>
-                    {Array.from(
-                      { length: Math.floor(Math.random() * 6) + 1 },
-                      (_, index) => (
-                        <Odd
-                          key={index}
-                          variant="full"
-                          factor="1.01"
-                          market={`market name ${index}`}
-                        />
-                      )
-                    )}
-                  </OddsWrapper>
-                }
-              </MatchItem>
-            ))}
-          </div>
-        </Scroll>
-      </div>
-    </div>
-  );
-};
 
-const HomePage = () => {
-  return (
-    <div className="home_page_widgets_wrapper">
-      <div className="european_view_home_events_widgets_list">
-        <div className="european_view_home_events_widget_root">
-          <div className="european_view_home_event_filter">
-            <span className="widget_name">{"Live events"}</span>
-            <div className="european_view_home_event_tabs_row">
-              <button className="european_view_home_event_tab state_active">
-                <Text text="now" />
-              </button>
-              <button className="european_view_home_event_tab">
-                <Text text="coming up" />
-              </button>
-            </div>
-          </div>
-          <Collapse
-            toggler={
-              <div className="european_view_home_event_header">
-                <Symbol sportId={"angle_up"} />
-                <div>
-                  <Text
-                    customClassName={"ev_name"}
-                    text={getData().sportName}
-                  />
-                  <Text customClassName={"ev_count"} text={getData().sportId} />
-                </div>
-                <Symbol sportId={5} />
-              </div>
-            }
-          >
-            <div>
-              <div className="european_view_home_event_legend">
-                <div className="legend_item_start">{"event"}</div>
-                <div className="legend_item_center">{"time"}</div>
 
-                <div className="eu_ew_l_odds_container odds_layout odds_layout_3">
-                  <div className={"odd_w"}>{"p1"}</div>
-                  <div className={"odd_w"}>{"x"}</div>
-                  <div className={"odd_w"}>{"p2"}</div>
-                </div>
-                <div className="legend_item_center">{"more"}</div>
-              </div>
-              {EVENTS_DATA.map((d, i) => {
-                return (
-                  <HomeEventWidgetRow
-                    key={i}
-                    HTN={d.HTN}
-                    ATN={d.ATN}
-                    HTSc={d.HTSc}
-                    ATSc={d.ATSc}
-                    HasLI={d.HasLI}
-                    HasLC={d.HasLC}
-                    Time={d.Time}
-                    MoreCount={d.MoreCount}
-                  >
-                    {
-                      <OddsWrapper>
-                        <Odd factor={"1.01"} market={"p1"} />
-                        <Odd factor={"1.01"} market={"x"} />
-                        <Odd factor={"1.01"} market={"p2"} />
-                      </OddsWrapper>
-                    }
-                  </HomeEventWidgetRow>
-                );
-              })}
-            </div>
-            <div className="european_view_home_events_widget_more">
-              <Symbol
-                customClassName="state_indicator"
-                sportId={"angle_down"}
-              />
-            </div>
-          </Collapse>
-        </div>
-        {Array.from({ length: 2 }, (_, index) => (
-          <div key={index} className="european_view_home_events_widget_root">
-            <div className="european_view_home_event_filter">
-              <span className="widget_name">{"Live events"}</span>
-              <div className="european_view_home_event_tabs_row">
-                <button className="european_view_home_event_tab state_active">
-                  <Symbol sportId={1} />
-                </button>
-                <button className="european_view_home_event_tab">
-                  <Symbol sportId={5} />
-                </button>
-              </div>
-            </div>
-            <div className="european_view_home_event_header">
-              <Symbol sportId={"angle_up"} />
-              <div>
-                <Text customClassName={"ev_name"} text={getData().sportName} />
-                <Text customClassName={"ev_count"} text={getData().sportId} />
-              </div>
-              <Symbol sportId={index + 1} />
-            </div>
-
-            <div className="european_view_home_event_legend">
-              <div className="legend_item_start">{"event"}</div>
-              <div className="legend_item_center">{"time"}</div>
-
-              {
-                <div className="odds_layout odds_layout_3">
-                  <div className={"odd_w"}>{"p1"}</div>
-                  <div className={"odd_w"}>{"x"}</div>
-                  <div className={"odd_w"}>{"p2"}</div>
-                </div>
-              }
-              <div className="legend_item_center">{"more"}</div>
-            </div>
-            {EVENTS_DATA.map((d, i) => {
-              return (
-                <HomeEventWidgetRow
-                  key={i}
-                  HTN={d.HTN}
-                  ATN={d.ATN}
-                  HTSc={d.HTSc}
-                  ATSc={d.ATSc}
-                  HasLI={d.HasLI}
-                  HasLC={d.HasLC}
-                  Time={d.Time}
-                  MoreCount={d.MoreCount}
-                >
-                  <OddsWrapper>
-                    <Odd factor={"1.01"} market={"p1"} />
-                    <Odd factor={"1.01"} market={"x"} />
-                    <Odd factor={"1.01"} market={"p2"} />
-                  </OddsWrapper>
-                </HomeEventWidgetRow>
-              );
-            })}
-            <div className="european_view_home_events_widget_more">
-              <Symbol
-                customClassName="state_indicator"
-                sportId={"angle_down"}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-      <div className="european_view_home_events_widgets_list">
-        {Array.from({ length: 2 }, (_, index) => (
-          <div key={index} className="european_view_home_events_widget_root">
-            <div className="european_view_home_event_filter">
-              <span className="widget_name">{"upcoming events"}</span>
-              <div className="european_view_home_event_tabs_row">
-                {Array.from({ length: 6 }, (_, index) => (
-                  <button key={index} className="european_view_home_event_tab">
-                    <Symbol sportId={index} />
-                  </button>
-                ))}
-              </div>
-            </div>
-            <div className="european_view_home_event_header">
-              <Symbol sportId={"angle_up"} />
-              <div>
-                <Text customClassName={"ev_name"} text={getData().sportName} />
-                <Text customClassName={"ev_count"} text={getData().sportId} />
-              </div>
-              <Symbol sportId={index + 1} />
-            </div>
-            <div className="european_view_home_event_legend">
-              <div className="legend_item_start">{"event"}</div>
-              <div className="legend_item_center">{"time"}</div>
-              <div className="odds_layout odds_layout_2">
-                <div className={"odd_w"}>{"p1"}</div>
-                <div className={"odd_w"}>{"p2"}</div>
-              </div>
-              <div className="legend_item_center">{"more"}</div>
-            </div>
-            {EVENTS_DATA.map((d, i) => {
-              return (
-                <HomeEventWidgetRow
-                  key={i}
-                  HTN={d.HTN}
-                  ATN={d.ATN}
-                  HTSc={d.HTSc}
-                  ATSc={d.ATSc}
-                  HasLI={d.HasLI}
-                  HasLC={d.HasLC}
-                  Time={d.Time}
-                  MoreCount={d.MoreCount}
-                >
-                  {
-                    <div className="odds_layout odds_layout_2">
-                      <Odd factor={"1.01"} market={"p1"} />
-                      <Odd factor={"1.01"} market={"p2"} />
-                    </div>
-                  }
-                </HomeEventWidgetRow>
-              );
-            })}
-            <div className="european_view_home_events_widget_more">
-              <Symbol
-                customClassName="state_indicator"
-                sportId={"angle_down"}
-              />
-            </div>
-          </div>
-        ))}
-        <div className="european_view_home_events_widget_root">
-          <div className="european_view_home_event_filter">
-            <span className="widget_name">{"Toto expert"}</span>
-            <div className="european_view_home_event_tabs_row">
-              {Array.from({ length: 3 }, (_, index) => (
-                <button key={index} className="european_view_home_event_tab">
-                  <Symbol sportId={index} />
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="european_view_home_event_expert_legend">
-            <div className="legend_item_start">{"event"}</div>
-            <div className="legend_item_center">{"time"}</div>
-            <div className="legend_item_start">{"bet"}</div>
-            <div className="legend_item_center">{"odds"}</div>
-          </div>
-
-          {EVENTS_DATA.map((d, i) => {
-            return (
-              <HomeEventWidgetRow
-                variant={"expert"}
-                key={i}
-                HTN={d.HTN}
-                ATN={d.ATN}
-                Bet={d.Bet}
-                Time={d.Time}
-              >
-                <div className="odds_layout">
-                  <Odd factor={"1.01"} market={"p1"} />
-                </div>
-              </HomeEventWidgetRow>
-            );
-          })}
-          <div className="european_view_home_events_widget_more">
-            <Symbol customClassName="state_indicator" sportId={"angle_down"} />
-          </div>
-        </div>
-
-        <div className="european_view_home_events_widget_root">
-          <div className="european_view_home_event_filter">
-            <span className="widget_name">{"Multi bet of the day"}</span>
-          </div>
-          <div className="view_european_multi_bet_widget_controls">
-            <div className="mbw_controls">
-              <button className="mbw_control_p">
-                <Symbol sportId={"angle_left"} />
-              </button>
-              <button className="mbw_control_p">
-                <Symbol sportId={"angle_right"} />
-              </button>
-            </div>
-            <div className="mbw_name">
-              <Text text={"N1"} />
-            </div>
-          </div>
-
-          {EVENTS_DATA.map((d, i) => {
-            return (
-              <HomeEventWidgetRow
-                variant={"nultiBet"}
-                key={i}
-                HTN={"Team name home"}
-                ATN={"Team name away"}
-                Bet={"Res: win 1"}
-                Date={"20-04"}
-                Time={"19-00"}
-                Arg={"5.21"}
-                EID={"12355"}
-                LN={"League name"}
-                sportId={1}
-              />
-            );
-          })}
-          <div className="view_european_multi_bet_widget_footer">
-            <div>
-              <Text text={""} />
-            </div>
-            <div>
-              <Text text={"5.54"} />
-            </div>
-            <div>
-              <Button
-                variant="accent"
-                icon={<Symbol sportId={"boost"} />}
-                text={"8.45"}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const EVENTS_DATA = [
   {
@@ -446,6 +44,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "28'",
     MoreCount: 5,
+    Bet: "Some Market Name"
   },
   {
     HTN: "Manchester United",
@@ -456,6 +55,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "45'",
     MoreCount: 7,
+    Bet: "Some Market Name"
   },
   {
     HTN: "Los Angeles Lakers",
@@ -466,6 +66,7 @@ const EVENTS_DATA = [
     HasLC: false,
     Time: "48'",
     MoreCount: 10,
+    Bet: "Some Market Name"
   },
 ];
 
@@ -518,9 +119,10 @@ class App extends Component {
                 <span>line event list</span>
               </Link>
 
-              <div className="european_view_home_nav_item">
+              <Link className="european_view_home_nav_item" to="/live">
                 <span>live event list</span>
-              </div>
+              </Link>
+
               <div className="european_view_home_nav_item">
                 <span>multi view</span>
               </div>
@@ -542,7 +144,7 @@ class App extends Component {
             <Scroll>
               <SidebarTabs>
                 <SidebarTab title="Prematch" count={200}>
-                  <Control onChange={() => {}} />
+                  <Control onChange={() => { }} />
                   <SidebarItem
                     view={"european"}
                     variant={"favorite"}
@@ -641,6 +243,7 @@ class App extends Component {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/line" element={<PrematchPage />} />
+                <Route path="/live" element={<LivePage />} />
               </Routes>
             </Scroll>
 

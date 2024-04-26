@@ -2633,7 +2633,8 @@
   content: "\e149";
 }
 
-.dg_icon_issue:before {
+.dg_icon_issue:before,
+.icon_issue:before {
   content: "\e14A";
 }
 

@@ -1,7 +1,9 @@
 import React from "react";
 import "./index.scss";
 
-import EuropeanView from "./views/european/index";
+import {EuropeanView} from "./views/european/index";
+import {HomeEventWidgetLegend, HomeEventWidgetLegendExpert} from "./views/european/index";
+
 
 // Main component
 const HomeEventWidgetRow = ({
@@ -54,4 +56,4 @@ const HomeEventWidgetRow = ({
   );
 };
 
-export default HomeEventWidgetRow;
+export {HomeEventWidgetRow, HomeEventWidgetLegend, HomeEventWidgetLegendExpert};

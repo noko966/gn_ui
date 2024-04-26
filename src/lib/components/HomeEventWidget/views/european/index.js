@@ -160,4 +160,29 @@ const HomeEventWidgetRowVariant = ({
   );
 };
 
-export default HomeEventWidgetRowVariant;
+
+const HomeEventWidgetLegend = ({ }) => {
+  
+  return (<div className="european_view_home_event_legend">
+    <div className="legend_item_start">{"event"}</div>
+    <div className="legend_item_center">{"time"}</div>
+
+    <div className="eu_ew_l_odds_container odds_layout odds_layout_3">
+      <div className={"odd_w"}>{"p1"}</div>
+      <div className={"odd_w"}>{"x"}</div>
+      <div className={"odd_w"}>{"p2"}</div>
+    </div>
+    <div className="legend_item_center">{"more"}</div>
+  </div>)
+}
+
+const HomeEventWidgetLegendExpert = ({ }) => {
+  return (<div className="european_view_home_event_expert_legend">
+    <div className="legend_item_start">{"event"}</div>
+    <div className="legend_item_center">{"time"}</div>
+    <div className="legend_item_start">{"bet"}</div>
+    <div className="legend_item_center">{"odds"}</div>
+  </div>)
+}
+
+export { HomeEventWidgetRowVariant as EuropeanView, HomeEventWidgetLegend, HomeEventWidgetLegendExpert };

@@ -31,11 +31,35 @@
   background-repeat: no-repeat;
   background-image: url(./images/backgrounds/1.webp);
   background-position: right center;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.sport_bg_graphics {
+.sport_type_1  {
   background-image: url("./images/backgrounds/1.webp");
 }
-.sport_bg_graphics {
-  background-image: url("./images/backgrounds/1.webp");
+.sport_type_2 {
+  background-image: url("./images/backgrounds/2.webp");
 }
+.sport_type_4 {
+  background-image: url("./images/backgrounds/4.webp");
+}
+
+.sport_type_5 {
+  background-image: url("./images/backgrounds/5.webp");
+}
+
+.sport_type_7 {
+  background-image: url("./images/backgrounds/7.webp");
+}
+
+.sport_type_2 {
+  background-image: url("./images/backgrounds/2.webp");
+}
+
+.sport_type_2 {
+  background-image: url("./images/backgrounds/2.webp");
+}
+

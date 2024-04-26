@@ -148,10 +148,11 @@ const Mapping = {
   angle_left: "icon_angle_left",
   stream: "icon_stream",
   info: "icon_info",
-  boost: "icon_double",
+  double: "icon_double",
   control_unchecked: "icon_control_unchecked",
   control_checked: "icon_control_checked",
   swap: "icon_swap",
+  issue: "icon_issue",
 };
 
 const Variants = {
