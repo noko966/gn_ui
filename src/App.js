@@ -23,12 +23,13 @@ import {
   StateWrapper,
   Content,
   Collapse,
+  MarketFilter,
 } from "../library/digi-library";
 
 const PrematchPage = () => {
   return (
     <div className="european_view_prematch_root">
-      <div className="european_view_prematch_filter"></div>
+      <MarketFilter id={1} name="name heading" info={false} />
       <div className="european_view_prematch_content_layout">
         <Scroll>
           <div className="european_view_prematch_list">
@@ -55,7 +56,13 @@ const PrematchPage = () => {
           </div>
         </Scroll>
         <Scroll>
-          <MatchItem variant="marketsHeader" ht={"home team name"} at={"away team name"}  date={"12.04"} time={"15:44"} />
+          <MatchItem
+            variant="marketsHeader"
+            ht={"home team name"}
+            at={"away team name"}
+            date={"12.04"}
+            time={"15:44"}
+          />
           <div className="european_view_event_tabs_root view_european_scroll_x">
             <div className="european_view_event_tabs_wrapper">
               <button className="european_view_event_tab state_selected">
@@ -536,63 +543,47 @@ class App extends Component {
               <SidebarTabs>
                 <SidebarTab title="Prematch" count={200}>
                   <Control onChange={() => {}} />
-                  <StateWrapper>
+                  <SidebarItem
+                    view={"european"}
+                    variant={"favorite"}
+                    name="favorites"
+                    count={0}
+                  />
+                  <SidebarItem
+                    view={"european"}
+                    variant={"league"}
+                    name="league name"
+                  />
+                  <SidebarItem
+                    view={"european"}
+                    variant={"league"}
+                    name="league name"
+                  />
+                  <SidebarItem
+                    view={"european"}
+                    variant={"league"}
+                    name="league name"
+                  />
+                  {Array.from({ length: 3 }, (_, index) => (
                     <SidebarItem
                       view={"european"}
-                      variant={"favorite"}
-                      name="favorites"
-                      count={0}
+                      variant={"sport"}
+                      name={"sport name"}
+                      sportId={index + 1}
+                      count={"1"}
                     />
-                    <Content>
-                      <SidebarItem
-                        view={"european"}
-                        variant={"league"}
-                        name="league name"
-                      />
-                      <SidebarItem
-                        view={"european"}
-                        variant={"league"}
-                        name="league name"
-                      />
-                      <SidebarItem
-                        view={"european"}
-                        variant={"league"}
-                        name="league name"
-                      />
-                    </Content>
-                  </StateWrapper>
-                  {Array.from({ length: 3 }, (_, index) => (
-                    <StateWrapper>
-                      <SidebarItem
-                        view={"european"}
-                        variant={"sport"}
-                        name={"sport name"}
-                        sportId={index + 1}
-                        count={"1"}
-                      />
-                      <Content>
-                        {/* <StateWrapper> */}
-                        <SidebarItem
-                          view={"european"}
-                          variant={"country"}
-                          name="country name"
-                        />
-                        <Content>
-                          <SidebarItem
-                            view={"european"}
-                            variant={"league"}
-                            name="league name"
-                          />
-                          <SidebarItem
-                            view={"european"}
-                            variant={"league"}
-                            name="league name"
-                          />
-                        </Content>
-                        {/* </StateWrapper> */}
-                      </Content>
-                    </StateWrapper>
                   ))}
+
+                  <SidebarItem
+                    view={"european"}
+                    variant={"country"}
+                    name="country name"
+                  />
+                  <SidebarItem
+                    view={"european"}
+                    variant={"league"}
+                    name="league name"
+                  />
                 </SidebarTab>
                 <SidebarTab title="Live">
                   {Array.from({ length: demoRandom() }, (_, index) => (

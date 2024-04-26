@@ -23,3 +23,19 @@
 .dg_flag-170 {
   background-image: url("./images/flags/170.png");
 }
+
+.sport_bg_graphics {
+  width: 320px;
+  height: 150px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-image: url(./images/backgrounds/1.webp);
+  background-position: right center;
+}
+
+.sport_bg_graphics {
+  background-image: url("./images/backgrounds/1.webp");
+}
+.sport_bg_graphics {
+  background-image: url("./images/backgrounds/1.webp");
+}

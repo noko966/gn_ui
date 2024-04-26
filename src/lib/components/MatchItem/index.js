@@ -1,7 +1,8 @@
 import React from "react";
 
 // import "./index.scss";
-import European from "./views/European/index.js";
+import { MatchItemVariant as European } from "./views/European/index.js";
+import { MarketFilter } from "./views/European/index.js";
 
 const MatchItemComponent = ({
   view,
@@ -42,4 +43,4 @@ const MatchItemComponent = ({
   );
 };
 
-export default MatchItemComponent;
+export { MatchItemComponent as MatchItem, MarketFilter };

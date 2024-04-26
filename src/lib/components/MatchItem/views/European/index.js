@@ -3,6 +3,7 @@ import classNames from "classnames";
 import Symbol from "../../../Symbol/index.js";
 import Favorite from "../../../Favorite/index.js";
 import Text from "../../../Text/index.js";
+import Dropdown from "../../../Dropdown/Dropdown.js";
 import "./index.scss";
 
 const Game = ({ ht, at, id, date, time, more, children, isDisabled }) => {
@@ -117,8 +118,7 @@ const Market = ({ mn, children, isActive, isDisabled, hasCashout }) => {
   );
 };
 
-const MarketsHeader = ({ ht, at,  date, time, isDisabled, isActive }) => {
-
+const MarketsHeader = ({ ht, at, date, time, isDisabled, isActive }) => {
   const rootClassName = classNames({
     [`european_view_match_header_base`]: true,
     variant_markets_header: true,
@@ -127,20 +127,58 @@ const MarketsHeader = ({ ht, at,  date, time, isDisabled, isActive }) => {
   });
 
   return (
-      <div className={rootClassName}>
-        <div className="layout_start">
-          <div className="layout_t">
-            <Text customClassName={"n"} text={ht} />
-            <Text customClassName={"n"} text={at} />
-          </div>
-        </div>
-        <div className="layout_end">
-          <Text text={date} />
-          <Text text={time} />
-          <Symbol sportId={"swap"}/>
+    <div className={rootClassName}>
+      <div className="layout_start">
+        <div className="layout_t">
+          <Text customClassName={"n"} text={ht} />
+          <Text customClassName={"n"} text={at} />
         </div>
       </div>
-      
+      <div className="layout_end">
+        <Text text={date} />
+        <Text text={time} />
+        <Symbol sportId={"swap"} />
+      </div>
+    </div>
+  );
+};
+
+const MarketFilter = ({ isDisabled, isActive, id, name, info }) => {
+  const rootClassName = classNames({
+    [`european_view_match_header_base`]: true,
+    variant_markets_filter: true,
+    state_active: isActive,
+    state_disabled: isDisabled,
+  });
+
+  const BgClassName = classNames({
+    sport_bg_graphics: true,
+    [`sport_type_${id}`]: true,
+  });
+
+  return (
+    <div className={rootClassName}>
+      <div className="layout_start">
+        <Symbol sportId={"icon_double"} />
+        <Symbol sportId={id} />
+        <div className="layout_t">
+          <Text customClassName={"n"} text={name} />
+        </div>
+        {info && <Symbol sportId={"info"} />}
+        <Dropdown
+          onChange={() => {}}
+          options={[
+            { value: "football", icon: "sport_front_icon-1" },
+            { value: "basketball", icon: "sport_front_icon-2" },
+            { value: "ruckby", icon: "sport_front_icon-5" },
+          ]}
+        />
+      </div>
+      <div className="layout_end">
+        {/* <Symbol sportId={"swap"} /> */}
+        <div className={BgClassName}></div>
+      </div>
+    </div>
   );
 };
 
@@ -164,8 +202,7 @@ const MatchItemVariant = ({
       game: Game,
       market: Market,
       marketsHeader: MarketsHeader,
-      // country: Country,
-    }[variant] || Sport;
+    }[variant] || Game;
 
   return (
     <Component
@@ -186,4 +223,4 @@ const MatchItemVariant = ({
   );
 };
 
-export default MatchItemVariant;
+export { MatchItemVariant, MarketFilter };

@@ -16,7 +16,7 @@ export { default as Scroll } from "./components/Layouts/Scroll/index.js";
 export { default as Root } from "./components/Layouts/Root/index.js";
 export { default as Text } from "./components/Text/index.js";
 export { default as SidebarItem } from "./components/SidebarItem/index.js";
-export { default as MatchItem } from "./components/MatchItem/index.js";
+export { MarketFilter, MatchItem } from "./components/MatchItem/index.js";
 export { SidebarTabs, SidebarTab } from "./components/SidebarTab/index.js";
 export { default as HomeEventWidgetRow } from "./components/HomeEventWidget/index.js";
 export { Control } from "./components/Control/index.js";
