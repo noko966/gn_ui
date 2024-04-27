@@ -24,15 +24,12 @@ import {
   Content,
   Collapse,
   MarketFilter,
-  HomeEventWidgetLegend
+  HomeEventWidgetLegend,
 } from "../library/digi-library";
 
 import HomePage from "./Home";
 import PrematchPage from "./Prematch";
 import LivePage from "./Live";
-
-
-
 
 const EVENTS_DATA = [
   {
@@ -44,7 +41,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "28'",
     MoreCount: 5,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
   {
     HTN: "Manchester United",
@@ -55,7 +52,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "45'",
     MoreCount: 7,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
   {
     HTN: "Los Angeles Lakers",
@@ -66,7 +63,7 @@ const EVENTS_DATA = [
     HasLC: false,
     Time: "48'",
     MoreCount: 10,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
 ];
 
@@ -144,7 +141,7 @@ class App extends Component {
             <Scroll>
               <SidebarTabs>
                 <SidebarTab title="Prematch" count={200}>
-                  <Control onChange={() => { }} />
+                  <Control onChange={() => {}} />
                   <SidebarItem
                     view={"european"}
                     variant={"favorite"}

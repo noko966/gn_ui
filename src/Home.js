@@ -2,17 +2,13 @@ import React from "react";
 import {
   Symbol,
   Text,
-
   Odd,
   OddsWrapper,
   HomeEventWidgetRow,
   Button,
-
   Collapse,
-  HomeEventWidgetLegend
+  HomeEventWidgetLegend,
 } from "../library/digi-library";
-
-
 
 const EVENTS_DATA = [
   {
@@ -24,7 +20,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "28'",
     MoreCount: 5,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
   {
     HTN: "Manchester United",
@@ -35,7 +31,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "45'",
     MoreCount: 7,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
   {
     HTN: "Los Angeles Lakers",
@@ -46,7 +42,7 @@ const EVENTS_DATA = [
     HasLC: false,
     Time: "48'",
     MoreCount: 10,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
 ];
 
@@ -158,17 +154,23 @@ const HomePage = () => {
               </div>
             </div>
             <Collapse
-              toggler={<div className="european_view_home_event_header">
-                <Symbol sportId={"angle_up"} />
-                <div>
-                  <Text customClassName={"ev_name"} text={getData().sportName} />
-                  <Text customClassName={"ev_count"} text={getData().sportId} />
+              toggler={
+                <div className="european_view_home_event_header">
+                  <Symbol sportId={"angle_up"} />
+                  <div>
+                    <Text
+                      customClassName={"ev_name"}
+                      text={getData().sportName}
+                    />
+                    <Text
+                      customClassName={"ev_count"}
+                      text={getData().sportId}
+                    />
+                  </div>
+                  <Symbol sportId={index + 1} />
                 </div>
-                <Symbol sportId={index + 1} />
-              </div>}
+              }
             >
-
-
               <HomeEventWidgetLegend />
               {EVENTS_DATA.map((d, i) => {
                 return (
@@ -203,7 +205,6 @@ const HomePage = () => {
       </div>
       <div className="european_view_home_events_widgets_list">
         {Array.from({ length: 2 }, (_, index) => (
-
           <div key={index} className="european_view_home_events_widget_root">
             <div className="european_view_home_event_filter">
               <span className="widget_name">{"Upcoming events"}</span>
@@ -222,7 +223,10 @@ const HomePage = () => {
                       customClassName={"ev_name"}
                       text={getData().sportName}
                     />
-                    <Text customClassName={"ev_count"} text={getData().sportId} />
+                    <Text
+                      customClassName={"ev_count"}
+                      text={getData().sportId}
+                    />
                   </div>
                   <Symbol sportId={5} />
                 </div>
@@ -261,7 +265,6 @@ const HomePage = () => {
               </div>
             </Collapse>
           </div>
-
         ))}
         <div className="european_view_home_events_widget_root">
           <div className="european_view_home_event_filter">
@@ -274,8 +277,6 @@ const HomePage = () => {
               ))}
             </div>
           </div>
-
-
 
           <div className="european_view_home_event_expert_legend">
             <div className="legend_item_start">{"event"}</div>
@@ -360,6 +361,5 @@ const HomePage = () => {
     </div>
   );
 };
-
 
 export default HomePage;

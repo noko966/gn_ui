@@ -1,15 +1,14 @@
-import React from "react";
+import React, { Children } from "react";
 import classNames from "classnames";
 import {
   Scroll,
   Text,
   Symbol,
   OddsWrapper,
+  Odd,
   MatchItem,
   MarketFilter,
 } from "../library/digi-library";
-
-
 
 const EVENTS_DATA = [
   {
@@ -21,7 +20,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "28'",
     MoreCount: 5,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
   {
     HTN: "Manchester United",
@@ -32,7 +31,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "45'",
     MoreCount: 7,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
   {
     HTN: "Los Angeles Lakers",
@@ -43,7 +42,7 @@ const EVENTS_DATA = [
     HasLC: false,
     Time: "48'",
     MoreCount: 10,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
 ];
 
@@ -94,9 +93,8 @@ const LiveMatchHeaderComponent = ({ id }) => {
         <div className={BgClassName}></div>
       </div>
     </div>
-
-  )
-}
+  );
+};
 
 const LiveMatchLegendComponent = ({ id }) => {
   const BgClassName = classNames({
@@ -115,28 +113,45 @@ const LiveMatchLegendComponent = ({ id }) => {
         <Symbol sportId={"stream"} />
       </div>
     </div>
+  );
+};
 
-  )
-}
-
-
-const LiveMatchEventComponent = ({ id }) => {
-  const BgClassName = classNames({
-    sport_bg_graphics: true,
-    [`sport_type_${id}`]: true,
+const LiveMatchEventComponent = ({ id, children }) => {
+  const rootClassName = classNames({
+    european_view_live_match_event: true,
   });
 
   return (
-    <div className="european_view_live_match_event">
-      <div className="layout_fill">
+    <div className={rootClassName}>
+      <div className="layout_start">
+        <div className="lo_ts">
+          <div className="lo_tsr">
+            <Text customClassName="sc" text={10} />
+            <Text customClassName="tn" text={"team name home"} />
+          </div>
+          <div className="lo_tsr">
+            <Text customClassName="sc" text={9} />
+            <Text customClassName="tn" text={"team name away"} />
+          </div>
+        </div>
       </div>
-      <div className="layout_hug">
+      <div className="layout_end">
+        <div className="lo_slider_container">
+          <button className="lo_slider_control">
+            <Symbol sportId="angle_left" />
+          </button>
+          <div className="lo_slider">{children}</div>
+          <button className="lo_slider_control">
+            <Symbol sportId="angle_right" />
+          </button>
+        </div>
+        <div className="lo_rest">
+          <button className="european_view_live_match_rest">{`+${5}`}</button>
+        </div>
       </div>
     </div>
-
-  )
-}
-
+  );
+};
 
 const LivePage = () => {
   return (
@@ -147,54 +162,26 @@ const LivePage = () => {
             <div>
               <LiveMatchHeaderComponent id={1} />
               <LiveMatchLegendComponent />
-              <LiveMatchEventComponent />
+              <LiveMatchEventComponent>
+                <OddsWrapper>
+                  <Odd variant="full" factor={"1.01"} market={"p1"} />
+                  <Odd variant="full" factor={"1.01"} market={"x"} />
+                  <Odd variant="full" factor={"1.01"} market={"p2"} />
+                </OddsWrapper>
+                <OddsWrapper>
+                  <Odd variant="full" factor={"1.01"} market={"p1"} />
+                  <Odd variant="full" factor={"1.01"} market={"x"} />
+                  <Odd variant="full" factor={"1.01"} market={"p2"} />
+                </OddsWrapper>
+                <OddsWrapper>
+                  <Odd variant="full" factor={"1.01"} market={"p1"} />
+                  <Odd variant="full" factor={"1.01"} market={"x"} />
+                  <Odd variant="full" factor={"1.01"} market={"p2"} />
+                </OddsWrapper>
+              </LiveMatchEventComponent>
             </div>
-
-            <div>
-              <LiveMatchHeaderComponent id={4} />
-              <LiveMatchLegendComponent />
-              <LiveMatchEventComponent />
-            </div>
-
-            <div>
-              <LiveMatchHeaderComponent id={5} />
-              <LiveMatchLegendComponent />
-              <LiveMatchEventComponent />
-            </div>
-
-            <div>
-              <LiveMatchHeaderComponent id={7} />
-              <LiveMatchLegendComponent />
-              <LiveMatchEventComponent />
-            </div>
-
-            <div>
-              <LiveMatchHeaderComponent id={7} />
-              <LiveMatchLegendComponent />
-              <LiveMatchEventComponent />
-            </div>
-
-            <div>
-              <LiveMatchHeaderComponent id={7} />
-              <LiveMatchLegendComponent />
-              <LiveMatchEventComponent />
-            </div>
-
-            <div>
-              <LiveMatchHeaderComponent id={7} />
-              <LiveMatchLegendComponent />
-              <LiveMatchEventComponent />
-            </div>
-
-            <div>
-              <LiveMatchHeaderComponent id={7} />
-              <LiveMatchLegendComponent />
-              <LiveMatchEventComponent />
-            </div>
-
           </div>
         </Scroll>
-
       </div>
     </div>
   );
