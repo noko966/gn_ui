@@ -446,36 +446,8 @@ html {
   row-gap: var(--paddingY);
 }
 
-.european_view_live_match_event .lo_ts .lo_tsr {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  column-gap: var(--paddingX);
-}
-
-.european_view_live_match_event .sc {
-  --scoreSize: 24px;
-  flex-shrink: 0;
-  width: var(--scoreSize);
-  height: var(--scoreSize);
-  background-color: var(--eventBg2);
-  color: var(--eventAccent);
-  font-weight: 500;
-  display: flex;
-  font-size: 13px;
-  align-items: center;
-  justify-content: flex-end;
-  padding: 0 var(--paddingX);
-  border-radius: 2px;
-}
-
-.european_view_live_match_event .tn {
-  flex-grow: 1;
-  flex-shrink: 0;
+.european_view_live_match_event .score_team_name {
   color: var(--eventTxt);
-  font-weight: 500;
-  display: flex;
-  align-items: center;
 }
 
 .european_view_live_match_event .lo_slider_container {
@@ -501,24 +473,28 @@ html {
   flex-shrink: 0;
 }
 
-.european_view_live_match_event .lo_slider_container {
+.european_view_live_match_event_odd_slider_root {
   flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
   column-gap: var(--paddingX2);
 }
 .european_view_live_match_event .lo_slider {
   flex-shrink: 0;
-  flex-shrink: 0;
-  width: calc((var(--odd_width) + 80px) * 3 + 2 * var(--paddingX2));
+  /* width: calc((var(--odd_width) + 92px) * 3 + 2 * var(--paddingX2)); */
+  width: 600px;
   display: flex;
   flex-direction: row;
   overflow: hidden;
 }
 
-.european_view_live_match_event .lo_slider .odds_layout {
-  flex-wrap: nowrap;
+.lo_slides_wrapper {
   flex-shrink: 0;
-  column-gap: 0;
+  display: flex;
   width: 100%;
+  align-items: center;
+  transition: transform 0.2s;
 }
 
 .european_view_live_match_event .european_view_live_match_rest {
@@ -538,4 +514,27 @@ html {
   font-weight: 500;
   cursor: pointer;
   flex-shrink: 0;
+}
+
+.european_view_live_match_event_odd_slide {
+  width: 100%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  --slide_info_width: 100px;
+}
+
+.european_view_live_match_event_odd_slide_start {
+  display: flex;
+  align-items: center;
+  column-gap: var(--paddingX2);
+  flex-shrink: 0;
+  width: var(--slide_info_width);
+}
+
+.european_view_live_match_event .lo_slider .odds_layout {
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  column-gap: 0;
+  width: calc(100% - var(--slide_info_width));
 }

@@ -249,6 +249,7 @@ class App extends Component {
                 <div className="european_view_home_widget_root">
                   <div className="european_view_home_widget_header">
                     <Text customClassName={"w_text"} text={"Bet Checker"} />
+
                     <Symbol sportId={"angle_down"} />
                   </div>
 

@@ -201,13 +201,13 @@
   --eventLiveRadius: 2px;
   --eventLiveBorder: #0c101b;
 
-  --oddG: #212a49;
-  --oddBg: #212a49;
-  --oddBg2: #313e6c;
-  --oddBg3: #39487e;
-  --oddBgHover: #263054;
-  --oddBg2Hover: #364477;
-  --oddBg3Hover: #3e4e89;
+  --oddG: #0c0d15;
+  --oddBg: #0c0d15;
+  --oddBg2: #1f2135;
+  --oddBg3: #282b46;
+  --oddBgHover: #12131f;
+  --oddBg2Hover: #25273f;
+  --oddBg3Hover: #2e3150;
   --oddTxt: #e9eaed;
   --oddTxt2: #d3d4db;
   --oddTxt3: #bcbfc8;
