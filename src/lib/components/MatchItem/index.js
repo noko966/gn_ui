@@ -34,10 +34,10 @@ const MatchItemComponent = ({
       date={date}
       time={time}
       more={more}
-      children={children}
       isActive={isActive}
       isDisabled={isDisabled}
       mn={mn}
+      children={children}
       hasCashout={hasCashout}
     />
   );

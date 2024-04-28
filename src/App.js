@@ -30,6 +30,7 @@ import {
 import HomePage from "./Home";
 import PrematchPage from "./Prematch";
 import LivePage from "./Live";
+import LiveDetailsPage from "./LiveDetails";
 
 const EVENTS_DATA = [
   {
@@ -118,6 +119,10 @@ class App extends Component {
 
               <Link className="european_view_home_nav_item" to="/live">
                 <span>live event list</span>
+              </Link>
+
+              <Link className="european_view_home_nav_item" to="/liveDetails">
+                <span>live event details</span>
               </Link>
 
               <div className="european_view_home_nav_item">
@@ -241,6 +246,7 @@ class App extends Component {
                 <Route path="/" element={<HomePage />} />
                 <Route path="/line" element={<PrematchPage />} />
                 <Route path="/live" element={<LivePage />} />
+                <Route path="/LiveDetails" element={<LiveDetailsPage />} />
               </Routes>
             </Scroll>
 

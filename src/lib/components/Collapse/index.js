@@ -22,14 +22,16 @@ const Collapse = ({ children, toggler}) => {
     state_visible: isVisible,
   });
 
-  const togglerWithHandler = React.cloneElement(toggler, {
-    onClick: toggleVisible,
-    ...toggler.props,
-  });
+  // const togglerWithHandler = React.cloneElement(toggler, {
+  //   onClick: toggleVisible,
+  //   ...toggler.props,
+  // });
 
   return (
     <div>
-      {togglerWithHandler}
+      <div onClick={toggleVisible}>
+      {toggler}
+      </div>
       <div
         ref={contentRef}
         className={contentClassName}

@@ -4,7 +4,7 @@ import Symbol from "../../../Symbol/index.js";
 import Text from "../../../Text/index.js";
 import { OddsWrapper, Odd } from "../../../Odd/index.js";
 import "./index.scss";
-import { ScoreTeamName } from "../../../ScoreTeamName/index.js";
+import { ScoreTeamName } from  '../../../../index.js'
 
 const LiveMatchHeaderComponent = ({ sportId, sportName, eventCount }) => {
   const BgClassName = classNames({
@@ -41,13 +41,13 @@ const LiveMatchLegendComponent = ({ leagueName, comment }) => {
   );
 };
 
-const LiveMatchEventComponent = ({ children, ht, at, hs, as }) => {
+const LiveMatchEventComponent = ({ children, ht, at, hs, as, onClick  }) => {
   const rootClassName = classNames({
     european_view_live_match_event: true,
   });
 
   return (
-    <div className={rootClassName}>
+    <div className={rootClassName} onClick={onClick}>
       <div className="layout_start">
         <div className="lo_ts">
           <ScoreTeamName sc={hs} tn={ht} />
@@ -55,7 +55,9 @@ const LiveMatchEventComponent = ({ children, ht, at, hs, as }) => {
         </div>
       </div>
       <div className="layout_end">
-        {children}
+        {
+          children
+        }
         <div className="lo_rest">
           <button className="european_view_live_match_rest">{`+${5}`}</button>
         </div>
@@ -99,18 +101,18 @@ const LiveMatchEventOddSliderComponent = ({ slides }) => {
               className="european_view_live_match_event_odd_slide"
             >
               <div className="european_view_live_match_event_odd_slide_start">
-                <Text text={slide.result} />
+                <Text text={slide.marketName} />
                 <Symbol sportId="cashout" />
               </div>
               <OddsWrapper>
-                {/* {slide.odds.map((odd, idx) => (
+                {slide.odds.map((odd, idx) => (
                   <Odd
                     key={idx}
                     variant="full"
                     factor={odd.factor}
                     market={odd.market}
                   />
-                ))} */}
+                ))}
               </OddsWrapper>
             </div>
           ))}
@@ -123,9 +125,47 @@ const LiveMatchEventOddSliderComponent = ({ slides }) => {
   );
 };
 
-export {
-  LiveMatchEventOddSliderComponent,
-  LiveMatchEventComponent,
-  LiveMatchLegendComponent,
-  LiveMatchHeaderComponent,
+const MatchItemLiveVariant = ({
+  view,
+  variant,
+  sportId,
+  sportName,
+  eventCount,
+  leagueName,
+  comment,
+  children,
+  ht,
+  at,
+  hs,
+  as,
+  slides,
+}) => {
+  const Component =
+    {
+      header: LiveMatchHeaderComponent,
+      legend: LiveMatchLegendComponent,
+      event: LiveMatchEventComponent,
+      slider: LiveMatchEventOddSliderComponent,
+    }[variant] || LiveMatchHeaderComponent;
+
+  return (
+    <Component
+    view={view}
+    variant={variant}
+    sportId={sportId}
+    sportName={sportName}
+    eventCount={eventCount}
+    leagueName={leagueName}
+    comment={comment}
+    children={children}
+    ht={ht}
+    at={at}
+    hs={hs}
+    as={as}
+    slides={slides}
+    >{children}</Component>
+  );
 };
+
+
+export {MatchItemLiveVariant as European}

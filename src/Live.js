@@ -2,17 +2,8 @@ import React, { Children, useState } from "react";
 import classNames from "classnames";
 import {
   Scroll,
-  Text,
-  Symbol,
-  OddsWrapper,
-  Odd,
-  MatchItem,
-  MarketFilter,
-  ScoreTeamName,
-  LiveMatchEventOddSliderComponent,
-  LiveMatchEventComponent,
-  LiveMatchLegendComponent,
-  LiveMatchHeaderComponent,
+  Collapse,
+  MatchItemLive
 } from "../library/digi-library";
 
 const eventFakeData = {
@@ -24,7 +15,7 @@ const eventFakeData = {
 
 const sliderFakeData = [
   {
-    result: "Result 1",
+    marketName: "Result 1",
     odds: [
       { factor: "1.01", market: "p1" },
       { factor: "1.02", market: "x" },
@@ -32,7 +23,7 @@ const sliderFakeData = [
     ],
   },
   {
-    result: "Result 2",
+    marketName: "Result 2",
     odds: [
       { factor: "2.01", market: "p1" },
       { factor: "2.02", market: "x" },
@@ -51,23 +42,29 @@ const LivePage = () => {
               .fill("")
               .map((_, index) => {
                 return (
+
                   <div key={index}>
-                    <LiveMatchHeaderComponent
-                      sportId={index}
-                      sportName={"sport name"}
-                      eventCount={index++}
-                    />
-                    <LiveMatchLegendComponent leagueName="qaq" comment="tttt" />
-                    <LiveMatchEventComponent
-                      hs={eventFakeData.hs}
-                      ht={eventFakeData.ht}
-                      as={eventFakeData.as}
-                      at={eventFakeData.at}
-                    >
-                      <LiveMatchEventOddSliderComponent
-                        slides={sliderFakeData}
-                      />
-                    </LiveMatchEventComponent>
+                    <Collapse toggler={
+                        <MatchItemLive
+                          variant={"header"}
+                          sportId={index}
+                          sportName={"sport name"}
+                          eventCount={index++}
+                        />
+                    }>
+
+                      <MatchItemLive variant={"legend"} leagueName="qaq" comment="tttt" />
+                      <MatchItemLive variant={"event"}
+                        hs={eventFakeData.hs}
+                        ht={eventFakeData.ht}
+                        as={eventFakeData.as}
+                        at={eventFakeData.at}
+                      >
+                        <MatchItemLive variant={"slider"}
+                          slides={sliderFakeData}
+                        />
+                      </MatchItemLive>
+                    </Collapse>
                   </div>
                 );
               })}
