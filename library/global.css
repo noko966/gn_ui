@@ -294,20 +294,95 @@ html {
   height: var(--content_height);
 }
 
-
-
-.european_view_event_details_billboard_root{
+.european_view_event_details_billboard_root {
+  --tableRowHeight: 30px;
+  --tableCellWidth: 60px;
   width: 100%;
   height: 210px;
   flex-shrink: 0;
   background-color: var(--dominantBg);
-  color: var(--dominantTxt);
+  color: var(--dominantTxt2);
+  position: relative;
+  padding: var(--paddingX3);
+}
+
+.european_view_event_details_billboard_root .dg_deco_image {
+  position: absolute;
+  right: 0;
+  top: 0;
+  height: 100%;
+  z-index: 1;
+}
+
+.european_view_event_details_billboard_table_wrapper {
+  display: flex;
+  z-index: 3;
   position: relative;
 }
 
+.european_view_event_details_billboard_layout_start {
+  flex-grow: 1;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--paddingX);
+}
 
-.european_view_event_details_billboard_root .sport_bg_graphics{
-  position: absolute;
-  height: 100%;
+.european_view_event_details_billboard_layout_start .billboard_layout_row,
+.european_view_event_details_billboard_layout_start .billboard_layout_row_team {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  height: var(--tableRowHeight);
+  column-gap: var(--paddingX2);
+}
 
+.billboard_layout_row_team .tn {
+  color: var(--dominantTxt);
+  font-weight: 500;
+  text-transform: capitalize;
+  font-size: 14px;
+}
+
+.european_view_event_details_billboard_layout_end {
+  flex-shrink: 0;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--paddingX);
+}
+
+.european_view_event_details_billboard_layout_end > .billboard_layout_row_thead,
+.european_view_event_details_billboard_layout_end > .billboard_layout_row_trow {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  height: var(--tableRowHeight);
+  column-gap: var(--paddingX);
+  justify-content: flex-end;
+}
+
+.billboard_layout_row_thead .td,
+.billboard_layout_row_trow .td {
+  width: var(--tableCellWidth);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  font-weight: 500;
+  font-size: 14px;
+  padding-inline-start: var(--paddingX);
+  padding-inline-end: var(--paddingX);
+}
+
+.european_view_event_details_billboard_layout_start .billboard_layout_row_team {
+  background-color: var(--dominantRGBA);
+  border: 1px solid var(--dominantBgHover);
+  border-inline-end: 0;
+}
+
+.european_view_event_details_billboard_layout_end > .billboard_layout_row_trow {
+  background-color: var(--dominantRGBA);
+  border: 1px solid var(--dominantBgHover);
+  border-inline-start: 0;
 }

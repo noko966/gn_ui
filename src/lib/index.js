@@ -17,8 +17,7 @@ export { default as Root } from "./components/Layouts/Root/index.js";
 export { default as Text } from "./components/Text/index.js";
 export { default as SidebarItem } from "./components/SidebarItem/index.js";
 export { MarketFilter, MatchItem } from "./components/MatchItem/index.js";
-export { MatchItemLive
-} from "./components/MatchItemLive/index.js";
+export { MatchItemLive } from "./components/MatchItemLive/index.js";
 export { SidebarTabs, SidebarTab } from "./components/SidebarTab/index.js";
 export {
   HomeEventWidgetRow,
@@ -28,6 +27,5 @@ export {
 export { Control } from "./components/Control/index.js";
 export { default as Content } from "./components/Content/index.js";
 
-export { default as StateWrapper } from "./components/StateWrapper/index.js";
 export { default as Collapse } from "./components/Collapse/index.js";
 export { default as ScoreTeamName } from "./components/ScoreTeamName/index.js";
