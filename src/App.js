@@ -25,6 +25,7 @@ import {
   Collapse,
   MarketFilter,
   HomeEventWidgetLegend,
+  Tooltip,
 } from "../library/digi-library";
 
 import HomePage from "./Home";
@@ -108,7 +109,9 @@ class App extends Component {
       <BrowserRouter>
         <div style={{ height: "100svh" }} className="App">
           <Root>
-            <Search_European placeholder={"search here ..."} />
+            <Tooltip text="This is search!">
+              <Search_European placeholder={"search here ..."} />
+            </Tooltip>
             <div className="european_view_home_nav_row">
               <Link className="european_view_home_nav_item" to="/">
                 <span>home</span>
@@ -136,12 +139,16 @@ class App extends Component {
               </div>
             </div>
             <European_Buttons_Row_settings>
-              <European_Button_var_settings
-                icon={<Symbol sportId={"calculator_v2"} />}
-              />
-              <European_Button_var_settings
-                icon={<Symbol sportId={"settings_v2"} />}
-              />
+              <Tooltip text="This is calculator!">
+                <European_Button_var_settings
+                  icon={<Symbol sportId={"calculator_v2"} />}
+                />
+              </Tooltip>
+              <Tooltip text="This is calculator!">
+                <European_Button_var_settings
+                  icon={<Symbol sportId={"settings_v2"} />}
+                />
+              </Tooltip>
             </European_Buttons_Row_settings>
             <Scroll>
               <SidebarTabs>
@@ -284,11 +291,13 @@ class App extends Component {
                       <Input label={"ttt"} placeholder="win amount" />
                     </div>
                     <div className="action_container">
-                      <Button
-                        className="child_btn"
-                        text={"Generate"}
-                        variant="accent"
-                      />
+                      <Tooltip text="This is Button!">
+                        <Button
+                          className="child_btn"
+                          text={"Generate"}
+                          variant="accent"
+                        />
+                      </Tooltip>
                     </div>
                   </div>
                 </div>

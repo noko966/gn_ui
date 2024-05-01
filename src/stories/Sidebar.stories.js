@@ -1,103 +1,87 @@
+// SidebarEuropeanFull.stories.jsx
 import React from "react";
+import { SidebarItem, Scroll } from "../../library/digi-library.js";
 
-import { fn } from "@storybook/test";
-import { SideItem } from "../../library/digi-library.js";
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 export default {
-  title: "Digitain/SideItem",
-  component: SideItem,
-
-  parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
-    layout: "centered",
-  },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
+  title: "Digitain/Sidebar",
+  component: SidebarItem, // Assuming Scroll is your main component for the story\
   tags: ["autodocs"],
-  // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
     view: { control: "select", options: ["european", "esport"] },
-    sportId: {
+    variant: {
       control: "select",
-      options: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
+      options: ["favorite", "league", "sport", "country", "live"],
     },
-    iconVariant: { control: "select", options: [400, 300] },
-  },
 
-  // Use `fn` to spy on the onClick arg, which will appear in the actions panel once invoked: https://storybook.js.org/docs/essentials/actions#action-args
-  args: {
-    onClick: fn(),
-    child: "Text",
-    iconVariant: 400,
-    sportId: 1,
-    isActive: false,
-    isDisabled: false,
-    view: "european",
-    isVariantCountry: false,
-    fId: null,
+    // Add more controls for other props if necessary
   },
-};
-
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
-export const European = {
   args: {
-    child: "Text",
-    sportId: 1,
-    isActive: true,
-    isDisabled: false,
-    view: "european",
-  },
-};
-export const EuropeanActive = {
-  args: {
-    child: "Text Active",
-    sportId: 2,
-    isActive: true,
-    isDisabled: false,
-    view: "european",
-  },
-};
-export const EuropeanDisabled = {
-  args: {
-    child: "Text Disabled",
-    sportId: 2,
-    isActive: false,
-    isDisabled: true,
-    view: "european",
+    ht: "home team",
+    at: "away team",
+    hs: 1,
+    as: 0,
+    time: "15-24",
+    HasLI: true,
+    name: "name",
+    count: 15,
+    id: 15233,
+    sportId: 3,
   },
 };
 
-export const EuropeanCountry = {
+const Template = ({ view, ...args }) => {
+  return (
+    <div style={{ width: "200px", height: "250px" }}>
+      <Scroll view={view} fullHeight={true} {...args}></Scroll>
+    </div>
+  );
+};
+
+export const Sport = {
   args: {
-    child: "Coubtry name",
-    isActive: true,
-    isDisabled: false,
     view: "european",
-    isVariantCountry: true,
-    fId: 113,
+    variant: "sport",
+    name: "football",
+    count: 0,
   },
 };
 
-export const Esport = {
+export const Favorite = {
   args: {
-    child: "Text",
-    isActive: true,
-    isDisabled: false,
-    view: "esport",
+    view: "european",
+    variant: "favorite",
+    name: "favorites",
+    count: 0,
   },
 };
-export const EsportActive = {
+
+export const League = {
   args: {
-    child: "Text Active",
-    isActive: true,
-    isDisabled: false,
-    view: "esport",
+    view: "european",
+    variant: "league",
+    name: "league name",
+    count: 0,
   },
 };
-export const EsportDisabled = {
+
+export const Country = {
   args: {
-    child: "Text Disabled",
-    isActive: false,
-    isDisabled: true,
-    view: "esport",
+    view: "european",
+    variant: "country",
+    name: "country name",
+    id: 10,
+  },
+};
+
+export const Live = {
+  args: {
+    view: "european",
+    variant: "live",
+    ht: "home team",
+    at: "away team",
+    hs: 1,
+    as: 0,
+    time: "15-24",
+    HasLI: true,
   },
 };

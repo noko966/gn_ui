@@ -6,7 +6,6 @@ export {
   European_Buttons_Row_settings,
   Button,
 } from "./components/Button/Button.js";
-export { default as Event } from "./components/Event/Event.js";
 export { default as Dropdown } from "./components/Dropdown/Dropdown.js";
 export { OddsWrapper, Odd } from "./components/Odd/index.js";
 export { default as Symbol } from "./components/Symbol/index.js";
@@ -19,6 +18,7 @@ export { default as SidebarItem } from "./components/SidebarItem/index.js";
 export { MarketFilter, MatchItem } from "./components/MatchItem/index.js";
 export { MatchItemLive } from "./components/MatchItemLive/index.js";
 export { SidebarTabs, SidebarTab } from "./components/SidebarTab/index.js";
+export { Tooltip, TooltipRoot } from "./components/Tooltip/index.js";
 export {
   HomeEventWidgetRow,
   HomeEventWidgetLegend,

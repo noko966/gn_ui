@@ -1,0 +1,32 @@
+.dg_tooltip_root {
+}
+
+.dg_tooltip_root {
+  .dg_tooltip {
+    position: absolute;
+    top: calc(var(--tooltop_bounds_y) + var(--tooltop_bounds_h) + 16px);
+    left: calc(var(--tooltop_bounds_x) + (var(--tooltop_bounds_w) / 2));
+    transform: translateX(-50%);
+    background: var(--tooltipBg);
+    color: var(--tooltipTxt);
+    border: 1px solid var(--tooltipBorder);
+    padding: var(--paddingY3) var(--paddingX3);
+    border-radius: 4px;
+    font-weight: 500;
+    font-size: 14px;
+    transition: opacity 0.3s ease-in-out;
+  }
+
+  // Optional: Add more styles for visibility transitions
+  &.visible {
+    .dg_tooltip {
+      opacity: 1;
+    }
+  }
+
+  &.hidden {
+    .dg_tooltip {
+      opacity: 0;
+    }
+  }
+}

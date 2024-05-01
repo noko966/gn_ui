@@ -454,13 +454,13 @@
   --filterBorder: #0c101b;
 
   --tooltipG: #1c253e;
-  --tooltipBg: #1c253e;
+  --tooltipBg: #8d97b3;
   --tooltipBg2: #2c3a61;
   --tooltipBg3: #344473;
-  --tooltipBgHover: #212b49;
+  --tooltipBgHover: #838da9;
   --tooltipBg2Hover: #31406b;
   --tooltipBg3Hover: #394a7e;
-  --tooltipTxt: #e8e9ec;
+  --tooltipTxt: #2a2b2d;
   --tooltipTxt2: #d2d3d8;
   --tooltipTxt3: #bbbec5;
   --tooltipAccent: #747fff;
