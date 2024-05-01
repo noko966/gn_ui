@@ -14,7 +14,7 @@ const EuropeanView = ({ children, fullHeight, view, isRTL }) => {
     };
 
     window.addEventListener("resize", updateWidth);
-    updateWidth(); // Initial call
+    updateWidth();
 
     return () => window.removeEventListener("resize", updateWidth);
   }, []);
@@ -40,7 +40,7 @@ const EuropeanView = ({ children, fullHeight, view, isRTL }) => {
     [getClass()]: true,
   });
   return (
-    <main view={view} className={ViewClassName} ref={rootRef}>
+    <main view={view} className={ViewClassName} ref={rootRef} rootWidth={width}>
       {children}
     </main>
   );

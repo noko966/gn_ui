@@ -17,6 +17,52 @@
     transition: opacity 0.3s ease-in-out;
   }
 
+  .dg_tooltip::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    left: 50%;
+    top: 0;
+    transform: translate(-50%, -50%) rotate(45deg);
+    background: inherit;
+  }
+  .dg_tooltip.state_top::before {
+    top: 0;
+  }
+  .dg_tooltip.state_bot::before {
+    top: auto;
+    bottom: 0;
+  }
+
+  // .dg_tooltip_root {
+  //   display: flex;
+  //   justify-content: center;
+  //   align-items: center;
+  //   padding: 16px;
+  //   border-radius: 8px;
+  //   background-color: var(--tooltipBg);
+  //   color: var(--tooltipTxt);
+  //   font-size: 14px;
+  //   font-weight: 500;
+  //   position: relative;
+  // }
+
+  // .dg_tooltip_root::before {
+  //   content: "";
+  //   width: 14px;
+  //   height: 14px;
+  //   position: absolute;
+  //   transform: translateY(-50%) rotateZ(-45deg);
+  // }
+  // .dg_tooltip_root.state_top::before {
+  //   top: 0;
+  // }
+  // .dg_tooltip_root.state_bot::before {
+  //   top: auto;
+  //   bottom: 0;
+  // }
+
   // Optional: Add more styles for visibility transitions
   &.visible {
     .dg_tooltip {

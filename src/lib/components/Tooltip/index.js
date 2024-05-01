@@ -14,7 +14,15 @@ const Tooltip = ({ children, text }) => {
   const handleMouseOver = () => {
     if (ref.current) {
       const { x, y, width, height } = ref.current.getBoundingClientRect();
-      setTooltip({ text, visible: true, bounds: { x, y, width, height } });
+
+      const vw = window.innerWidth;
+      const vh = window.innerWidth;
+
+      setTooltip({
+        text,
+        visible: true,
+        bounds: { x, y, width, height },
+      });
     }
   };
 
@@ -24,34 +32,19 @@ const Tooltip = ({ children, text }) => {
       ...prev,
       visible: false,
     }));
-
-    // setTimeout(() => {
-    //   setTooltip({
-    //     text: "",
-    //     visible: false,
-    //     bounds: { x: 0, y: 0, width: 0, height: 0 },
-    //   });
-    // }, 200); // Adjust the delay to match your CSS transition duration
   };
 
-  // useEffect(() => {
-  //   return () => {
-  //     if (timeoutRef.current) {
-  //       clearTimeout(timeoutRef.current);
-  //     }
-  //   };
-  // }, []);
-
   return (
-    <span ref={ref} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
+    <div ref={ref} onMouseOver={handleMouseOver} onMouseOut={handleMouseOut}>
       {children}
-    </span>
+    </div>
   );
 };
 
 const TooltipRoot = ({ tooltip }) => {
   const rootClassName = classNames({
     dg_tooltip_root: true,
+    [tooltip.positionClass]: tooltip.positionClass || "bc",
     visible: tooltip.visible,
     hidden: !tooltip.visible,
   });
