@@ -113,7 +113,8 @@ const PrematchPage = () => {
             date={"12.04"}
             time={"15:44"}
           />
-          <div className="european_view_event_tabs_root view_european_scroll_x">
+          <div className="european_view_event_tabs_root">
+            <Scroll isHorizontal={true}>
             <div className="european_view_event_tabs_wrapper">
               <button className="european_view_event_tab state_selected">
                 <i />
@@ -156,6 +157,7 @@ const PrematchPage = () => {
                 <Text text="3rd quorter" />
               </button>
             </div>
+            </Scroll>
           </div>
 
           <div className="european_view_prematch_list">

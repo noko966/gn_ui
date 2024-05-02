@@ -8,6 +8,7 @@ import {
   Button,
   Collapse,
   HomeEventWidgetLegend,
+  Tooltip
 } from "../library/digi-library";
 
 const EVENTS_DATA = [
@@ -123,7 +124,8 @@ const HomePage = () => {
                 >
                   {
                     <OddsWrapper>
-                      <Odd factor={"1.01"} market={"p1"} />
+                    
+                        <Odd factor={"1.01"} market={"p1"} />
                       <Odd factor={"1.01"} market={"x"} />
                       <Odd factor={"1.01"} market={"p2"} />
                     </OddsWrapper>
@@ -207,7 +209,9 @@ const HomePage = () => {
         {Array.from({ length: 2 }, (_, index) => (
           <div key={index} className="european_view_home_events_widget_root">
             <div className="european_view_home_event_filter">
-              <span className="widget_name">{"Upcoming events"}</span>
+            
+              <span className="widget_name"><Tooltip text="This is Upcoming events tooltip! "><span>{"Upcoming events"}</span></Tooltip></span>
+              
               {Array.from({ length: 3 }, (_, index) => (
                 <button key={index} className="european_view_home_event_tab">
                   <Symbol sportId={index} />

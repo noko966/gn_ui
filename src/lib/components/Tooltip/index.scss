@@ -1,12 +1,11 @@
 .dg_tooltip_root {
-}
-
-.dg_tooltip_root {
   .dg_tooltip {
     position: absolute;
-    top: calc(var(--tooltop_bounds_y) + var(--tooltop_bounds_h) + 16px);
-    left: calc(var(--tooltop_bounds_x) + (var(--tooltop_bounds_w) / 2));
-    transform: translateX(-50%);
+    z-index: 100;
+    max-width: 200px;
+    // top: calc(var(--tooltop_bounds_y) + var(--tooltop_bounds_h) + 16px);
+    // left: calc(var(--tooltop_bounds_x) + (var(--tooltop_bounds_w) / 2));
+    // transform: translateX(-50%);
     background: var(--tooltipBg);
     color: var(--tooltipTxt);
     border: 1px solid var(--tooltipBorder);
@@ -22,18 +21,22 @@
     width: 8px;
     height: 8px;
     position: absolute;
-    left: 50%;
+    left: 0;
     top: 0;
-    transform: translate(-50%, -50%) rotate(45deg);
+    transform: translate(24px, -50%) rotate(45deg);
     background: inherit;
   }
+
   .dg_tooltip.state_top::before {
     top: 0;
   }
+
   .dg_tooltip.state_bot::before {
     top: auto;
     bottom: 0;
   }
+
+
 
   // .dg_tooltip_root {
   //   display: flex;
@@ -74,5 +77,100 @@
     .dg_tooltip {
       opacity: 0;
     }
+  }
+}
+
+// "--tooltop_left": `${tooltip.bounds.l}px`,
+// "--tooltop_right": `${tooltip.bounds.r}px`,
+// "--tooltop_top": `${tooltip.bounds.t}px`,
+// "--tooltop_bot": `${tooltip.bounds.b}px`,
+
+.dg_tooltip_root.top-center .dg_tooltip {
+  top: var(--tooltip_top);
+  right: auto;
+  bottom: auto;
+  left: var(--tooltip_left);
+  transform: translateX(-50%);
+
+  &::before {
+    bottom: auto;
+    top: 0;
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+}
+
+.dg_tooltip_root.bottom-center .dg_tooltip {
+  top: auto;
+  bottom: var(--tooltip_bot);
+  right: auto;
+  left: var(--tooltip_left);
+  transform: translateX(-50%);
+
+  &::before {
+    top: auto;
+    bottom: 0;
+    right: auto;
+    left: 50%;
+    transform: translate(-50%, 50%) rotate(45deg);
+  }
+}
+
+.dg_tooltip_root.top-left .dg_tooltip {
+  top: var(--tooltip_top);
+  right: auto;
+  bottom: auto;
+  left: var(--tooltip_left);
+
+  &::before {
+    bottom: auto;
+    right: auto;
+    left: 0;
+    transform: translate(24px, -50%) rotate(45deg);
+  }
+}
+
+.dg_tooltip_root.top-right .dg_tooltip {
+  top: var(--tooltip_top);
+  right: var(--tooltip_right);
+  bottom: auto;
+  left: auto;
+
+  &::before {
+    bottom: auto;
+    left: auto;
+    right: 0;
+    transform: translate(-24px, -50%) rotate(45deg);
+  }
+}
+
+.dg_tooltip_root.bottom-right .dg_tooltip {
+  top: auto;
+  right: var(--tooltip_right);
+  bottom: var(--tooltip_bot);
+  left: auto;
+
+  &::before {
+    top: auto;
+    bottom: 0;
+    left: auto;
+    right: 0;
+    transform: translate(-24px, 50%) rotate(45deg);
+  }
+}
+
+.dg_tooltip_root.bottom-left .dg_tooltip {
+  top: auto;
+  right: auto;
+  bottom: var(--tooltip_bot);
+  left: var(--tooltip_left);
+
+  &::before {
+    top: auto;
+    bottom: 0;
+    right: auto;
+    left: 0;
+    transform: translate(24px, 50%) rotate(45deg);
   }
 }

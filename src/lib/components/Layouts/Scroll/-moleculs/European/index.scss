@@ -1,11 +1,16 @@
-.view_european_scroll_y{
+.view_european_scroll_y {
+  --scroll_shadow_angle: 180deg;
+  --scroll_shadow_size: 24px;
   position: relative;
-  overflow-y: auto; /* Enables vertical scrolling */
+  overflow-y: auto;
+  /* Enables vertical scrolling */
   // height: 100vh;
 
   &::-webkit-scrollbar {
-    width: 6px; /* Scrollbar w */
-    height: 6px; /* Scrollbar h */
+    width: 6px;
+    /* Scrollbar w */
+    height: 6px;
+    /* Scrollbar h */
   }
 
   &::-webkit-scrollbar-track {
@@ -13,26 +18,35 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--dominantBg3Hover); /* Thumb color */
-    border-radius: 0; /* Thumb border radius */
+    background: var(--dominantBg3Hover);
+    /* Thumb color */
+    border-radius: 0;
+    /* Thumb border radius */
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: var(--dominantBg3Hover); /* Thumb hover color */
+    background: var(--dominantBg3Hover);
+    /* Thumb hover color */
   }
+
   &.view_european_scroll_y_full_height {
     height: 100%;
   }
 }
 
 
-.view_european_scroll_x{
+.view_european_scroll_x {
+  --scroll_shadow_angle: 90deg;
+  --scroll_shadow_size: 24px;
+  width: 100%;
   position: relative;
-  overflow-x: auto; /* Enables vertical scrolling */
+  overflow-x: auto;
+  /* Enables vertical scrolling */
   // height: 100vh;
 
   &::-webkit-scrollbar {
-    height: 6px; /* Scrollbar h */
+    height: 6px;
+    /* Scrollbar h */
   }
 
   &::-webkit-scrollbar-track {
@@ -40,14 +54,32 @@
   }
 
   &::-webkit-scrollbar-thumb {
-    background: var(--dominantBg3Hover); /* Thumb color */
-    border-radius: 0; /* Thumb border radius */
+    background: var(--dominantBg3Hover);
+    /* Thumb color */
+    border-radius: 0;
+    /* Thumb border radius */
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background: var(--dominantBg3Hover); /* Thumb hover color */
+    background: var(--dominantBg3Hover);
+    /* Thumb hover color */
   }
+
   &.view_european_scroll_y_full_height {
     height: 100%;
   }
 }
+
+
+.view_european_scroll.state_shadow_start {
+  mask-image: linear-gradient(var(--scroll_shadow_angle), transparent, var(--bodyBg) var(--scroll_shadow_size));
+}
+
+.view_european_scroll.state_shadow_end {
+  mask-image: linear-gradient(var(--scroll_shadow_angle), var(--bodyBg) calc(100% - var(--scroll_shadow_size)), transparent);
+}
+
+.view_european_scroll.state_shadow_start.state_shadow_end {
+  mask-image: linear-gradient(var(--scroll_shadow_angle), transparent, var(--bodyBg) var(--scroll_shadow_size),  var(--bodyBg) calc(100% - var(--scroll_shadow_size)), transparent);
+}
+

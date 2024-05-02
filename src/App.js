@@ -109,7 +109,7 @@ class App extends Component {
       <BrowserRouter>
         <div style={{ height: "100svh" }} className="App">
           <Root>
-            <Tooltip text="This is search!">
+            <Tooltip text="This is search! This is search! This is search! This is search! This is search!">
               <Search_European placeholder={"search here ..."} />
             </Tooltip>
             <div className="european_view_home_nav_row">

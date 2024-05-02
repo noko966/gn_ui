@@ -1,14 +1,20 @@
 import React, { Children, useState } from "react";
 import classNames from "classnames";
 import {
-  Scroll,
   Collapse,
   MatchItemLive,
   Text,
   Symbol,
+  Scroll,
 } from "../library/digi-library";
 
 const eventFakeData = {
+  scoresHt: [
+    0, 0, 0, 0, 0, 0
+  ],
+  scoresAt: [
+    0, 0, 0, 0, 0, 0
+  ],
   hs: "1",
   ht: "home team 1",
   as: "4",
@@ -44,30 +50,54 @@ const EventDetailsBillboard = ({ sportId, data }) => {
           </div>
         </div>
         <div className="european_view_event_details_billboard_layout_end">
-          <div className="billboard_layout_row_thead">
-            <div className="td">
-              <Text text="0" />
+          <Scroll isHorizontal={true}>
+
+            <div className="billboard_layout_row_table_wrapper">
+              <div className="billboard_layout_col_table">
+                <div className="billboard_layout_row_thead">
+                  {
+                    data.scoresHt.map((s, i) => {
+                      return (
+                        <div key={i} className="td">
+                          <Text text={i + 1} />
+                        </div>
+
+                      )
+                    })
+
+                  }
+                </div>
+                <div className="billboard_layout_row_trow">
+                  <div className="td m">
+                    <Text text={10} />
+                  </div>
+                  {
+                    data.scoresHt.map((s, i) => {
+                      return (
+                        <div key={i} className="td">
+                          <Text text={s} />
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+                <div className="billboard_layout_row_trow">
+                  <div className="td m">
+                    <Text text={5} />
+                  </div>
+                  {
+                    data.scoresAt.map((s, i) => {
+                      return (
+                        <div key={i} className="td">
+                          <Text text={s} />
+                        </div>
+                      )
+                    })
+                  }
+                </div>
+              </div>
             </div>
-            <div className="td">
-              <Text text="1" />
-            </div>
-          </div>
-          <div className="billboard_layout_row_trow">
-            <div className="td">
-              <Text text="0" />
-            </div>
-            <div className="td">
-              <Text text="0" />
-            </div>
-          </div>
-          <div className="billboard_layout_row_trow">
-            <div className="td">
-              <Text text="0" />
-            </div>
-            <div className="td">
-              <Text text="0" />
-            </div>
-          </div>
+          </Scroll>
         </div>
       </div>
 
@@ -83,7 +113,7 @@ const LiveDetailsPage = () => {
       <div className="european_view_live_content_layout">
         <Scroll>
           <div className="european_view_live_list">
-            <EventDetailsBillboard sportId={1} />
+            <EventDetailsBillboard sportId={1} data={eventFakeData} />
           </div>
         </Scroll>
       </div>
