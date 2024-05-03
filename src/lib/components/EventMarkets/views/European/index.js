@@ -39,11 +39,11 @@ const MarketFilter = ({ isDisabled, isActive, data }) => {
       <div className="">
         <Dropdown
           onChange={() => {}}
-          options={[
-            { value: "football", icon: "sport_front_icon-1" },
-            { value: "basketball", icon: "sport_front_icon-2" },
-            { value: "ruckby", icon: "sport_front_icon-5" },
-          ]}
+          options={data.map((m) => {
+            return {
+              value: m.N,
+            };
+          })}
         />
       </div>
     </div>

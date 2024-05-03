@@ -411,6 +411,14 @@ html {
   align-items: center;
 }
 
+.flex_col {
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+}
+
 .dont_shrink {
   flex-shrink: 0;
 }
@@ -418,4 +426,22 @@ html {
 .grow {
   flex-grow: 1;
   min-width: 1px;
+}
+
+.euv_page_lists_row {
+  display: flex;
+  column-gap: var(--root_gap);
+  flex-wrap: wrap;
+}
+
+.euv_page_list {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--root_gap);
+}
+
+.euv_page_list_50 {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: calc(50% - var(--root_gap) / 2);
 }
