@@ -4,7 +4,7 @@ import Symbol from "../../../Symbol/index.js";
 import Text from "../../../Text/index.js";
 import { OddsWrapper, Odd } from "../../../Odd/index.js";
 import "./index.scss";
-import { ScoreTeamName } from  '../../../../index.js'
+import { ScoreTeamName } from "../../../../index.js";
 
 const LiveMatchHeaderComponent = ({ sportId, sportName, eventCount }) => {
   const BgClassName = classNames({
@@ -41,7 +41,7 @@ const LiveMatchLegendComponent = ({ leagueName, comment }) => {
   );
 };
 
-const LiveMatchEventComponent = ({ children, ht, at, hs, as, onClick  }) => {
+const LiveMatchEventComponent = ({ children, ht, at, hs, as, onClick }) => {
   const rootClassName = classNames({
     european_view_live_match_event: true,
   });
@@ -55,9 +55,7 @@ const LiveMatchEventComponent = ({ children, ht, at, hs, as, onClick  }) => {
         </div>
       </div>
       <div className="layout_end">
-        {
-          children
-        }
+        {children}
         <div className="lo_rest">
           <button className="european_view_live_match_rest">{`+${5}`}</button>
         </div>
@@ -150,22 +148,23 @@ const MatchItemLiveVariant = ({
 
   return (
     <Component
-    view={view}
-    variant={variant}
-    sportId={sportId}
-    sportName={sportName}
-    eventCount={eventCount}
-    leagueName={leagueName}
-    comment={comment}
-    children={children}
-    ht={ht}
-    at={at}
-    hs={hs}
-    as={as}
-    slides={slides}
-    >{children}</Component>
+      view={view}
+      variant={variant}
+      sportId={sportId}
+      sportName={sportName}
+      eventCount={eventCount}
+      leagueName={leagueName}
+      comment={comment}
+      children={children}
+      ht={ht}
+      at={at}
+      hs={hs}
+      as={as}
+      slides={slides}
+    >
+      {children}
+    </Component>
   );
 };
 
-
-export {MatchItemLiveVariant as European}
+export { MatchItemLiveVariant as European };

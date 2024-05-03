@@ -1,7 +1,8 @@
 .dg_tooltip_root {
+  pointer-events: none;
   .dg_tooltip {
     position: absolute;
-    z-index: 100;
+    z-index: calc(var(--global_zind) * 2);
     max-width: 200px;
     // top: calc(var(--tooltop_bounds_y) + var(--tooltop_bounds_h) + 16px);
     // left: calc(var(--tooltop_bounds_x) + (var(--tooltop_bounds_w) / 2));
@@ -35,8 +36,6 @@
     top: auto;
     bottom: 0;
   }
-
-
 
   // .dg_tooltip_root {
   //   display: flex;

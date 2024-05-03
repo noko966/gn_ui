@@ -8,8 +8,6 @@ import {
   MarketFilter,
 } from "../library/digi-library";
 
-
-
 const EVENTS_DATA = [
   {
     HTN: "Real Madrid",
@@ -20,7 +18,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "28'",
     MoreCount: 5,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
   {
     HTN: "Manchester United",
@@ -31,7 +29,7 @@ const EVENTS_DATA = [
     HasLC: true,
     Time: "45'",
     MoreCount: 7,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
   {
     HTN: "Los Angeles Lakers",
@@ -42,7 +40,7 @@ const EVENTS_DATA = [
     HasLC: false,
     Time: "48'",
     MoreCount: 10,
-    Bet: "Some Market Name"
+    Bet: "Some Market Name",
   },
 ];
 
@@ -115,48 +113,48 @@ const PrematchPage = () => {
           />
           <div className="european_view_event_tabs_root">
             <Scroll isHorizontal={true}>
-            <div className="european_view_event_tabs_wrapper">
-              <button className="european_view_event_tab state_selected">
-                <i />
-                <Text text="main" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="handicaps" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="totals" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="1st quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="2nd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-              <button className="european_view_event_tab">
-                <i />
-                <Text text="3rd quorter" />
-              </button>
-            </div>
+              <div className="european_view_event_tabs_wrapper">
+                <button className="european_view_event_tab state_selected">
+                  <i />
+                  <Text text="main" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="handicaps" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="totals" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="1st quorter" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="2nd quorter" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="3rd quorter" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="3rd quorter" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="3rd quorter" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="3rd quorter" />
+                </button>
+                <button className="european_view_event_tab">
+                  <i />
+                  <Text text="3rd quorter" />
+                </button>
+              </div>
             </Scroll>
           </div>
 

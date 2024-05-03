@@ -20,6 +20,11 @@ export { MatchItemLive } from "./components/MatchItemLive/index.js";
 export { SidebarTabs, SidebarTab } from "./components/SidebarTab/index.js";
 export { Tooltip, TooltipRoot } from "./components/Tooltip/index.js";
 export {
+  MarketComponent,
+  marketComponentFakeData,
+} from "./components/EventMarkets/index.js";
+
+export {
   HomeEventWidgetRow,
   HomeEventWidgetLegend,
   HomeEventWidgetLegendExpert,

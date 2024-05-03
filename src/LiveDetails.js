@@ -6,20 +6,9 @@ import {
   Text,
   Symbol,
   Scroll,
+  MarketComponent,
+  marketComponentFakeData,
 } from "../library/digi-library";
-
-const eventFakeData = {
-  scoresHt: [
-    0, 0, 0, 0, 0, 0
-  ],
-  scoresAt: [
-    0, 0, 0, 0, 0, 0
-  ],
-  hs: "1",
-  ht: "home team 1",
-  as: "4",
-  at: "away team 1",
-};
 
 const SportImageComponent = ({ sportId }) => {
   const imageSource = `./images/backgrounds/${sportId}.webp`;
@@ -51,49 +40,40 @@ const EventDetailsBillboard = ({ sportId, data }) => {
         </div>
         <div className="european_view_event_details_billboard_layout_end">
           <Scroll isHorizontal={true}>
-
             <div className="billboard_layout_row_table_wrapper">
               <div className="billboard_layout_col_table">
                 <div className="billboard_layout_row_thead">
-                  {
-                    data.scoresHt.map((s, i) => {
-                      return (
-                        <div key={i} className="td">
-                          <Text text={i + 1} />
-                        </div>
-
-                      )
-                    })
-
-                  }
+                  {data.scoresHt.map((s, i) => {
+                    return (
+                      <div key={i} className="td">
+                        <Text text={i + 1} />
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className="billboard_layout_row_trow">
                   <div className="td m">
                     <Text text={10} />
                   </div>
-                  {
-                    data.scoresHt.map((s, i) => {
-                      return (
-                        <div key={i} className="td">
-                          <Text text={s} />
-                        </div>
-                      )
-                    })
-                  }
+                  {data.scoresHt.map((s, i) => {
+                    return (
+                      <div key={i} className="td">
+                        <Text text={s} />
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className="billboard_layout_row_trow">
                   <div className="td m">
                     <Text text={5} />
                   </div>
-                  {
-                    data.scoresAt.map((s, i) => {
-                      return (
-                        <div key={i} className="td">
-                          <Text text={s} />
-                        </div>
-                      )
-                    })
-                  }
+                  {data.scoresAt.map((s, i) => {
+                    return (
+                      <div key={i} className="td">
+                        <Text text={s} />
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -113,7 +93,14 @@ const LiveDetailsPage = () => {
       <div className="european_view_live_content_layout">
         <Scroll>
           <div className="european_view_live_list">
-            <EventDetailsBillboard sportId={1} data={eventFakeData} />
+            {marketComponentFakeData.map((st) => {
+              return (
+                <div>
+                  <MarketComponent variant="header" data={st} />
+                  <MarketComponent variant="stakes" data={st.Stakes} />
+                </div>
+              );
+            })}
           </div>
         </Scroll>
       </div>
