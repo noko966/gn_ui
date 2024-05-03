@@ -22,13 +22,6 @@
   transition: background var(--tns) color var(--tns) border-color var(--tns);
 }
 
-.european_view_home_event_header > div {
-  flex-grow: 1;
-  min-width: 1px;
-  padding-inline-start: var(--paddingX2);
-  padding-inline-end: var(--paddingX2);
-}
-
 .european_view_home_event_header .ev_name {
   font-size: var(--evFsz);
   color: var(--headerTxt);

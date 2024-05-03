@@ -23,6 +23,10 @@ export {
   MarketComponent,
   marketComponentFakeData,
 } from "./components/EventMarkets/index.js";
+export {
+  EventComponent,
+  eventHomeComponentFakeData,
+} from "./components/EventsHome";
 
 export {
   HomeEventWidgetRow,

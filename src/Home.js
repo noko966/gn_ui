@@ -8,7 +8,9 @@ import {
   Button,
   Collapse,
   HomeEventWidgetLegend,
-  Tooltip
+  Tooltip,
+  EventComponent,
+  eventHomeComponentFakeData
 } from "../library/digi-library";
 
 const EVENTS_DATA = [
@@ -77,62 +79,42 @@ const getData = () => {
   return res;
 };
 
+const eventFilterData = {
+  N: 'live betting',
+  filters: [
+    { N: 'now' },
+    { N: 'coming up' }
+  ]
+}
+
+
+const translationsFakeData = {
+  event: 'event',
+  more: 'more',
+  time: 'time',
+}
+
 const HomePage = () => {
   return (
     <div className="home_page_widgets_wrapper">
       <div className="european_view_home_events_widgets_list">
+
         <div className="european_view_home_events_widget_root">
-          <div className="european_view_home_event_filter">
-            <span className="widget_name">{"Live events"}</span>
-            <div className="european_view_home_event_tabs_row">
-              <button className="european_view_home_event_tab state_active">
-                <Text text="now" />
-              </button>
-              <button className="european_view_home_event_tab">
-                <Text text="coming up" />
-              </button>
-            </div>
-          </div>
+          <EventComponent variant="filter" data={eventFilterData} />
+
+
           <Collapse
             toggler={
-              <div className="european_view_home_event_header">
-                <Symbol sportId={"angle_up"} />
-                <div>
-                  <Text
-                    customClassName={"ev_name"}
-                    text={getData().sportName}
-                  />
-                  <Text customClassName={"ev_count"} text={getData().sportId} />
-                </div>
-                <Symbol sportId={5} />
-              </div>
+              <EventComponent variant="header" data={eventHomeComponentFakeData} />
             }
           >
-            <HomeEventWidgetLegend />
-            {EVENTS_DATA.map((d, i) => {
-              return (
-                <HomeEventWidgetRow
-                  key={i}
-                  HTN={d.HTN}
-                  ATN={d.ATN}
-                  HTSc={d.HTSc}
-                  ATSc={d.ATSc}
-                  HasLI={d.HasLI}
-                  HasLC={d.HasLC}
-                  Time={d.Time}
-                  MoreCount={d.MoreCount}
-                >
-                  {
-                    <OddsWrapper>
-                    
-                        <Odd factor={"1.01"} market={"p1"} />
-                      <Odd factor={"1.01"} market={"x"} />
-                      <Odd factor={"1.01"} market={"p2"} />
-                    </OddsWrapper>
-                  }
-                </HomeEventWidgetRow>
-              );
-            })}
+            <EventComponent variant="thead" data={eventHomeComponentFakeData.CNT[0].CL[0].E[0].StakeTypes[0].Stakes} translations={translationsFakeData} />
+            {
+              eventHomeComponentFakeData.CNT.map((e, i) => {
+                return (<EventComponent variant="event" data={e} />)
+})
+            }
+            
 
             <div className="european_view_home_events_widget_more">
               <Symbol
@@ -209,9 +191,9 @@ const HomePage = () => {
         {Array.from({ length: 2 }, (_, index) => (
           <div key={index} className="european_view_home_events_widget_root">
             <div className="european_view_home_event_filter">
-            
+
               <span className="widget_name"><Tooltip text="This is Upcoming events tooltip! "><span>{"Upcoming events"}</span></Tooltip></span>
-              
+
               {Array.from({ length: 3 }, (_, index) => (
                 <button key={index} className="european_view_home_event_tab">
                   <Symbol sportId={index} />

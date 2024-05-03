@@ -164,7 +164,7 @@ const HomeEventWidgetLegend = ({}) => {
   return (
     <div className="european_view_home_event_legend">
       <div className="legend_item_start">{"event"}</div>
-      <div className="legend_item_center">{"time"}</div>
+      <div className="tdTime">{"time"}</div>
 
       <div className="eu_ew_l_odds_container odds_layout odds_layout_3">
         <div className={"odd_w"}>{"p1"}</div>

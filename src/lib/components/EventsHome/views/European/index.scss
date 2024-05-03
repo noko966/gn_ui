@@ -1,0 +1,230 @@
+.euv_event_home_header_base {
+  --evHeight: 40px;
+  --tns: 0.2s ease-in;
+  --evFsz: 13px;
+  --evFsz2: 13px;
+  --iconFsz: 44px;
+  background: var(--headerBg);
+  color: var(--headerTxt);
+  border-color: var(--headerBorder);
+  height: var(--evHeight);
+  display: flex;
+  align-items: center;
+  padding-inline-start: var(--paddingX3);
+  padding-inline-end: var(--paddingX2);
+  cursor: pointer;
+  transition: background var(--tns) color var(--tns) border-color var(--tns);
+
+  &.state_active {
+    background: var(--headerBg);
+    color: var(--headerTxt2);
+  }
+
+  &:hover {
+    background: var(--headerBg);
+    color: var(--headerTxt2);
+  }
+
+  .market_name {
+    color: var(--headerTxt2);
+    font-weight: 500;
+    text-transform: capitalize;
+    font-size: 14px;
+  }
+}
+
+.european_view_market_stakes_base {
+  background: var(--eventG);
+  color: var(--eventTxt2);
+}
+
+.euv_home_event_filter {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 40px;
+}
+
+.euv_home_event_filter .widget_name {
+  color: var(--bodyAccent);
+  text-transform: uppercase;
+  font-weight: 700;
+  transform: translate3d(0, 0, 0);
+  font-size: 14px;
+  flex-grow: 1;
+}
+
+
+.euv_home_event_filter_tabs_row {
+  display: flex;
+  align-items: center;
+}
+
+.euv_home_event_filter_tabs {
+  // --tabWidth: 50px;
+  --tabHeight: 40px;
+  flex-shrink: 0;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: 0;
+  border: 0;
+  padding-inline-start: var(--paddingX2);
+  padding-inline-end: var(--paddingX2);
+  height: var(--tabHeight);
+  cursor: pointer;
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  background: var(--tabG);
+  color: var(--tabTxt2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: uppercase;
+  border-top-left-radius: 2px;
+  border-top-right-radius: 2px;
+  transition: background 0.2s color 0.2s;
+}
+
+.euv_home_event_filter_tabs:hover {
+  background: var(--tabBgHover);
+  color: var(--tabTxt);
+}
+
+.euv_home_event_filter_tabs.state_active {
+  background: var(--tabActiveG);
+  color: var(--tabActiveTxt);
+}
+
+.euv_home_event_thead {
+  --ev_time_width: 65px;
+  --ev_icons_width: 80px;
+  --ev_more_width: 36px;
+  --ev_stake_width: 56px;
+  height: 24px;
+  background: var(--subHeaderG);
+  color: var(--subHeaderTxt2);
+  display: flex;
+  align-items: center;
+  column-gap: var(--paddingX2);
+  padding-inline-start: var(--paddingX3);
+  padding-inline-end: var(--paddingX2);
+}
+
+.euv_home_event_thead>.tdTime {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--ev_time_width);
+}
+
+.euv_home_event_thead .tdStake {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--ev_stake_width);
+}
+
+.euv_home_event_thead>.tdMore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--ev_more_width);
+}
+
+.euv_home_event_thead>.tdStakes {
+  column-gap: var(--paddingX2);
+  display: flex;
+  align-items: center;
+}
+
+
+.euw_event_home {
+  --tns: 0.2s ease-in;
+  --evFsz: 13px;
+  --evFsz2: 13px;
+  --iconFsz: 44px;
+  background: var(--eventBg);
+  color: var(--eventTxt2);
+  border-bottom: 1px solid var(--eventBorder);
+  display: flex;
+  column-gap: var(--paddingX2);
+  padding-inline-start: var(--paddingX3);
+  padding-inline-end: var(--paddingX2);
+  padding-top: var(--paddingY2);
+  padding-bottom: var(--paddingY2);
+  transition: background var(--tns) color var(--tns) border-color var(--tns);
+}
+
+.euw_event_home > .td_team{
+  flex-grow: 1;
+  min-width: 1px;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--paddingX);
+}
+
+.euw_event_home .text_score{
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  color: var(--eventAccent);
+  font-weight: 500;
+  width: 20px;
+  flex-shrink: 0;
+  padding-inline-end: 4px;
+}
+
+.euw_event_home .text_team{
+  font-size: var(--global_font_size);
+  flex-grow: 1;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.euw_event_home > .td_icons{
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-shrink: 0;
+  column-gap: var(--paddingX2);
+}
+.euw_event_home > .td_time{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--ev_time_width);
+  color: var(--eventTxt2);
+}
+
+.euw_event_home >  .td_stakes{
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  column-gap: var(--paddingX2);
+}
+.euw_event_home >  .td_more{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: var(--ev_more_width);
+}
+
+.euw_event_home_btn_more{
+  width: var(--ev_more_width);
+  height: 30px;
+  border-radius: var(--showMoreRadius);
+  background: var(--showMoreBg);
+  color: var(--showMoreTxt);
+  border: 1px solid var(--showMoreBgHover);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
