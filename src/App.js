@@ -32,6 +32,7 @@ import HomePage from "./Home";
 import PrematchPage from "./Prematch";
 import LivePage from "./Live";
 import LiveDetailsPage from "./LiveDetails";
+import MultiViewPage from "./MultiView";
 
 const EVENTS_DATA = [
   {
@@ -128,9 +129,10 @@ class App extends Component {
                 <span>live event details</span>
               </Link>
 
-              <div className="european_view_home_nav_item">
+              <Link className="european_view_home_nav_item" to="/MultiView">
                 <span>multi view</span>
-              </div>
+              </Link>
+
               <div className="european_view_home_nav_item">
                 <span>results</span>
               </div>
@@ -153,7 +155,7 @@ class App extends Component {
             <Scroll>
               <SidebarTabs>
                 <SidebarTab title="Prematch" count={200}>
-                  <Control onChange={() => {}} />
+                  <Control onChange={() => { }} />
                   <SidebarItem
                     view={"european"}
                     variant={"favorite"}
@@ -254,6 +256,7 @@ class App extends Component {
                 <Route path="/line" element={<PrematchPage />} />
                 <Route path="/live" element={<LivePage />} />
                 <Route path="/LiveDetails" element={<LiveDetailsPage />} />
+                <Route path="/MultiView" element={<MultiViewPage />} />
               </Routes>
             </Scroll>
 

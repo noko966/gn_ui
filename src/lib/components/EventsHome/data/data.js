@@ -1,4 +1,194 @@
-export const data = {
+
+const eventData = 
+  {
+    "Id": 5718643,
+    "N": "Netherlands am. eng - Argentina am.",
+    "EGN": "Netherlands am. eng - Argentina am.",
+    "HT": "Netherlands am. eng",
+    "EHT": "Netherlands am. eng",
+    "AT": "Argentina am.",
+    "EAT": "Argentina am.",
+    "EN": 5718643,
+    "P": 0,
+    "CP": 1,
+    "EPTId": 0,
+    "PN": "",
+    "more": "24",
+    "time":"6`",
+    "EPN": "",
+    "SId": 1,
+    "SN": "Football",
+    "ESN": "Football",
+    "D": "2024-05-03T04:25:00Z",
+    "HS": 2,
+    "AS": 1,
+    "PT": 5,
+    "PS": 0,
+    "ES": "1st half",
+    "EI": "",
+    "S": "1st half",
+    "SS": "2:1 - 0:0",
+    "SAS": "",
+    "GS": "",
+    "IsOne": false,
+    "Srv": 0,
+    "CId": 30422,
+    "CN": "USSR 3x3",
+    "ECN": "USSR 3x3",
+    "RId": 0,
+    "CtN": "USSR 3x3",
+    "ECtN": "USSR 3x3",
+    "Fid": 1,
+    "CFid": 669364,
+    "OC": 108,
+    "IsInL": true,
+    "IsLS": true,
+    "IsLI": false,
+    "BS": true,
+    "IsA": true,
+    "McId": 0,
+    "Priority": 0,
+    "ScId": null,
+    "ScPId": 0,
+    "C": "",
+    "CC": "",
+    "H2HId": 0,
+    "H2HSId": 0,
+    "LSId": 10703,
+    "ScN": 10703,
+    "CR": null,
+    "YC": null,
+    "Stakes": [
+      {
+        "Id": 3264728339,
+        "N": "Netherlands am. eng",
+        "SN": "Netherlands am. eng",
+        "GId": 1,
+        "GN": "Result",
+        "SC": 1,
+        "A": null,
+        "F": 1.64,
+        "IsEx": false,
+        "SFN": "Result:  Netherlands am. eng",
+        "SS": false,
+        "FD": 0,
+        "IsC": true,
+        "IsA": true,
+        "IsL": true,
+        "IsF": false,
+        "IsBF": false,
+        "D": false,
+        "FP": null,
+        "RF": 0,
+        "IsWinner": false,
+        "Factors": [
+          {
+            "Id": 1,
+            "Name": null,
+            "F": 1.64,
+            "M": 0,
+            "NPP": []
+          }
+        ]
+      },
+      {
+        "Id": 3264728340,
+        "N": "X",
+        "SN": "X",
+        "GId": 1,
+        "GN": "Result",
+        "SC": 2,
+        "A": null,
+        "F": 7.3,
+        "IsEx": false,
+        "SFN": "Result:  X",
+        "SS": false,
+        "FD": 0,
+        "IsC": true,
+        "IsA": true,
+        "IsL": true,
+        "IsF": false,
+        "IsBF": false,
+        "D": false,
+        "FP": null,
+        "RF": 0,
+        "IsWinner": false,
+        "Factors": [
+          {
+            "Id": 1,
+            "Name": null,
+            "F": 7.3,
+            "M": 0,
+            "NPP": []
+          }
+        ]
+      },
+      {
+        "Id": 3264728341,
+        "N": "Argentina am.wins",
+        "SN": "W2",
+        "GId": 1,
+        "GN": "Result",
+        "SC": 3,
+        "A": null,
+        "F": 2.7,
+        "IsEx": false,
+        "SFN": "Result:  Argentina am.wins",
+        "SS": false,
+        "FD": 0,
+        "IsC": true,
+        "IsA": true,
+        "IsL": true,
+        "IsF": false,
+        "IsBF": false,
+        "D": false,
+        "FP": null,
+        "RF": 0,
+        "IsWinner": false,
+        "Factors": [
+          {
+            "Id": 1,
+            "Name": null,
+            "F": 2.7,
+            "M": 0,
+            "NPP": []
+          }
+        ]
+      }
+    ],
+  
+    "EVS": 0,
+    "IST": false,
+    "LST": null,
+    "STID": 111788,
+    "HSh": 0,
+    "ASh": 0,
+    "HShT": 0,
+    "AShT": 0,
+    "Groups": null,
+    "SE": [],
+    "HTST": {
+      "Key": 0,
+      "Value": null
+    },
+    "ATST": {
+      "Key": 0,
+      "Value": null
+    },
+    "RCS": "",
+    "AET": 0,
+    "TR": null,
+    "SSS": 1,
+    "ShortStatus": "1H",
+    "PeriodShortName": "",
+    "IsReverseEvent": false,
+    "LLI": "",
+    "HTLI": "",
+    "ATLI": ""
+  }
+
+
+const data = {
   "Id": 1,
   "N": "Football",
   "EGN": "Football",
@@ -11755,3 +11945,6 @@ export const data = {
     }
   ]
 }
+
+
+export {data, eventData}

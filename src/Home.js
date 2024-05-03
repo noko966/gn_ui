@@ -10,7 +10,8 @@ import {
   HomeEventWidgetLegend,
   Tooltip,
   EventComponent,
-  eventHomeComponentFakeData
+  eventHomeComponentFakeData,
+  eventFakeData
 } from "../library/digi-library";
 
 const EVENTS_DATA = [
@@ -79,13 +80,33 @@ const getData = () => {
   return res;
 };
 
-const eventFilterData = {
+const eventFilterData = [{
   N: 'live betting',
   filters: [
     { N: 'now' },
     { N: 'coming up' }
   ]
-}
+},
+{
+  N: 'upcoming betting',
+  filters: [
+    { N: 2 },
+    { N: 3 },
+    { N: 6 },
+    { N: 7 },
+  ]
+},
+{
+  N: 'top matches',
+  filters: [
+    { N: 1 },
+    { N: 2 },
+    { N: 3 },
+    { N: 5 },
+    { N: 6 },
+    { N: 7 },
+  ]
+}]
 
 
 const translationsFakeData = {
@@ -100,21 +121,20 @@ const HomePage = () => {
       <div className="european_view_home_events_widgets_list">
 
         <div className="european_view_home_events_widget_root">
-          <EventComponent variant="filter" data={eventFilterData} />
-
-
+          <EventComponent variant="filter" data={eventFilterData[0]} />
           <Collapse
             toggler={
               <EventComponent variant="header" data={eventHomeComponentFakeData} />
             }
           >
-            <EventComponent variant="thead" data={eventHomeComponentFakeData.CNT[0].CL[0].E[0].StakeTypes[0].Stakes} translations={translationsFakeData} />
-            {
-              eventHomeComponentFakeData.CNT.map((e, i) => {
-                return (<EventComponent variant="event" data={e} />)
-})
-            }
-            
+            <EventComponent variant="thead" data={eventFakeData.Stakes} translations={translationsFakeData} />
+
+            <EventComponent variant="event" data={eventFakeData} />
+            <EventComponent variant="event" data={eventFakeData} />
+            <EventComponent variant="event" data={eventFakeData} />
+            <EventComponent variant="event" data={eventFakeData} />
+            <EventComponent variant="event" data={eventFakeData} />
+
 
             <div className="european_view_home_events_widget_more">
               <Symbol
@@ -124,134 +144,54 @@ const HomePage = () => {
             </div>
           </Collapse>
         </div>
-        {Array.from({ length: 2 }, (_, index) => (
-          <div key={index} className="european_view_home_events_widget_root">
-            <div className="european_view_home_event_filter">
-              <span className="widget_name">{"Some events"}</span>
-              <div className="european_view_home_event_tabs_row">
-                <button className="european_view_home_event_tab state_active">
-                  <Symbol sportId={1} />
-                </button>
-                <button className="european_view_home_event_tab">
-                  <Symbol sportId={5} />
-                </button>
-              </div>
+       
+        <div className="european_view_home_events_widget_root">
+          <EventComponent variant="filter" data={eventFilterData[1]} />
+          <Collapse
+            toggler={
+              <EventComponent variant="header" data={eventHomeComponentFakeData} />
+            }
+          >
+            <EventComponent variant="thead" data={eventFakeData.Stakes} translations={translationsFakeData} />
+
+            <EventComponent variant="event" data={eventFakeData} />
+            <EventComponent variant="event" data={eventFakeData} />
+            <EventComponent variant="event" data={eventFakeData} />
+
+
+            <div className="european_view_home_events_widget_more">
+              <Symbol
+                customClassName="state_indicator"
+                sportId={"angle_down"}
+              />
             </div>
-            <Collapse
-              toggler={
-                <div className="european_view_home_event_header">
-                  <Symbol sportId={"angle_up"} />
-                  <div>
-                    <Text
-                      customClassName={"ev_name"}
-                      text={getData().sportName}
-                    />
-                    <Text
-                      customClassName={"ev_count"}
-                      text={getData().sportId}
-                    />
-                  </div>
-                  <Symbol sportId={index + 1} />
-                </div>
-              }
-            >
-              <HomeEventWidgetLegend />
-              {EVENTS_DATA.map((d, i) => {
-                return (
-                  <HomeEventWidgetRow
-                    key={i}
-                    HTN={d.HTN}
-                    ATN={d.ATN}
-                    HTSc={d.HTSc}
-                    ATSc={d.ATSc}
-                    HasLI={d.HasLI}
-                    HasLC={d.HasLC}
-                    Time={d.Time}
-                    MoreCount={d.MoreCount}
-                  >
-                    <OddsWrapper>
-                      <Odd factor={"1.01"} market={"p1"} />
-                      <Odd factor={"1.01"} market={"x"} />
-                      <Odd factor={"1.01"} market={"p2"} />
-                    </OddsWrapper>
-                  </HomeEventWidgetRow>
-                );
-              })}
-              <div className="european_view_home_events_widget_more">
-                <Symbol
-                  customClassName="state_indicator"
-                  sportId={"angle_down"}
-                />
-              </div>
-            </Collapse>
-          </div>
-        ))}
+          </Collapse>
+        </div>
+
       </div>
       <div className="european_view_home_events_widgets_list">
-        {Array.from({ length: 2 }, (_, index) => (
-          <div key={index} className="european_view_home_events_widget_root">
-            <div className="european_view_home_event_filter">
+      <div className="european_view_home_events_widget_root">
+          <EventComponent variant="filter" data={eventFilterData[2]} />
+          <Collapse
+            toggler={
+              <EventComponent variant="header" data={eventHomeComponentFakeData} />
+            }
+          >
+            <EventComponent variant="thead" data={eventFakeData.Stakes} translations={translationsFakeData} />
 
-              <span className="widget_name"><Tooltip text="This is Upcoming events tooltip! "><span>{"Upcoming events"}</span></Tooltip></span>
+            <EventComponent variant="event" data={eventFakeData} />
+            <EventComponent variant="event" data={eventFakeData} />
+            <EventComponent variant="event" data={eventFakeData} />
 
-              {Array.from({ length: 3 }, (_, index) => (
-                <button key={index} className="european_view_home_event_tab">
-                  <Symbol sportId={index} />
-                </button>
-              ))}
+
+            <div className="european_view_home_events_widget_more">
+              <Symbol
+                customClassName="state_indicator"
+                sportId={"angle_down"}
+              />
             </div>
-            <Collapse
-              toggler={
-                <div className="european_view_home_event_header">
-                  <Symbol sportId={"angle_up"} />
-                  <div>
-                    <Text
-                      customClassName={"ev_name"}
-                      text={getData().sportName}
-                    />
-                    <Text
-                      customClassName={"ev_count"}
-                      text={getData().sportId}
-                    />
-                  </div>
-                  <Symbol sportId={5} />
-                </div>
-              }
-            >
-              <HomeEventWidgetLegend />
-              {EVENTS_DATA.map((d, i) => {
-                return (
-                  <HomeEventWidgetRow
-                    key={i}
-                    HTN={d.HTN}
-                    ATN={d.ATN}
-                    HTSc={d.HTSc}
-                    ATSc={d.ATSc}
-                    HasLI={d.HasLI}
-                    HasLC={d.HasLC}
-                    Time={d.Time}
-                    MoreCount={d.MoreCount}
-                  >
-                    {
-                      <OddsWrapper>
-                        <Odd factor={"1.01"} market={"p1"} />
-                        <Odd factor={"1.01"} market={"x"} />
-                        <Odd factor={"1.01"} market={"p2"} />
-                      </OddsWrapper>
-                    }
-                  </HomeEventWidgetRow>
-                );
-              })}
-
-              <div className="european_view_home_events_widget_more">
-                <Symbol
-                  customClassName="state_indicator"
-                  sportId={"angle_down"}
-                />
-              </div>
-            </Collapse>
-          </div>
-        ))}
+          </Collapse>
+        </div>
         <div className="european_view_home_events_widget_root">
           <div className="european_view_home_event_filter">
             <span className="widget_name">{"Toto expert"}</span>

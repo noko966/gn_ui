@@ -2,7 +2,7 @@ import React from "react";
 
 // import "./index.scss";
 import EuropeanView from "./views/European/index";
-import { data } from "./data/data";
+import { data, eventData } from "./data/data";
 
 const EventComponent = ({ view, variant, data, ...rest }) => {
   const Component =
@@ -14,4 +14,4 @@ const EventComponent = ({ view, variant, data, ...rest }) => {
   return <Component view={view} variant={variant} data={data} {...rest} />;
 };
 
-export { EventComponent, data as eventHomeComponentFakeData };
+export { EventComponent, data as eventHomeComponentFakeData, eventData as eventFakeData };

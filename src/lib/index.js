@@ -26,6 +26,7 @@ export {
 export {
   EventComponent,
   eventHomeComponentFakeData,
+  eventFakeData
 } from "./components/EventsHome";
 
 export {

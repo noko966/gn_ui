@@ -37,26 +37,6 @@ const EventHeaderHome = ({ isDisabled, isActive, data }) => {
 };
 
 
-const EventHomeOdds = ({ stakes }) => {
-  // Create an array of default <Odd /> components
-  const defaultOdds = [];
-  for (let i = 0; i < 3; i++) {
-    defaultOdds.push(<Odd key={`default-${i}`} factor={'-'} />);
-  }
-
-  // Determine the components to render based on `stakes`
-  const oddsToRender = stakes && stakes.length === 3
-    ? stakes[0].Stakes.map((st, i) => <Odd key={i} factor={st.F} />)
-    : defaultOdds;
-
-  return (
-    <div className="td_stakes">
-      {oddsToRender}
-    </div>
-  );
-};
-
-
 const EventHome = ({ isDisabled, isActive, data }) => {
   const rootClassName = classNames({
     [`euw_event_home`]: true,
@@ -65,46 +45,49 @@ const EventHome = ({ isDisabled, isActive, data }) => {
     state_disabled: isDisabled,
   });
 
-
-  const stakes = data.CL[0].E[0].StakeTypes
-
   return (
     <div className={rootClassName}>
       <div className="td_team">
         <div className="flex">
           <Text
             customClassName={"text_score"}
-            text={data.CL[0].E[0].HS}
+            text={data.HS}
           />
           <Text
             customClassName={"text_team ellipsis"}
-            text={data.CL[0].E[0].HT}
+            text={data.HT}
           />
         </div>
         <div className="flex">
           <Text
             customClassName={"text_score"}
-            text={data.CL[0].E[0].AS}
+            text={data.AS}
           />
           <Text
             customClassName={"text_team ellipsis"}
-            text={data.CL[0].E[0].AT}
+            text={data.AT}
           />
         </div>
       </div>
       <div className="td_icons">
-        {data.CL[0].E[0].IsLS && <Symbol sportId={'stream'} />}
-        {data.CL[0].E[0].IsLI && <Symbol sportId={'liva_info'} />}
+        {data.IsLS && <Symbol sportId={'stream'} />}
+        {data.IsLI && <Symbol sportId={'liva_info'} />}
       </div>
       <div className="td_time">
         <Text
           customClassName={"text_time"}
-          text={data.CL[0].E[0].D}
+          text={data.time}
         />
       </div>
-      {<EventHomeOdds stakes={stakes}/>}
+      {
+        data.Stakes.map((st, i) => {
+          return ( <Odd key={i} factor={st.F}/>)
+        })
+      }
       <div className="dont_shrink">
-        <button className="euw_event_home_btn_more"></button>
+        <button className="euw_event_home_btn_more">
+          {`+${data.more}`}
+        </button>
       </div>
     </div>
   );
@@ -127,7 +110,7 @@ const EventFilterHome = ({ data }) => {
           {data.filters.map((f, i) => {
             return (
               <button key={i} className="european_view_home_event_tab state_active">
-                <Symbol sportId={f.id} />
+                <Symbol sportId={f.N} />
               </button>
             )
           })}
