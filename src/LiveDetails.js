@@ -15,7 +15,7 @@ const SportImageComponent = ({ sportId }) => {
   return <img className="dg_deco_image" src={imageSource} />;
 };
 
-const EventDetailsBillboard = ({ sportId, data }) => {
+const EventDetailsBillboard = ({ data }) => {
   const rootClassName = classNames({
     european_view_event_details_billboard_root: true,
   });
@@ -26,16 +26,16 @@ const EventDetailsBillboard = ({ sportId, data }) => {
         <div className="european_view_event_details_billboard_layout_start">
           <div className="billboard_layout_row">
             <Symbol sportId="angle_left" />
-            <Text customClassName="lg" text="league name" />
+            <Text customClassName="lg" text={data.CN} />
             <Symbol sportId="info" />
           </div>
           <div className="billboard_layout_row_team">
             <Symbol sportId="issue" />
-            <Text customClassName="tn" text="team name home" />
+            <Text customClassName="tn" text={data.HT} />
           </div>
           <div className="billboard_layout_row_team">
             <Symbol sportId="issue" />
-            <Text customClassName="tn" text="team name away" />
+            <Text customClassName="tn" text={data.AT} />
           </div>
         </div>
         <div className="european_view_event_details_billboard_layout_end">
@@ -82,10 +82,19 @@ const EventDetailsBillboard = ({ sportId, data }) => {
       </div>
 
       <div className="european_view_event_details_billboard_layout_filters"></div>
-      <SportImageComponent sportId={sportId} />
+      <SportImageComponent sportId={data.sportId} />
     </div>
   );
 };
+
+const billBoardFakeData = {
+  scoresHt: [0, 1, 2, 3, 4, 5, 6],
+  scoresAt: [0, 1, 2, 3, 4, 5, 6],
+  sportId: 1,
+  CN: 'alcatraz 155',
+  HT: 'mustangs',
+  AT: 'Dogs'
+}
 
 const LiveDetailsPage = () => {
   const oddIndexedData = marketComponentFakeData.filter(
@@ -99,6 +108,8 @@ const LiveDetailsPage = () => {
     <div className="european_view_live_root">
       <div className="european_view_live_content_layout">
         <Scroll>
+          <div className="euv_page_list">
+          <EventDetailsBillboard data={billBoardFakeData} />
           <MarketComponent variant="filter" data={oddIndexedData} />
           <div className="euv_page_lists_row">
             <div className="flex_col euv_page_list euv_page_list_50">
@@ -121,6 +132,7 @@ const LiveDetailsPage = () => {
                 );
               })}
             </div>
+          </div>
           </div>
         </Scroll>
       </div>

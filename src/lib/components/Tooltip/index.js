@@ -8,7 +8,6 @@ const useTooltip = () => useContext(TooltipContext);
 
 const Tooltip = ({ children, text }) => {
   const ref = useRef(null);
-  const timeoutRef = useRef();
   const { setTooltip } = useTooltip();
 
   const handleMouseOver = () => {
@@ -19,7 +18,6 @@ const Tooltip = ({ children, text }) => {
       const vh = window.innerHeight;
       const space = 8;
       const tooltipSize = 100;
-      const centerX = vw / 2;
       const centerY = vh / 2;
 
       let t = y + height + space;

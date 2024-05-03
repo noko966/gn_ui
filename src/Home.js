@@ -146,7 +146,9 @@ const HomePage = () => {
         </div>
        
         <div className="european_view_home_events_widget_root">
+        <Tooltip text="this is very very extraordinary qaq">
           <EventComponent variant="filter" data={eventFilterData[1]} />
+          </Tooltip>
           <Collapse
             toggler={
               <EventComponent variant="header" data={eventHomeComponentFakeData} />
