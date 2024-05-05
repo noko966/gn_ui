@@ -36,6 +36,10 @@
 .european_view_market_stakes_base {
   background: var(--eventG);
   color: var(--eventTxt2);
+  &.state_disabled {
+    opacity: 0.2;
+    pointer-events: none;
+  }
 }
 
 .euv_home_event_filter {
@@ -53,7 +57,6 @@
   font-size: 14px;
   flex-grow: 1;
 }
-
 
 .euv_home_event_filter_tabs_row {
   display: flex;
@@ -112,7 +115,7 @@
   padding-inline-end: var(--paddingX2);
 }
 
-.euv_home_event_thead>.tdTime {
+.euv_home_event_thead > .tdTime {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,7 +131,7 @@
   width: var(--ev_stake_width);
 }
 
-.euv_home_event_thead>.tdMore {
+.euv_home_event_thead > .tdMore {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -136,12 +139,11 @@
   width: var(--ev_more_width);
 }
 
-.euv_home_event_thead>.tdStakes {
+.euv_home_event_thead > .tdStakes {
   column-gap: var(--paddingX2);
   display: flex;
   align-items: center;
 }
-
 
 .euw_event_home {
   --tns: 0.2s ease-in;
@@ -160,7 +162,7 @@
   transition: background var(--tns) color var(--tns) border-color var(--tns);
 }
 
-.euw_event_home > .td_team{
+.euw_event_home > .td_team {
   flex-grow: 1;
   min-width: 1px;
   display: flex;
@@ -168,7 +170,7 @@
   row-gap: var(--paddingX);
 }
 
-.euw_event_home .text_score{
+.euw_event_home .text_score {
   display: flex;
   justify-content: flex-end;
   align-items: center;
@@ -179,21 +181,21 @@
   padding-inline-end: 4px;
 }
 
-.euw_event_home .text_team{
+.euw_event_home .text_team {
   font-size: var(--global_font_size);
   flex-grow: 1;
   font-weight: 500;
   text-transform: capitalize;
 }
 
-.euw_event_home > .td_icons{
+.euw_event_home > .td_icons {
   display: flex;
   align-items: center;
   justify-content: flex-end;
   flex-shrink: 0;
   column-gap: var(--paddingX2);
 }
-.euw_event_home > .td_time{
+.euw_event_home > .td_time {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -202,13 +204,13 @@
   color: var(--eventTxt2);
 }
 
-.euw_event_home >  .td_stakes{
+.euw_event_home > .td_stakes {
   display: flex;
   align-items: center;
   flex-shrink: 0;
   column-gap: var(--paddingX2);
 }
-.euw_event_home >  .td_more{
+.euw_event_home > .td_more {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -216,7 +218,7 @@
   width: var(--ev_more_width);
 }
 
-.euw_event_home_btn_more{
+.euw_event_home_btn_more {
   width: var(--ev_more_width);
   height: 30px;
   border-radius: var(--showMoreRadius);

@@ -6,7 +6,6 @@ import Text from "../../../Text/index.js";
 import { Odd, OddsWrapper } from "../../../Odd/index.js";
 import "./index.scss";
 
-
 const EventHeaderHome = ({ isDisabled, isActive, data }) => {
   const rootClassName = classNames({
     [`european_view_home_event_header`]: true,
@@ -23,10 +22,7 @@ const EventHeaderHome = ({ isDisabled, isActive, data }) => {
         <Symbol sportId={"angle_up"} />
       </div>
       <div className="grow">
-        <Text
-          customClassName={"event_group_name"}
-          text={data.N}
-        />
+        <Text customClassName={"event_group_name"} text={data.N} />
         <Text customClassName={"event_groups_count"} text={renderCount} />
       </div>
       <div className="dont_shrink">
@@ -35,7 +31,6 @@ const EventHeaderHome = ({ isDisabled, isActive, data }) => {
     </div>
   );
 };
-
 
 const EventHome = ({ isDisabled, isActive, data }) => {
   const rootClassName = classNames({
@@ -49,45 +44,26 @@ const EventHome = ({ isDisabled, isActive, data }) => {
     <div className={rootClassName}>
       <div className="td_team">
         <div className="flex">
-          <Text
-            customClassName={"text_score"}
-            text={data.HS}
-          />
-          <Text
-            customClassName={"text_team ellipsis"}
-            text={data.HT}
-          />
+          <Text customClassName={"text_score"} text={data.HS} />
+          <Text customClassName={"text_team ellipsis"} text={data.HT} />
         </div>
         <div className="flex">
-          <Text
-            customClassName={"text_score"}
-            text={data.AS}
-          />
-          <Text
-            customClassName={"text_team ellipsis"}
-            text={data.AT}
-          />
+          <Text customClassName={"text_score"} text={data.AS} />
+          <Text customClassName={"text_team ellipsis"} text={data.AT} />
         </div>
       </div>
       <div className="td_icons">
-        {data.IsLS && <Symbol sportId={'stream'} />}
-        {data.IsLI && <Symbol sportId={'liva_info'} />}
+        {data.IsLS && <Symbol sportId={"stream"} />}
+        {data.IsLI && <Symbol sportId={"liva_info"} />}
       </div>
       <div className="td_time">
-        <Text
-          customClassName={"text_time"}
-          text={data.time}
-        />
+        <Text customClassName={"text_time"} text={data.time} />
       </div>
-      {
-        data.Stakes.map((st, i) => {
-          return ( <Odd key={i} factor={st.F}/>)
-        })
-      }
+      {data.Stakes.map((st, i) => {
+        return <Odd key={i} factor={st.F} />;
+      })}
       <div className="dont_shrink">
-        <button className="euw_event_home_btn_more">
-          {`+${data.more}`}
-        </button>
+        <button className="euw_event_home_btn_more">{`+${data.more}`}</button>
       </div>
     </div>
   );
@@ -109,22 +85,19 @@ const EventFilterHome = ({ data }) => {
         <div className="european_view_home_event_tabs_row">
           {data.filters.map((f, i) => {
             return (
-              <button key={i} className="european_view_home_event_tab state_active">
+              <button
+                key={i}
+                className="european_view_home_event_tab state_active"
+              >
                 <Symbol sportId={f.N} />
               </button>
-            )
+            );
           })}
-
         </div>
-
       </div>
     </div>
-
-
-
   );
 };
-
 
 const EventGroupTheadHome = ({ data, translations }) => {
   return (
@@ -133,20 +106,18 @@ const EventGroupTheadHome = ({ data, translations }) => {
       <div className="tdTime ellipsis">{translations.time}</div>
 
       <div className="dont_shrink tdStakes">
-        {
-          data.map((stk, i) => {
-            return (
-              <div key={i} className={"tdStake ellipsis"}>{stk.SN}</div>
-            )
-          })
-        }
+        {data.map((stk, i) => {
+          return (
+            <div key={i} className={"tdStake ellipsis"}>
+              {stk.SN}
+            </div>
+          );
+        })}
       </div>
       <div className="tdMore ellipsis">{translations.more}</div>
     </div>
-  )
-}
-
-
+  );
+};
 
 const EuropeanView = ({ variant, data, ...rest }) => {
   const Component =

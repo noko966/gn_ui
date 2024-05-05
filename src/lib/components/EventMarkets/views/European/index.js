@@ -3,7 +3,7 @@ import classNames from "classnames";
 import Symbol from "../../../Symbol/index.js";
 import Favorite from "../../../Favorite/index.js";
 import Text from "../../../Text/index.js";
-import Dropdown from "../../../Dropdown/Dropdown.js";
+import Scroll from "../../../Layouts/Scroll/index.js";
 import { Odd, OddsWrapper } from "../../../Odd/index.js";
 import "./index.scss";
 
@@ -36,16 +36,19 @@ const MarketFilter = ({ isDisabled, isActive, data }) => {
 
   return (
     <div className={rootClassName}>
-      <div className="">
-        <Dropdown
-          onChange={() => {}}
-          options={data.map((m) => {
-            return {
-              value: m.N,
-            };
+      <Scroll isHorizontal={true}>
+        <div className="european_view_event_tabs_wrapper">
+          {data.map((d) => {
+            return (
+              <button className="european_view_event_tab">
+                <i />
+                <Text text={d.N} />
+              </button>
+            );
           })}
-        />
-      </div>
+        </div>
+      </Scroll>
+      <div className=""></div>
     </div>
   );
 };

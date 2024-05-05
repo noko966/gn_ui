@@ -91,10 +91,10 @@ const billBoardFakeData = {
   scoresHt: [0, 1, 2, 3, 4, 5, 6],
   scoresAt: [0, 1, 2, 3, 4, 5, 6],
   sportId: 1,
-  CN: 'alcatraz 155',
-  HT: 'mustangs',
-  AT: 'Dogs'
-}
+  CN: "alcatraz 155",
+  HT: "mustangs",
+  AT: "Dogs",
+};
 
 const LiveDetailsPage = () => {
   const oddIndexedData = marketComponentFakeData.filter(
@@ -109,30 +109,34 @@ const LiveDetailsPage = () => {
       <div className="european_view_live_content_layout">
         <Scroll>
           <div className="euv_page_list">
-          <EventDetailsBillboard data={billBoardFakeData} />
-          <MarketComponent variant="filter" data={oddIndexedData} />
-          <div className="euv_page_lists_row">
-            <div className="flex_col euv_page_list euv_page_list_50">
-              {oddIndexedData.map((st) => {
-                return (
-                  <div>
-                    <MarketComponent variant="header" data={st} />
-                    <MarketComponent variant="stakes" data={st.Stakes} />
-                  </div>
-                );
-              })}
+            <EventDetailsBillboard data={billBoardFakeData} />
+            <MarketComponent variant="filter" data={oddIndexedData} />
+            <div className="euv_page_lists_row">
+              <div className="flex_col euv_page_list euv_page_list_50">
+                {oddIndexedData.map((st) => {
+                  return (
+                    <div>
+                      <MarketComponent variant="header" data={st} />
+                      <MarketComponent variant="stakes" data={st.Stakes} />
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="euv_page_list euv_page_list_50">
+                {evenIndexedData.map((st) => {
+                  return (
+                    <div>
+                      <MarketComponent variant="header" data={st} />
+                      <MarketComponent
+                        variant="stakes"
+                        data={st.Stakes}
+                        isDisabled={true}
+                      />
+                    </div>
+                  );
+                })}
+              </div>
             </div>
-            <div className="euv_page_list euv_page_list_50">
-              {evenIndexedData.map((st) => {
-                return (
-                  <div>
-                    <MarketComponent variant="header" data={st} />
-                    <MarketComponent variant="stakes" data={st.Stakes} />
-                  </div>
-                );
-              })}
-            </div>
-          </div>
           </div>
         </Scroll>
       </div>

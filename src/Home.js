@@ -11,7 +11,7 @@ import {
   Tooltip,
   EventComponent,
   eventHomeComponentFakeData,
-  eventFakeData
+  eventFakeData,
 } from "../library/digi-library";
 
 const EVENTS_DATA = [
@@ -80,61 +80,53 @@ const getData = () => {
   return res;
 };
 
-const eventFilterData = [{
-  N: 'live betting',
-  filters: [
-    { N: 'now' },
-    { N: 'coming up' }
-  ]
-},
-{
-  N: 'upcoming betting',
-  filters: [
-    { N: 2 },
-    { N: 3 },
-    { N: 6 },
-    { N: 7 },
-  ]
-},
-{
-  N: 'top matches',
-  filters: [
-    { N: 1 },
-    { N: 2 },
-    { N: 3 },
-    { N: 5 },
-    { N: 6 },
-    { N: 7 },
-  ]
-}]
-
+const eventFilterData = [
+  {
+    N: "live betting",
+    filters: [{ N: "now" }, { N: "coming up" }],
+  },
+  {
+    N: "upcoming betting",
+    filters: [{ N: 2 }, { N: 3 }, { N: 6 }, { N: 7 }],
+  },
+  {
+    N: "top matches",
+    filters: [{ N: 1 }, { N: 2 }, { N: 3 }, { N: 5 }, { N: 6 }, { N: 7 }],
+  },
+];
 
 const translationsFakeData = {
-  event: 'event',
-  more: 'more',
-  time: 'time',
-}
+  event: "event",
+  more: "more",
+  time: "time",
+};
 
 const HomePage = () => {
   return (
     <div className="home_page_widgets_wrapper">
       <div className="european_view_home_events_widgets_list">
-
         <div className="european_view_home_events_widget_root">
           <EventComponent variant="filter" data={eventFilterData[0]} />
+
           <Collapse
             toggler={
-              <EventComponent variant="header" data={eventHomeComponentFakeData} />
+              <EventComponent
+                variant="header"
+                data={eventHomeComponentFakeData}
+              />
             }
           >
-            <EventComponent variant="thead" data={eventFakeData.Stakes} translations={translationsFakeData} />
+            <EventComponent
+              variant="thead"
+              data={eventFakeData.Stakes}
+              translations={translationsFakeData}
+            />
 
             <EventComponent variant="event" data={eventFakeData} />
             <EventComponent variant="event" data={eventFakeData} />
             <EventComponent variant="event" data={eventFakeData} />
             <EventComponent variant="event" data={eventFakeData} />
             <EventComponent variant="event" data={eventFakeData} />
-
 
             <div className="european_view_home_events_widget_more">
               <Symbol
@@ -144,22 +136,28 @@ const HomePage = () => {
             </div>
           </Collapse>
         </div>
-       
+
         <div className="european_view_home_events_widget_root">
-        <Tooltip text="this is very very extraordinary qaq">
-          <EventComponent variant="filter" data={eventFilterData[1]} />
+          <Tooltip text="this is very very extraordinary qaq">
+            <EventComponent variant="filter" data={eventFilterData[1]} />
           </Tooltip>
           <Collapse
             toggler={
-              <EventComponent variant="header" data={eventHomeComponentFakeData} />
+              <EventComponent
+                variant="header"
+                data={eventHomeComponentFakeData}
+              />
             }
           >
-            <EventComponent variant="thead" data={eventFakeData.Stakes} translations={translationsFakeData} />
+            <EventComponent
+              variant="thead"
+              data={eventFakeData.Stakes}
+              translations={translationsFakeData}
+            />
 
             <EventComponent variant="event" data={eventFakeData} />
             <EventComponent variant="event" data={eventFakeData} />
             <EventComponent variant="event" data={eventFakeData} />
-
 
             <div className="european_view_home_events_widget_more">
               <Symbol
@@ -169,22 +167,27 @@ const HomePage = () => {
             </div>
           </Collapse>
         </div>
-
       </div>
       <div className="european_view_home_events_widgets_list">
-      <div className="european_view_home_events_widget_root">
+        <div className="european_view_home_events_widget_root">
           <EventComponent variant="filter" data={eventFilterData[2]} />
           <Collapse
             toggler={
-              <EventComponent variant="header" data={eventHomeComponentFakeData} />
+              <EventComponent
+                variant="header"
+                data={eventHomeComponentFakeData}
+              />
             }
           >
-            <EventComponent variant="thead" data={eventFakeData.Stakes} translations={translationsFakeData} />
+            <EventComponent
+              variant="thead"
+              data={eventFakeData.Stakes}
+              translations={translationsFakeData}
+            />
 
             <EventComponent variant="event" data={eventFakeData} />
             <EventComponent variant="event" data={eventFakeData} />
             <EventComponent variant="event" data={eventFakeData} />
-
 
             <div className="european_view_home_events_widget_more">
               <Symbol
