@@ -4,6 +4,7 @@ import {
   MatchItemComponent,
   marketComponentFakeData,
   MarketComponent,
+  Collapse,
 } from "../library/digi-library";
 
 const resultsFakeData = [
@@ -179,8 +180,11 @@ const PrematchPage = () => {
             {marketComponentFakeData.map((st) => {
               return (
                 <div>
-                  <MarketComponent variant="header" data={st} />
-                  <MarketComponent variant="stakes" data={st.Stakes} />
+                  <Collapse
+                    toggler={<MarketComponent variant="header" data={st} />}
+                  >
+                    <MarketComponent variant="stakes" data={st.Stakes} />
+                  </Collapse>
                 </div>
               );
             })}

@@ -116,8 +116,11 @@ const LiveDetailsPage = () => {
                 {oddIndexedData.map((st) => {
                   return (
                     <div>
-                      <MarketComponent variant="header" data={st} />
-                      <MarketComponent variant="stakes" data={st.Stakes} />
+                      <Collapse
+                        toggler={<MarketComponent variant="header" data={st} />}
+                      >
+                        <MarketComponent variant="stakes" data={st.Stakes} />
+                      </Collapse>
                     </div>
                   );
                 })}
@@ -126,12 +129,11 @@ const LiveDetailsPage = () => {
                 {evenIndexedData.map((st) => {
                   return (
                     <div>
-                      <MarketComponent variant="header" data={st} />
-                      <MarketComponent
-                        variant="stakes"
-                        data={st.Stakes}
-                        isDisabled={true}
-                      />
+                      <Collapse
+                        toggler={<MarketComponent variant="header" data={st} />}
+                      >
+                        <MarketComponent variant="stakes" data={st.Stakes} />
+                      </Collapse>
                     </div>
                   );
                 })}
