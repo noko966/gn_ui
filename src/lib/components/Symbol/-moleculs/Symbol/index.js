@@ -153,6 +153,7 @@ const Mapping = {
   control_checked: "icon_control_checked",
   swap: "icon_swap",
   issue: "icon_issue",
+  close: "icon_close",
 };
 
 const Variants = {

@@ -3,6 +3,7 @@
   --scroll_shadow_size: 24px;
   position: relative;
   overflow-y: auto;
+  height: 100%;
   /* Enables vertical scrolling */
   // height: 100vh;
 
@@ -33,7 +34,6 @@
     height: 100%;
   }
 }
-
 
 .view_european_scroll_x {
   --scroll_shadow_angle: 90deg;
@@ -70,16 +70,28 @@
   }
 }
 
-
 .view_european_scroll.state_shadow_start {
-  mask-image: linear-gradient(var(--scroll_shadow_angle), transparent, var(--bodyBg) var(--scroll_shadow_size));
+  mask-image: linear-gradient(
+    var(--scroll_shadow_angle),
+    transparent,
+    var(--bodyBg) var(--scroll_shadow_size)
+  );
 }
 
 .view_european_scroll.state_shadow_end {
-  mask-image: linear-gradient(var(--scroll_shadow_angle), var(--bodyBg) calc(100% - var(--scroll_shadow_size)), transparent);
+  mask-image: linear-gradient(
+    var(--scroll_shadow_angle),
+    var(--bodyBg) calc(100% - var(--scroll_shadow_size)),
+    transparent
+  );
 }
 
 .view_european_scroll.state_shadow_start.state_shadow_end {
-  mask-image: linear-gradient(var(--scroll_shadow_angle), transparent, var(--bodyBg) var(--scroll_shadow_size),  var(--bodyBg) calc(100% - var(--scroll_shadow_size)), transparent);
+  mask-image: linear-gradient(
+    var(--scroll_shadow_angle),
+    transparent,
+    var(--bodyBg) var(--scroll_shadow_size),
+    var(--bodyBg) calc(100% - var(--scroll_shadow_size)),
+    transparent
+  );
 }
-

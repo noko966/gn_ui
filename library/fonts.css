@@ -2454,7 +2454,8 @@
   content: "\e120";
 }
 
-.sport_front_icon-close:before {
+.sport_front_icon-close:before,
+.icon_close:before {
   content: "\e121";
 }
 

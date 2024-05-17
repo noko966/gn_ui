@@ -1,0 +1,35 @@
+/*score team component row*/
+.score_team_root {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  column-gap: var(--paddingX2);
+}
+
+.score_team_score {
+  --scoreSize: 24px;
+  flex-shrink: 0;
+  width: var(--scoreSize);
+  height: var(--scoreSize);
+  background-color: var(--eventBg2);
+  color: var(--eventAccent);
+  font-weight: 500;
+  display: flex;
+  font-size: 13px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 var(--paddingX);
+  border-radius: 2px;
+}
+
+.score_team_name {
+  flex-grow: 1;
+  flex-shrink: 0;
+  color: currentColor;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

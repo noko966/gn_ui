@@ -446,8 +446,98 @@ html {
   flex-basis: calc(50% - var(--root_gap) / 2);
 }
 
-.ellipsis{
+.ellipsis {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.european_view_event_multi_view_item_root {
+  background-color: var(--eventBg);
+  color: var(--eventTxt);
+}
+
+.european_view_event_multi_view_element_header {
+  --height: 44px;
+  position: relative;
+  display: flex;
+  align-items: center;
+  height: var(--height);
+  padding: 0 var(--paddingX3);
+  background-color: var(--eventHeaderBg);
+  color: var(--eventHeaderTxt);
+}
+
+.dg_deco_image_wrapper {
+  overflow: hidden;
+  height: var(--height);
+  position: absolute;
+  width: 312px;
+  right: 0;
+  z-index: 1;
+}
+
+.european_view_close_button {
+  appearance: none;
+  border: 0;
+  outline: 0;
+  background-color: var(--bodyBg);
+  color: var(--bodyTxt);
+  cursor: pointer;
+  border-radius: 2px;
+  flex-shrink: 0;
+  z-index: 2;
+}
+
+.layout_row_fill {
+  flex-grow: 1;
+  min-width: 1px;
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+}
+
+.layout_row_hug {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+}
+
+.european_view_event_multi_view_item_top {
+  padding: var(--paddingY2) var(--paddingX3);
+  background-color: var(--eventBg);
+  color: var(--eventTxt);
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--paddingY);
+}
+
+.european_view_event_multi_view_item_markets_filter {
+  --height: 24px;
+  display: flex;
+  align-items: center;
+  height: var(--height);
+  padding: 0 var(--paddingX3);
+  background-color: var(--eventBg);
+  color: var(--eventTxt);
+}
+
+.european_view_event_multi_view_item_market_filter {
+  --height: 24px;
+  display: flex;
+  align-items: center;
+  height: var(--height);
+  padding: 0 var(--paddingX3);
+  background-color: var(--subHeaderG);
+  color: var(--subHeaderTxt);
+}
+
+.european_view_multi_item_market_scroll_container {
+  height: 200px;
+}
+
+.euv_page_layout_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: var(--paddingX2);
 }

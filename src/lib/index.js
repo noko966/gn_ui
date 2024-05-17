@@ -39,3 +39,4 @@ export { default as Content } from "./components/Content/index.js";
 
 export { default as Collapse } from "./components/Collapse/index.js";
 export { default as ScoreTeamName } from "./components/ScoreTeamName/index.js";
+export { default as TeamScoreElement } from "./components/TeamScoreElement/index.js";

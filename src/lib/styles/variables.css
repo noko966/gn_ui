@@ -183,6 +183,24 @@
   --eventRadius: 2px;
   --eventBorder: #0c101b;
 
+  --eventHeaderG: var(--dominantG);
+  --eventHeaderBg: var(--dominantBg);
+  --eventHeaderBg2: var(--dominantBg2);
+  --eventHeaderBg3: var(--dominantBg3);
+  --eventHeaderBgHover: var(--dominantBgHover);
+  --eventHeaderBg2Hover: var(--dominantBg2Hover);
+  --eventHeaderBg3Hover: var(--dominantBg3Hover);
+  --eventHeaderTxt: var(--dominantTxt);
+  --eventHeaderTxt2: var(--dominantTxt2);
+  --eventHeaderTxt3: var(--dominantTxt3);
+  --eventHeaderAccent: var(--dominantAccent);
+  --eventHeaderAccentTxt: var(--dominantAccentTxt);
+  --eventHeaderRGBA: var(--dominantRGBA);
+  --eventHeaderRGBA2: var(--dominantRGBA2);
+  --eventHeaderRGBA3: var(--dominantRGBA3);
+  --eventHeaderRadius: var(--dominantRadius);
+  --eventHeaderBorder: var(--dominantBorder);
+
   --eventLiveG: #29355b;
   --eventLiveBg: #29355b;
   --eventLiveBg2: #39497e;
