@@ -455,6 +455,7 @@ html {
 .european_view_event_multi_view_item_root {
   background-color: var(--eventBg);
   color: var(--eventTxt);
+  box-shadow: 0 2px 8px 0 var(--bodyRGBA2);
 }
 
 .european_view_event_multi_view_element_header {
@@ -538,6 +539,6 @@ html {
 
 .euv_page_layout_grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: var(--multi_itens_grid_cols);
   column-gap: var(--paddingX2);
 }

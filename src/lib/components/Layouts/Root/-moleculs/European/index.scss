@@ -1,5 +1,6 @@
 .view_european_root {
   --widgets_layout_cols: 100%;
+  --multi_itens_grid_cols: repeat(2, 1fr);
   --root_gap: 16px;
   --sidebar_row_height: auto;
   --sidebar_start_width: 272px;
@@ -19,4 +20,5 @@
 
 .view_european_root.dl {
   --widgets_layout_cols: 1fr 1fr;
+  --multi_itens_grid_cols: repeat(3, 1fr);
 }
