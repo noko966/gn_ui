@@ -541,4 +541,5 @@ html {
   display: grid;
   grid-template-columns: var(--multi_itens_grid_cols);
   column-gap: var(--paddingX2);
+  row-gap: var(--paddingY2);
 }

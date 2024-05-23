@@ -2491,7 +2491,8 @@
   content: "\e125";
 }
 
-.sport_front_icon-colapse:before {
+.sport_front_icon-colapse:before,
+.icon_angle_double_down:before {
   content: "\e12C";
 }
 

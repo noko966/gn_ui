@@ -84,7 +84,7 @@ const MarketFilter = ({ isDisabled, isActive, data }) => {
   return (
     <div className={rootClassName}>
       <div className="layout_start">
-        <Symbol sportId={"double"} />
+        <Symbol sportId={"angle_double_down"} />
         <Symbol sportId={data.id} />
         <div className="layout_t">
           <Text customClassName={"n"} text={data.name} />

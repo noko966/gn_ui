@@ -15,7 +15,7 @@ const LiveMatchHeaderComponent = ({ sportId, sportName, eventCount }) => {
   return (
     <div className="european_view_live_match_header">
       <div className="layout_fill">
-        <Symbol sportId={"double"} />
+        <Symbol sportId={"angle_double_down"} />
         <Text customClassName={"n"} text={sportName} />
       </div>
       <div className="layout_hug">

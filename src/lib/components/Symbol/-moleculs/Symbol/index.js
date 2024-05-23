@@ -154,6 +154,7 @@ const Mapping = {
   swap: "icon_swap",
   issue: "icon_issue",
   close: "icon_close",
+  angle_double_down: "icon_angle_double_down",
 };
 
 const Variants = {

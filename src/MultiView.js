@@ -65,7 +65,7 @@ const MultiViewPage = () => {
                   </div>
                   <div className="european_view_event_multi_view_item_markets_filter">
                     <div className="layout_row_fill">
-                      <Symbol sportId={"angle_down"} />
+                      <Symbol sportId={"angle_double_down"} />
                       <Text text={"2 nd half"} />
                     </div>
                     <div className="layout_row_hug">
