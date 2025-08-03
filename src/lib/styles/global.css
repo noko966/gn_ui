@@ -581,7 +581,7 @@ html {
 
 
 .sk_bd_canvas_root{
-  --w: 800px;
+  --w: var(--canvasWidth);
   --h: 600px;
   width:  var(--w);
   height:  var(--h);
@@ -593,29 +593,48 @@ html {
   position: relative;
 }
 
-.sk_bd_canvas_controls{
-  display: flex;
-  align-items: center;
-  column-gap: 6px;
-  padding: 8px;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-}
 
 .state_selected_node{
   border: 1px solid #fff;
 }
 
 .sk_bd_tools_root{
-      position: absolute;
-    left: 0;
-    top: 0;
     z-index: 100;
     display: flex;
     flex-direction: column;
     row-gap: 8px;
     padding: 8px;
     background: rgba(0, 0, 0, 0.3);
+    width: var(--toolsWidth);
+    flex-shrink: 0;
+}
+
+.sk_bd_root{
+  width: 100%;
+  display: flex;
+  --toolsWidth: 250px;
+  --canvasWidth: calc(100% - var(--toolsWidth) - var(--actionsWidth) );
+  --actionsWidth: 250px;
+}
+
+.sk_bd_canvas_controls{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  column-gap: 6px;
+  padding: 8px;
+  width: var(--actionsWidth);
+  flex-shrink: 0;
+  height: 100%;
+}
+
+
+.sk_bd_code_root{
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 200px);
+  height: calc(100% - 200px);
+  display: flex;
 }

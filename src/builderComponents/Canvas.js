@@ -211,15 +211,25 @@ export default function TreeEditor() {
 
     function RenderPaletteElement(node) {
         const Tag = node.el || 'div';
-        return <Tag
-            className={`${node.cn}`}
-        >
-            {node.children}
-        </Tag>
+
+        const handleClick = () => {
+            setSelectedElement(node);
+            const newNode = {
+                ...node,
+                children: node.children === 'text default' ? customText : node.children,
+            };
+            setTreeState(insertNodeAfterPath(treeState, selectedPath, newNode));
+        };
+
+        return (
+            <Tag className={node.cn} onClick={handleClick}>
+                {node.children}
+            </Tag>
+        );
     }
 
     return (
-        <div>
+        <div className="sk_bd_root">
             <div className="sk_bd_tools_root">
                 {elementLibrary.map((el, i) => (
                     <div key={i} >
@@ -233,76 +243,81 @@ export default function TreeEditor() {
                     {renderRealNode(treeState)}
                 </div>
 
-                <div className="sk_bd_canvas_controls">
-                    <select onChange={(e) => setSelectedElement(JSON.parse(e.target.value))}>
-                        {elementLibrary.map((el, i) => (
-                            <option key={i} value={JSON.stringify(el)}>
-                                {el.name}
-                            </option>
-                        ))}
-                    </select>
+
+            </div>
+
+            <div className="sk_bd_canvas_controls">
+                <select onChange={(e) => setSelectedElement(JSON.parse(e.target.value))}>
+                    {elementLibrary.map((el, i) => (
+                        <option key={i} value={JSON.stringify(el)}>
+                            {el.name}
+                        </option>
+                    ))}
+                </select>
 
 
 
-                    <input
-                        type="text"
-                        placeholder="Text content"
-                        value={customText}
-                        onChange={(e) => setCustomText(e.target.value)}
-                    />
+                <input
+                    type="text"
+                    placeholder="Text content"
+                    value={customText}
+                    onChange={(e) => setCustomText(e.target.value)}
+                />
 
-                    <button onClick={handleAddAfter}>Add node after</button>
-                    <button onClick={handleRemove}>Remove node</button>
-                    <button onClick={() => moveNode(1)}>Move right</button>
-                    <button onClick={() => moveNode(-1)}>Move left</button>
+                <button onClick={handleAddAfter}>Add node after</button>
+                <button onClick={handleRemove}>Remove node</button>
+                <button onClick={() => moveNode(1)}>Move right</button>
+                <button onClick={() => moveNode(-1)}>Move left</button>
 
-                    <input
-                        type="text"
-                        placeholder="New class"
-                        value={newClass}
-                        onChange={(e) => setNewClass(e.target.value)}
-                        onBlur={() => handleEditClass(newClass)}
-                    />
+                <input
+                    type="text"
+                    placeholder="New class"
+                    value={newClass}
+                    onChange={(e) => setNewClass(e.target.value)}
+                    onBlur={() => handleEditClass(newClass)}
+                />
 
-                    <select onChange={(e) => handleEditStyle('display', e.target.value)}>
-                        <option value="">display</option>
-                        <option value="flex">flex</option>
-                        <option value="block">block</option>
-                        <option value="inline-block">inline-block</option>
-                    </select>
+                <select onChange={(e) => handleEditStyle('display', e.target.value)}>
+                    <option value="">display</option>
+                    <option value="flex">flex</option>
+                    <option value="block">block</option>
+                    <option value="inline-block">inline-block</option>
+                </select>
 
-                    <select onChange={(e) => handleEditStyle('alignItems', e.target.value)}>
-                        <option value="">alignItems</option>
-                        <option value="center">center</option>
-                        <option value="flex-start">flex-start</option>
-                        <option value="flex-end">flex-end</option>
-                    </select>
+                <select onChange={(e) => handleEditStyle('alignItems', e.target.value)}>
+                    <option value="">alignItems</option>
+                    <option value="center">center</option>
+                    <option value="flex-start">flex-start</option>
+                    <option value="flex-end">flex-end</option>
+                </select>
 
-                    <select onChange={(e) => handleEditStyle('flexDirection', e.target.value)}>
-                        <option value="">flexDirection</option>
-                        <option value="row">row</option>
-                        <option value="column">column</option>
-                    </select>
+                <select onChange={(e) => handleEditStyle('flexDirection', e.target.value)}>
+                    <option value="">flexDirection</option>
+                    <option value="row">row</option>
+                    <option value="column">column</option>
+                </select>
 
-                    <select value={selectedEssence} onChange={(e) => handleEssenceChange(e.target.value)}>
-                        <option value="">Apply essence</option>
-                        {essenceOptions.map((name) => (
-                            <option key={name} value={name}>{name}</option>
-                        ))}
-                    </select>
+                <select value={selectedEssence} onChange={(e) => handleEssenceChange(e.target.value)}>
+                    <option value="">Apply essence</option>
+                    {essenceOptions.map((name) => (
+                        <option key={name} value={name}>{name}</option>
+                    ))}
+                </select>
 
-                    <button onClick={() => exportHTMLCSS(treeState)}>Export HTML/CSS</button>
+                <button onClick={() => exportHTMLCSS(treeState)}>Export HTML/CSS</button>
+            </div>
+            {
+                generatedHtml && generatedCss &&
+                <div className='sk_bd_code_root'>
+                    <pre className="export-output">
+                        <strong>HTML:</strong>
+                        {'\n'}{generatedHtml}
+                        {'\n\n'}<strong>CSS:</strong>
+                        {'\n'}{generatedCss}
+                    </pre>
                 </div>
-            </div>
+            }
 
-            <div>
-                <pre className="export-output">
-                    <strong>HTML:</strong>
-                    {'\n'}{generatedHtml}
-                    {'\n\n'}<strong>CSS:</strong>
-                    {'\n'}{generatedCss}
-                </pre>
-            </div>
         </div>
     );
 }
