@@ -2232,6 +2232,7 @@ export const data = [
         FP: null,
         RF: 0,
         ED: null,
+        
         IsWinner: false,
         Factors: {
           1: {

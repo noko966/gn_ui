@@ -543,3 +543,67 @@ html {
   column-gap: var(--paddingX2);
   row-gap: var(--paddingY2);
 }
+
+.slider-container {
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px 0;
+}
+
+.slider {
+  display: flex;
+  transition: transform 0.5s linear;
+  width: 100%;
+}
+
+.slide {
+  min-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--eventBg);
+  border: 1px solid var(--eventBgHover);
+  color: var(--eventTxt);
+  border-radius: 4px;
+  padding: 20px;
+  margin: 0 5px;
+}
+
+.slide span {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+
+.sk_bd_canvas_root{
+  --w: 800px;
+  --h: 600px;
+  width:  var(--w);
+  height:  var(--h);
+  background: #1a1a1a;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.sk_bd_canvas_controls{
+  display: flex;
+  align-items: center;
+  column-gap: 6px;
+  padding: 8px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.state_selected_node{
+  border: 1px solid #fff;
+}

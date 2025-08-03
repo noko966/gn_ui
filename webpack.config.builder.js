@@ -8,28 +8,28 @@ module.exports = {
   mode: "development",
   entry: path.join(__dirname, "src", "digi_builder_start.js"),
   output: {
-    path: path.resolve(__dirname, "demo"),
+    path: path.resolve(__dirname, "builder"),
     filename: "digi_builder_start.js",
   },
 
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.resolve(__dirname, "src", "public", "index.html"),
+      template: path.resolve(__dirname, "src", "public", "builderEntry.html"),
     }),
     new MiniCssExtractPlugin(),
     new CopyWebpackPlugin({
       patterns: [
         {
           from: path.join(__dirname, "src", "lib", "styles"),
-          to: path.resolve(__dirname, "demo"),
+          to: path.resolve(__dirname, "builder"),
         },
         {
           from: path.join(__dirname, "src", "lib", "fonts"),
-          to: path.resolve(__dirname, "demo", "fonts"),
+          to: path.resolve(__dirname, "builder", "fonts"),
         },
         {
           from: path.join(__dirname, "src", "lib", "images"),
-          to: path.resolve(__dirname, "demo", "images"),
+          to: path.resolve(__dirname, "builder", "images"),
         },
       ],
     }),

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 import {
   Symbol,
   Text,
@@ -101,9 +101,71 @@ const translationsFakeData = {
   time: "time",
 };
 
+const Slider = ({ data }) => {
+  const sliderRef = useRef(null);
+
+  useEffect(() => {
+    const slider = sliderRef.current;
+    let isPaused = false;
+    let cloneFirst;
+
+    const startSliding = () => {
+      if (slider && slider.children.length > 0) {
+        slider.style.transition = "transform 0.5s linear";
+        slider.style.transform = `translateX(-100%)`;
+
+        cloneFirst = slider.children[0].cloneNode(true);
+        slider.appendChild(cloneFirst);
+
+        slider.addEventListener("transitionend", handleTransitionEnd);
+      }
+    };
+
+    const handleTransitionEnd = () => {
+      if (!isPaused) {
+        slider.style.transition = "none";
+        slider.style.transform = "translateX(0)";
+        slider.removeChild(slider.children[0]);
+        slider.removeEventListener("transitionend", handleTransitionEnd);
+      }
+    };
+
+    const interval = setInterval(() => {
+      if (!isPaused) {
+        startSliding();
+      }
+    }, 2000);
+
+    slider.addEventListener("mouseover", () => (isPaused = true));
+    slider.addEventListener("mouseout", () => (isPaused = false));
+
+    return () => {
+      clearInterval(interval);
+      if (slider) {
+        slider.removeEventListener("transitionend", handleTransitionEnd);
+      }
+    };
+  }, [data]);
+
+  return (
+    <div className="slider-container">
+      <div className="slider" ref={sliderRef}>
+        {data.map((d, index) => (
+          <div className="slide" key={index}>
+            <span>{`Slide ${index}`}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
+
+const sliderData = [{}, {}, {}, {}, {}, {}];
+
 const HomePage = () => {
   return (
     <div className="home_page_widgets_wrapper">
+      <Slider data={sliderData} />
       <div className="european_view_home_events_widgets_list">
         <div className="european_view_home_events_widget_root">
           <EventComponent variant="filter" data={eventFilterData[0]} />

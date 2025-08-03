@@ -45,12 +45,12 @@ const LivePage = () => {
 
                   <div key={index}>
                     <Collapse toggler={
-                        <MatchItemLive
-                          variant={"header"}
-                          sportId={index}
-                          sportName={"sport name"}
-                          eventCount={index++}
-                        />
+                      <MatchItemLive
+                        variant={"header"}
+                        sportId={index}
+                        sportName={"sport name"}
+                        eventCount={index++}
+                      />
                     }>
 
                       <MatchItemLive variant={"legend"} leagueName="qaq" comment="tttt" />
