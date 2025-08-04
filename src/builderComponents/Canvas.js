@@ -18,6 +18,9 @@ const initialTree = {
         {
             el: 'div',
             cn: 'dg_text_wrapper',
+            styles: {
+                padding: '10px'
+            },
             children: [
                 {
                     el: 'span',
@@ -222,7 +225,7 @@ export default function TreeEditor() {
         if (!node) return '';
         const tab = '  '.repeat(indent);
         const tag = node.el || 'div';
-        const className = node.cn ? ` class="sk_${node.cn}"` : '';
+        const className = node.cn ? ` class="sk_${node.cn.split(" ").join(' ')}"` : '';
         const children = Array.isArray(node.children)
             ? '\n' + node.children.map(child => generateHtml(child, indent + 1)).join('') + tab
             : (node.children || '');
@@ -253,7 +256,7 @@ export default function TreeEditor() {
         const html = generateHtml(tree);
         const stylesMap = generateCss(tree);
         const css = Object.entries(stylesMap)
-            .map(([className, styles]) => `.${className} {\n  ${stylesToCssText(styles)}\n}`)
+            .map(([className, styles]) => `.${className.split(" ").join('.')} {\n  ${stylesToCssText(styles)}\n}`)
             .join('\n\n');
         setGeneratedHtml(html);
         setGeneratedCss(css);
@@ -301,14 +304,6 @@ export default function TreeEditor() {
             </div>
 
             <div className="sk_bd_canvas_controls">
-                <select onChange={(e) => setSelectedElement(JSON.parse(e.target.value))}>
-                    {elementLibrary.map((el, i) => (
-                        <option key={i} value={JSON.stringify(el)}>
-                            {el.name}
-                        </option>
-                    ))}
-                </select>
-
 
 
                 <input
@@ -320,8 +315,12 @@ export default function TreeEditor() {
 
                 <button onClick={handleAddAfter}>Add node after</button>
                 <button onClick={handleRemove}>Remove node</button>
-                <button onClick={() => moveNode(1)}>Move right</button>
-                <button onClick={() => moveNode(-1)}>Move left</button>
+
+                <div className='sk_bd_canvas_controls_move_wrapper'>
+                    <button onClick={() => moveNode(-1)}><i className='dg_icon_angle_left'></i></button>
+                    <button onClick={() => moveNode(1)}><i className='dg_icon_angle_right'></i></button>
+                </div>
+
 
                 <input
                     type="text"

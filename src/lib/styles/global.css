@@ -642,6 +642,15 @@ html {
     padding: 24px;
 }
 
+.dg_text_wrapper {
+
+}
+
+.dg_text_wrapper > .dg_text {
+  display: inline;
+  margin-inline-end: 4px;
+}
+
 .sk_bd_code_wrapper{
   display: flex;
   align-items: stretch;
@@ -657,8 +666,14 @@ html {
 
 .sk_bd_tool_item{
   background: #1a1a1a;
-  height: 35px
-  
-  
-  ;
+  height: 35px;
+}
+
+.sk_bd_canvas_controls_move_wrapper{
+  display: flex;
+  align-items: center;
+}
+
+.sk_bd_canvas_controls_move_wrapper > button{
+  flex: 1;
 }
