@@ -16,10 +16,18 @@ const initialTree = {
             children: null,
         },
         {
-            el: 'span',
-            cn: 'text',
-            styles: { color: 'white' },
-            children: 'Hello World'
+            el: 'div',
+            cn: 'dg_text_wrapper',
+            children: [
+                {
+                    el: 'span',
+                    cn: 'dg_text',
+                    children: "text peace",
+                }, {
+                    el: 'span',
+                    cn: 'dg_text',
+                    children: "text peace 2",
+                },]
         },
         {
             el: 'i',
@@ -34,9 +42,11 @@ const elementLibrary = [
     { name: 'icon', el: 'i', cn: 'dg_icon_ ', children: null },
     { name: 'text', el: 'span', cn: 'dg_text_ ', children: 'text default' },
     { name: 'action', el: 'button', cn: 'dg_btn', children: 'btn text default' },
+    { name: 'input', el: 'input', cn: 'dg_input', children: null },
 ];
 
-const essenceOptions = ['event', 'alert', 'primary', 'secondary'];
+
+const essenceOptions = ['body', 'accent', 'dominant', 'event'];
 
 export default function TreeEditor() {
     const [treeState, setTreeState] = useState(initialTree);
@@ -47,6 +57,9 @@ export default function TreeEditor() {
     const [selectedElement, setSelectedElement] = useState(elementLibrary[0]);
     const [customText, setCustomText] = useState('');
     const [selectedEssence, setSelectedEssence] = useState('');
+
+    const isRoot = (path) => path.length === 0;
+
 
     const renderRealNode = (node, path = []) => {
         const isSelected = JSON.stringify(path) === JSON.stringify(selectedPath);
@@ -63,16 +76,27 @@ export default function TreeEditor() {
             ? node.children.map((child, i) => renderRealNode(child, [...path, i]))
             : node.children;
 
+        const isSelectedRoot = isRoot(path) && isSelected;
+
         return (
+
             <Tag
                 key={path.join('-')}
-                className={className + (isSelected ? ' state_selected_node' : '')}
-                style={style}
                 onClick={handleClick}
+                style={style}
+                className={
+                    className +
+                    (isSelected ? ' state_selected_node' : '') +
+                    (isSelectedRoot ? ' state_selected_root' : '')
+                }
             >
                 {children}
             </Tag>
+
+
         );
+
+
     };
 
     function updateNodeAtPath(tree, path, updater) {
@@ -121,9 +145,11 @@ export default function TreeEditor() {
     }
 
     function handleRemove() {
+        if (isRoot(selectedPath)) return;
         setTreeState(removeNodeAtPath(treeState, selectedPath));
         setSelectedPath([]);
     }
+
 
     function handleAddAfter() {
         const newNode = {
@@ -159,14 +185,38 @@ export default function TreeEditor() {
         setSelectedEssence(name);
     }
 
-    function moveNode(dir) {
-        setTreeState(swapSiblings(treeState, selectedPath, dir));
-        setSelectedPath(prev => {
-            const newPath = [...prev];
-            newPath[newPath.length - 1] += dir;
-            return newPath;
-        });
+    /* ─── add once, near your other helpers ────────────────────────── */
+    function getNodeAtPath(node, path) {
+        if (path.length === 0) return node;              // root
+        const [head, ...rest] = path;
+        if (!node.children || !node.children[head]) return null;
+        return getNodeAtPath(node.children[head], rest);
     }
+
+    /* ─── replace the old moveNode ─────────────────────────────────── */
+    function moveNode(dir /* -1 = left  |  +1 = right */) {
+        console.log(treeState, selectedPath);
+
+        if (selectedPath.length === 0) return;           // root can't move
+
+        const parentPath = selectedPath.slice(0, -1);
+        const index = selectedPath[selectedPath.length - 1];
+
+        const parentNode = getNodeAtPath(treeState, parentPath);
+        if (!parentNode || !parentNode.children) return;
+
+        const maxIndex = parentNode.children.length - 1;
+        const target = index + dir;
+
+        /* 🚧 abort if we’re already at an edge */
+        if (target < 0 || target > maxIndex) return;
+
+        /* valid swap → update tree **and** selectedPath */
+        setTreeState(swapSiblings(treeState, selectedPath, dir));
+        setSelectedPath([...parentPath, target]);
+    }
+
+
 
     function generateHtml(node, indent = 0) {
         if (!node) return '';
@@ -221,10 +271,14 @@ export default function TreeEditor() {
             setTreeState(insertNodeAfterPath(treeState, selectedPath, newNode));
         };
 
+
         return (
-            <Tag className={node.cn} onClick={handleClick}>
-                {node.children}
-            </Tag>
+            <div onClick={handleClick} className='sk_bd_tool_item'>
+                <Tag className={node.cn} >
+                    {node.children}
+                </Tag>
+            </div>
+
         );
     }
 
@@ -309,11 +363,13 @@ export default function TreeEditor() {
             {
                 generatedHtml && generatedCss &&
                 <div className='sk_bd_code_root'>
-                    <pre className="export-output">
-                        <strong>HTML:</strong>
-                        {'\n'}{generatedHtml}
-                        {'\n\n'}<strong>CSS:</strong>
-                        {'\n'}{generatedCss}
+                    <pre className="sk_bd_code_wrapper">
+                        <div>
+                            {generatedHtml}
+                        </div>
+                        <div>
+                            {generatedCss}
+                        </div>
                     </pre>
                 </div>
             }

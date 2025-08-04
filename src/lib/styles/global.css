@@ -582,9 +582,8 @@ html {
 
 .sk_bd_canvas_root{
   --w: var(--canvasWidth);
-  --h: 600px;
   width:  var(--w);
-  height:  var(--h);
+  height:  100%;
   background: #1a1a1a;
   color: #fff;
   display: flex;
@@ -615,6 +614,7 @@ html {
   --toolsWidth: 250px;
   --canvasWidth: calc(100% - var(--toolsWidth) - var(--actionsWidth) );
   --actionsWidth: 250px;
+  height: 100vh;
 }
 
 .sk_bd_canvas_controls{
@@ -637,4 +637,28 @@ html {
   width: calc(100% - 200px);
   height: calc(100% - 200px);
   display: flex;
+  background: #1a1a1a;
+    z-index: 100;
+    padding: 24px;
+}
+
+.sk_bd_code_wrapper{
+  display: flex;
+  align-items: stretch;
+  column-gap: 16px;
+  width: 100%;
+}
+
+.sk_bd_code_wrapper > div{
+  background: #2b2b2b;
+  padding: 16px;
+  flex: 1;
+}
+
+.sk_bd_tool_item{
+  background: #1a1a1a;
+  height: 35px
+  
+  
+  ;
 }
