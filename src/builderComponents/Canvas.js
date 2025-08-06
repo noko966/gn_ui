@@ -57,6 +57,7 @@ export default function TreeEditor() {
     const [newClass, setNewClass] = useState('');
     const [generatedHtml, setGeneratedHtml] = useState('');
     const [generatedCss, setGeneratedCss] = useState('');
+    const [isCodeModalOpen, setIsCodeModalOpen] = useState(false);
     const [selectedElement, setSelectedElement] = useState(elementLibrary[0]);
     const [customText, setCustomText] = useState('');
     const [selectedEssence, setSelectedEssence] = useState('');
@@ -260,6 +261,7 @@ export default function TreeEditor() {
             .join('\n\n');
         setGeneratedHtml(html);
         setGeneratedCss(css);
+        setIsCodeModalOpen(true);
     }
 
     function RenderPaletteElement(node) {
@@ -284,6 +286,8 @@ export default function TreeEditor() {
 
         );
     }
+
+    const closeCodeModal = () => setIsCodeModalOpen(false);
 
     return (
         <div className="sk_bd_root">
@@ -359,19 +363,27 @@ export default function TreeEditor() {
 
                 <button onClick={() => exportHTMLCSS(treeState)}>Export HTML/CSS</button>
             </div>
-            {
-                generatedHtml && generatedCss &&
-                <div className='sk_bd_code_root'>
-                    <pre className="sk_bd_code_wrapper">
-                        <div>
-                            {generatedHtml}
+            {isCodeModalOpen && (
+                <div className="sk_bd_code_modal_backdrop" onClick={closeCodeModal}>
+
+                    <div
+                        className="sk_bd_code_root"
+                        onClick={(e) => e.stopPropagation()}   /* keep clicks inside */
+                    >
+                        <div className='sk_bd_code_modal_header'>
+                            <span></span>
+                            <button className="sk_bd_code_close" onClick={closeCodeModal}>
+                                ✕
+                            </button>
                         </div>
-                        <div>
-                            {generatedCss}
-                        </div>
-                    </pre>
+
+                        <pre className="sk_bd_code_wrapper">
+                            <div>{generatedHtml}</div>
+                            <div>{generatedCss}</div>
+                        </pre>
+                    </div>
                 </div>
-            }
+            )}
 
         </div>
     );
