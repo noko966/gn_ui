@@ -581,11 +581,11 @@ html {
 
 
 .sk_bd_canvas_root{
+  --canvasBg: var(--bodyBg);
   --w: var(--canvasWidth);
   width:  var(--w);
   height:  100%;
-  background: #1a1a1a;
-  color: #fff;
+  background: var(--canvasBg);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -603,17 +603,19 @@ html {
     flex-direction: column;
     row-gap: 8px;
     padding: 8px;
-    background: rgba(0, 0, 0, 0.3);
+    background: var(--eventBg);
     width: var(--toolsWidth);
     flex-shrink: 0;
 }
 
 .sk_bd_root{
+  background: var(--bodyBg);
+  color: var(--bodyTxt);
   width: 100%;
   display: flex;
-  --toolsWidth: 250px;
+  --toolsWidth: 160px;
   --canvasWidth: calc(100% - var(--toolsWidth) - var(--actionsWidth) );
-  --actionsWidth: 250px;
+  --actionsWidth: 160px;
   height: 100vh;
 }
 
@@ -626,19 +628,32 @@ html {
   width: var(--actionsWidth);
   flex-shrink: 0;
   height: 100%;
+  background: var(--eventBg);
+  color: var(--eventTxt);
 }
 
+.sk_bd_code_modal_backdrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  padding: 32px;
+  background: var(--modalRGBA);
+  backdrop-filter: blur(4px);
+}
 
 .sk_bd_code_root{
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: calc(100% - 200px);
-  height: calc(100% - 200px);
+  width: 100%;
+  height: 100%;
   display: flex;
-  background: #1a1a1a;
-    z-index: 100;
+  flex-direction: column;
+  background: var(--modalBg);
+  color: var(--modalTxt);
     padding: 24px;
 }
 
@@ -653,19 +668,22 @@ html {
 
 .sk_bd_code_wrapper{
   display: flex;
-  align-items: stretch;
-  column-gap: 16px;
-  width: 100%;
+    align-items: stretch;
+    column-gap: 16px;
+    width: 100%;
+    flex-grow: 1;
 }
 
 .sk_bd_code_wrapper > div{
-  background: #2b2b2b;
+  background: var(--modalBg2);
+  color: var(--modalTxt);
   padding: 16px;
   flex: 1;
 }
 
 .sk_bd_tool_item{
-  background: #1a1a1a;
+  background-color: var(--eventBg2);
+  color: var(--eventTxt);
   height: 35px;
 }
 
@@ -676,4 +694,30 @@ html {
 
 .sk_bd_canvas_controls_move_wrapper > button{
   flex: 1;
+}
+
+
+.sk_bd_code_modal_header{
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+    width: 100%;
+
+}
+
+.sk_bd_code_modal_header > span{
+  flex-grow: 1;
+  min-width: 1px;
+}
+
+
+.sk_bd_code_modal_header > .sk_bd_code_close{
+--size: 24px;
+  width: var(--size);
+  height: var(--size);
+  flex-shrink: 0;
+  cursor: pointer;
+  appearance: none;
+  border: 0;
+  outline: 0;
 }

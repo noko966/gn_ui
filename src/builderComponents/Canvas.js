@@ -1,390 +1,567 @@
-import { func } from 'prop-types';
-import React, { useState } from 'react';
+/**
+ * TreeEditor.jsx  –  **complete source**
+ *
+ * What’s new vs. your last paste:
+ * • “layout” added to the palette (flex container template)
+ * • Only layout nodes may nest children
+ * • Buttons:  “+ Child” (inside)  and  “+ After” (sibling)
+ * • Smart inspector for layout nodes: size (fill/hug), direction, wrap,
+ *   horizontal / vertical gap, essence and class name
+ * • Root component class field
+ * • Export-to-modal stays untouched
+ */
+
+import React, { useState, useMemo } from "react";
+
+/* ───────────────────────── sample tree ────────────────────────── */
 
 const initialTree = {
-    el: 'div',
-    cn: 'container',
-    styles: {
-        display: 'flex',
-        alignItems: 'center',
-        padding: '10px'
-    },
+    name: "layout", // ← root counts as layout
+    el: "div",
+    cn: "container",
+    styles: { display: "flex", alignItems: "center", padding: "10px" },
     children: [
+        { el: "i", cn: "icon_4 dg_icon_", children: null },
         {
-            el: 'i',
-            cn: 'icon_4 dg_icon_',
-            children: null,
-        },
-        {
-            el: 'div',
-            cn: 'dg_text_wrapper',
-            styles: {
-                padding: '10px'
-            },
+            name: "layout",
+            el: "div",
+            cn: "dg_text_wrapper",
+            styles: { display: "flex", flexDirection: "column", gap: "4px" },
             children: [
-                {
-                    el: 'span',
-                    cn: 'dg_text',
-                    children: "text peace",
-                }, {
-                    el: 'span',
-                    cn: 'dg_text',
-                    children: "text peace 2",
-                },]
+                { el: "span", cn: "dg_text", children: "text piece 1" },
+                { el: "span", cn: "dg_text", children: "text piece 2" }
+            ]
         },
-        {
-            el: 'i',
-            cn: 'dg_icon_arrow_down',
-            children: null,
-        },
+        { el: "i", cn: "dg_icon_arrow_down", children: null }
     ]
 };
 
+/* ─────────── palette ─────────── */
+
 const elementLibrary = [
-    { name: 'flag', el: 'div', cn: 'cHFlag ', children: null },
-    { name: 'icon', el: 'i', cn: 'dg_icon_ ', children: null },
-    { name: 'text', el: 'span', cn: 'dg_text_ ', children: 'text default' },
-    { name: 'action', el: 'button', cn: 'dg_btn', children: 'btn text default' },
-    { name: 'input', el: 'input', cn: 'dg_input', children: null },
+    { name: "flag", el: "div", cn: "cHFlag", children: null },
+    { name: "icon", el: "i", cn: "dg_icon_", children: null },
+    { name: "text", el: "span", cn: "dg_text_", children: "text default" },
+    { name: "action", el: "button", cn: "dg_btn", children: "btn default" },
+    { name: "input", el: "input", cn: "dg_input", children: null },
+    // layout template
+    {
+        name: "layout",
+        el: "div",
+        cn: "dg_layout",
+        styles: { display: "flex", gap: "8px", minWidth: "40px", minHeight: "40px" },
+        children: []
+    }
 ];
 
+const essenceOptions = ["body", "accent", "dominant", "event"];
 
-const essenceOptions = ['body', 'accent', 'dominant', 'event'];
+/* ───────────────────────── component ─────────────────────────── */
 
 export default function TreeEditor() {
+    /* STATE ------------------------------------------------------- */
     const [treeState, setTreeState] = useState(initialTree);
     const [selectedPath, setSelectedPath] = useState([]);
-    const [newClass, setNewClass] = useState('');
-    const [generatedHtml, setGeneratedHtml] = useState('');
-    const [generatedCss, setGeneratedCss] = useState('');
+    const [selectedElemTpl, setSelectedElemTpl] = useState(elementLibrary[0]);
+    const [customText, setCustomText] = useState("");
+
+    const [newClassInput, setNewClassInput] = useState("");
+    const [selectedEssence, setSelectedEssence] = useState("");
+
+    const [generatedHtml, setGeneratedHtml] = useState("");
+    const [generatedCss, setGeneratedCss] = useState("");
     const [isCodeModalOpen, setIsCodeModalOpen] = useState(false);
-    const [selectedElement, setSelectedElement] = useState(elementLibrary[0]);
-    const [customText, setCustomText] = useState('');
-    const [selectedEssence, setSelectedEssence] = useState('');
 
-    const isRoot = (path) => path.length === 0;
+    /* HELPERS ------------------------------------------------------ */
+    const isRoot = (p) => p.length === 0;
 
+    const getNodeAtPath = (node, path) =>
+        path.length === 0
+            ? node
+            : getNodeAtPath(node.children[path[0]], path.slice(1));
 
-    const renderRealNode = (node, path = []) => {
-        const isSelected = JSON.stringify(path) === JSON.stringify(selectedPath);
-        const Tag = node.el || 'div';
-        const style = node.styles || {};
-        const className = node.cn || '';
+    const selectedNode =
+        selectedPath.length === 0 ? treeState : getNodeAtPath(treeState, selectedPath);
 
-        const handleClick = (e) => {
-            e.stopPropagation();
-            setSelectedPath(path);
-        };
+    const isLayoutNode = (n) =>
+        n?.name === "layout" || n?.cn?.split(" ").includes("dg_layout") || n?.styles?.display === "flex";
 
-        const children = Array.isArray(node.children)
-            ? node.children.map((child, i) => renderRealNode(child, [...path, i]))
-            : node.children;
+    const canHaveChildren = (n) => isLayoutNode(n);
 
-        const isSelectedRoot = isRoot(path) && isSelected;
-
-        return (
-
-            <Tag
-                key={path.join('-')}
-                onClick={handleClick}
-                style={style}
-                className={
-                    className +
-                    (isSelected ? ' state_selected_node' : '') +
-                    (isSelectedRoot ? ' state_selected_root' : '')
-                }
-            >
-                {children}
-            </Tag>
-
-
-        );
-
-
-    };
-
-    function updateNodeAtPath(tree, path, updater) {
+    const updateNodeAtPath = (tree, path, updater) => {
         if (path.length === 0) return updater(tree);
         const [head, ...rest] = path;
         return {
             ...tree,
-            children: tree.children.map((child, i) =>
-                i === head ? updateNodeAtPath(child, rest, updater) : child
-            ),
+            children: tree.children.map((c, i) =>
+                i === head ? updateNodeAtPath(c, rest, updater) : c
+            )
         };
-    }
+    };
 
-    function removeNodeAtPath(tree, path) {
-        const parentPath = path.slice(0, -1);
-        const indexToRemove = path[path.length - 1];
-        return updateNodeAtPath(tree, parentPath, (parent) => ({
-            ...parent,
-            children: parent.children.filter((_, i) => i !== indexToRemove),
-        }));
-    }
-
-    function insertNodeAfterPath(tree, path, newNode) {
-        const parentPath = path.slice(0, -1);
-        const index = path[path.length - 1];
-        return updateNodeAtPath(tree, parentPath, (parent) => ({
+    /* INSERT / REMOVE / MOVE -------------------------------------- */
+    const insertAfter = (path, newNode) =>
+        updateNodeAtPath(treeState, path.slice(0, -1), (parent) => ({
             ...parent,
             children: [
-                ...parent.children.slice(0, index + 1),
+                ...parent.children.slice(0, path[path.length - 1] + 1),
                 newNode,
-                ...parent.children.slice(index + 1),
-            ],
+                ...parent.children.slice(path[path.length - 1] + 1)
+            ]
         }));
-    }
 
-    function swapSiblings(tree, path, dir) {
+    const insertAsChild = (path, newNode) =>
+        updateNodeAtPath(treeState, path, (parent) =>
+            !canHaveChildren(parent)
+                ? parent
+                : { ...parent, children: [newNode, ...(parent.children || [])] }
+        );
+
+    const removeAtPath = (path) =>
+        updateNodeAtPath(treeState, path.slice(0, -1), (parent) => ({
+            ...parent,
+            children: parent.children.filter((_, i) => i !== path[path.length - 1])
+        }));
+
+    const swapSiblings = (path, dir) => {
         const parentPath = path.slice(0, -1);
-        const index = path[path.length - 1];
-        const target = index + dir;
-        return updateNodeAtPath(tree, parentPath, (parent) => {
-            const children = [...parent.children];
-            if (target < 0 || target >= children.length) return parent;
-            [children[index], children[target]] = [children[target], children[index]];
-            return { ...parent, children };
-        });
-    }
+        const idx = path[path.length - 1];
+        const parent = getNodeAtPath(treeState, parentPath);
+        if (!parent.children) return treeState;
+        const tgt = idx + dir;
+        if (tgt < 0 || tgt >= parent.children.length) return treeState;
+        const newKids = [...parent.children];
+        [newKids[idx], newKids[tgt]] = [newKids[tgt], newKids[idx]];
+        return updateNodeAtPath(treeState, parentPath, (p) => ({ ...p, children: newKids }));
+    };
 
-    function handleRemove() {
-        if (isRoot(selectedPath)) return;
-        setTreeState(removeNodeAtPath(treeState, selectedPath));
-        setSelectedPath([]);
-    }
-
-
-    function handleAddAfter() {
-        const newNode = {
-            ...selectedElement,
-            children: selectedElement.children === 'text default' ? customText : selectedElement.children,
+    /* HANDLERS ----------------------------------------------------- */
+    const handlePaletteClick = (tpl, inside = false) => {
+        setSelectedElemTpl(tpl);
+        const node = {
+            ...tpl,
+            children: tpl.children === "text default" ? customText : tpl.children
         };
-        setTreeState(insertNodeAfterPath(treeState, selectedPath, newNode));
-    }
+        if (inside && canHaveChildren(selectedNode))
+            setTreeState(insertAsChild(selectedPath, node));
+        else setTreeState(insertAfter(selectedPath, node));
+    };
 
-    function handleEditClass(newClassName) {
-        setTreeState(updateNodeAtPath(treeState, selectedPath, (node) => ({
-            ...node,
-            cn: newClassName
-        })));
-    }
+    const handleRemove = () => {
+        if (isRoot(selectedPath)) return;
+        setTreeState(removeAtPath(selectedPath));
+        setSelectedPath([]);
+    };
 
-    function handleEditStyle(key, value) {
-        setTreeState(updateNodeAtPath(treeState, selectedPath, (node) => ({
-            ...node,
-            styles: { ...node.styles, [key]: value }
-        })));
-    }
+    const moveNode = (dir) => {
+        if (isRoot(selectedPath)) return;
+        const parent = getNodeAtPath(treeState, selectedPath.slice(0, -1));
+        const idx = selectedPath[selectedPath.length - 1];
+        const tgt = idx + dir;
+        if (tgt < 0 || tgt >= parent.children.length) return;
+        setTreeState(swapSiblings(selectedPath, dir));
+        setSelectedPath([...selectedPath.slice(0, -1), tgt]);
+    };
+
+    const editStyle = (k, v) =>
+        setTreeState(
+            updateNodeAtPath(treeState, selectedPath, (n) => ({
+                ...n,
+                styles: { ...n.styles, [k]: v }
+            }))
+        );
 
     function handleEssenceChange(name) {
-        setTreeState(updateNodeAtPath(treeState, selectedPath, (node) => ({
-            ...node,
-            styles: {
-                ...node.styles,
-                background: `var(--${name}Bg)`,
-                color: `var(--${name}Txt)`
-            }
-        })));
+        setTreeState(
+            updateNodeAtPath(treeState, selectedPath, (node) => ({
+                ...node,
+                styles: {
+                    ...node.styles,
+                    background: name ? `var(--${name}Bg)` : "",
+                    color: name ? `var(--${name}Txt)` : ""
+                }
+            }))
+        );
         setSelectedEssence(name);
     }
 
-    /* ─── add once, near your other helpers ────────────────────────── */
-    function getNodeAtPath(node, path) {
-        if (path.length === 0) return node;              // root
-        const [head, ...rest] = path;
-        if (!node.children || !node.children[head]) return null;
-        return getNodeAtPath(node.children[head], rest);
+    const editClass = (cls) =>
+        setTreeState(updateNodeAtPath(treeState, selectedPath, (n) => ({ ...n, cn: cls })));
+
+    const editRootClass = (cls) => setTreeState({ ...treeState, cn: cls });
+
+    /* EXPORT ------------------------------------------------------- */
+    const camelToKebab = (s) =>
+        s.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
+
+    const stylesToCssText = (obj) =>
+        Object.entries(obj)
+            .map(([k, v]) => `${camelToKebab(k)}: ${v};`)
+            .join("\n  ");
+
+    /* helper: return ".idx_N" or ""  (root never gets one) */
+    const idxSuffix = (node, index, isRoot) => {
+        if (isRoot) return "";                              // root always one
+        const hasUserIdx = (node.cn || "")
+            .split(" ")
+            .some((t) => /^idx_\d+$/.test(t));
+        return hasUserIdx ? "" : ` idx_${index}`;           // prepend space for HTML
+    };
+
+    /* ───────────────────── generateHtml ───────────────────── */
+    function generateHtml(node, indent = 0, index = 1, isRoot = true) {
+        if (!node) return "";
+        const tab = "  ".repeat(indent);
+        const tag = node.el || "div";
+
+        const idxCls = idxSuffix(node, index, isRoot);      // " idx_3" or ""
+        const classAttr =
+            node.cn || idxCls.trim()
+                ? ` class="sk_${(node.cn || "").trim()}${idxCls}"`
+                : "";
+
+        const children =
+            Array.isArray(node.children) && node.children.length
+                ? "\n" +
+                node.children
+                    .map((c, i) => generateHtml(c, indent + 1, i + 1, false))
+                    .join("") +
+                tab
+                : node.children || "";
+
+        return `${tab}<${tag}${classAttr}>${children}</${tag}>\n`;
     }
 
-    /* ─── replace the old moveNode ─────────────────────────────────── */
-    function moveNode(dir /* -1 = left  |  +1 = right */) {
-        console.log(treeState, selectedPath);
+    /* helper: convert spaces to dot-chains ".sk_a.b.c" */
+    const skify = (cls) =>
+        cls
+            .trim()
+            .split(/\s+/)
+            .map((t) => `.sk_${t}`)
+            .join("");
 
-        if (selectedPath.length === 0) return;           // root can't move
+    /* ───────────────────── generateCss ───────────────────── */
+    function generateCss(node, map = {}, parentSel = "", index = 1, isRoot = true) {
+        if (!node) return map;
 
-        const parentPath = selectedPath.slice(0, -1);
-        const index = selectedPath[selectedPath.length - 1];
+        /* 1. selector for this node */
+        if (node.cn) {
+            const idxCls = idxSuffix(node, index, isRoot).trim(); // "idx_5" or ""
+            const thisSel =
+                (parentSel ? parentSel + " > " : "") +
+                skify(node.cn) +
+                (idxCls ? `.${idxCls}` : "");
 
-        const parentNode = getNodeAtPath(treeState, parentPath);
-        if (!parentNode || !parentNode.children) return;
-
-        const maxIndex = parentNode.children.length - 1;
-        const target = index + dir;
-
-        /* 🚧 abort if we’re already at an edge */
-        if (target < 0 || target > maxIndex) return;
-
-        /* valid swap → update tree **and** selectedPath */
-        setTreeState(swapSiblings(treeState, selectedPath, dir));
-        setSelectedPath([...parentPath, target]);
-    }
-
-
-
-    function generateHtml(node, indent = 0) {
-        if (!node) return '';
-        const tab = '  '.repeat(indent);
-        const tag = node.el || 'div';
-        const className = node.cn ? ` class="sk_${node.cn.split(" ").join(' ')}"` : '';
-        const children = Array.isArray(node.children)
-            ? '\n' + node.children.map(child => generateHtml(child, indent + 1)).join('') + tab
-            : (node.children || '');
-        return `${tab}<${tag}${className}>${children}</${tag}>\n`;
-    }
-
-    function generateCss(node, stylesMap = {}) {
-        if (node?.cn && node?.styles) {
-            stylesMap[`sk_${node.cn}`] = { ...stylesMap[`sk_${node.cn}`], ...node.styles };
+            if (node.styles) {
+                map[thisSel] = { ...(map[thisSel] || {}), ...node.styles };
+            }
+            parentSel = thisSel;                                // for children
         }
-        if (Array.isArray(node.children)) {
-            node.children.forEach(child => generateCss(child, stylesMap));
+
+        /* 2. recurse */
+        if (Array.isArray(node.children) && node.children.length) {
+            node.children.forEach((c, i) =>
+                generateCss(c, map, parentSel, i + 1, false)
+            );
         }
-        return stylesMap;
+
+        console.log(map);
+        
+        return map;
     }
 
-    function stylesToCssText(styles) {
-        return Object.entries(styles)
-            .map(([key, value]) => `${camelToKebab(key)}: ${value};`)
-            .join('\n  ');
-    }
 
-    function camelToKebab(str) {
-        return str.replace(/[A-Z]/g, match => `-${match.toLowerCase()}`);
-    }
-
-    function exportHTMLCSS(tree) {
-        const html = generateHtml(tree);
-        const stylesMap = generateCss(tree);
-        const css = Object.entries(stylesMap)
-            .map(([className, styles]) => `.${className.split(" ").join('.')} {\n  ${stylesToCssText(styles)}\n}`)
-            .join('\n\n');
+    function exportHTMLCSS() {
+        const html = generateHtml(treeState);
+        const cssMap = generateCss(treeState);
+        const css = Object.entries(cssMap)
+            .map(
+                ([cls, st]) =>
+                    `${cls} {\n  ${stylesToCssText(st)}\n}`
+            )
+            .join("\n\n");
         setGeneratedHtml(html);
         setGeneratedCss(css);
         setIsCodeModalOpen(true);
     }
 
-    function RenderPaletteElement(node) {
-        const Tag = node.el || 'div';
+    /* RENDER ------------------------------------------------------- */
 
-        const handleClick = () => {
-            setSelectedElement(node);
-            const newNode = {
-                ...node,
-                children: node.children === 'text default' ? customText : node.children,
-            };
-            setTreeState(insertNodeAfterPath(treeState, selectedPath, newNode));
-        };
-
+    const renderNode = (node, path = []) => {
+        const Tag = node.el || "div";
+        const sel = JSON.stringify(path) === JSON.stringify(selectedPath);
+        const rootSel = sel && isRoot(path);
+        const children =
+            Array.isArray(node.children) && node.children.length
+                ? node.children.map((c, i) => renderNode(c, [...path, i]))
+                : node.children;
 
         return (
-            <div onClick={handleClick} className='sk_bd_tool_item'>
-                <Tag className={node.cn} >
-                    {node.children}
-                </Tag>
-            </div>
-
+            <Tag
+                key={path.join("-")}
+                style={node.styles}
+                className={
+                    (node.cn || "") +
+                    (sel ? " state_selected_node" : "") +
+                    (rootSel ? " state_selected_root" : "")
+                }
+                onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedPath(path);
+                }}
+            >
+                {children}
+            </Tag>
         );
-    }
+    };
 
-    const closeCodeModal = () => setIsCodeModalOpen(false);
+    /* inspector ---------------------------------------------------- */
+    const Inspector = () => {
+        if (!selectedNode) return <em>Select a node</em>;
 
+        if (isLayoutNode(selectedNode)) {
+            const st = selectedNode.styles || {};
+            const horizGap =
+                (st.flexDirection || "row") === "row" ? st.columnGap : st.rowGap;
+            const vertGap =
+                (st.flexDirection || "row") === "row" ? st.rowGap : st.columnGap;
+
+            return (
+                <>
+                    <h4>Layout</h4>
+
+                    <label>
+                        class&nbsp;
+                        <input
+                            value={selectedNode.cn || ""}
+                            onChange={(e) => editClass(e.target.value)}
+                        />
+                    </label>
+
+                    <label>
+                        size&nbsp;
+                        <select
+                            value={
+                                selectedNode.styles?.flexGrow === 1 ? "fill" : "hug"
+                            }
+                            onChange={(e) => {
+                                const val = e.target.value;
+
+                                setTreeState(
+                                    updateNodeAtPath(treeState, selectedPath, (node) => {
+                                        const st = { ...(node.styles || {}) };
+
+                                        if (val === "fill") {
+                                            st.flexGrow = 1;
+                                            st.minWidth = "1px";
+                                            delete st.flexShrink;      // remove hug prop if present
+                                        } else {
+                                            st.flexShrink = 0;
+                                            delete st.flexGrow;        // remove fill props if present
+                                            delete st.minWidth;
+                                        }
+
+                                        return { ...node, styles: st };
+                                    })
+                                );
+                            }}
+                        >
+                            <option value="fill">fill</option>
+                            <option value="hug">hug</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        direction&nbsp;
+                        <select
+                            value={st.flexDirection || "row"}
+                            onChange={(e) => editStyle("flexDirection", e.target.value)}
+                        >
+                            <option value="row">row</option>
+                            <option value="column">column</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        wrap&nbsp;
+                        <select
+                            value={st.flexWrap || "nowrap"}
+                            onChange={(e) => editStyle("flexWrap", e.target.value)}
+                        >
+                            <option value="nowrap">no-wrap</option>
+                            <option value="wrap">wrap</option>
+                        </select>
+                    </label>
+
+                    <label>
+                        h-gap&nbsp;
+                        <input
+                            type="number"
+                            value={(horizGap || "0px").replace("px", "")}
+                            onChange={(e) => {
+                                const val = e.target.value + "px";
+                                (st.flexDirection || "row") === "row"
+                                    ? editStyle("columnGap", val)
+                                    : editStyle("rowGap", val);
+                            }}
+                            style={{ width: 60 }}
+                        />
+                        px
+                    </label>
+
+                    <label>
+                        v-gap&nbsp;
+                        <input
+                            type="number"
+                            value={(vertGap || "0px").replace("px", "")}
+                            onChange={(e) => {
+                                const val = e.target.value + "px";
+                                (st.flexDirection || "row") === "row"
+                                    ? editStyle("rowGap", val)
+                                    : editStyle("columnGap", val);
+                            }}
+                            style={{ width: 60 }}
+                        />
+                        px
+                    </label>
+
+                    + <label>
+                        essence&nbsp;
+                        <select
+                            value={selectedEssence}
+                            onChange={(e) => handleEssenceChange(e.target.value)}
+                        >
+                            <option value="">–</option>
+                            {essenceOptions.map((n) => (
+                                <option key={n}>{n}</option>
+                            ))}
+                        </select>
+                    </label>
+                </>
+            );
+        }
+
+        /* non-layout node */
+        return (
+            <>
+                <h4>Element</h4>
+                <label>
+                    class&nbsp;
+                    <input
+                        value={selectedNode.cn || ""}
+                        onChange={(e) => editClass(e.target.value)}
+                    />
+                </label>
+            </>
+        );
+    };
+
+    /* palette item */
+    const PaletteItem = ({ tpl }) => {
+        const Tag = tpl.el || "div";
+        return (
+            <div
+                className="sk_bd_tool_item"
+                onClick={() =>
+                    handlePaletteClick(tpl, !!selectedNode && canHaveChildren(selectedNode))
+                }
+            >
+                <Tag className={tpl.cn}>{tpl.children}</Tag>
+            </div>
+        );
+    };
+
+    /* close modal */
+    const closeModal = () => setIsCodeModalOpen(false);
+
+    /* jsx ---------------------------------------------------------- */
     return (
         <div className="sk_bd_root">
+            {/* PALETTE */}
             <div className="sk_bd_tools_root">
-                {elementLibrary.map((el, i) => (
-                    <div key={i} >
-                        {RenderPaletteElement(el)}
-                    </div>
+                {elementLibrary.map((tpl) => (
+                    <PaletteItem key={tpl.name} tpl={tpl} />
                 ))}
             </div>
 
+            {/* CANVAS */}
             <div className="sk_bd_canvas_root">
                 <div className="sk_bd_canvas_elements_wrapper">
-                    {renderRealNode(treeState)}
+                    {renderNode(treeState)}
                 </div>
-
-
             </div>
 
+            {/* CONTROLS */}
             <div className="sk_bd_canvas_controls">
+                <label>
+                    text&nbsp;
+                    <input
+                        value={customText}
+                        onChange={(e) => setCustomText(e.target.value)}
+                    />
+                </label>
 
+                <button
+                    onClick={() =>
+                        handlePaletteClick(selectedElemTpl, false /* after */)
+                    }
+                >
+                    + After
+                </button>
 
-                <input
-                    type="text"
-                    placeholder="Text content"
-                    value={customText}
-                    onChange={(e) => setCustomText(e.target.value)}
-                />
+                <button
+                    onClick={() => handlePaletteClick(selectedElemTpl, true /* inside */)}
+                    disabled={!canHaveChildren(selectedNode)}
+                >
+                    + Child
+                </button>
 
-                <button onClick={handleAddAfter}>Add node after</button>
-                <button onClick={handleRemove}>Remove node</button>
+                <button onClick={handleRemove} disabled={isRoot(selectedPath)}>
+                    Remove
+                </button>
 
-                <div className='sk_bd_canvas_controls_move_wrapper'>
-                    <button onClick={() => moveNode(-1)}><i className='dg_icon_angle_left'></i></button>
-                    <button onClick={() => moveNode(1)}><i className='dg_icon_angle_right'></i></button>
-                </div>
+                <button onClick={() => moveNode(-1)}>
+                    <i className="dg_icon_angle_left"></i>
+                </button>
+                <button onClick={() => moveNode(1)}>
+                    <i className="dg_icon_angle_right"></i>
+                </button>
 
+                <button onClick={exportHTMLCSS}>Export HTML/CSS</button>
 
-                <input
-                    type="text"
-                    placeholder="New class"
-                    value={newClass}
-                    onChange={(e) => setNewClass(e.target.value)}
-                    onBlur={() => handleEditClass(newClass)}
-                />
-
-                <select onChange={(e) => handleEditStyle('display', e.target.value)}>
-                    <option value="">display</option>
-                    <option value="flex">flex</option>
-                    <option value="block">block</option>
-                    <option value="inline-block">inline-block</option>
-                </select>
-
-                <select onChange={(e) => handleEditStyle('alignItems', e.target.value)}>
-                    <option value="">alignItems</option>
-                    <option value="center">center</option>
-                    <option value="flex-start">flex-start</option>
-                    <option value="flex-end">flex-end</option>
-                </select>
-
-                <select onChange={(e) => handleEditStyle('flexDirection', e.target.value)}>
-                    <option value="">flexDirection</option>
-                    <option value="row">row</option>
-                    <option value="column">column</option>
-                </select>
-
-                <select value={selectedEssence} onChange={(e) => handleEssenceChange(e.target.value)}>
-                    <option value="">Apply essence</option>
-                    {essenceOptions.map((name) => (
-                        <option key={name} value={name}>{name}</option>
-                    ))}
-                </select>
-
-                <button onClick={() => exportHTMLCSS(treeState)}>Export HTML/CSS</button>
+                <label>
+                    component class&nbsp;
+                    <input
+                        value={treeState.cn}
+                        onChange={(e) => editRootClass(e.target.value)}
+                    />
+                </label>
+                <Inspector />
             </div>
-            {isCodeModalOpen && (
-                <div className="sk_bd_code_modal_backdrop" onClick={closeCodeModal}>
 
+
+
+            {/* CODE MODAL */}
+            {isCodeModalOpen && (
+                <div className="sk_bd_code_modal_backdrop" onClick={closeModal}>
                     <div
                         className="sk_bd_code_root"
-                        onClick={(e) => e.stopPropagation()}   /* keep clicks inside */
+                        onClick={(e) => e.stopPropagation()}
                     >
-                        <div className='sk_bd_code_modal_header'>
-                            <span></span>
-                            <button className="sk_bd_code_close" onClick={closeCodeModal}>
+                        <div className="sk_bd_code_modal_header">
+                            <span>export</span>
+                            <button className="sk_bd_code_close" onClick={closeModal}>
                                 ✕
                             </button>
                         </div>
-
                         <pre className="sk_bd_code_wrapper">
                             <div>{generatedHtml}</div>
+                            {"\n\n"}
                             <div>{generatedCss}</div>
                         </pre>
                     </div>
                 </div>
             )}
-
         </div>
     );
 }

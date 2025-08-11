@@ -79,7 +79,7 @@ module.exports = {
     static: {
       directory: path.join(__dirname, "src", "public/"),
     },
-    port: 3000,
+    port: 8080,
     compress: true,
     // port: 8080,
     open: true,

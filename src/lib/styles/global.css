@@ -581,15 +581,18 @@ html {
 
 
 .sk_bd_canvas_root{
-  --canvasBg: var(--bodyBg);
+  --canvasBg: var(--eventTxt);
   --w: var(--canvasWidth);
   width:  var(--w);
   height:  100%;
-  background: var(--canvasBg);
+  background-color: var(--canvasBg);
   display: flex;
   align-items: center;
   justify-content: center;
   position: relative;
+    background-image: linear-gradient(#ffffff77 2px, transparent 2px), linear-gradient(90deg, #ffffff77 2px, transparent 2px), linear-gradient(#ffffff88 1px, transparent 1px), linear-gradient(90deg, #ffffff88 1px, transparent 1px);
+    background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
 }
 
 
@@ -613,13 +616,15 @@ html {
   color: var(--bodyTxt);
   width: 100%;
   display: flex;
-  --toolsWidth: 160px;
+  --toolsWidth: 240px;
   --canvasWidth: calc(100% - var(--toolsWidth) - var(--actionsWidth) );
-  --actionsWidth: 160px;
+  --actionsWidth: 240px;
   height: 100vh;
 }
 
 .sk_bd_canvas_controls{
+  background: var(--eventBg);
+  color: var(--eventTxt);
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -719,3 +724,4 @@ html {
   border: 0;
   outline: 0;
 }
+
