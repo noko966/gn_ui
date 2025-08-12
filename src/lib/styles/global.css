@@ -578,21 +578,38 @@ html {
   font-weight: bold;
 }
 
-
+.sk_bd_layout_mid{
+--w: var(--canvasWidth);
+  width:  var(--w);
+  height:  100%;
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+}
 
 .sk_bd_canvas_root{
   --canvasBg: var(--eventTxt);
-  --w: var(--canvasWidth);
-  width:  var(--w);
-  height:  100%;
   background-color: var(--canvasBg);
-  display: flex;
-  align-items: center;
-  justify-content: center;
   position: relative;
     background-image: linear-gradient(#ffffff77 2px, transparent 2px), linear-gradient(90deg, #ffffff77 2px, transparent 2px), linear-gradient(#ffffff88 1px, transparent 1px), linear-gradient(90deg, #ffffff88 1px, transparent 1px);
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
     background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+
+    height: calc(100% - 120px);
+      display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sk_bd_tools{
+    height:120px;
+    display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+.sk_bd_tools > .sk_bd_tool_wrapper{
+
 }
 
 

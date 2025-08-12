@@ -1,14 +1,11 @@
 /**
- * TreeEditor.jsx  –  **complete source**
+ * TreeEditor.jsx  –  complete source
  *
- * What’s new vs. your last paste:
- * • “layout” added to the palette (flex container template)
- * • Only layout nodes may nest children
- * • Buttons:  “+ Child” (inside)  and  “+ After” (sibling)
- * • Smart inspector for layout nodes: size (fill/hug), direction, wrap,
- *   horizontal / vertical gap, essence and class name
- * • Root component class field
- * • Export-to-modal stays untouched
+ * Changes:
+ * • Root layout now has default essence "event" (background/colour set)
+ * • Essence is stored on the node (`node.essence`) when changed
+ * • Essence dropdown reflects the selected node’s current essence
+ * • stylesToCssText skips empty values (no `color: ;`)
  */
 
 import React, { useState, useMemo } from "react";
@@ -19,7 +16,14 @@ const initialTree = {
     name: "layout", // ← root counts as layout
     el: "div",
     cn: "container",
-    styles: { display: "flex", alignItems: "center", padding: "10px" },
+    essence: "event", // default essence on root
+    styles: {
+        display: "flex",
+        alignItems: "center",
+        padding: "10px",
+        background: "var(--eventBg)",
+        color: "var(--eventTxt)",
+    },
     children: [
         { el: "i", cn: "icon_4 dg_icon_", children: null },
         {
@@ -29,11 +33,11 @@ const initialTree = {
             styles: { display: "flex", flexDirection: "column", gap: "4px" },
             children: [
                 { el: "span", cn: "dg_text", children: "text piece 1" },
-                { el: "span", cn: "dg_text", children: "text piece 2" }
-            ]
+                { el: "span", cn: "dg_text", children: "text piece 2" },
+            ],
         },
-        { el: "i", cn: "dg_icon_arrow_down", children: null }
-    ]
+        { el: "i", cn: "dg_icon_arrow_down", children: null },
+    ],
 };
 
 /* ─────────── palette ─────────── */
@@ -50,8 +54,8 @@ const elementLibrary = [
         el: "div",
         cn: "dg_layout",
         styles: { display: "flex", gap: "8px", minWidth: "40px", minHeight: "40px" },
-        children: []
-    }
+        children: [],
+    },
 ];
 
 const essenceOptions = ["body", "accent", "dominant", "event"];
@@ -66,7 +70,6 @@ export default function TreeEditor() {
     const [customText, setCustomText] = useState("");
 
     const [newClassInput, setNewClassInput] = useState("");
-    const [selectedEssence, setSelectedEssence] = useState("");
 
     const [generatedHtml, setGeneratedHtml] = useState("");
     const [generatedCss, setGeneratedCss] = useState("");
@@ -76,15 +79,15 @@ export default function TreeEditor() {
     const isRoot = (p) => p.length === 0;
 
     const getNodeAtPath = (node, path) =>
-        path.length === 0
-            ? node
-            : getNodeAtPath(node.children[path[0]], path.slice(1));
+        path.length === 0 ? node : getNodeAtPath(node.children[path[0]], path.slice(1));
 
     const selectedNode =
         selectedPath.length === 0 ? treeState : getNodeAtPath(treeState, selectedPath);
 
     const isLayoutNode = (n) =>
-        n?.name === "layout" || n?.cn?.split(" ").includes("dg_layout") || n?.styles?.display === "flex";
+        n?.name === "layout" ||
+        n?.cn?.split(" ").includes("dg_layout") ||
+        n?.styles?.display === "flex";
 
     const canHaveChildren = (n) => isLayoutNode(n);
 
@@ -95,7 +98,7 @@ export default function TreeEditor() {
             ...tree,
             children: tree.children.map((c, i) =>
                 i === head ? updateNodeAtPath(c, rest, updater) : c
-            )
+            ),
         };
     };
 
@@ -106,8 +109,8 @@ export default function TreeEditor() {
             children: [
                 ...parent.children.slice(0, path[path.length - 1] + 1),
                 newNode,
-                ...parent.children.slice(path[path.length - 1] + 1)
-            ]
+                ...parent.children.slice(path[path.length - 1] + 1),
+            ],
         }));
 
     const insertAsChild = (path, newNode) =>
@@ -120,7 +123,7 @@ export default function TreeEditor() {
     const removeAtPath = (path) =>
         updateNodeAtPath(treeState, path.slice(0, -1), (parent) => ({
             ...parent,
-            children: parent.children.filter((_, i) => i !== path[path.length - 1])
+            children: parent.children.filter((_, i) => i !== path[path.length - 1]),
         }));
 
     const swapSiblings = (path, dir) => {
@@ -140,10 +143,9 @@ export default function TreeEditor() {
         setSelectedElemTpl(tpl);
         const node = {
             ...tpl,
-            children: tpl.children === "text default" ? customText : tpl.children
+            children: tpl.children === "text default" ? customText : tpl.children,
         };
-        if (inside && canHaveChildren(selectedNode))
-            setTreeState(insertAsChild(selectedPath, node));
+        if (inside && canHaveChildren(selectedNode)) setTreeState(insertAsChild(selectedPath, node));
         else setTreeState(insertAfter(selectedPath, node));
     };
 
@@ -167,7 +169,7 @@ export default function TreeEditor() {
         setTreeState(
             updateNodeAtPath(treeState, selectedPath, (n) => ({
                 ...n,
-                styles: { ...n.styles, [k]: v }
+                styles: { ...n.styles, [k]: v },
             }))
         );
 
@@ -175,14 +177,14 @@ export default function TreeEditor() {
         setTreeState(
             updateNodeAtPath(treeState, selectedPath, (node) => ({
                 ...node,
+                essence: name || undefined,
                 styles: {
                     ...node.styles,
                     background: name ? `var(--${name}Bg)` : "",
-                    color: name ? `var(--${name}Txt)` : ""
-                }
+                    color: name ? `var(--${name}Txt)` : "",
+                },
             }))
         );
-        setSelectedEssence(name);
     }
 
     const editClass = (cls) =>
@@ -191,21 +193,19 @@ export default function TreeEditor() {
     const editRootClass = (cls) => setTreeState({ ...treeState, cn: cls });
 
     /* EXPORT ------------------------------------------------------- */
-    const camelToKebab = (s) =>
-        s.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
+    const camelToKebab = (s) => s.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 
     const stylesToCssText = (obj) =>
         Object.entries(obj)
+            .filter(([_, v]) => v !== "" && v != null) // skip empty/cleared values
             .map(([k, v]) => `${camelToKebab(k)}: ${v};`)
             .join("\n  ");
 
     /* helper: return ".idx_N" or ""  (root never gets one) */
     const idxSuffix = (node, index, isRoot) => {
-        if (isRoot) return "";                              // root always one
-        const hasUserIdx = (node.cn || "")
-            .split(" ")
-            .some((t) => /^idx_\d+$/.test(t));
-        return hasUserIdx ? "" : ` idx_${index}`;           // prepend space for HTML
+        if (isRoot) return ""; // root always one
+        const hasUserIdx = (node.cn || "").split(" ").some((t) => /^idx_\d+$/.test(t));
+        return hasUserIdx ? "" : ` idx_${index}`; // prepend space for HTML
     };
 
     /* ───────────────────── generateHtml ───────────────────── */
@@ -214,11 +214,9 @@ export default function TreeEditor() {
         const tab = "  ".repeat(indent);
         const tag = node.el || "div";
 
-        const idxCls = idxSuffix(node, index, isRoot);      // " idx_3" or ""
+        const idxCls = idxSuffix(node, index, isRoot); // " idx_3" or ""
         const classAttr =
-            node.cn || idxCls.trim()
-                ? ` class="sk_${(node.cn || "").trim()}${idxCls}"`
-                : "";
+            node.cn || idxCls.trim() ? ` class="sk_${(node.cn || "").trim()}${idxCls}"` : "";
 
         const children =
             Array.isArray(node.children) && node.children.length
@@ -247,43 +245,47 @@ export default function TreeEditor() {
         /* 1. selector for this node */
         if (node.cn) {
             const idxCls = idxSuffix(node, index, isRoot).trim(); // "idx_5" or ""
-            const thisSel =
-                (parentSel ? parentSel + " > " : "") +
-                skify(node.cn) +
-                (idxCls ? `.${idxCls}` : "");
+            const thisSel = (parentSel ? parentSel + " > " : "") + skify(node.cn) + (idxCls ? `.${idxCls}` : "");
 
             if (node.styles) {
                 map[thisSel] = { ...(map[thisSel] || {}), ...node.styles };
             }
-            parentSel = thisSel;                                // for children
+            parentSel = thisSel; // for children
         }
 
         /* 2. recurse */
         if (Array.isArray(node.children) && node.children.length) {
-            node.children.forEach((c, i) =>
-                generateCss(c, map, parentSel, i + 1, false)
-            );
+            node.children.forEach((c, i) => generateCss(c, map, parentSel, i + 1, false));
         }
 
         console.log(map);
-        
+
         return map;
     }
-
 
     function exportHTMLCSS() {
         const html = generateHtml(treeState);
         const cssMap = generateCss(treeState);
         const css = Object.entries(cssMap)
-            .map(
-                ([cls, st]) =>
-                    `${cls} {\n  ${stylesToCssText(st)}\n}`
-            )
+            .map(([cls, st]) => `${cls} {\n  ${stylesToCssText(st)}\n}`)
             .join("\n\n");
         setGeneratedHtml(html);
         setGeneratedCss(css);
         setIsCodeModalOpen(true);
     }
+
+    /* Essence of selected node (derived from styles or explicit field) */
+    const selectedEssence = useMemo(() => {
+        const node = selectedNode;
+        if (!node) return "";
+        if (node.essence) return node.essence;
+        const bg = node.styles?.background || "";
+        const txt = node.styles?.color || "";
+        const mBg = bg.match(/^var\(--([a-zA-Z0-9_-]+)Bg\)$/);
+        const mTxt = txt.match(/^var\(--([a-zA-Z0-9_-]+)Txt\)$/);
+        if (mBg && mTxt && mBg[1] === mTxt[1]) return mBg[1];
+        return "";
+    }, [selectedNode]);
 
     /* RENDER ------------------------------------------------------- */
 
@@ -321,10 +323,8 @@ export default function TreeEditor() {
 
         if (isLayoutNode(selectedNode)) {
             const st = selectedNode.styles || {};
-            const horizGap =
-                (st.flexDirection || "row") === "row" ? st.columnGap : st.rowGap;
-            const vertGap =
-                (st.flexDirection || "row") === "row" ? st.rowGap : st.columnGap;
+            const horizGap = (st.flexDirection || "row") === "row" ? st.columnGap : st.rowGap;
+            const vertGap = (st.flexDirection || "row") === "row" ? st.rowGap : st.columnGap;
 
             return (
                 <>
@@ -332,18 +332,13 @@ export default function TreeEditor() {
 
                     <label>
                         class&nbsp;
-                        <input
-                            value={selectedNode.cn || ""}
-                            onChange={(e) => editClass(e.target.value)}
-                        />
+                        <input value={selectedNode.cn || ""} onChange={(e) => editClass(e.target.value)} />
                     </label>
 
                     <label>
                         size&nbsp;
                         <select
-                            value={
-                                selectedNode.styles?.flexGrow === 1 ? "fill" : "hug"
-                            }
+                            value={selectedNode.styles?.flexGrow === 1 ? "fill" : "hug"}
                             onChange={(e) => {
                                 const val = e.target.value;
 
@@ -354,10 +349,10 @@ export default function TreeEditor() {
                                         if (val === "fill") {
                                             st.flexGrow = 1;
                                             st.minWidth = "1px";
-                                            delete st.flexShrink;      // remove hug prop if present
+                                            delete st.flexShrink; // remove hug prop if present
                                         } else {
                                             st.flexShrink = 0;
-                                            delete st.flexGrow;        // remove fill props if present
+                                            delete st.flexGrow; // remove fill props if present
                                             delete st.minWidth;
                                         }
 
@@ -384,10 +379,7 @@ export default function TreeEditor() {
 
                     <label>
                         wrap&nbsp;
-                        <select
-                            value={st.flexWrap || "nowrap"}
-                            onChange={(e) => editStyle("flexWrap", e.target.value)}
-                        >
+                        <select value={st.flexWrap || "nowrap"} onChange={(e) => editStyle("flexWrap", e.target.value)}>
                             <option value="nowrap">no-wrap</option>
                             <option value="wrap">wrap</option>
                         </select>
@@ -425,12 +417,10 @@ export default function TreeEditor() {
                         px
                     </label>
 
-                    + <label>
+                    +{" "}
+                    <label>
                         essence&nbsp;
-                        <select
-                            value={selectedEssence}
-                            onChange={(e) => handleEssenceChange(e.target.value)}
-                        >
+                        <select value={selectedEssence} onChange={(e) => handleEssenceChange(e.target.value)}>
                             <option value="">–</option>
                             {essenceOptions.map((n) => (
                                 <option key={n}>{n}</option>
@@ -447,10 +437,7 @@ export default function TreeEditor() {
                 <h4>Element</h4>
                 <label>
                     class&nbsp;
-                    <input
-                        value={selectedNode.cn || ""}
-                        onChange={(e) => editClass(e.target.value)}
-                    />
+                    <input value={selectedNode.cn || ""} onChange={(e) => editClass(e.target.value)} />
                 </label>
             </>
         );
@@ -485,69 +472,58 @@ export default function TreeEditor() {
             </div>
 
             {/* CANVAS */}
-            <div className="sk_bd_canvas_root">
-                <div className="sk_bd_canvas_elements_wrapper">
-                    {renderNode(treeState)}
+            <div className="sk_bd_layout_mid">
+
+                <div className="sk_bd_canvas_root">
+                    <div className="sk_bd_canvas_elements_wrapper">{renderNode(treeState)}</div>
+
+
+                </div>
+                <div className="sk_bd_tools">
+                    <div className="sk_bd_tool_wrapper">
+                        <button onClick={handleRemove} disabled={isRoot(selectedPath)}>
+                            <i className="dg_icon_close"></i>
+                        </button>
+                    </div>
+                    <div className="sk_bd_tool_wrapper">
+                        <button onClick={() => moveNode(-1)}>
+                            <i className="dg_icon_angle_left"></i>
+                        </button>
+                    </div>
+                    <div className="sk_bd_tool_wrapper">
+                        <button onClick={() => moveNode(1)}>
+                            <i className="dg_icon_angle_right"></i>
+                        </button>
+                    </div>
+                    <div className="sk_bd_tool_wrapper">
+                        <button onClick={exportHTMLCSS}>Generate Code</button>
+                    </div>
+                    <div className="sk_bd_tool_wrapper">
+                        <input value={treeState.cn} onChange={(e) => editRootClass(e.target.value)} />
+                    </div>
+
+
+
+
                 </div>
             </div>
 
             {/* CONTROLS */}
             <div className="sk_bd_canvas_controls">
-                <label>
+                {/* <label>
                     text&nbsp;
-                    <input
-                        value={customText}
-                        onChange={(e) => setCustomText(e.target.value)}
-                    />
-                </label>
+                    <input value={customText} onChange={(e) => setCustomText(e.target.value)} />
+                </label> */}
 
-                <button
-                    onClick={() =>
-                        handlePaletteClick(selectedElemTpl, false /* after */)
-                    }
-                >
-                    + After
-                </button>
 
-                <button
-                    onClick={() => handlePaletteClick(selectedElemTpl, true /* inside */)}
-                    disabled={!canHaveChildren(selectedNode)}
-                >
-                    + Child
-                </button>
 
-                <button onClick={handleRemove} disabled={isRoot(selectedPath)}>
-                    Remove
-                </button>
-
-                <button onClick={() => moveNode(-1)}>
-                    <i className="dg_icon_angle_left"></i>
-                </button>
-                <button onClick={() => moveNode(1)}>
-                    <i className="dg_icon_angle_right"></i>
-                </button>
-
-                <button onClick={exportHTMLCSS}>Export HTML/CSS</button>
-
-                <label>
-                    component class&nbsp;
-                    <input
-                        value={treeState.cn}
-                        onChange={(e) => editRootClass(e.target.value)}
-                    />
-                </label>
                 <Inspector />
             </div>
-
-
 
             {/* CODE MODAL */}
             {isCodeModalOpen && (
                 <div className="sk_bd_code_modal_backdrop" onClick={closeModal}>
-                    <div
-                        className="sk_bd_code_root"
-                        onClick={(e) => e.stopPropagation()}
-                    >
+                    <div className="sk_bd_code_root" onClick={(e) => e.stopPropagation()}>
                         <div className="sk_bd_code_modal_header">
                             <span>export</span>
                             <button className="sk_bd_code_close" onClick={closeModal}>
