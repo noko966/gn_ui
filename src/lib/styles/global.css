@@ -582,6 +582,7 @@ html {
 }
 
 .sk_bd_root {
+  --bgRGBA: #14172183;
   --bg: #141721;
   --bg2: #161E27;
   --bg3: #171E27;
@@ -747,7 +748,7 @@ html {
   justify-content: center;
   z-index: 100;
   padding: 32px;
-  background: var(--modalRGBA);
+  background: var(--bgRGBA);
   backdrop-filter: blur(4px);
 }
 
@@ -758,7 +759,12 @@ html {
   flex-direction: column;
   background: var(--bg3);
   color: var(--txt);
-  padding: 24px;
+  padding: 16px;
+   border: 1px solid var(--bg4);
+   border-radius: 12px;
+  box-shadow: 0 0 13px 6px #00000010;
+  row-gap: 8px;
+
 }
 
 .dg_text_wrapper {}
@@ -777,10 +783,14 @@ html {
 }
 
 .sk_bd_code_wrapper>div {
-  background: var(--modalBg2);
-  color: var(--modalTxt);
+  background: var(--bg);
+  color: var(--txt);
   padding: 16px;
   flex: 1;
+  border-radius: 8px;
+  font-size: 12px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .sk_bd_tool_item {
@@ -841,10 +851,10 @@ html {
   font-weight: 400;
   padding: 0 12px;
   height: 100%;
-  background: var(--inoputBg);
-  color: var(--inoputTxt);
-  border: 1px solid var(--inoputBorder);
-  border-radius: var(--inoputRadius);
+  background: var(--inputBg);
+  color: var(--inputTxt);
+  border: 1px solid var(--inputBorder);
+  border-radius: var(--inputRadius);
 }
 
 .sk_bd_code_modal_header {
@@ -870,6 +880,10 @@ html {
   appearance: none;
   border: 0;
   outline: 0;
+  background: var(--bg2);
+   border: 1px solid var(--bg4);
+   border-radius: 4px;
+   color: var(--txt2);
 }
 
 .state_helpers_on {
@@ -949,11 +963,10 @@ html {
 .sk_bd_input {
   background: var(--bg);
   color: var(--txt);
-  height: 36px;
+  height: 24px;
   border-radius: 4px;
   border: 1px solid var(--bg4);
   outline: 0;
-  height: 36px;
   border-radius: 2px;
   text-transform: uppercase;
   cursor: pointer;

@@ -8,7 +8,7 @@
  * • stylesToCssText skips empty values (no `color: ;`)
  */
 
-import React, { useState, useMemo, useEffect } from "react";
+import React, { useState, useMemo, useEffect, useCallback } from "react";
 
 /* ───────────────────────── sample tree ────────────────────────── */
 
@@ -95,6 +95,7 @@ const elementLibrary = [
 ];
 
 const essenceOptions = ["body", "accent", "dominant", "event"];
+const essenceTextOptions = ["Txt", "Txt2", "Txt3", "Accent", "AccentTxt"];
 
 /* ───────────────────────── component ─────────────────────────── */
 
@@ -248,7 +249,7 @@ export default function TreeEditor() {
         setSelectedElemTpl(tpl);
         const node = {
             ...tpl,
-            children: tpl.children === "text default" ? customText : tpl.children,
+            children:  tpl.children,
         };
         if (inside && canHaveChildren(selectedNode)) setTreeState(insertAsChild(selectedPath, node));
         else setTreeState(insertAfter(selectedPath, node));
@@ -290,10 +291,53 @@ export default function TreeEditor() {
                 },
             }))
         );
+
     }
 
-    const editClass = (cls) =>
-        setTreeState(updateNodeAtPath(treeState, selectedPath, (n) => ({ ...n, cn: cls })));
+    /* ── ESSENCE HELPERS (no regex) ─────────────────────────────── */
+
+/** Find the closest ancestor (including self) that has an explicit `essence` key. */
+const closestEssenceName = (path) => {
+  let p = [...path];
+  while (p.length >= 0) {
+    const node = p.length ? getNodeAtPath(treeState, p) : treeState;
+    if (node && node.essence) return node.essence;   // ← only trust explicit key
+    if (p.length === 0) break;
+    p = p.slice(0, -1);
+  }
+  return "";
+};
+
+/** Apply a color role to the selected node using the closest explicit essence.
+ *    role ∈ ["Txt","Txt2","Txt3","Accent","AccentTxt"] or "" to clear
+ *    Also stores the chosen role on the node as `textRole` (so we never need to parse).
+ */
+const applyEssenceTextRole = (role) => {
+  const essence = closestEssenceName(selectedPath);
+  setTreeState(
+    updateNodeAtPath(treeState, selectedPath, (node) => {
+      const next = { ...(node.styles || {}) };
+      if (!role) {
+        delete next.color;
+        const { textRole, ...restNode } = node; // remove textRole when clearing
+        return { ...restNode, styles: next };
+      }
+      if (essence) {
+        next.color = `var(--${essence}${role})`;
+        return { ...node, styles: next, textRole: role };
+      }
+      // no essence found → leave color untouched, but clear textRole
+      const { textRole, ...restNode } = node;
+      return { ...restNode, styles: next };
+    })
+  );
+};
+ 
+
+
+
+    const editClass = useCallback((cls) =>
+        setTreeState(prev => updateNodeAtPath(prev, selectedPath, (n) => ({ ...n, cn: cls }))), [selectedPath]);
 
     const editRootClass = (cls) => setTreeState({ ...treeState, cn: cls });
 
@@ -391,6 +435,24 @@ export default function TreeEditor() {
         if (mBg && mTxt && mBg[1] === mTxt[1]) return mBg[1];
         return "";
     }, [selectedNode]);
+
+    /* Which text role is active on selected node (if any)? (no regex) */
+const selectedTextRole = useMemo(() => {
+  const node = selectedNode;
+  if (!node) return "";
+  if (node.textRole) return node.textRole;  // prefer explicit marker we set
+
+  // Fallback: infer by exact string match using closest explicit essence
+  const essence = closestEssenceName(selectedPath);
+  const color = node.styles?.color;
+  if (!essence || !color) return "";
+
+  for (const role of essenceTextOptions) {
+    if (color === `var(--${essence}${role})`) return role;
+  }
+  return "";
+}, [selectedNode, selectedPath, treeState]);
+
 
     /* RENDER ------------------------------------------------------- */
 
@@ -712,7 +774,7 @@ export default function TreeEditor() {
                 {/* essence (kept as select of tokens → radio was not requested here; keeping as-is) */}
                 < div className="dg_bd_layout_edit_tool_wrapper" >
 
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>essence</div>
+                    <div className="dg_bd_layout_edit_tool_label">essence</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants">
 
                         {
@@ -736,6 +798,40 @@ export default function TreeEditor() {
                         />
                     </div >
                 </div >
+
+                {/* text color by closest essence */}
+                <div className="dg_bd_layout_edit_tool_wrapper">
+                    <div className="dg_bd_layout_edit_tool_label">text color</div>
+                    <div className="dg_bd_layout_edit_tool_wrapper_variants">
+                        {essenceTextOptions.map((role) => (
+                            <Radio
+                                key={role}
+                                name="txtColorRole"
+                                value={role}
+                                label={role}
+                                checked={selectedTextRole === role}
+                                onChange={(val) => applyEssenceTextRole(val)}
+                            />
+                        ))}
+                        <Radio
+                            name="txtColorRole"
+                            value=""
+                            label="none"
+                            checked={selectedTextRole === ""}
+                            onChange={() => applyEssenceTextRole("")}
+                        />
+                    </div>
+                    {/* Optional hint when no essence is found above */}
+                    {!closestEssenceName(selectedPath) && (
+                        <div style={{ fontSize: 12, opacity: 0.6, marginTop: 4 }}>
+                            No parent essence found — set an essence on a parent layout to enable themed colors.
+                        </div>
+                    )}
+                </div>
+
+
+
+
             </>
         );
     };
@@ -800,7 +896,7 @@ export default function TreeEditor() {
                                     <i className="dg_icon_info"></i>
                                 </button>
                             </div>
-                            
+
                             {/* <div className="sk_bd_tool_wrapper">
                         <input value={treeState.cn} onChange={(e) => editRootClass(e.target.value)} />
                     </div> */}
@@ -819,16 +915,16 @@ export default function TreeEditor() {
                     text&nbsp;
                     <input value={customText} onChange={(e) => setCustomText(e.target.value)} />
                 </label> */}
-    <div className="sk_bd_scroller">
-                <Inspector />
+                <div className="sk_bd_scroller">
+                    <Inspector />
 
-    </div>
+                </div>
 
 
 
                 <div className="sk_bd_canvas_controls_export_wrapper">
-                                <button className="sk_bd_btn" onClick={exportHTMLCSS}>Generate Code</button>
-                            </div>
+                    <button className="sk_bd_btn" onClick={exportHTMLCSS}>Generate Code</button>
+                </div>
             </div>
 
 
