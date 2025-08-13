@@ -440,7 +440,7 @@ export default function TreeEditor() {
     const getNum = (v) => (v ? String(v).replace(/px$/, "") : "");
 
     const Radio = ({ name, value, checked, label, onChange }) => (
-        <label style={{ marginRight: 10, display: "inline-flex", alignItems: "center", gap: 6 }}>
+        <label className="sk_bd_input_radio">
             <input
                 type="radio"
                 name={name}
@@ -448,13 +448,16 @@ export default function TreeEditor() {
                 checked={checked}
                 onChange={(e) => onChange(e.target.value)}
             />
-            {label}
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">{label}</span>
+
         </label>
     );
 
     const NumberPx = ({ value, onChange, width = 64 }) => (
         <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
             <input
+                className="sk_bd_input"
                 type="number"
                 value={getNum(value)}
                 onChange={(e) => onChange(ensurePx(e.target.value))}
@@ -544,8 +547,9 @@ export default function TreeEditor() {
 
                 {/* class */}
                 <div className="dg_bd_layout_edit_tool_wrapper">
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>class</div>
+                    <div className="dg_bd_layout_edit_tool_label">class</div>
                     <input
+                        className="sk_bd_input"
                         value={selectedNode.cn || ""}
                         onChange={(e) => editClass(e.target.value)}
                         style={{ width: "100%" }}
@@ -554,7 +558,7 @@ export default function TreeEditor() {
 
                 {/* size radios */}
                 <div className="dg_bd_layout_edit_tool_wrapper ">
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>size</div>
+                    <div className="dg_bd_layout_edit_tool_label">size</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants">
                         <Radio name="size" value="fill" checked={size === "fill"} label="fill" onChange={setSize} />
                         <Radio name="size" value="hug" checked={size === "hug"} label="hug" onChange={setSize} />
@@ -565,7 +569,7 @@ export default function TreeEditor() {
 
                 {/* direction radios */}
                 <div className="dg_bd_layout_edit_tool_wrapper">
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>direction</div>
+                    <div className="dg_bd_layout_edit_tool_label">direction</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants"><Radio
                         name="dir" value="row" label="row" checked={direction === "row"}
                         onChange={(v) => setStyles({ flexDirection: v })}
@@ -579,7 +583,7 @@ export default function TreeEditor() {
 
                 {/* wrap radios */}
                 <div className="dg_bd_layout_edit_tool_wrapper">
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>wrap</div>
+                    <div className="dg_bd_layout_edit_tool_label">wrap</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants">
                         <Radio
                             name="wrap" value="nowrap" label="no-wrap" checked={wrap === "nowrap"}
@@ -594,7 +598,7 @@ export default function TreeEditor() {
 
                 {/* align-items radios */}
                 <div className="dg_bd_layout_edit_tool_wrapper">
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>align-items</div>
+                    <div className="dg_bd_layout_edit_tool_label">align-items</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants">
                         {["stretch", "flex-start", "center", "flex-end", "baseline"].map((opt) => (
                             <Radio
@@ -613,7 +617,7 @@ export default function TreeEditor() {
 
                 {/* justify-content */}
                 <div className="dg_bd_layout_edit_tool_wrapper">
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>justify-content</div>
+                    <div className="dg_bd_layout_edit_tool_label">justify-content</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants">
                         {["flex-start", "center", "flex-end"].map((opt) => (
                             <Radio
@@ -632,15 +636,20 @@ export default function TreeEditor() {
                 {/* gap (kept as number inputs) */}
                 <div className="dg_bd_layout_edit_tool_wrapper">
 
+                    <div className="dg_bd_layout_edit_tool_label">h-gap</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants">
-                        <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>h-gap</div>
+
                         <NumberPx
                             value={(direction === "row" ? st.columnGap : st.rowGap) || ""}
                             onChange={(v) =>
                                 direction === "row" ? setStyles({ columnGap: v }) : setStyles({ rowGap: v })
                             }
                         />
-                        <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>v-gap</div>
+                    </div>
+
+                    <div className="dg_bd_layout_edit_tool_label">v-gap</div>
+                    <div className="dg_bd_layout_edit_tool_wrapper_variants">
+
                         <NumberPx
                             value={(direction === "row" ? st.rowGap : st.columnGap) || ""}
                             onChange={(v) =>
@@ -648,13 +657,12 @@ export default function TreeEditor() {
                             }
                         />
                     </div>
-
                 </div>
 
                 {/* padding */}
                 <div className="dg_bd_layout_edit_tool_wrapper">
 
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>padding</div>
+                    <div className="dg_bd_layout_edit_tool_label">padding</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants">
                         <label>All&nbsp;<NumberPx value={st.paddingTop === st.paddingRight &&
                             st.paddingTop === st.paddingBottom &&
@@ -675,7 +683,7 @@ export default function TreeEditor() {
                 {/* border radius */}
                 < div className="dg_bd_layout_edit_tool_wrapper" >
 
-                    <div style={{ fontSize: 12, opacity: 0.7, marginBottom: 4 }}>border-radius</div>
+                    <div className="dg_bd_layout_edit_tool_label">border-radius</div>
                     <div className="dg_bd_layout_edit_tool_wrapper_variants">
 
                         <label>
@@ -755,51 +763,53 @@ export default function TreeEditor() {
     return (
         <div className="sk_bd_root">
             {/* PALETTE */}
-            <div className="sk_bd_tools_root">
-                {elementLibrary.map((tpl) => (
-                    <PaletteItem key={tpl.name} tpl={tpl} />
-                ))}
-            </div>
+            <div className="sk_bd_start_wrapper">
+                <div className="sk_bd_start_wrapper_inner">
+                    <div className="sk_bd_tools_root">
+                        {elementLibrary.map((tpl) => (
+                            <PaletteItem key={tpl.name} tpl={tpl} />
+                        ))}
+                    </div>
 
-            {/* CANVAS */}
-            <div className="sk_bd_layout_mid">
+                    {/* CANVAS */}
+                    <div className="sk_bd_layout_mid">
 
-                <div className="sk_bd_canvas_root">
-                    <div className="sk_bd_canvas_elements_wrapper">{renderNode(treeState)}</div>
+                        <div className="sk_bd_canvas_root">
+                            <div className="sk_bd_canvas_elements_wrapper">{renderNode(treeState)}</div>
 
 
-                </div>
-                <div className="sk_bd_tools">
-                    <div className="sk_bd_tool_wrapper">
-                        <button className="sk_bd_btn_default" onClick={handleRemove} disabled={isRoot(selectedPath)}>
-                            <i className="dg_icon_close"></i>
-                        </button>
-                    </div>
-                    <div className="sk_bd_tool_wrapper">
-                        <button className="sk_bd_btn_default" onClick={() => moveNode(-1)}>
-                            <i className="dg_icon_angle_left"></i>
-                        </button>
-                    </div>
-                    <div className="sk_bd_tool_wrapper">
-                        <button className="sk_bd_btn_default" onClick={() => moveNode(1)}>
-                            <i className="dg_icon_angle_right"></i>
-                        </button>
-                    </div>
-                    <div className="sk_bd_tool_wrapper">
-                        <button className="sk_bd_btn_default" onClick={() => setVisualHelpers(!visualHelpers)}>
-                            <i className="dg_icon_info"></i>
-                        </button>
-                    </div>
-                    <div className="sk_bd_tool_wrapper">
-                        <button className="sk_bd_btn" onClick={exportHTMLCSS}>Generate Code</button>
-                    </div>
-                    {/* <div className="sk_bd_tool_wrapper">
+                        </div>
+                        <div className="sk_bd_tools">
+                            <div className="sk_bd_tool_wrapper">
+                                <button className="sk_bd_btn_default" onClick={handleRemove} disabled={isRoot(selectedPath)}>
+                                    <i className="dg_icon_close"></i>
+                                </button>
+                            </div>
+                            <div className="sk_bd_tool_wrapper">
+                                <button className="sk_bd_btn_default" onClick={() => moveNode(-1)}>
+                                    <i className="dg_icon_angle_left"></i>
+                                </button>
+                            </div>
+                            <div className="sk_bd_tool_wrapper">
+                                <button className="sk_bd_btn_default" onClick={() => moveNode(1)}>
+                                    <i className="dg_icon_angle_right"></i>
+                                </button>
+                            </div>
+                            <div className="sk_bd_tool_wrapper">
+                                <button className="sk_bd_btn_default" onClick={() => setVisualHelpers(!visualHelpers)}>
+                                    <i className="dg_icon_info"></i>
+                                </button>
+                            </div>
+                            
+                            {/* <div className="sk_bd_tool_wrapper">
                         <input value={treeState.cn} onChange={(e) => editRootClass(e.target.value)} />
                     </div> */}
 
 
 
 
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -809,11 +819,18 @@ export default function TreeEditor() {
                     text&nbsp;
                     <input value={customText} onChange={(e) => setCustomText(e.target.value)} />
                 </label> */}
-
-
-
+    <div className="sk_bd_scroller">
                 <Inspector />
+
+    </div>
+
+
+
+                <div className="sk_bd_canvas_controls_export_wrapper">
+                                <button className="sk_bd_btn" onClick={exportHTMLCSS}>Generate Code</button>
+                            </div>
             </div>
+
 
             {/* CODE MODAL */}
             {isCodeModalOpen && (
