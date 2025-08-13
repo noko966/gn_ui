@@ -64,6 +64,14 @@ const initialTree = {
             cn: "dg_token_wrapper",
             children: [{ el: "i", cn: "dg_icon_arrow_down", children: null }]
         },
+
+        {
+            name: "layout",
+            type: "layout",
+            el: "div",
+            cn: "dg_token_wrapper",
+            children: [{ name: "action", el: "button", cn: "dg_btn", children: "btn default" },]
+        },
     ]
 }
 

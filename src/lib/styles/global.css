@@ -578,6 +578,16 @@ html {
   font-weight: bold;
 }
 
+.sk_bd_root{
+  --bg: #141721;
+  --bg2: #161E27;
+  --bg3: #171E27;
+  --txt: #fff;
+  --txt2: #fff;
+  --inpBg: #161E27;
+  --inpBg2: #2F3947;
+}
+
 .sk_bd_layout_mid{
 --w: var(--canvasWidth);
   width:  var(--w);
@@ -588,12 +598,12 @@ html {
 }
 
 .sk_bd_canvas_root{
-  --canvasBg: var(--eventTxt);
+  --canvasBg: var(--bg);
   background-color: var(--canvasBg);
   position: relative;
-    background-image: linear-gradient(#ffffff77 2px, transparent 2px), linear-gradient(90deg, #ffffff77 2px, transparent 2px), linear-gradient(#ffffff88 1px, transparent 1px), linear-gradient(90deg, #ffffff88 1px, transparent 1px);
+    /* background-image: linear-gradient(#ffffff77 2px, transparent 2px), linear-gradient(90deg, #ffffff77 2px, transparent 2px), linear-gradient(#ffffff88 1px, transparent 1px), linear-gradient(90deg, #ffffff88 1px, transparent 1px);
     background-size: 100px 100px, 100px 100px, 20px 20px, 20px 20px;
-    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px;
+    background-position: -2px -2px, -2px -2px, -1px -1px, -1px -1px; */
 
     height: calc(100% - 120px);
       display: flex;
@@ -606,6 +616,8 @@ html {
     display: flex;
   align-items: center;
   column-gap: 8px;
+  background: var(--bg2);
+  color: var(--text);
 }
 
 .sk_bd_tools > .sk_bd_tool_wrapper{
@@ -629,14 +641,16 @@ html {
     flex-direction: column;
     row-gap: 8px;
     padding: 8px;
-    background: var(--eventBg);
+    background: var(--bg2);
     width: var(--toolsWidth);
     flex-shrink: 0;
+    height: 100%;
+    overflow-y: auto;
 }
 
 .sk_bd_root{
-  background: var(--bodyBg);
-  color: var(--bodyTxt);
+  background: var(--bg);
+  color: var(--txt);
   width: 100%;
   display: flex;
   --toolsWidth: 240px;
@@ -646,8 +660,8 @@ html {
 }
 
 .sk_bd_canvas_controls{
-  background: var(--eventBg);
-  color: var(--eventTxt);
+  background: var(--bg2);
+  color: var(--txt);
   display: flex;
   flex-direction: column;
   row-gap: 4px;
@@ -657,6 +671,7 @@ html {
   width: var(--actionsWidth);
   flex-shrink: 0;
   height: 100%;
+    overflow-y: auto;
 }
 
 .sk_bd_code_modal_backdrop{
@@ -679,8 +694,8 @@ html {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--modalBg);
-  color: var(--modalTxt);
+  background: var(--bg3);
+  color: var(--txt);
     padding: 24px;
 }
 
@@ -709,8 +724,8 @@ html {
 }
 
 .sk_bd_tool_item{
-  background-color: var(--eventBg2);
-  color: var(--eventTxt);
+  background-color: var(--bg);
+  color: var(--txt);
   height: 35px;
 }
 
@@ -723,6 +738,49 @@ html {
   flex: 1;
 }
 
+.dg_btn {
+    border: 0;
+    outline: 0;
+    height: 36px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+        height: 36px;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
+        background: var(--buttonSecondaryBg);
+    color: var(--buttonSecondaryTxt);
+    border: 1px solid var(--buttonSecondaryBorder);
+    border-radius: var(--buttonSecondaryRadius);
+
+
+}
+
+
+.dg_input{
+      outline: none;
+    border: 0;
+    font-size: 14px;
+    background: transparent;
+    line-height: 16px;
+    flex: 1 1 0%;
+    max-width: 100%;
+    min-width: 0;
+    width: 100%;
+    margin: 0;
+    color: var(--inputTxt);
+    font-weight: 400;
+    padding: 0 12px;
+    height: 100%;
+    background: var(--inoputBg);
+    color: var(--inoputTxt);
+    border: 1px solid var(--inoputBorder);
+    border-radius: var(--inoputRadius);
+}
 
 .sk_bd_code_modal_header{
   display: flex;
@@ -769,7 +827,7 @@ html {
     flex-direction: column;
     padding: 4px 12px;
     flex-shrink: 0;
-    background-color: var(--eventBgHover);
+    background-color: var(--bg3);
     row-gap: 4px;
   }
 
