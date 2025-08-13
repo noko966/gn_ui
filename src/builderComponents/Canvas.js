@@ -771,27 +771,27 @@ export default function TreeEditor() {
                 </div>
                 <div className="sk_bd_tools">
                     <div className="sk_bd_tool_wrapper">
-                        <button onClick={handleRemove} disabled={isRoot(selectedPath)}>
+                        <button className="sk_bd_btn_default" onClick={handleRemove} disabled={isRoot(selectedPath)}>
                             <i className="dg_icon_close"></i>
                         </button>
                     </div>
                     <div className="sk_bd_tool_wrapper">
-                        <button onClick={() => moveNode(-1)}>
+                        <button className="sk_bd_btn_default" onClick={() => moveNode(-1)}>
                             <i className="dg_icon_angle_left"></i>
                         </button>
                     </div>
                     <div className="sk_bd_tool_wrapper">
-                        <button onClick={() => moveNode(1)}>
+                        <button className="sk_bd_btn_default" onClick={() => moveNode(1)}>
                             <i className="dg_icon_angle_right"></i>
                         </button>
                     </div>
                     <div className="sk_bd_tool_wrapper">
-                        <button onClick={() => setVisualHelpers(!visualHelpers)}>
+                        <button className="sk_bd_btn_default" onClick={() => setVisualHelpers(!visualHelpers)}>
                             <i className="dg_icon_info"></i>
                         </button>
                     </div>
                     <div className="sk_bd_tool_wrapper">
-                        <button onClick={exportHTMLCSS}>Generate Code</button>
+                        <button className="sk_bd_btn" onClick={exportHTMLCSS}>Generate Code</button>
                     </div>
                     {/* <div className="sk_bd_tool_wrapper">
                         <input value={treeState.cn} onChange={(e) => editRootClass(e.target.value)} />

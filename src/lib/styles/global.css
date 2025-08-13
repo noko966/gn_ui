@@ -582,10 +582,13 @@ html {
   --bg: #141721;
   --bg2: #161E27;
   --bg3: #171E27;
+  --bg4: #2F3947;
   --txt: #fff;
   --txt2: #fff;
   --inpBg: #161E27;
   --inpBg2: #2F3947;
+  --accBg: #2B98B3;
+  --accTxt: #fff;
 }
 
 .sk_bd_layout_mid{
@@ -616,8 +619,8 @@ html {
     display: flex;
   align-items: center;
   column-gap: 8px;
-  background: var(--bg2);
-  color: var(--text);
+  background: var(--bg3);
+  color: var(--txt);
 }
 
 .sk_bd_tools > .sk_bd_tool_wrapper{
@@ -837,4 +840,42 @@ html {
     padding: 4px 12px;
     row-gap: 4px;
     column-gap: 4px;
+  }
+
+  .sk_bd_btn{
+    background-color: var(--accBg);
+    color: var(--accTxt);
+    height: 36px;
+    border-radius: 4px;
+    border: 0;
+    outline: 0;
+    height: 36px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
+  }
+
+  .sk_bd_btn_default{
+    background: var(--bg);
+    color: var(--txt);
+    height: 36px;
+    border-radius: 4px;
+        border: 1px solid var(--bg4);
+    outline: 0;
+    height: 36px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    padding-left: 8px;
+    padding-right: 8px;
   }
