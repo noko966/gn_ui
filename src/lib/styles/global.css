@@ -592,7 +592,7 @@ html {
   --inpBg: #161E27;
   --inpBg2: #2F3947;
   --accBg: #2B98B3;
-  --accBg2: #2b98b33e;
+  --accBg2: #f03b6b;
   --accTxt: #fff;
 }
 
@@ -659,6 +659,9 @@ html {
 
 .sk_bd_tools>.sk_bd_tool_wrapper {}
 
+.variant_layout{
+  display: flex;
+}
 
 .state_selected_node {
   box-shadow: 0px 0 3px 2px var(--accBg);
@@ -916,8 +919,16 @@ background: var(--bg);
 
 
 .state_hover_layout {
-  outline: 2px dashed var(--accBg);
+  outline: 2px dashed ;
   outline-offset: 2px;
+outline-color: var(--accBg);
+
+}
+
+.state_hover_element{
+  outline: 2px dashed;
+  outline-offset: 2px;
+outline-color: var(--accBg2);
 }
 
 .is_layout_clickable {

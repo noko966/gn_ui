@@ -11,6 +11,7 @@
     background-size: initial;
     background-position: initial;
 }
+
 @font-face {
     font-family: "digiSportIcons";
     src: url("./fonts/400/sportsIcons.eot?v002");
@@ -3899,3 +3900,4 @@ Glyphs list
 .dg_icon_offer_default.dg_icon_offer_default + span{
     z-index: -1 !important;
 }
+

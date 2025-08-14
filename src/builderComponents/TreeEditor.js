@@ -28,11 +28,11 @@ import { Inspector } from "./Inspector"; // ← NEW
 
 /* palette etc… keep as-is */
 const elementLibrary = [
-  { name: "flag", el: "div", cn: "cHFlag", children: null },
-  { name: "icon", el: "i", cn: "dg_icon_", children: null },
-  { name: "text", el: "span", cn: "dg_text_", children: "text default" },
-  { name: "action", el: "button", cn: "dg_btn", children: "btn default" },
-  { name: "input", el: "input", cn: "dg_input", children: null },
+  { name: "flag", type: "flag", el: "div", cn: "cHFlag", children: null },
+  { name: "icon", type: "icon", el: "i", cn: "dg_icon_", children: null },
+  { name: "text", type: "text", el: "span", cn: "dg_text_", children: "text default" },
+  { name: "action", type: "button", el: "button", cn: "dg_btn", children: "btn default" },
+  { name: "input", type: "input", el: "input", cn: "dg_input", children: null },
   {
     name: "layout",
     type: "layout",
@@ -107,61 +107,75 @@ export function TreeEditor() {
   const selectedNode = selectedPath.length === 0 ? tree : getNodeAtPath(tree, selectedPath);
 
   useEffect(() => {
+    const goUp = (path) => {
+      let p = path.slice(0, -1);
+      while (p.length >= 0) {
+        const n = p.length ? getNodeAtPath(tree, p) : tree;
+        if (n && isLayoutNode(n)) return p;
+        if (p.length === 0) break;
+        p = p.slice(0, -1);
+      }
+      return null;
+    };
+
+    const goDownFirstChild = (path) => {
+      const n = path.length ? getNodeAtPath(tree, path) : tree;
+      if (!n || !Array.isArray(n.children) || n.children.length === 0) return null;
+      return [...path, 0];
+    };
+
+    const basePath = () =>
+      Array.isArray(hoverPath) && hoverPath.length ? hoverPath
+        : Array.isArray(selectedPath) ? selectedPath
+          : [];
+
+    const handlePlus = () => {
+      const down = goDownFirstChild(basePath());
+      if (down) {
+        dispatch(setHoverPath(down));
+        dispatch(setSelectedPath(down));
+      }
+    };
+
+    const handleMinus = () => {
+      const up = goUp(basePath());
+      if (up) {
+        dispatch(setHoverPath(up));
+        dispatch(setSelectedPath(up));
+      }
+    };
+
     const onKey = (e) => {
       const isMinus = e.key === "-" || e.key === "Subtract";
       const isPlus = e.key === "+" || (e.key === "=" && e.shiftKey) || e.key === "Add";
-      if (!isMinus && !isPlus) return;
+      if (isMinus) handleMinus();
+      if (isPlus) handlePlus();
+    };
 
-      const pathIsLayout = (path) => {
-        const n = getNodeAtPath(tree, path);
-        return !!n && isLayoutNode(n);
-      };
-      const ancestorLayoutPath = (path) => {
-        let p = path.slice(0, -1);
-        while (p.length >= 0) {
-          const n = p.length ? getNodeAtPath(tree, p) : tree;
-          if (n && isLayoutNode(n)) return p;
-          if (p.length === 0) break;
-          p = p.slice(0, -1);
-        }
-        return null;
-      };
-      const firstChildLayoutPath = (path) => {
-        const n = path.length ? getNodeAtPath(tree, path) : tree;
-        if (!n || !Array.isArray(n.children)) return null;
-        for (let i = 0; i < n.children.length; i++) {
-          if (isLayoutNode(n.children[i])) return [...path, i];
-        }
-        return null;
-      };
-
-      let basePath = (hoverPath && pathIsLayout(hoverPath)) ? hoverPath : (isLayoutNode(selectedNode) ? selectedPath : []);
-
-      if (isMinus) {
-        const up = ancestorLayoutPath(basePath);
-        if (up) {
-          dispatch(setHoverPath(up));
-          dispatch(setSelectedPath(up));
-        }
-        return;
-      }
-      if (isPlus) {
-        const down = firstChildLayoutPath(basePath);
-        if (down) {
-          dispatch(setHoverPath(down));
-          dispatch(setSelectedPath(down));
-        }
+    const onWheel = (e) => {
+      if (e.deltaY < 0) {
+        // scroll up
+        handleMinus();
+      } else if (e.deltaY > 0) {
+        // scroll down
+        handlePlus();
       }
     };
 
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
-  }, [dispatch, hoverPath, selectedPath, selectedNode, tree]);
+    window.addEventListener("wheel", onWheel, { passive: true });
 
-  useEffect(() => {
-    const n = getNodeAtPath(tree, hoverPath) || tree;
-    if (!isLayoutNode(n)) dispatch(setHoverPath([]));
-  }, [dispatch]); // intentional one-time
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      window.removeEventListener("wheel", onWheel);
+    };
+  }, [dispatch, hoverPath, selectedPath, tree]);
+
+
+  // useEffect(() => {
+  //   const n = getNodeAtPath(tree, hoverPath) || tree;
+  //   if (!isLayoutNode(n)) dispatch(setHoverPath([]));
+  // }, [dispatch]); 
 
   const handlePaletteClick = (tpl, inside = false) => {
     const node = { ...tpl, children: tpl.children };
@@ -180,6 +194,28 @@ export function TreeEditor() {
     if (isRoot(selectedPath)) return;
     dispatch(swapSiblings({ path: selectedPath, dir }));
   };
+
+  // simple deep clone for our plain node objects
+  const deepClone = (node) => JSON.parse(JSON.stringify(node));
+
+  const duplicateSelected = () => {
+    if (isRoot(selectedPath)) return; // skip duplicating root
+
+    const node = getNodeAtPath(tree, selectedPath);
+    if (!node) return;
+
+    const parentPath = selectedPath.slice(0, -1);
+    const idx = selectedPath[selectedPath.length - 1];
+
+    // insert a cloned node right after the selected node
+    dispatch(insertAfter({ path: selectedPath, newNode: deepClone(node) }));
+
+    // move selection/hover to the newly inserted copy
+    const newPath = [...parentPath, idx + 1];
+    dispatch(setSelectedPath(newPath));
+    dispatch(setHoverPath(newPath));
+  };
+
 
   function exportHTMLCSS() {
     const html = generateHtml(tree);
@@ -225,9 +261,11 @@ export function TreeEditor() {
                   const renderNode = (node, path = []) => {
                     const Tag = node.el || "div";
                     const isLayout = isLayoutNode(node);
+
                     const sel = pathEq(path, selectedPath);
                     const rootSel = sel && isRoot(path);
-                    const hov = pathEq(path, hoverPath) && isLayout;
+                    const hov = pathEq(path, hoverPath); // hover allowed for any node
+
                     const children =
                       Array.isArray(node.children) && node.children.length
                         ? node.children.map((c, i) => renderNode(c, [...path, i]))
@@ -240,21 +278,26 @@ export function TreeEditor() {
                         className={
                           (node.cn || "") +
                           (visualHelpers && isLayout ? " state_helpers_on" : "") +
-                          (sel ? " state_selected_node" : "") +
+                          // selection styles (distinct for layout vs element)
+                          (sel ? (isLayout ? " state_selected_layout" : " state_selected_element") : "") +
                           (rootSel ? " state_selected_root" : "") +
+                          // layout type badge (kept)
                           (isLayout ? " variant_layout is_layout_clickable" : "") +
-                          (hov ? " state_hover_layout" : "")
+                          // hover styles (distinct for layout vs element)
+                          (hov ? (isLayout ? " state_hover_layout" : " state_hover_element") : "")
                         }
                         onMouseEnter={(e) => {
                           e.stopPropagation();
-                          if (isLayout) dispatch(setHoverPath(path));
+                          // allow hover on ANY node
+                          dispatch(setHoverPath(path));
                         }}
                         onClick={(e) => {
                           e.stopPropagation();
-                          const hp = hoverPath;
-                          const n = getNodeAtPath(tree, hp);
-                          if (!hp || !n || !isLayoutNode(n)) return;
-                          dispatch(setSelectedPath(hp));
+                          // select whatever is hovered (layout or not)
+                          const hp = hoverPath ?? path;
+                          const n = getNodeAtPath(tree, hp) || getNodeAtPath(tree, path);
+                          if (!n) return;
+                          dispatch(setSelectedPath(hp || path));
                         }}
                       >
                         {children}
@@ -263,10 +306,24 @@ export function TreeEditor() {
                   };
                   return renderNode(tree);
                 })()}
+
               </div>
             </div>
 
             <div className="sk_bd_tools">
+
+
+              <div className="sk_bd_tool_wrapper">
+                <button
+                  className="sk_bd_btn_default"
+                  onClick={duplicateSelected}
+                  disabled={isRoot(selectedPath)}
+                  title="Duplicate selected"
+                >
+                  <i className="dg_icon_copy"></i>
+                </button>
+              </div>
+
               <div className="sk_bd_tool_wrapper">
                 <button className="sk_bd_btn_default" onClick={handleRemove} disabled={isRoot(selectedPath)}>
                   <i className="dg_icon_close"></i>
@@ -315,23 +372,23 @@ export function TreeEditor() {
             </div>
             <pre className="sk_bd_code_wrapper">
               <div className="sk_bd_code_copy_block">
-                <SyntaxHighlighter  language="javascript" style={a11yDark}>
+                <SyntaxHighlighter language="javascript" style={a11yDark}>
                   {exportState.html}
                 </SyntaxHighlighter >
-                <ReactClipboard action="copy" text={exportState.html} onSuccess={() => {}} onError={() => {}}>
-                <button className="sk_bd_code_copy_btn">copy</button>
-          </ReactClipboard>
+                <ReactClipboard action="copy" text={exportState.html} onSuccess={() => { }} onError={() => { }}>
+                  <button className="sk_bd_code_copy_btn">copy</button>
+                </ReactClipboard>
               </div>
- 
+
               <div className="sk_bd_code_copy_block">
-                
-                <SyntaxHighlighter  language="css" style={a11yDark}>
+
+                <SyntaxHighlighter language="css" style={a11yDark}>
                   {exportState.css}
                 </SyntaxHighlighter >
-                <ReactClipboard action="copy" text={exportState.css} onSuccess={() => {}} onError={() => {}}>
-                <button className="sk_bd_code_copy_btn">copy</button>
-          </ReactClipboard>
-                </div>
+                <ReactClipboard action="copy" text={exportState.css} onSuccess={() => { }} onError={() => { }}>
+                  <button className="sk_bd_code_copy_btn">copy</button>
+                </ReactClipboard>
+              </div>
             </pre>
           </div>
         </div>

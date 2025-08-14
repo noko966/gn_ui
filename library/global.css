@@ -592,7 +592,7 @@ html {
   --inpBg: #161E27;
   --inpBg2: #2F3947;
   --accBg: #2B98B3;
-  --accBg2: #2b98b33e;
+  --accBg2: #f03b6b;
   --accTxt: #fff;
 }
 
@@ -659,6 +659,9 @@ html {
 
 .sk_bd_tools>.sk_bd_tool_wrapper {}
 
+.variant_layout{
+  display: flex;
+}
 
 .state_selected_node {
   box-shadow: 0px 0 3px 2px var(--accBg);
@@ -753,7 +756,7 @@ html {
 }
 
 .sk_bd_code_root {
-  width: 100%;
+  width: 1000px;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -782,8 +785,10 @@ html {
   flex-grow: 1;
 }
 
-.sk_bd_code_wrapper>div {
-  background: var(--bg);
+
+
+.sk_bd_code_copy_block{
+background: var(--bg);
   color: var(--txt);
   padding: 16px;
   flex: 1;
@@ -791,6 +796,28 @@ html {
   font-size: 12px;
   overflow-y: auto;
   overflow-x: hidden;
+  position: relative;
+}
+
+.sk_bd_code_copy_btn{
+  background: var(--bg);
+    color: var(--txt);
+    height: 36px;
+    border-radius: 4px;
+    border: 1px solid var(--bg4);
+    outline: 0;
+    height: 36px;
+    border-radius: 2px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 100%;
 }
 
 .sk_bd_tool_item {
@@ -892,8 +919,16 @@ html {
 
 
 .state_hover_layout {
-  outline: 2px dashed var(--accBg);
+  outline: 2px dashed ;
   outline-offset: 2px;
+outline-color: var(--accBg);
+
+}
+
+.state_hover_element{
+  outline: 2px dashed;
+  outline-offset: 2px;
+outline-color: var(--accBg2);
 }
 
 .is_layout_clickable {
