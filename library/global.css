@@ -968,7 +968,6 @@ html {
   border: 1px solid var(--bg4);
   outline: 0;
   border-radius: 2px;
-  text-transform: uppercase;
   cursor: pointer;
   -webkit-appearance: none;
   appearance: none;

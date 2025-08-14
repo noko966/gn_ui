@@ -1,5 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
-
+import { createSlice, createSelector } from "@reduxjs/toolkit";
 /* ---------- initial tree (exactly your current one) ---------- */
 const initialTree = {
     name: "layout",
@@ -107,8 +106,6 @@ const treeSlice = createSlice({
         toggleVisualHelpers(state) {
             state.visualHelpers = !state.visualHelpers;
         },
-
-        /* structure ops */
         insertAfter(state, action) {
             const { path, newNode } = action.payload;
             const parentPath = path.slice(0, -1);
@@ -126,7 +123,7 @@ const treeSlice = createSlice({
         },
         removeAtPath(state, action) {
             const path = action.payload;
-            if (path.length === 0) return; // can't remove root
+            if (path.length === 0) return;
             const parentPath = path.slice(0, -1);
             const idx = path[path.length - 1];
             const parent = getNodeAtPath(state.tree, parentPath);
@@ -135,7 +132,7 @@ const treeSlice = createSlice({
             state.selectedPath = [];
         },
         swapSiblings(state, action) {
-            const { path, dir } = action.payload; // dir = -1 or +1
+            const { path, dir } = action.payload;
             const parentPath = path.slice(0, -1);
             const idx = path[path.length - 1];
             const parent = getNodeAtPath(state.tree, parentPath);
@@ -147,8 +144,6 @@ const treeSlice = createSlice({
             parent.children[tgt] = a;
             state.selectedPath = [...parentPath, tgt];
         },
-
-        /* styles / class / essence */
         editStyle(state, action) {
             const { key, value } = action.payload;
             const node = getNodeAtPath(state.tree, state.selectedPath);
@@ -167,7 +162,7 @@ const treeSlice = createSlice({
             };
         },
         applyEssenceTextRole(state, action) {
-            const role = action.payload; // "", "Txt","Txt2","Txt3","Accent","AccentTxt"
+            const role = action.payload;
             const essence = closestEssenceName(state.tree, state.selectedPath);
             const node = getNodeAtPath(state.tree, state.selectedPath);
             if (!node) return;
@@ -186,8 +181,6 @@ const treeSlice = createSlice({
             if (!node) return;
             node.cn = cls;
         },
-
-        /* export modal */
         setGenerated(state, action) {
             const { html, css } = action.payload;
             state.generatedHtml = html;
@@ -221,13 +214,17 @@ export const {
 
 export default treeSlice.reducer;
 
-/* ----------------- selectors (optional helpers) ---------------- */
+/* ----------------- selectors ---------------- */
 export const selectTree = (s) => s.tree.tree;
 export const selectSelectedPath = (s) => s.tree.selectedPath;
 export const selectHoverPath = (s) => s.tree.hoverPath;
 export const selectVisualHelpers = (s) => s.tree.visualHelpers;
-export const selectExport = (s) => ({
-    html: s.tree.generatedHtml,
-    css: s.tree.generatedCss,
-    isOpen: s.tree.isCodeModalOpen,
-});
+
+const selectGeneratedHtml = (s) => s.tree.generatedHtml;
+const selectGeneratedCss = (s) => s.tree.generatedCss;
+const selectIsCodeOpen = (s) => s.tree.isCodeModalOpen;
+
+export const selectExport = createSelector(
+    [selectGeneratedHtml, selectGeneratedCss, selectIsCodeOpen],
+    (html, css, isOpen) => ({ html, css, isOpen })
+);
