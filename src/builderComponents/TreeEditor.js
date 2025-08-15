@@ -23,6 +23,9 @@ import {
   setGenerated,
   openCodeModal,
   closeCodeModal,
+  setUIState,
+  selectUIStates,
+  STATE_MAP,
 } from "./features/treeSlice";
 import { Inspector } from "./Inspector"; // ← NEW
 
@@ -79,21 +82,82 @@ function generateHtml(node, indent = 0, index = 1, isRootFlag = true) {
       : node.children || "";
   return `${tab}<${tag}${classAttr}>${children}</${tag}>\n`;
 }
-function generateCss(node, map = {}, parentSel = "", index = 1, isRootFlag = true) {
+function generateCss(
+  node,
+  map = {},
+  parentSel = "",
+  index = 1,
+  isRootFlag = true,
+  ctx = { rootSel: "" }
+) {
   if (!node) return map;
+
+  // построить селектор текущего узла
+  let thisSel = parentSel;
   if (node.cn) {
     const idxCls = idxSuffix(node, index, isRootFlag).trim();
-    const thisSel = (parentSel ? parentSel + " > " : "") + skify(node.cn) + (idxCls ? `.${idxCls}` : "");
-    if (node.styles) {
-      map[thisSel] = { ...(map[thisSel] || {}), ...node.styles };
-    }
-    parentSel = thisSel;
+    const currentSel = skify(node.cn) + (idxCls ? `.${idxCls}` : "");
+    thisSel = parentSel ? (parentSel + " > " + currentSel) : currentSel;
+    if (isRootFlag && !ctx.rootSel) ctx.rootSel = thisSel;
   }
+
+  // база
+  if (node.styles && thisSel) {
+    map[thisSel] = { ...(map[thisSel] || {}), ...node.styles };
+  }
+
+  // состояния — одиночные и комбинации
+  if (node.stateStyles && thisSel && ctx.rootSel) {
+    const presentStates = Object.keys(node.stateStyles).filter((k) => node.stateStyles[k] && Object.keys(node.stateStyles[k]).length);
+
+    if (presentStates.length) {
+      // подготовим “токены” вида {key, suffix, isPseudo}
+      const tokens = presentStates.map((sk) => {
+        // найти name по key
+        const pair = Object.entries(STATE_MAP).find(([, v]) => v.key === sk);
+        if (!pair) return null;
+        const [, meta] = pair;
+        return { key: sk, suffix: meta.suffix, isPseudo: meta.isPseudo };
+      }).filter(Boolean);
+
+      // сгенерим все непустые комбинации (1..N)
+      const n = tokens.length;
+      for (let mask = 1; mask < (1 << n); mask++) {
+        const combo = [];
+        for (let i = 0; i < n; i++) if (mask & (1 << i)) combo.push(tokens[i]);
+
+        // порядок: сначала классы (.state_*), затем псевдоклассы (… :hover)
+        const classes = combo.filter(t => !t.isPseudo).map(t => t.suffix).sort();
+        const pseudos = combo.filter(t =>  t.isPseudo).map(t => t.suffix).sort();
+        const suffix = classes.join('') + pseudos.join('');
+
+        // селектор с заменой root → root + suffix
+        const sel = thisSel.replace(ctx.rootSel, `${ctx.rootSel}${suffix}`);
+
+        // собрать свойства комбинации (мердж по порядку inactive→loading→active→hover)
+        const order = ['state_inactive', 'state_loading', 'state_active', 'state_hover'];
+        const props = {};
+        for (const sk of order) {
+          if (combo.some(t => t.key === sk) && node.stateStyles[sk]) {
+            Object.assign(props, node.stateStyles[sk]);
+          }
+        }
+        if (Object.keys(props).length) {
+          map[sel] = { ...(map[sel] || {}), ...props };
+        }
+      }
+    }
+  }
+
+  // дети
   if (Array.isArray(node.children) && node.children.length) {
-    node.children.forEach((c, i) => generateCss(c, map, parentSel, i + 1, false));
+    node.children.forEach((c, i) =>
+      generateCss(c, map, thisSel, i + 1, false, ctx)
+    );
   }
   return map;
 }
+
 
 export function TreeEditor() {
   const dispatch = useDispatch();
@@ -103,8 +167,31 @@ export function TreeEditor() {
   const hoverPath = useSelector(selectHoverPath);
   const visualHelpers = useSelector(selectVisualHelpers);
   const exportState = useSelector(selectExport);
+  const uiStates = useSelector(selectUIStates);
 
+  const getRenderStyles = (node) => {
+  // база
+  let out = { ...(node.styles || {}) };
+
+  // мержим оверрайды отмеченных состояний в фиксированном порядке:
+  // inactive -> loading -> active -> hover (hover последним, чтобы побеждал)
+  const order = ['state_inactive', 'state_loading', 'state_active', 'state_hover'];
+  for (const sk of order) {
+    const isChecked =
+      (sk === 'state_active'   && uiStates.active)   ||
+      (sk === 'state_hover'    && uiStates.hover)    ||
+      (sk === 'state_inactive' && uiStates.inactive) ||
+      (sk === 'state_loading'  && uiStates.loading);
+
+    if (isChecked && node.stateStyles?.[sk]) {
+      out = { ...out, ...node.stateStyles[sk] };
+    }
+  }
+  return out;
+};
   const selectedNode = selectedPath.length === 0 ? tree : getNodeAtPath(tree, selectedPath);
+
+
 
   useEffect(() => {
     const goUp = (path) => {
@@ -277,7 +364,8 @@ export function TreeEditor() {
                     return (
                       <Tag
                         key={path.join("-")}
-                        style={node.styles}
+                        // style={node.styles}
+                        style={getRenderStyles(node)}
                         className={
                           (node.cn || "") +
                           (visualHelpers && isLayout ? " state_helpers_on" : "") +
@@ -287,7 +375,11 @@ export function TreeEditor() {
                           // layout type badge (kept)
                           (isLayout ? " variant_layout is_layout_clickable" : "") +
                           // hover styles (distinct for layout vs element)
-                          (hov ? (isLayout ? " state_hover_layout" : " state_hover_element") : "")
+                          (hov ? (isLayout ? " state_hover_layout" : " state_hover_element") : "") +
+                          (path.length === 0 && uiStates.active ? " state_active" : "") +
+                          (path.length === 0 && uiStates.inactive ? " state_inactive" : "") +
+                          (path.length === 0 && uiStates.loading ? " state_loading" : "") +
+                          (path.length === 0 && uiStates.hover ? " state_hover" : "")
                         }
                         onMouseEnter={(e) => {
                           e.stopPropagation();
@@ -346,6 +438,53 @@ export function TreeEditor() {
                 <button className="sk_bd_btn_default" onClick={() => dispatch(toggleVisualHelpers())}>
                   <i className="dg_icon_info"></i>
                 </button>
+              </div>
+
+              <div className="sk_bd_state_wrapper">
+                <label className={`sk_bd_state_checkbox ${uiStates.hover ? "state_checked" :  ""}`} htmlFor="chb_state_hover">
+                  <input
+                    id="chb_state_hover"
+                    type="checkbox"
+                    checked={uiStates.hover}
+                    onChange={(e) => dispatch(setUIState({ name: "hover", value: e.target.checked }))}
+                  />
+                  <i className="sk_bd_state_checkbox_imitator"></i>
+                  <span className="sk_bd_state_checkbox_lbl">{"hover"}</span>
+                </label>
+
+                <label className={`sk_bd_state_checkbox ${uiStates.active ? "state_checked" :  ""}`} htmlFor="chb_state_active">
+                  <input
+                    id="chb_state_active"
+                    type="checkbox"
+                    checked={uiStates.active}
+                    onChange={(e) => dispatch(setUIState({ name: "active", value: e.target.checked }))}
+                  />
+                  <i className="sk_bd_state_checkbox_imitator"></i>
+                  <span className="sk_bd_state_checkbox_lbl">{"active"}</span>
+                </label>
+
+                <label className={`sk_bd_state_checkbox ${uiStates.inactive ? "state_checked" :  ""}`} htmlFor="chb_state_inactive">
+                  <input
+                    id="chb_state_inactive"
+                    type="checkbox"
+                    checked={uiStates.inactive}
+                    onChange={(e) => dispatch(setUIState({ name: "inactive", value: e.target.checked }))}
+                  />
+                  <i className="sk_bd_state_checkbox_imitator"></i>
+                  <span className="sk_bd_state_checkbox_lbl">{"inactive"}</span>
+                </label>
+
+                <label className={`sk_bd_state_checkbox ${uiStates.loading ? "state_checked" :  ""}`} htmlFor="chb_state_loading">
+                  <input
+                    id="chb_state_loading"
+
+                    type="checkbox"
+                    checked={uiStates.loading}
+                    onChange={(e) => dispatch(setUIState({ name: "loading", value: e.target.checked }))}
+                  />
+                  <i className="sk_bd_state_checkbox_imitator"></i>
+                  <span className="sk_bd_state_checkbox_lbl">{"loading"}</span>
+                </label>
               </div>
             </div>
           </div>

@@ -95,6 +95,12 @@ const treeSlice = createSlice({
         generatedHtml: "",
         generatedCss: "",
         isCodeModalOpen: false,
+        uiStates: {
+            hover: false,
+            active: false,
+            inactive: false,
+            loading: false,
+        },
     },
     reducers: {
         setSelectedPath(state, action) {
@@ -105,6 +111,10 @@ const treeSlice = createSlice({
         },
         toggleVisualHelpers(state) {
             state.visualHelpers = !state.visualHelpers;
+        },
+        setUIState(state, action) {
+            const { name, value } = action.payload;
+            if (name in state.uiStates) state.uiStates[name] = !!value;
         },
         insertAfter(state, action) {
             const { path, newNode } = action.payload;
@@ -148,8 +158,25 @@ const treeSlice = createSlice({
             const { key, value } = action.payload;
             const node = getNodeAtPath(state.tree, state.selectedPath);
             if (!node) return;
-            node.styles = { ...(node.styles || {}), [key]: value };
+
+            const { uiStates = {} } = state;
+            const enabled = [];
+            if (uiStates.active) enabled.push("state_active");
+            if (uiStates.hover) enabled.push("state_hover");
+            if (uiStates.inactive) enabled.push("state_inactive");
+            if (uiStates.loading) enabled.push("state_loading");
+
+            if (enabled.length === 0) {
+                node.styles = { ...(node.styles || {}), [key]: value };
+                return;
+            }
+
+            node.stateStyles ||= {};
+            for (const bucket of enabled) {
+                node.stateStyles[bucket] = { ...(node.stateStyles[bucket] || {}), [key]: value };
+            }
         },
+
         setEssence(state, action) {
             const name = action.payload;
             const node = getNodeAtPath(state.tree, state.selectedPath);
@@ -210,6 +237,7 @@ export const {
     setGenerated,
     openCodeModal,
     closeCodeModal,
+    setUIState,
 } = treeSlice.actions;
 
 export default treeSlice.reducer;
@@ -220,6 +248,11 @@ export const selectSelectedPath = (s) => s.tree.selectedPath;
 export const selectHoverPath = (s) => s.tree.hoverPath;
 export const selectVisualHelpers = (s) => s.tree.visualHelpers;
 
+export const selectUIStates = (s) => {
+    console.log(s.tree);
+    return s.tree.uiStates
+};
+
 const selectGeneratedHtml = (s) => s.tree.generatedHtml;
 const selectGeneratedCss = (s) => s.tree.generatedCss;
 const selectIsCodeOpen = (s) => s.tree.isCodeModalOpen;
@@ -228,3 +261,10 @@ export const selectExport = createSelector(
     [selectGeneratedHtml, selectGeneratedCss, selectIsCodeOpen],
     (html, css, isOpen) => ({ html, css, isOpen })
 );
+
+export const STATE_MAP = {
+    active: { key: 'state_active', suffix: '.state_active', isPseudo: false },
+    hover: { key: 'state_hover', suffix: ':hover', isPseudo: true },
+    inactive: { key: 'state_inactive', suffix: '.state_inactive', isPseudo: false },
+    loading: { key: 'state_loading', suffix: '.state_loading', isPseudo: false },
+};

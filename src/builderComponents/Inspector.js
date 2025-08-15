@@ -7,6 +7,7 @@ import {
   editClass,
   selectTree,
   selectSelectedPath,
+  selectUIStates
 } from "./features/treeSlice";
 
 /* ---- local constants (mirror your parent) ---- */
@@ -99,6 +100,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const dispatch = useDispatch();
   const tree = useSelector(selectTree);
   const selectedPath = useSelector(selectSelectedPath, shallowEqual);
+  const uiStates = useSelector(selectUIStates);
 
   if (!selectedNode) return <em>Select a node</em>;
 
@@ -124,6 +126,128 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
   const applyTxtRole = (role) => dispatch(applyEssenceTextRole(role));
   const handleEssenceChange = (name) => dispatch(setEssence(name));
+
+  const activeStateKeys = React.useMemo(() => {
+    const list = [];
+    if (uiStates?.active) list.push("state_active");
+    if (uiStates?.hover) list.push("state_hover");
+    if (uiStates?.inactive) list.push("state_inactive");
+    if (uiStates?.loading) list.push("state_loading");
+    return list;
+  }, [uiStates]);
+  const anyStateOn = activeStateKeys.length > 0;
+
+  // Parent essence to use for state styles (same rule as before)
+  const parentEssence = React.useMemo(
+    () => closestEssenceName(tree, selectedPath),
+    [tree, selectedPath]
+  );
+
+  // Read current role/background for a single selected state (for showing value)
+  const stateRoleForSingle = React.useMemo(() => {
+    if (!selectedNode || activeStateKeys.length !== 1 || !parentEssence) return "";
+    const key = activeStateKeys[0];
+    const color = selectedNode.stateStyles?.[key]?.color;
+    if (!color) return "";
+    for (const role of essenceTextOptions) {
+      if (color === `var(--${parentEssence}${role})`) return role;
+    }
+    return "";
+  }, [selectedNode, activeStateKeys, parentEssence]);
+
+  const stateBgIsParentForSingle = React.useMemo(() => {
+    if (!selectedNode || activeStateKeys.length !== 1 || !parentEssence) return false;
+    const key = activeStateKeys[0];
+    const bg = selectedNode.stateStyles?.[key]?.background;
+    return bg === `var(--${parentEssence}Bg2)`;
+  }, [selectedNode, activeStateKeys, parentEssence]);
+
+  const StateEssencePanel = anyStateOn ? (
+  <div className="dg_bd_layout_edit_tool_wrapper">
+    <div className="dg_bd_layout_edit_tool_label">
+      state styles (using parent essence)
+    </div>
+    {!parentEssence ? (
+      <div style={{ fontSize: 12, opacity: 0.7 }}>
+        No parent essence found — set an essence on a parent layout to enable themed state styles.
+      </div>
+    ) : (
+      <>
+        {/* Background from parent essence */}
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name="stateBg"
+              checked={stateBgIsParentForSingle}
+              onChange={() =>
+                dispatch(
+                  editStyle({
+                    key: "background",
+                    value: `var(--${parentEssence}Bg2)`,
+                  })
+                )
+              }
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">background: {`var(--${parentEssence}Bg2)`}</span>
+          </label>
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name="stateBg"
+              checked={!stateBgIsParentForSingle}
+              onChange={() => dispatch(editStyle({ key: "background", value: "" }))}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">background: none</span>
+          </label>
+        </div>
+
+        {/* Text color roles from parent essence */}
+        <div className="dg_bd_layout_edit_tool_label" style={{ marginTop: 8 }}>
+          text color
+        </div>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+          {essenceTextOptions.map((role) => (
+            <label key={role} className="sk_bd_input_radio">
+              <input
+                type="radio"
+                name="stateTxtRole"
+                checked={stateRoleForSingle === role}
+                onChange={() =>
+                  dispatch(
+                    editStyle({
+                      key: "color",
+                      value: `var(--${parentEssence}${role})`,
+                    })
+                  )
+                }
+              />
+              <i className="sk_bd_input_radio_imitator"></i>
+              <span className="sk_bd_input_radio_lbl">{role}</span>
+            </label>
+          ))}
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name="stateTxtRole"
+              checked={stateRoleForSingle === ""}
+              onChange={() => dispatch(editStyle({ key: "color", value: "" }))}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">none</span>
+          </label>
+        </div>
+        {activeStateKeys.length > 1 && (
+          <div style={{ fontSize: 12, opacity: 0.65, marginTop: 6 }}>
+            Edits will be applied to {activeStateKeys.length} states at once.
+          </div>
+        )}
+      </>
+    )}
+  </div>
+) : null;
 
   /* ─────────────────────────────
    * ICON NODE
@@ -276,7 +400,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     return (
       <>
         <h4>Icon</h4>
-
+        {StateEssencePanel}
         <div className="dg_bd_layout_edit_tool_wrapper">
           <div className="dg_bd_layout_edit_tool_label">icon class</div>
           <select
@@ -604,7 +728,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     return (
       <>
         <h4>Flag</h4>
-
+        {StateEssencePanel}
         <div className="dg_bd_layout_edit_tool_wrapper">
           <div className="dg_bd_layout_edit_tool_label">flag variant</div>
           <select
@@ -666,13 +790,13 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
    * ───────────────────────────── */
   if (selectedNode.type === "text") {
     const st = selectedNode.styles || {};
-    const weights = ["normal", "bold", "300", "400", "500", "600", "700", "800"];
+    const weights = ["400", "500", "600"];
     const currentWeight = (st.fontWeight ?? "normal").toString();
 
     return (
       <>
         <h4>Text</h4>
-
+        {StateEssencePanel}
         <div className="dg_bd_layout_edit_tool_wrapper">
           <div className="dg_bd_layout_edit_tool_label">class</div>
           <ClassField valueFromStore={selectedNode.cn || ""} />
@@ -771,7 +895,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     return (
       <>
         <h4>Layout</h4>
-
+        {StateEssencePanel}
         <div className="dg_bd_layout_edit_tool_wrapper">
           <div className="dg_bd_layout_edit_tool_label">class</div>
           <ClassField valueFromStore={selectedNode.cn || ""} />
