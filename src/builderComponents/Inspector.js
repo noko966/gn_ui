@@ -324,15 +324,317 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     );
   }
 
+
+  if (selectedNode.type === "flag") {
+    const flagOptions = [
+      "77",
+      "78",
+      "81",
+      "162430",
+      "82",
+      "83",
+      "84",
+      "85",
+      "72",
+      "73",
+      "74",
+      "90",
+      "88",
+      "89",
+      "91",
+      "92",
+      "160999",
+      "345425",
+      "94",
+      "95",
+      "96",
+      "97",
+      "98",
+      "93",
+      "154175",
+      "128",
+      "129",
+      "210",
+      "134",
+      "135",
+      "136",
+      "137",
+      "207",
+      "138",
+      "132",
+      "209",
+      "111",
+      "112",
+      "214",
+      "114",
+      "178",
+      "80",
+      "215",
+      "157678",
+      "113",
+      "203",
+      "205",
+      "206",
+      "110",
+      "105",
+      "103",
+      "106",
+      "109",
+      "104",
+      "107",
+      "108",
+      "100",
+      "123",
+      "117",
+      "118",
+      "121",
+      "120",
+      "122",
+      "116",
+      "125",
+      "222",
+      "223",
+      "119",
+      "127",
+      "131",
+      "178686",
+      "139",
+      "140",
+      "141",
+      "142",
+      "143",
+      "144",
+      "145",
+      "163784",
+      "146",
+      "147",
+      "159746",
+      "149",
+      "154",
+      "167805",
+      "208",
+      "150",
+      "153",
+      "155",
+      "156",
+      "158",
+      "160",
+      "164597",
+      "157",
+      "161",
+      "157628",
+      "157629",
+      "164",
+      "165",
+      "166",
+      "167",
+      "168",
+      "169",
+      "204",
+      "170",
+      "171",
+      "172",
+      "173",
+      "130",
+      "176",
+      "174",
+      "175",
+      "179",
+      "177",
+      "180",
+      "213",
+      "117033",
+      "183",
+      "184",
+      "186",
+      "187",
+      "216",
+      "218",
+      "220",
+      "221",
+      "219",
+      "124",
+      "168109",
+      "150590",
+      "212",
+      "211",
+      "185",
+      "175063",
+      "191",
+      "189",
+      "193",
+      "194",
+      "196",
+      "195",
+      "197",
+      "199",
+      "200",
+      "99",
+      "188",
+      "201",
+      "198",
+      "101",
+      "102",
+      "202",
+      "126",
+      "115",
+      "152",
+      "87",
+      "76",
+      "86",
+      "79",
+      "75",
+      "205550",
+      "181",
+      "182",
+      "163",
+      "217",
+      "151",
+      "159",
+      "360247",
+      "162",
+      "194348",
+      "192825",
+      "133",
+      "153424",
+      "221797",
+      "148",
+      "192609",
+      "191778",
+      "190",
+      "218572",
+      "269102",
+      "300147",
+      "301347",
+      "251264",
+      "227248",
+      "211524",
+      "211526",
+      "211525",
+      "211527",
+      "211528",
+      "2877",
+      "211529",
+      "211530",
+      "211532",
+      "249061",
+      "252906",
+      "2459",
+      "306716",
+      "313153",
+      "345534",
+      "384246",
+      "375265",
+      "380627",
+      "310630",
+      "330686",
+      "330687",
+      "211531",
+      "410725",
+      "375122",
+      "368333",
+      "2694",
+      "2843",
+      "256652",
+      "364752",
+      "410741",
+      "364753",
+      "330697",
+      "370979",
+      "371216",
+      "318836",
+      "330688",
+      "330690",
+      "330691",
+      "330692",
+      "330693",
+      "330694",
+      "330695",
+      "330696",
+      "367228",
+      "378278",
+      "410724",
+      "410740",
+      "410746",
+      "410748",
+      "410749",
+      "410750",
+      "414769",
+      "2830",
+      "269562",
+      "320642",
+      "429707",
+      "2874",
+      "473568",
+      "416739",
+      "2870",
+      "442885",
+      "439512",
+      "382377",
+      "494968",
+      "317857",
+      "363453",
+      "3126",
+      "491910",
+      "431288",
+      "562890",
+      "3085",
+      "508883",
+      "390057",
+      "3194",
+      "677709",
+      "522433",
+      "68",
+      "69",
+      "71",
+      "662271",
+      "600458",
+      "501770",
+      "562813",
+      "562815",
+      "562814",
+      "2524",
+      "593441",
+      "695275",
+
+
+
+    ];
+
+    return (
+      <>
+        <h4>Flag</h4>
+
+        <div className="dg_bd_layout_edit_tool_wrapper">
+          <div className="dg_bd_layout_edit_tool_label">flag variant</div>
+          <select
+            className="sk_bd_input"
+            value={selectedNode.cn || ""}
+            onChange={(e) => dispatch(editClass(e.target.value))}
+          >
+            {flagOptions.map((cls) => (
+              <option key={cls} value={`cHFlag f${cls}`}>
+                {cls}
+              </option>
+            ))}
+          </select>
+        </div>
+
+
+      </>
+    );
+  }
+
   /* ─────────────────────────────
    * BUTTON NODE
    * ───────────────────────────── */
   if (selectedNode.type === "button") {
     const buttonOptions = [
-      "dg_btn_primary",
-      "dg_btn_secondary",
-      "dg_btn_outline",
-      "dg_btn_text",
+      "primary",
+      "secondary",
+      "outline",
+      "text",
+
     ];
 
     return (
@@ -347,41 +649,14 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             onChange={(e) => dispatch(editClass(e.target.value))}
           >
             {buttonOptions.map((cls) => (
-              <option key={cls} value={cls}>
+              <option key={cls} value={`dg_btn variant_${cls}`}>
                 {cls}
               </option>
             ))}
           </select>
         </div>
 
-        {/* You can keep essence-based text color if the button uses text color token */}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">text color</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            {essenceTextOptions.map((role) => (
-              <Radio
-                key={role}
-                name="btnTxtColorRole"
-                value={role}
-                label={role}
-                checked={selectedTextRole === role}
-                onChange={(val) => applyTxtRole(val)}
-              />
-            ))}
-            <Radio
-              name="btnTxtColorRole"
-              value=""
-              label="none"
-              checked={selectedTextRole === ""}
-              onChange={() => applyTxtRole("")}
-            />
-          </div>
-          {!closestEssenceName(tree, selectedPath) && (
-            <div style={{ fontSize: 12, opacity: 0.6, marginTop: 4 }}>
-              No parent essence found — set an essence on a parent layout to enable themed colors.
-            </div>
-          )}
-        </div>
+
       </>
     );
   }

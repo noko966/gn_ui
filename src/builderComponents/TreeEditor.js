@@ -152,6 +152,9 @@ export function TreeEditor() {
       if (isPlus) handlePlus();
     };
 
+    const canvasRoot = document.querySelector(".sk_bd_canvas_root");
+    if (!canvasRoot) return;
+
     const onWheel = (e) => {
       if (e.deltaY < 0) {
         // scroll up
@@ -163,11 +166,11 @@ export function TreeEditor() {
     };
 
     window.addEventListener("keydown", onKey);
-    window.addEventListener("wheel", onWheel, { passive: true });
+    canvasRoot.addEventListener("wheel", onWheel, { passive: true });
 
     return () => {
       window.removeEventListener("keydown", onKey);
-      window.removeEventListener("wheel", onWheel);
+      canvasRoot.removeEventListener("wheel", onWheel);
     };
   }, [dispatch, hoverPath, selectedPath, tree]);
 
@@ -254,7 +257,7 @@ export function TreeEditor() {
           </div>
 
           <div className="sk_bd_layout_mid">
-            <div className="sk_bd_canvas_root">
+            <div className="sk_bd_canvas_root sk_canvas_grid">
               <div className="sk_bd_canvas_elements_wrapper">
                 {/* canvas */}
                 {(() => {

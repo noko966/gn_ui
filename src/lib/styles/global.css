@@ -620,7 +620,7 @@ html {
 
 .sk_bd_layout_mid {
   /* background: var(--bg2); */
-
+  row-gap: 16px;
   --w: var(--canvasWidth);
   flex-grow: 1;
   min-width: 1px;
@@ -862,6 +862,28 @@ background: var(--bg);
 
 }
 
+.dg_btn.variant_primary{
+  background: var(--buttonBg);
+  color: var(--buttonTxt);
+  border: 1px solid var(--buttonBorder);
+  border-radius: var(--buttonRadius);
+}
+
+.dg_btn.variant_outline{
+  background: inherit;
+  color: inherit;
+  border: 1px solid var(--buttonAccent);
+  border-radius: var(--buttonRadius);
+}
+
+.dg_btn.variant_text{
+  background: transparent;
+  color: inherit;
+  border: none;
+  border-radius: 0;
+  text-decoration: underline;
+}
+
 
 .dg_input {
   outline: none;
@@ -1051,4 +1073,21 @@ outline-color: var(--accBg2);
 
 .sk_bd_input_radio>input:checked+.sk_bd_input_radio_imitator {
   background: var(--accBg);
+}
+
+
+.sk_canvas_grid {
+    --grid-size: 30px;
+    --grid-strength: 1px;
+    --grid-dash: 10px;
+    --grid-gap: 5px;
+    --grid-color: var(--bg);
+    --paper-color: var(--bg4);
+  background-color: var(--paper-color);
+  background-size: var(--grid-dash) var(--grid-dash), var(--grid-size) var(--grid-size);
+  background-image:
+    linear-gradient(to bottom, transparent var(--grid-gap), var(--paper-color) var(--grid-gap)), 
+    linear-gradient(to right, var(--grid-color) var(--grid-strength), transparent var(--grid-strength)),
+    linear-gradient(to right, transparent var(--grid-gap), var(--paper-color) var(--grid-gap)),
+    linear-gradient(to bottom, var(--grid-color) var(--grid-strength), transparent var(--grid-strength));
 }
