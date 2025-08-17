@@ -698,6 +698,7 @@ html {
   --canvasWidth: calc(100% - var(--toolsWidth) - var(--actionsWidth));
   --actionsWidth: 240px;
   height: 100vh;
+  min-width: 1200px;
 }
 
 .sk_bd_canvas_controls {

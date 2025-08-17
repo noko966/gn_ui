@@ -183,6 +183,55 @@ const treeSlice = createSlice({
 
 
 
+        setLayoutType(state, action) {
+            const node = getNodeAtPath(state.tree, state.selectedPath);
+            if (!node) return;
+
+            // only allow on layout nodes (optional guard)
+            if (node.type !== "layout") return;
+
+            // normalize payload: "fill" | "hug" | "fixed"  OR  { type: "...", width?: string|number }
+            const payload = typeof action.payload === "string"
+                ? { type: action.payload }
+                : (action.payload || {});
+
+            const kind = payload.type || "hug";            // default to "hug" like your previous logic
+            const widthPx = payload.width;
+
+            node.styles = { ...(node.styles || {}) };
+
+            // clear shared props we may override below (keeps result predictable)
+            delete node.styles.width;
+            delete node.styles["--sk_width"];
+
+            switch (kind) {
+                case "fill":
+                    node.styles.flexGrow = 1;
+                    delete node.styles.flexShrink;
+                    node.styles.minWidth = "1px";
+                    break;
+
+                case "fixed":
+                    delete node.styles.flexGrow;
+                    node.styles.flexShrink = 0;
+                    const finalWidth =
+                        widthPx || node.styles.width || node.styles["--sk_width"] || 120;
+                    node.styles.width = finalWidth;
+                    node.styles["--sk_width"] = finalWidth + "px";
+                    delete node.styles.minWidth;
+                    break;
+
+                case "hug":
+                default:
+                    delete node.styles.flexGrow;
+                    node.styles.flexShrink = 0;
+                    delete node.styles.minWidth;
+                    break;
+            }
+
+            node.layoutType = kind;
+        },
+
 
         setEssence(state, action) {
             const newEss = action.payload || undefined;
@@ -290,6 +339,7 @@ export const {
     removeAtPath,
     swapSiblings,
     editStyle,
+    setLayoutType,
     setEssence,
     setEssenceTxtVariant,
     applyEssenceTextRole,

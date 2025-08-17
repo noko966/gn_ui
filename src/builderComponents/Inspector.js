@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editStyle, setEssence, setEssenceTxtVariant, selectTree, selectSelectedPath } from "./features/treeSlice";
+import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, selectTree, selectSelectedPath } from "./features/treeSlice";
 
 /* ---- options ---- */
 const essenceOptions = ["body", "accent", "dominant", "event"];
@@ -85,6 +85,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const curPad = readVar("--sk_el_custom_p"); // px
   const curRadius = readVar("--sk_el_custom_radius"); // px
   const selectedEssence = selectedNode?.essence || "";
+  const selectedLayoutType = selectedNode?.layoutType || "hug";
 
 
   const curTxtRole = selectedNode?.textRole || "";
@@ -95,57 +96,30 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
   const st = selectedNode.styles || {};
 
-  const currentSize =
-    st.flexGrow === 1
-      ? "fill"
-      : st.flexShrink === 0 && !st.width
-        ? "hug"
-        : "fixed";
-
   const setStyle = (key, value) => dispatch(editStyle({ key, value }));
-
-  const setSize = (mode) => {
-    if (mode === "fill") {
-      // fill → flex-grow:1; min-width:1px; clear others
-      setStyle("flexGrow", 1);
-      setStyle("minWidth", "1px");
-      setStyle("flexShrink", undefined);
-      setStyle("width", undefined);
-    } else if (mode === "hug") {
-      // hug → flex-shrink:0; clear grow/minWidth/width
-      setStyle("flexShrink", 0);
-      setStyle("flexGrow", undefined);
-      setStyle("minWidth", undefined);
-      setStyle("width", undefined);
-    } else {
-      // fixed → flex-grow:0; flex-shrink:0; keep width (set via input)
-      setStyle("flexGrow", 0);
-      setStyle("flexShrink", 0);
-      setStyle("minWidth", undefined);
-    }
-  };
+  const initialWidth =
+    (selectedNode?.styles?.width || selectedNode?.styles?.["--sk_width"] || "")
+      .toString()
+      .replace(/px$/, "");
 
   const [w, setW] = React.useState(st.width || "");
-  React.useEffect(() => setW(st.width || ""), [st.width]);
+  React.useEffect(() => {
+    const nw = (selectedNode?.styles?.width || selectedNode?.styles?.["--sk_width"] || "")
+      .toString()
+      .replace(/px$/, "");
+    setW(nw);
+  }, [selectedNode]);
 
   const commitWidth = () => {
-    let v = (w || "").trim();
-    if (v === "") {
-      setStyle("width", undefined);
-      return;
-    }
-    // allow plain number → px, or %/px strings
-    if (/^\d+$/.test(v)) v = `${v}px`;
-    if (!/^\d+(\.\d+)?(px|%)$/.test(v)) return; // ignore invalid input
-    setSize("fixed");            // ensure fixed mode when width is set
-    setStyle("width", v);        // apply width
-    setW(v);                     // normalize input
+    if (selectedLayoutType !== "fixed") return;
+    // dispatch with width; the reducer will normalize to px if needed
+    const widthVal = w === "" ? undefined : Number.isNaN(+w) ? w : +w;
+    dispatch(setLayoutType({ type: "fixed", width: widthVal }));
   };
 
   return (
     <>
       {/* ============================ ESSENCE ========================== */}
-      <h4>Essence</h4>
       <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="dg_bd_layout_edit_tool_label">node essence</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
@@ -177,12 +151,8 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       {/* ============================ PAINT ============================ */}
       <div className="dg_bd_layout_edit_tool_wrapper">
 
-
-
-        {/* text → --sk_el_custom_txt (based on nearest parent essence) */}
         <div className="dg_bd_layout_edit_tool_label">text color</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
-
           {essenceTextOptions.map((role) => (
             <label key={`txt_${role}_${uniq}`} className="sk_bd_input_radio">
               <input
@@ -206,21 +176,18 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">none</span>
           </label>
-
-
-
         </div>
       </div>
 
       <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="dg_bd_layout_edit_tool_label">size</div>
-        <div className="dg_bd_layout_edit_tool_wrapper_variants" style={{ gap: 8 }}>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <label className="sk_bd_input_radio">
             <input
               type="radio"
               name="size_mode"
-              checked={currentSize === "fill"}
-              onChange={() => setSize("fill")}
+              checked={selectedLayoutType === "fill"}
+              onChange={() => dispatch(setLayoutType("fill"))}
             />
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">fill</span>
@@ -230,8 +197,8 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <input
               type="radio"
               name="size_mode"
-              checked={currentSize === "hug"}
-              onChange={() => setSize("hug")}
+              checked={selectedLayoutType === "hug"}
+              onChange={() => dispatch(setLayoutType("hug"))}
             />
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">hug</span>
@@ -241,43 +208,37 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <input
               type="radio"
               name="size_mode"
-              checked={currentSize === "fixed"}
-              onChange={() => setSize("fixed")}
+              checked={selectedLayoutType === "fixed"}
+              onChange={() => dispatch(setLayoutType("fixed"))}
             />
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">fixed</span>
           </label>
 
-          {/* fixed width input */}
-          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginLeft: 10 }}>
-            <input
-              className="sk_bd_input"
-              type="text"
-              value={w}
-              onChange={(e) => setW(e.target.value)}
-              onBlur={commitWidth}
-              onKeyDown={(e) => { if (e.key === "Enter") commitWidth(); }}
-              style={{ width: 120 }}
-              disabled={currentSize !== "fixed"}
-            />
-          </span>
+          <input
+            className="sk_bd_input"
+            type="number"
+            value={w}
+            onChange={(e) => setW(e.target.value)}
+            onBlur={commitWidth}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") commitWidth();
+            }}
+            disabled={selectedLayoutType !== "fixed"}
+
+          />
         </div>
 
-        <div style={{ fontSize: 12, opacity: 0.65, marginTop: 4 }}>
-          fill → flex-grow: 1; min-width: 1px • hug → flex-shrink: 0 • fixed → width (px or %), flex-grow: 0; flex-shrink: 0
-        </div>
+
       </div>
 
       {/* ============================ LAYOUT =========================== */}
       <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label" style={{ marginTop: 12, marginBottom: 6 }}>
-          layout
+        <div className="dg_bd_layout_edit_tool_label">
+          direction
         </div>
 
-        {/* dir → --sk_el_custom_dir */}
-        <div className="dg_bd_layout_edit_tool_label" style={{ fontSize: 12, opacity: 0.8 }}>
-          direction → <code>--sk_el_custom_dir</code> (assigns <code>flexDirection</code>)
-        </div>
+
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <label className="sk_bd_input_radio">
             <input
@@ -299,43 +260,37 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">column</span>
           </label>
-          <label className="sk_bd_input_radio">
-            <input
-              type="radio"
-              name={`dir_${uniq}`}
-              checked={curDir !== "row" && curDir !== "column"}
-              onChange={() => setVarAndProp("--sk_el_custom_dir", "")}
-            />
-            <i className="sk_bd_input_radio_imitator"></i>
-            <span className="sk_bd_input_radio_lbl">none</span>
-          </label>
+        </div>
+      </div>
+
+
+      {/* gap → --sk_el_custom_gap */}
+      <div className="dg_bd_layout_edit_tool_wrapper">
+        <div className="dg_bd_layout_edit_tool_label">
+          spacing
         </div>
 
-        {/* gap → --sk_el_custom_gap */}
-        <div className="dg_bd_layout_edit_tool_label" style={{ fontSize: 12, opacity: 0.8 }}>
-          gap → <code>--sk_el_custom_gap</code> (assigns <code>gap</code>)
-        </div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <NumberPx value={curGap} onChange={(v) => setVarAndProp("--sk_el_custom_gap", v)} />
           <button
             className="sk_bd_btn_small"
             onClick={() => setVarAndProp("--sk_el_custom_gap", "")}
-            style={{ marginLeft: 6 }}
           >
             clear
           </button>
         </div>
+      </div>
 
-        {/* padding(all) → --sk_el_custom_p */}
-        <div className="dg_bd_layout_edit_tool_label" style={{ fontSize: 12, opacity: 0.8 }}>
-          padding (all) → <code>--sk_el_custom_p</code> (assigns <code>padding</code>)
+      {/* padding(all) → --sk_el_custom_p */}
+      <div className="dg_bd_layout_edit_tool_wrapper">
+        <div className="dg_bd_layout_edit_tool_label">
+          padding
         </div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <NumberPx value={curPad} onChange={(v) => setVarAndProp("--sk_el_custom_p", v)} />
           <button
             className="sk_bd_btn_small"
             onClick={() => setVarAndProp("--sk_el_custom_p", "")}
-            style={{ marginLeft: 6 }}
           >
             clear
           </button>
@@ -344,13 +299,8 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
       {/* ============================ FORM ============================= */}
       <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label" style={{ marginTop: 12, marginBottom: 6 }}>
-          form
-        </div>
-
-        {/* border-radius → --sk_el_custom_radius */}
-        <div className="dg_bd_layout_edit_tool_label" style={{ fontSize: 12, opacity: 0.8 }}>
-          border-radius → <code>--sk_el_custom_radius</code> (assigns <code>borderRadius</code>)
+        <div className="dg_bd_layout_edit_tool_label">
+          corner radius
         </div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <NumberPx
@@ -360,7 +310,6 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           <button
             className="sk_bd_btn_small"
             onClick={() => setVarAndProp("--sk_el_custom_radius", "")}
-            style={{ marginLeft: 6 }}
           >
             clear
           </button>
