@@ -1,25 +1,19 @@
-import React from "react";
-import { useDispatch, useSelector, shallowEqual } from "react-redux";
-import {
-  editStyle,
-  setEssence,
-  applyEssenceTextRole,
-  editClass,
-  selectTree,
-  selectSelectedPath,
-  selectUIStates
-} from "./features/treeSlice";
+// inspector.js — variables-first Inspector + essence picker (no state logic)
 
-/* ---- local constants (mirror your parent) ---- */
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { editStyle, setEssence, setEssenceTxtVariant, selectTree, selectSelectedPath } from "./features/treeSlice";
+
+/* ---- options ---- */
 const essenceOptions = ["body", "accent", "dominant", "event"];
 const essenceTextOptions = ["Txt", "Txt2", "Txt3", "Accent", "AccentTxt"];
 
-/* ---- tiny helpers (same behavior as in parent) ---- */
-const isLayoutNode = (n) => n?.type === "layout";
-const ensurePx = (v) => (v === "" || v == null ? "" : /^\d+$/.test(String(v)) ? `${v}px` : v);
+/* ---- helpers ---- */
+const ensurePx = (v) =>
+  v === "" || v == null ? "" : /^\d+$/.test(String(v)) ? `${v}px` : String(v);
 const getNum = (v) => (v ? String(v).replace(/px$/, "") : "");
 
-/* Find node by path */
+/* locate parent essence from tree/path */
 const getNodeAtPath = (node, path) => {
   let n = node;
   for (let i = 0; i < path.length; i++) {
@@ -29,30 +23,9 @@ const getNodeAtPath = (node, path) => {
   return n;
 };
 
-/* Closest essence lookup */
-const closestEssenceName = (root, path) => {
-  let p = [...path];
-  while (p.length >= 0) {
-    const n = p.length ? getNodeAtPath(root, p) : root;
-    if (n && n.essence) return n.essence;
-    if (p.length === 0) break;
-    p = p.slice(0, -1);
-  }
-  return "";
-};
 
-/* --- UI atoms --- */
-const Radio = React.memo(function Radio({ name, value, checked, label, onChange }) {
-  return (
-    <label className="sk_bd_input_radio">
-      <input type="radio" name={name} value={value} checked={checked} onChange={(e) => onChange(e.target.value)} />
-      <i className="sk_bd_input_radio_imitator"></i>
-      <span className="sk_bd_input_radio_lbl">{label}</span>
-    </label>
-  );
-});
-
-const NumberPx = React.memo(function NumberPx({ value, onChange, width = 64 }) {
+/* ---- small UI atoms ---- */
+const NumberPx = React.memo(function NumberPx({ value, onChange, width = 80 }) {
   return (
     <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
       <input
@@ -67,1126 +40,331 @@ const NumberPx = React.memo(function NumberPx({ value, onChange, width = 64 }) {
   );
 });
 
-/* --- Class input with local buffer so focus/caret are stable --- */
-const ClassField = React.memo(function ClassField({ valueFromStore }) {
-  const dispatch = useDispatch();
-  const [val, setVal] = React.useState(valueFromStore || "");
+/* map var → css property name (React style keys) */
+const VAR_TO_PROP = {
+  "--sk_el_custom_bg": "background",
+  "--sk_el_custom_txt": "color",
+  "--sk_el_custom_dir": "flexDirection",
+  "--sk_el_custom_gap": "gap",
+  "--sk_el_custom_p": "padding",
+  "--sk_el_custom_radius": "borderRadius",
+};
 
-  React.useEffect(() => {
-    setVal(valueFromStore || "");
-  }, [valueFromStore]);
-
-  const commit = React.useCallback(() => {
-    dispatch(editClass(val));
-  }, [dispatch, val]);
-
-  return (
-    <input
-      className="sk_bd_input"
-      value={val}
-      onChange={(e) => setVal(e.target.value)}
-      onBlur={commit}
-      onKeyDown={(e) => {
-        if (e.key === "Enter") e.currentTarget.blur(); // triggers onBlur → commit
-      }}
-      style={{ width: "100%" }}
-    />
-  );
-});
-
-/* --------- Inspector (memoized) --------- */
+/* ================================================================== */
+/*                         I N S P E C T O R                          */
+/* ================================================================== */
 
 export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const dispatch = useDispatch();
   const tree = useSelector(selectTree);
-  const selectedPath = useSelector(selectSelectedPath, shallowEqual);
-  const uiStates = useSelector(selectUIStates);
+  const selectedPath = useSelector(selectSelectedPath);
 
   if (!selectedNode) return <em>Select a node</em>;
 
-  // Shared helpers
-  const setStyles = (patch) => {
-    Object.entries(patch).forEach(([k, v]) => dispatch(editStyle({ key: k, value: v })));
+
+  // read any CSS var from the selected node (base styles only here)
+  const readVar = (name) => selectedNode?.styles?.[name] ?? "";
+
+  // write var AND assign css key to use that var(); clear key when var is empty
+  const setVarAndProp = (name, value) => {
+    const prop = VAR_TO_PROP[name];
+    // set variable itself
+    dispatch(editStyle({ key: name, value }));
+    // mirror to concrete prop
+    if (prop) {
+      const propVal = value ? `var(${name})` : "";
+      dispatch(editStyle({ key: prop, value: propVal }));
+    }
   };
+
+  // current values
+  const curBgVar = readVar("--sk_el_custom_bg"); // var(--<ess>Bg)
+  const curTxtVar = readVar("--sk_el_custom_txt"); // var(--<parentEss><Role>)
+  const curDir = readVar("--sk_el_custom_dir"); // row|column
+  const curGap = readVar("--sk_el_custom_gap"); // px
+  const curPad = readVar("--sk_el_custom_p"); // px
+  const curRadius = readVar("--sk_el_custom_radius"); // px
   const selectedEssence = selectedNode?.essence || "";
 
-  // Derive current text role (no regex; exact match against closest essence)
-  const selectedTextRole = React.useMemo(() => {
-    const node = selectedNode;
-    if (!node) return "";
-    if (node.textRole) return node.textRole;
-    const essence = closestEssenceName(tree, selectedPath);
-    const color = node.styles?.color;
-    if (!essence || !color) return "";
-    for (const role of essenceTextOptions) {
-      if (color === `var(--${essence}${role})`) return role;
+
+  const curTxtRole = selectedNode?.textRole || "";
+
+  // unique radio grouping per node
+  const uniq = selectedPath?.length ? selectedPath.join("_") : "root";
+
+
+  const st = selectedNode.styles || {};
+
+  const currentSize =
+    st.flexGrow === 1
+      ? "fill"
+      : st.flexShrink === 0 && !st.width
+        ? "hug"
+        : "fixed";
+
+  const setStyle = (key, value) => dispatch(editStyle({ key, value }));
+
+  const setSize = (mode) => {
+    if (mode === "fill") {
+      // fill → flex-grow:1; min-width:1px; clear others
+      setStyle("flexGrow", 1);
+      setStyle("minWidth", "1px");
+      setStyle("flexShrink", undefined);
+      setStyle("width", undefined);
+    } else if (mode === "hug") {
+      // hug → flex-shrink:0; clear grow/minWidth/width
+      setStyle("flexShrink", 0);
+      setStyle("flexGrow", undefined);
+      setStyle("minWidth", undefined);
+      setStyle("width", undefined);
+    } else {
+      // fixed → flex-grow:0; flex-shrink:0; keep width (set via input)
+      setStyle("flexGrow", 0);
+      setStyle("flexShrink", 0);
+      setStyle("minWidth", undefined);
     }
-    return "";
-  }, [selectedNode, tree, selectedPath]);
+  };
 
-  const applyTxtRole = (role) => dispatch(applyEssenceTextRole(role));
-  const handleEssenceChange = (name) => dispatch(setEssence(name));
+  const [w, setW] = React.useState(st.width || "");
+  React.useEffect(() => setW(st.width || ""), [st.width]);
 
-  const activeStateKeys = React.useMemo(() => {
-    const list = [];
-    if (uiStates?.active) list.push("state_active");
-    if (uiStates?.hover) list.push("state_hover");
-    if (uiStates?.inactive) list.push("state_inactive");
-    if (uiStates?.loading) list.push("state_loading");
-    return list;
-  }, [uiStates]);
-  const anyStateOn = activeStateKeys.length > 0;
-
-  // Parent essence to use for state styles (same rule as before)
-  const parentEssence = React.useMemo(
-    () => closestEssenceName(tree, selectedPath),
-    [tree, selectedPath]
-  );
-
-  // Read current role/background for a single selected state (for showing value)
-  const stateRoleForSingle = React.useMemo(() => {
-    if (!selectedNode || activeStateKeys.length !== 1 || !parentEssence) return "";
-    const key = activeStateKeys[0];
-    const color = selectedNode.stateStyles?.[key]?.color;
-    if (!color) return "";
-    for (const role of essenceTextOptions) {
-      if (color === `var(--${parentEssence}${role})`) return role;
+  const commitWidth = () => {
+    let v = (w || "").trim();
+    if (v === "") {
+      setStyle("width", undefined);
+      return;
     }
-    return "";
-  }, [selectedNode, activeStateKeys, parentEssence]);
+    // allow plain number → px, or %/px strings
+    if (/^\d+$/.test(v)) v = `${v}px`;
+    if (!/^\d+(\.\d+)?(px|%)$/.test(v)) return; // ignore invalid input
+    setSize("fixed");            // ensure fixed mode when width is set
+    setStyle("width", v);        // apply width
+    setW(v);                     // normalize input
+  };
 
-  const stateBgIsParentForSingle = React.useMemo(() => {
-    if (!selectedNode || activeStateKeys.length !== 1 || !parentEssence) return false;
-    const key = activeStateKeys[0];
-    const bg = selectedNode.stateStyles?.[key]?.background;
-    return bg === `var(--${parentEssence}Bg2)`;
-  }, [selectedNode, activeStateKeys, parentEssence]);
-
-  const StateEssencePanel = anyStateOn ? (
-  <div className="dg_bd_layout_edit_tool_wrapper">
-    <div className="dg_bd_layout_edit_tool_label">
-      state styles (using parent essence)
-    </div>
-    {!parentEssence ? (
-      <div style={{ fontSize: 12, opacity: 0.7 }}>
-        No parent essence found — set an essence on a parent layout to enable themed state styles.
-      </div>
-    ) : (
-      <>
-        {/* Background from parent essence */}
+  return (
+    <>
+      {/* ============================ ESSENCE ========================== */}
+      <h4>Essence</h4>
+      <div className="dg_bd_layout_edit_tool_wrapper">
+        <div className="dg_bd_layout_edit_tool_label">node essence</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          <label className="sk_bd_input_radio">
-            <input
-              type="radio"
-              name="stateBg"
-              checked={stateBgIsParentForSingle}
-              onChange={() =>
-                dispatch(
-                  editStyle({
-                    key: "background",
-                    value: `var(--${parentEssence}Bg2)`,
-                  })
-                )
-              }
-            />
-            <i className="sk_bd_input_radio_imitator"></i>
-            <span className="sk_bd_input_radio_lbl">background: {`var(--${parentEssence}Bg2)`}</span>
-          </label>
-          <label className="sk_bd_input_radio">
-            <input
-              type="radio"
-              name="stateBg"
-              checked={!stateBgIsParentForSingle}
-              onChange={() => dispatch(editStyle({ key: "background", value: "" }))}
-            />
-            <i className="sk_bd_input_radio_imitator"></i>
-            <span className="sk_bd_input_radio_lbl">background: none</span>
-          </label>
-        </div>
-
-        {/* Text color roles from parent essence */}
-        <div className="dg_bd_layout_edit_tool_label" style={{ marginTop: 8 }}>
-          text color
-        </div>
-        <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          {essenceTextOptions.map((role) => (
-            <label key={role} className="sk_bd_input_radio">
+          {essenceOptions.map((ess) => (
+            <label key={`ess_${ess}_${uniq}`} className="sk_bd_input_radio">
               <input
                 type="radio"
-                name="stateTxtRole"
-                checked={stateRoleForSingle === role}
-                onChange={() =>
-                  dispatch(
-                    editStyle({
-                      key: "color",
-                      value: `var(--${parentEssence}${role})`,
-                    })
-                  )
-                }
+                name={`ess_${uniq}`}
+                checked={selectedEssence === ess}
+                onChange={() => dispatch(setEssence(ess))}
               />
               <i className="sk_bd_input_radio_imitator"></i>
-              <span className="sk_bd_input_radio_lbl">{role}</span>
+              <span className="sk_bd_input_radio_lbl">{ess}</span>
             </label>
           ))}
           <label className="sk_bd_input_radio">
             <input
               type="radio"
-              name="stateTxtRole"
-              checked={stateRoleForSingle === ""}
-              onChange={() => dispatch(editStyle({ key: "color", value: "" }))}
+              name={`ess_${uniq}`}
+              checked={!selectedEssence}
+              onChange={() => dispatch(setEssence(""))}
             />
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">none</span>
           </label>
         </div>
-        {activeStateKeys.length > 1 && (
-          <div style={{ fontSize: 12, opacity: 0.65, marginTop: 6 }}>
-            Edits will be applied to {activeStateKeys.length} states at once.
-          </div>
-        )}
-      </>
-    )}
-  </div>
-) : null;
+      </div>
 
-  /* ─────────────────────────────
-   * ICON NODE
-   * ───────────────────────────── */
-  if (selectedNode.type === "icon") {
-    const iconOptions = [
-
-      "sport_front_icon-1",
-      "sport_front_icon-2",
-      "sport_front_icon-3",
-      "sport_front_icon-4",
-      "sport_front_icon-5",
-      "sport_front_icon-6",
-      "sport_front_icon-7",
-      "sport_front_icon-8",
-      "sport_front_icon-9",
-      "sport_front_icon-10",
-      "sport_front_icon-11",
-      "sport_front_icon-12",
-      "sport_front_icon-13",
-      "sport_front_icon-14",
-      "sport_front_icon-15",
-      "sport_front_icon-16",
-      "sport_front_icon-17",
-      "sport_front_icon-18",
-      "sport_front_icon-19",
-      "sport_front_icon-20",
-      "sport_front_icon-21",
-      "sport_front_icon-22",
-      "sport_front_icon-23",
-      "sport_front_icon-24",
-      "sport_front_icon-25",
-      "sport_front_icon-26",
-      "sport_front_icon-27",
-      "sport_front_icon-28",
-      "sport_front_icon-29",
-      "sport_front_icon-30",
-      "sport_front_icon-31",
-      "sport_front_icon-32",
-      "sport_front_icon-33",
-      "sport_front_icon-34",
-      "sport_front_icon-35",
-      "sport_front_icon-36",
-      "sport_front_icon-37",
-      "sport_front_icon-38",
-      "sport_front_icon-39",
-      "sport_front_icon-40",
-      "sport_front_icon-41",
-      "sport_front_icon-42",
-      "sport_front_icon-43",
-      "sport_front_icon-44",
-      "sport_front_icon-45",
-      "sport_front_icon-46",
-      "sport_front_icon-47",
-      "sport_front_icon-48",
-      "sport_front_icon-49",
-      "sport_front_icon-50",
-      "sport_front_icon-51",
-      "sport_front_icon-52",
-      "sport_front_icon-53",
-      "sport_front_icon-54",
-      "sport_front_icon-55",
-      "sport_front_icon-56",
-      "sport_front_icon-57",
-      "sport_front_icon-58",
-      "sport_front_icon-59",
-      "sport_front_icon-60",
-      "sport_front_icon-61",
-      "sport_front_icon-62",
-      "sport_front_icon-63",
-      "sport_front_icon-64",
-      "sport_front_icon-65",
-      "sport_front_icon-66",
-      "sport_front_icon-67",
-      "sport_front_icon-68",
-      "sport_front_icon-69",
-      "sport_front_icon-70",
-      "sport_front_icon-71",
-      "sport_front_icon-72",
-      "sport_front_icon-73",
-      "sport_front_icon-74",
-      "sport_front_icon-75",
-      "sport_front_icon-76",
-      "sport_front_icon-77",
-      "sport_front_icon-78",
-      "sport_front_icon-79",
-      "sport_front_icon-80",
-      "sport_front_icon-81",
-      "sport_front_icon-82",
-      "sport_front_icon-83",
-      "sport_front_icon-84",
-      "sport_front_icon-85",
-      "sport_front_icon-86",
-      "sport_front_icon-87",
-      "sport_front_icon-88",
-      "sport_front_icon-89",
-      "sport_front_icon-90",
-      "sport_front_icon-91",
-      "sport_front_icon-92",
-      "sport_front_icon-93",
-      "sport_front_icon-94",
-      "sport_front_icon-95",
-      "sport_front_icon-96",
-      "sport_front_icon-97",
-      "sport_front_icon-98",
-      "sport_front_icon-99",
-      "sport_front_icon-100",
-      "sport_front_icon-101",
-      "sport_front_icon-102",
-      "sport_front_icon-103",
-      "sport_front_icon-104",
-      "sport_front_icon-105",
-      "sport_front_icon-106",
-      "sport_front_icon-107",
-      "sport_front_icon-108",
-      "sport_front_icon-109",
-      "sport_front_icon-110",
-      "sport_front_icon-111",
-      "sport_front_icon-112",
-      "sport_front_icon-113",
-      "sport_front_icon-114",
-      "sport_front_icon-115",
-      "sport_front_icon-116",
-      "sport_front_icon-117",
-      "sport_front_icon-118",
-      "sport_front_icon-119",
-      "sport_front_icon-120",
-      "sport_front_icon-121",
-      "sport_front_icon-123",
-      "sport_front_icon-124",
-      "sport_front_icon-125",
-      "sport_front_icon-arrow-down",
-      "sport_front_icon-arrow-up",
-      "sport_front_icon-arrow-left",
-      "sport_front_icon-arrow-right",
-      "sport_front_icon-star-empty",
-      "sport_front_icon-star-filled",
-      "sport_front_icon-check",
-      "sport_front_icon-search",
-      "sport_front_icon-wallet",
-      "sport_front_icon-tournament",
-      "sport_front_icon-sack",
-      "sport_front_icon-bonus",
-      "sport_front_icon-lock",
-
-
-
-    ];
-
-    return (
-      <>
-        <h4>Icon</h4>
-        {StateEssencePanel}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">icon class</div>
-          <select
-            className="sk_bd_input"
-            value={selectedNode.cn || ""}
-            onChange={(e) => dispatch(editClass(e.target.value))}
-          >
-            {iconOptions.map((cls) => (
-              <option key={cls} value={cls}>
-                {cls}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        {/* Optional: text color via essence if your icons are font icons */}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">color</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            {essenceTextOptions.map((role) => (
-              <Radio
-                key={role}
-                name="iconColorRole"
-                value={role}
-                label={role}
-                checked={selectedTextRole === role}
-                onChange={(val) => applyTxtRole(val)}
-              />
-            ))}
-            <Radio
-              name="iconColorRole"
-              value=""
-              label="none"
-              checked={selectedTextRole === ""}
-              onChange={() => applyTxtRole("")}
-            />
-          </div>
-          {!closestEssenceName(tree, selectedPath) && (
-            <div style={{ fontSize: 12, opacity: 0.6, marginTop: 4 }}>
-              No parent essence found — set an essence on a parent layout to enable themed colors.
-            </div>
-          )}
-        </div>
-      </>
-    );
-  }
-
-
-  if (selectedNode.type === "flag") {
-    const flagOptions = [
-      "77",
-      "78",
-      "81",
-      "162430",
-      "82",
-      "83",
-      "84",
-      "85",
-      "72",
-      "73",
-      "74",
-      "90",
-      "88",
-      "89",
-      "91",
-      "92",
-      "160999",
-      "345425",
-      "94",
-      "95",
-      "96",
-      "97",
-      "98",
-      "93",
-      "154175",
-      "128",
-      "129",
-      "210",
-      "134",
-      "135",
-      "136",
-      "137",
-      "207",
-      "138",
-      "132",
-      "209",
-      "111",
-      "112",
-      "214",
-      "114",
-      "178",
-      "80",
-      "215",
-      "157678",
-      "113",
-      "203",
-      "205",
-      "206",
-      "110",
-      "105",
-      "103",
-      "106",
-      "109",
-      "104",
-      "107",
-      "108",
-      "100",
-      "123",
-      "117",
-      "118",
-      "121",
-      "120",
-      "122",
-      "116",
-      "125",
-      "222",
-      "223",
-      "119",
-      "127",
-      "131",
-      "178686",
-      "139",
-      "140",
-      "141",
-      "142",
-      "143",
-      "144",
-      "145",
-      "163784",
-      "146",
-      "147",
-      "159746",
-      "149",
-      "154",
-      "167805",
-      "208",
-      "150",
-      "153",
-      "155",
-      "156",
-      "158",
-      "160",
-      "164597",
-      "157",
-      "161",
-      "157628",
-      "157629",
-      "164",
-      "165",
-      "166",
-      "167",
-      "168",
-      "169",
-      "204",
-      "170",
-      "171",
-      "172",
-      "173",
-      "130",
-      "176",
-      "174",
-      "175",
-      "179",
-      "177",
-      "180",
-      "213",
-      "117033",
-      "183",
-      "184",
-      "186",
-      "187",
-      "216",
-      "218",
-      "220",
-      "221",
-      "219",
-      "124",
-      "168109",
-      "150590",
-      "212",
-      "211",
-      "185",
-      "175063",
-      "191",
-      "189",
-      "193",
-      "194",
-      "196",
-      "195",
-      "197",
-      "199",
-      "200",
-      "99",
-      "188",
-      "201",
-      "198",
-      "101",
-      "102",
-      "202",
-      "126",
-      "115",
-      "152",
-      "87",
-      "76",
-      "86",
-      "79",
-      "75",
-      "205550",
-      "181",
-      "182",
-      "163",
-      "217",
-      "151",
-      "159",
-      "360247",
-      "162",
-      "194348",
-      "192825",
-      "133",
-      "153424",
-      "221797",
-      "148",
-      "192609",
-      "191778",
-      "190",
-      "218572",
-      "269102",
-      "300147",
-      "301347",
-      "251264",
-      "227248",
-      "211524",
-      "211526",
-      "211525",
-      "211527",
-      "211528",
-      "2877",
-      "211529",
-      "211530",
-      "211532",
-      "249061",
-      "252906",
-      "2459",
-      "306716",
-      "313153",
-      "345534",
-      "384246",
-      "375265",
-      "380627",
-      "310630",
-      "330686",
-      "330687",
-      "211531",
-      "410725",
-      "375122",
-      "368333",
-      "2694",
-      "2843",
-      "256652",
-      "364752",
-      "410741",
-      "364753",
-      "330697",
-      "370979",
-      "371216",
-      "318836",
-      "330688",
-      "330690",
-      "330691",
-      "330692",
-      "330693",
-      "330694",
-      "330695",
-      "330696",
-      "367228",
-      "378278",
-      "410724",
-      "410740",
-      "410746",
-      "410748",
-      "410749",
-      "410750",
-      "414769",
-      "2830",
-      "269562",
-      "320642",
-      "429707",
-      "2874",
-      "473568",
-      "416739",
-      "2870",
-      "442885",
-      "439512",
-      "382377",
-      "494968",
-      "317857",
-      "363453",
-      "3126",
-      "491910",
-      "431288",
-      "562890",
-      "3085",
-      "508883",
-      "390057",
-      "3194",
-      "677709",
-      "522433",
-      "68",
-      "69",
-      "71",
-      "662271",
-      "600458",
-      "501770",
-      "562813",
-      "562815",
-      "562814",
-      "2524",
-      "593441",
-      "695275",
-
-
-
-    ];
-
-    return (
-      <>
-        <h4>Flag</h4>
-        {StateEssencePanel}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">flag variant</div>
-          <select
-            className="sk_bd_input"
-            value={selectedNode.cn || ""}
-            onChange={(e) => dispatch(editClass(e.target.value))}
-          >
-            {flagOptions.map((cls) => (
-              <option key={cls} value={`cHFlag f${cls}`}>
-                {cls}
-              </option>
-            ))}
-          </select>
-        </div>
-
-
-      </>
-    );
-  }
-
-  /* ─────────────────────────────
-   * BUTTON NODE
-   * ───────────────────────────── */
-  if (selectedNode.type === "button") {
-    const buttonOptions = [
-      "primary",
-      "secondary",
-      "outline",
-      "text",
-
-    ];
-
-    return (
-      <>
-        <h4>Button</h4>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">button style</div>
-          <select
-            className="sk_bd_input"
-            value={selectedNode.cn || ""}
-            onChange={(e) => dispatch(editClass(e.target.value))}
-          >
-            {buttonOptions.map((cls) => (
-              <option key={cls} value={`dg_btn variant_${cls}`}>
-                {cls}
-              </option>
-            ))}
-          </select>
-        </div>
-
-
-      </>
-    );
-  }
-
-  /* ─────────────────────────────
-   * TEXT NODE
-   * ───────────────────────────── */
-  if (selectedNode.type === "text") {
-    const st = selectedNode.styles || {};
-    const weights = ["400", "500", "600"];
-    const currentWeight = (st.fontWeight ?? "normal").toString();
-
-    return (
-      <>
-        <h4>Text</h4>
-        {StateEssencePanel}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">class</div>
-          <ClassField valueFromStore={selectedNode.cn || ""} />
-        </div>
-
-        {/* font-size */}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">font-size</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <NumberPx value={st.fontSize || ""} onChange={(v) => setStyles({ fontSize: v })} />
-          </div>
-        </div>
-
-        {/* font-weight */}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">font-weight</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            {weights.map((w) => (
-              <Radio
-                key={w}
-                name="fontWeight"
-                value={w}
-                label={w}
-                checked={currentWeight === w}
-                onChange={(val) => setStyles({ fontWeight: isNaN(val) ? val : Number(val) })}
-              />
-            ))}
-          </div>
-        </div>
-
-        {/* text color by essence */}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">text color</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            {essenceTextOptions.map((role) => (
-              <Radio
-                key={role}
-                name="txtColorRole"
-                value={role}
-                label={role}
-                checked={selectedTextRole === role}
-                onChange={(val) => dispatch(applyEssenceTextRole(val))}
-              />
-            ))}
-            <Radio
-              name="txtColorRole"
-              value=""
-              label="none"
-              checked={selectedTextRole === ""}
-              onChange={() => dispatch(applyEssenceTextRole(""))}
-            />
-          </div>
-          {!closestEssenceName(tree, selectedPath) && (
-            <div style={{ fontSize: 12, opacity: 0.6, marginTop: 4 }}>
-              No parent essence found — set an essence on a parent layout to enable themed colors.
-            </div>
-          )}
-        </div>
-      </>
-    );
-  }
-
-  /* ─────────────────────────────
-   * LAYOUT NODE (kept as before)
-   * ───────────────────────────── */
-  if (isLayoutNode(selectedNode)) {
-    const st = selectedNode.styles || {};
-    const direction = st.flexDirection || "row";
-    const wrap = st.flexWrap || "nowrap";
-    const size = st.flexGrow === 1 ? "fill" : st.flexShrink === 0 ? "hug" : "fixed";
-
-    const setSize = (v) => {
-      if (v === "fill") {
-        setStyles({ flexGrow: 1, minWidth: "1px" });
-        setStyles({ flexShrink: undefined });
-      } else if (v === "hug") {
-        setStyles({ flexShrink: 0 });
-        setStyles({ flexGrow: undefined, minWidth: undefined });
-      } else {
-        setStyles({ flexGrow: undefined, flexShrink: undefined, minWidth: undefined });
-      }
-    };
-
-    const setPaddingAll = (v) =>
-      setStyles({ paddingTop: v, paddingRight: v, paddingBottom: v, paddingLeft: v });
-    const setPaddingX = (v) => setStyles({ paddingLeft: v, paddingRight: v });
-    const setPaddingY = (v) => setStyles({ paddingTop: v, paddingBottom: v });
-    const setRadiusAll = (v) =>
-      setStyles({
-        borderTopLeftRadius: v,
-        borderTopRightRadius: v,
-        borderBottomRightRadius: v,
-        borderBottomLeftRadius: v,
-      });
-
-    return (
-      <>
-        <h4>Layout</h4>
-        {StateEssencePanel}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">class</div>
-          <ClassField valueFromStore={selectedNode.cn || ""} />
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper ">
-          <div className="dg_bd_layout_edit_tool_label">size</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <Radio name="size" value="fill" checked={size === "fill"} label="fill" onChange={setSize} />
-            <Radio name="size" value="hug" checked={size === "hug"} label="hug" onChange={setSize} />
-            <Radio name="size" value="fixed" checked={size === "fixed"} label="fixed" onChange={setSize} />
-          </div>
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">direction</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <Radio
-              name="dir"
-              value="row"
-              label="row"
-              checked={direction === "row"}
-              onChange={(v) => setStyles({ flexDirection: v })}
-            />
-            <Radio
-              name="dir"
-              value="column"
-              label="column"
-              checked={direction === "column"}
-              onChange={(v) => setStyles({ flexDirection: v })}
-            />
-          </div>
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">wrap</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <Radio
-              name="wrap"
-              value="nowrap"
-              label="no-wrap"
-              checked={wrap === "nowrap"}
-              onChange={(v) => setStyles({ flexWrap: v })}
-            />
-            <Radio
-              name="wrap"
-              value="wrap"
-              label="wrap"
-              checked={wrap === "wrap"}
-              onChange={(v) => setStyles({ flexWrap: v })}
-            />
-          </div>
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">align-items</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            {["stretch", "flex-start", "center", "flex-end", "baseline"].map((opt) => (
-              <Radio
-                key={opt}
-                name="alignItems"
-                value={opt}
-                label={opt}
-                checked={(st.alignItems || "stretch") === opt}
-                onChange={(v) => setStyles({ alignItems: v })}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">justify-content</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            {["flex-start", "center", "flex-end"].map((opt) => (
-              <Radio
-                key={opt}
-                name="justifyContent"
-                value={opt}
-                label={opt}
-                checked={(st.justifyContent || "flex-start") === opt}
-                onChange={(v) => setStyles({ justifyContent: v })}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">h-gap</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <NumberPx
-              value={(direction === "row" ? st.columnGap : st.rowGap) || ""}
-              onChange={(v) =>
-                direction === "row" ? setStyles({ columnGap: v }) : setStyles({ rowGap: v })
-              }
-            />
-          </div>
-
-          <div className="dg_bd_layout_edit_tool_label">v-gap</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <NumberPx
-              value={(direction === "row" ? st.rowGap : st.columnGap) || ""}
-              onChange={(v) =>
-                direction === "row" ? setStyles({ rowGap: v }) : setStyles({ columnGap: v })
-              }
-            />
-          </div>
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">padding</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <label>
-              All&nbsp;
-              <NumberPx
-                value={
-                  st.paddingTop === st.paddingRight &&
-                    st.paddingTop === st.paddingBottom &&
-                    st.paddingTop === st.paddingLeft
-                    ? st.paddingTop
-                    : ""
-                }
-                onChange={(v) =>
-                  setStyles({
-                    paddingTop: v,
-                    paddingRight: v,
-                    paddingBottom: v,
-                    paddingLeft: v,
-                  })
-                }
-              />
-            </label>
-            <label>
-              Horiz (X)&nbsp;
-              <NumberPx
-                value={st.paddingLeft === st.paddingRight ? st.paddingLeft : ""}
-                onChange={(v) => setStyles({ paddingLeft: v, paddingRight: v })}
-              />
-            </label>
-            <label>
-              Vert (Y)&nbsp;
-              <NumberPx
-                value={st.paddingTop === st.paddingBottom ? st.paddingTop : ""}
-                onChange={(v) => setStyles({ paddingTop: v, paddingBottom: v })}
-              />
-            </label>
-          </div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <label>
-              Top&nbsp;
-              <NumberPx
-                value={st.paddingTop || ""}
-                onChange={(v) => setStyles({ paddingTop: v })}
-              />
-            </label>
-            <label>
-              Right&nbsp;
-              <NumberPx
-                value={st.paddingRight || ""}
-                onChange={(v) => setStyles({ paddingRight: v })}
-              />
-            </label>
-            <label>
-              Bottom&nbsp;
-              <NumberPx
-                value={st.paddingBottom || ""}
-                onChange={(v) => setStyles({ paddingBottom: v })}
-              />
-            </label>
-            <label>
-              Left&nbsp;
-              <NumberPx
-                value={st.paddingLeft || ""}
-                onChange={(v) => setStyles({ paddingLeft: v })}
-              />
-            </label>
-          </div>
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">border-radius</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <label>
-              All&nbsp;
-              <NumberPx
-                value={
-                  st.borderTopLeftRadius === st.borderTopRightRadius &&
-                    st.borderTopLeftRadius === st.borderBottomRightRadius &&
-                    st.borderTopLeftRadius === st.borderBottomLeftRadius
-                    ? st.borderTopLeftRadius
-                    : ""
-                }
-                onChange={(v) =>
-                  setStyles({
-                    borderTopLeftRadius: v,
-                    borderTopRightRadius: v,
-                    borderBottomRightRadius: v,
-                    borderBottomLeftRadius: v,
-                  })
-                }
-              />
-            </label>
-          </div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            <label>
-              TL&nbsp;
-              <NumberPx
-                value={st.borderTopLeftRadius || ""}
-                onChange={(v) => setStyles({ borderTopLeftRadius: v })}
-              />
-            </label>
-            <label>
-              TR&nbsp;
-              <NumberPx
-                value={st.borderTopRightRadius || ""}
-                onChange={(v) => setStyles({ borderTopRightRadius: v })}
-              />
-            </label>
-            <label>
-              BR&nbsp;
-              <NumberPx
-                value={st.borderBottomRightRadius || ""}
-                onChange={(v) => setStyles({ borderBottomRightRadius: v })}
-              />
-            </label>
-            <label>
-              BL&nbsp;
-              <NumberPx
-                value={st.borderBottomLeftRadius || ""}
-                onChange={(v) => setStyles({ borderBottomLeftRadius: v })}
-              />
-            </label>
-          </div>
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">essence</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            {essenceOptions.map((n) => (
-              <Radio
-                key={n}
-                name="essence"
-                value={n}
-                label={n}
-                checked={selectedEssence === n}
-                onChange={(val) => handleEssenceChange(val)}
-              />
-            ))}
-            <Radio
-              name="essence"
-              value=""
-              label="none"
-              checked={!selectedEssence}
-              onChange={() => handleEssenceChange("")}
-            />
-          </div>
-        </div>
-
-        {/* Text color radios for layout *content* if desired */}
-        <div className="dg_bd_layout_edit_tool_wrapper">
-          <div className="dg_bd_layout_edit_tool_label">text color</div>
-          <div className="dg_bd_layout_edit_tool_wrapper_variants">
-            {essenceTextOptions.map((role) => (
-              <Radio
-                key={role}
-                name="txtColorRole"
-                value={role}
-                label={role}
-                checked={selectedTextRole === role}
-                onChange={(val) => dispatch(applyEssenceTextRole(val))}
-              />
-            ))}
-            <Radio
-              name="txtColorRole"
-              value=""
-              label="none"
-              checked={selectedTextRole === ""}
-              onChange={() => dispatch(applyEssenceTextRole(""))}
-            />
-          </div>
-        </div>
-      </>
-    );
-  }
-
-  // Fallback (unknown type)
-  return (
-    <>
-      <h4>Element</h4>
+      {/* ============================ PAINT ============================ */}
       <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">class</div>
-        <ClassField valueFromStore={selectedNode.cn || ""} />
+
+
+
+        {/* text → --sk_el_custom_txt (based on nearest parent essence) */}
+        <div className="dg_bd_layout_edit_tool_label">text color</div>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+
+          {essenceTextOptions.map((role) => (
+            <label key={`txt_${role}_${uniq}`} className="sk_bd_input_radio">
+              <input
+                type="radio"
+                name={`paintTxt_${uniq}`}
+                checked={curTxtRole === role}
+                onChange={() => dispatch(setEssenceTxtVariant(role))}
+              />
+              <i className="sk_bd_input_radio_imitator"></i>
+              <span className="sk_bd_input_radio_lbl">{role}</span>
+            </label>
+          ))}
+
+          <label key={`txt_none_${uniq}`} className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name={`paintTxt_${uniq}`}
+              checked={!curTxtRole}
+              onChange={() => dispatch(setEssenceTxtVariant(""))}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">none</span>
+          </label>
+
+
+
+        </div>
+      </div>
+
+      <div className="dg_bd_layout_edit_tool_wrapper">
+        <div className="dg_bd_layout_edit_tool_label">size</div>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants" style={{ gap: 8 }}>
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name="size_mode"
+              checked={currentSize === "fill"}
+              onChange={() => setSize("fill")}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">fill</span>
+          </label>
+
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name="size_mode"
+              checked={currentSize === "hug"}
+              onChange={() => setSize("hug")}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">hug</span>
+          </label>
+
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name="size_mode"
+              checked={currentSize === "fixed"}
+              onChange={() => setSize("fixed")}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">fixed</span>
+          </label>
+
+          {/* fixed width input */}
+          <span style={{ display: "inline-flex", alignItems: "center", gap: 6, marginLeft: 10 }}>
+            <input
+              className="sk_bd_input"
+              type="text"
+              value={w}
+              onChange={(e) => setW(e.target.value)}
+              onBlur={commitWidth}
+              onKeyDown={(e) => { if (e.key === "Enter") commitWidth(); }}
+              style={{ width: 120 }}
+              disabled={currentSize !== "fixed"}
+            />
+          </span>
+        </div>
+
+        <div style={{ fontSize: 12, opacity: 0.65, marginTop: 4 }}>
+          fill → flex-grow: 1; min-width: 1px • hug → flex-shrink: 0 • fixed → width (px or %), flex-grow: 0; flex-shrink: 0
+        </div>
+      </div>
+
+      {/* ============================ LAYOUT =========================== */}
+      <div className="dg_bd_layout_edit_tool_wrapper">
+        <div className="dg_bd_layout_edit_tool_label" style={{ marginTop: 12, marginBottom: 6 }}>
+          layout
+        </div>
+
+        {/* dir → --sk_el_custom_dir */}
+        <div className="dg_bd_layout_edit_tool_label" style={{ fontSize: 12, opacity: 0.8 }}>
+          direction → <code>--sk_el_custom_dir</code> (assigns <code>flexDirection</code>)
+        </div>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name={`dir_${uniq}`}
+              checked={curDir === "row"}
+              onChange={() => setVarAndProp("--sk_el_custom_dir", "row")}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">row</span>
+          </label>
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name={`dir_${uniq}`}
+              checked={curDir === "column"}
+              onChange={() => setVarAndProp("--sk_el_custom_dir", "column")}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">column</span>
+          </label>
+          <label className="sk_bd_input_radio">
+            <input
+              type="radio"
+              name={`dir_${uniq}`}
+              checked={curDir !== "row" && curDir !== "column"}
+              onChange={() => setVarAndProp("--sk_el_custom_dir", "")}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">none</span>
+          </label>
+        </div>
+
+        {/* gap → --sk_el_custom_gap */}
+        <div className="dg_bd_layout_edit_tool_label" style={{ fontSize: 12, opacity: 0.8 }}>
+          gap → <code>--sk_el_custom_gap</code> (assigns <code>gap</code>)
+        </div>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+          <NumberPx value={curGap} onChange={(v) => setVarAndProp("--sk_el_custom_gap", v)} />
+          <button
+            className="sk_bd_btn_small"
+            onClick={() => setVarAndProp("--sk_el_custom_gap", "")}
+            style={{ marginLeft: 6 }}
+          >
+            clear
+          </button>
+        </div>
+
+        {/* padding(all) → --sk_el_custom_p */}
+        <div className="dg_bd_layout_edit_tool_label" style={{ fontSize: 12, opacity: 0.8 }}>
+          padding (all) → <code>--sk_el_custom_p</code> (assigns <code>padding</code>)
+        </div>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+          <NumberPx value={curPad} onChange={(v) => setVarAndProp("--sk_el_custom_p", v)} />
+          <button
+            className="sk_bd_btn_small"
+            onClick={() => setVarAndProp("--sk_el_custom_p", "")}
+            style={{ marginLeft: 6 }}
+          >
+            clear
+          </button>
+        </div>
+      </div>
+
+      {/* ============================ FORM ============================= */}
+      <div className="dg_bd_layout_edit_tool_wrapper">
+        <div className="dg_bd_layout_edit_tool_label" style={{ marginTop: 12, marginBottom: 6 }}>
+          form
+        </div>
+
+        {/* border-radius → --sk_el_custom_radius */}
+        <div className="dg_bd_layout_edit_tool_label" style={{ fontSize: 12, opacity: 0.8 }}>
+          border-radius → <code>--sk_el_custom_radius</code> (assigns <code>borderRadius</code>)
+        </div>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+          <NumberPx
+            value={curRadius}
+            onChange={(v) => setVarAndProp("--sk_el_custom_radius", v)}
+          />
+          <button
+            className="sk_bd_btn_small"
+            onClick={() => setVarAndProp("--sk_el_custom_radius", "")}
+            style={{ marginLeft: 6 }}
+          >
+            clear
+          </button>
+        </div>
       </div>
     </>
   );

@@ -249,7 +249,7 @@ export default function TreeEditor() {
         setSelectedElemTpl(tpl);
         const node = {
             ...tpl,
-            children:  tpl.children,
+            children: tpl.children,
         };
         if (inside && canHaveChildren(selectedNode)) setTreeState(insertAsChild(selectedPath, node));
         else setTreeState(insertAfter(selectedPath, node));
@@ -296,43 +296,43 @@ export default function TreeEditor() {
 
     /* ── ESSENCE HELPERS (no regex) ─────────────────────────────── */
 
-/** Find the closest ancestor (including self) that has an explicit `essence` key. */
-const closestEssenceName = (path) => {
-  let p = [...path];
-  while (p.length >= 0) {
-    const node = p.length ? getNodeAtPath(treeState, p) : treeState;
-    if (node && node.essence) return node.essence;   // ← only trust explicit key
-    if (p.length === 0) break;
-    p = p.slice(0, -1);
-  }
-  return "";
-};
+    /** Find the closest ancestor (including self) that has an explicit `essence` key. */
+    const closestEssenceName = (path) => {
+        let p = [...path];
+        while (p.length >= 0) {
+            const node = p.length ? getNodeAtPath(treeState, p) : treeState;
+            if (node && node.essence) return node.essence;   // ← only trust explicit key
+            if (p.length === 0) break;
+            p = p.slice(0, -1);
+        }
+        return "";
+    };
 
-/** Apply a color role to the selected node using the closest explicit essence.
- *    role ∈ ["Txt","Txt2","Txt3","Accent","AccentTxt"] or "" to clear
- *    Also stores the chosen role on the node as `textRole` (so we never need to parse).
- */
-const applyEssenceTextRole = (role) => {
-  const essence = closestEssenceName(selectedPath);
-  setTreeState(
-    updateNodeAtPath(treeState, selectedPath, (node) => {
-      const next = { ...(node.styles || {}) };
-      if (!role) {
-        delete next.color;
-        const { textRole, ...restNode } = node; // remove textRole when clearing
-        return { ...restNode, styles: next };
-      }
-      if (essence) {
-        next.color = `var(--${essence}${role})`;
-        return { ...node, styles: next, textRole: role };
-      }
-      // no essence found → leave color untouched, but clear textRole
-      const { textRole, ...restNode } = node;
-      return { ...restNode, styles: next };
-    })
-  );
-};
- 
+    /** Apply a color role to the selected node using the closest explicit essence.
+     *    role ∈ ["Txt","Txt2","Txt3","Accent","AccentTxt"] or "" to clear
+     *    Also stores the chosen role on the node as `textRole` (so we never need to parse).
+     */
+    const applyEssenceTextRole = (role) => {
+        const essence = closestEssenceName(selectedPath);
+        setTreeState(
+            updateNodeAtPath(treeState, selectedPath, (node) => {
+                const next = { ...(node.styles || {}) };
+                if (!role) {
+                    delete next.color;
+                    const { textRole, ...restNode } = node; // remove textRole when clearing
+                    return { ...restNode, styles: next };
+                }
+                if (essence) {
+                    next.color = `var(--${essence}${role})`;
+                    return { ...node, styles: next, textRole: role };
+                }
+                // no essence found → leave color untouched, but clear textRole
+                const { textRole, ...restNode } = node;
+                return { ...restNode, styles: next };
+            })
+        );
+    };
+
 
 
 
@@ -437,21 +437,21 @@ const applyEssenceTextRole = (role) => {
     }, [selectedNode]);
 
     /* Which text role is active on selected node (if any)? (no regex) */
-const selectedTextRole = useMemo(() => {
-  const node = selectedNode;
-  if (!node) return "";
-  if (node.textRole) return node.textRole;  // prefer explicit marker we set
+    const selectedTextRole = useMemo(() => {
+        const node = selectedNode;
+        if (!node) return "";
+        if (node.textRole) return node.textRole;  // prefer explicit marker we set
 
-  // Fallback: infer by exact string match using closest explicit essence
-  const essence = closestEssenceName(selectedPath);
-  const color = node.styles?.color;
-  if (!essence || !color) return "";
+        // Fallback: infer by exact string match using closest explicit essence
+        const essence = closestEssenceName(selectedPath);
+        const color = node.styles?.color;
+        if (!essence || !color) return "";
 
-  for (const role of essenceTextOptions) {
-    if (color === `var(--${essence}${role})`) return role;
-  }
-  return "";
-}, [selectedNode, selectedPath, treeState]);
+        for (const role of essenceTextOptions) {
+            if (color === `var(--${essence}${role})`) return role;
+        }
+        return "";
+    }, [selectedNode, selectedPath, treeState]);
 
 
     /* RENDER ------------------------------------------------------- */
@@ -872,7 +872,6 @@ const selectedTextRole = useMemo(() => {
 
                         <div className="sk_bd_canvas_root">
                             <div className="sk_bd_canvas_elements_wrapper">{renderNode(treeState)}</div>
-
 
                         </div>
                         <div className="sk_bd_tools">

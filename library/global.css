@@ -593,6 +593,7 @@ html {
   --inpBg2: #2F3947;
   --accBg: #2B98B3;
   --accBg2: #f03b6b;
+  --accBg3: #9cf03b;
   --accTxt: #fff;
 }
 
@@ -620,7 +621,7 @@ html {
 
 .sk_bd_layout_mid {
   /* background: var(--bg2); */
-
+  row-gap: 16px;
   --w: var(--canvasWidth);
   flex-grow: 1;
   min-width: 1px;
@@ -862,6 +863,28 @@ background: var(--bg);
 
 }
 
+.dg_btn.variant_primary{
+  background: var(--buttonBg);
+  color: var(--buttonTxt);
+  border: 1px solid var(--buttonBorder);
+  border-radius: var(--buttonRadius);
+}
+
+.dg_btn.variant_outline{
+  background: inherit;
+  color: inherit;
+  border: 1px solid var(--buttonAccent);
+  border-radius: var(--buttonRadius);
+}
+
+.dg_btn.variant_text{
+  background: transparent;
+  color: inherit;
+  border: none;
+  border-radius: 0;
+  text-decoration: underline;
+}
+
 
 .dg_input {
   outline: none;
@@ -930,6 +953,14 @@ outline-color: var(--accBg);
   outline-offset: 2px;
 outline-color: var(--accBg2);
 }
+
+
+.state_selected_layout {
+  outline: 1px dashed ;
+  outline-offset: 1px;
+outline-color: var(--accBg3);
+}
+
 
 .is_layout_clickable {
   cursor: pointer;
@@ -1051,4 +1082,81 @@ outline-color: var(--accBg2);
 
 .sk_bd_input_radio>input:checked+.sk_bd_input_radio_imitator {
   background: var(--accBg);
+}
+
+
+.sk_canvas_grid {
+    --grid-size: 30px;
+    --grid-strength: 1px;
+    --grid-dash: 10px;
+    --grid-gap: 5px;
+    --grid-color: var(--bg);
+    --paper-color: var(--bg4);
+  background-color: var(--paper-color);
+  background-size: var(--grid-dash) var(--grid-dash), var(--grid-size) var(--grid-size);
+  background-image:
+    linear-gradient(to bottom, transparent var(--grid-gap), var(--paper-color) var(--grid-gap)), 
+    linear-gradient(to right, var(--grid-color) var(--grid-strength), transparent var(--grid-strength)),
+    linear-gradient(to right, transparent var(--grid-gap), var(--paper-color) var(--grid-gap)),
+    linear-gradient(to bottom, var(--grid-color) var(--grid-strength), transparent var(--grid-strength));
+}
+
+
+.sk_bd_state_wrapper{
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
+
+
+.sk_bd_state_checkbox{
+  display: flex;
+    align-items: center;
+    background: var(--bg);
+    color: var(--txt);
+    border-radius: 4px;
+    border: 1px solid var(--bg4);
+    padding: 4px 8px;
+    column-gap: 8px;
+    cursor: pointer;
+    height: 36px;
+    opacity: 0.7;
+}
+
+.sk_bd_state_checkbox.state_checked{
+  opacity: 1;
+}
+
+.sk_bd_state_checkbox >input {
+  display: none;
+}
+
+.sk_bd_state_checkbox >.sk_bd_state_checkbox_imitator {
+  --size: 16px;
+  width: var(--size);
+  height: var(--size);
+  flex-shrink: 0;
+  cursor: pointer;
+  appearance: none;
+  border: 0;
+  outline: 0;
+  background: var(--bg2);
+
+}
+
+.sk_bd_state_checkbox_lbl {
+  background: var(--bg);
+  color: var(--txt);
+  font-size: 10px;
+  border-radius: 4px;
+}
+
+
+
+.sk_bd_state_checkbox>input:checked+.sk_bd_state_checkbox_imitator {
+  background: var(--accBg);
+}
+
+.sk_bd_state_checkbox:checked {
+  opacity: 0.2;
 }

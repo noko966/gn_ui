@@ -10,8 +10,6 @@ const initialTree = {
         display: "flex",
         alignItems: "center",
         padding: "10px",
-        background: "var(--eventBg)",
-        color: "var(--eventTxt)",
     },
     children: [
         {
@@ -83,6 +81,11 @@ const closestEssenceName = (root, path) => {
     }
     return "";
 };
+
+// Treat absence of the flag as "inherited" (backwards compatible)
+const isNodeObj = (x) => x != null && typeof x === "object" && !Array.isArray(x);
+const hasExplicitEssence = (n) => isNodeObj(n) && n.essenceIsInherited === false;
+
 
 /* -------------------------- slice ---------------------------- */
 const treeSlice = createSlice({
@@ -177,30 +180,86 @@ const treeSlice = createSlice({
             }
         },
 
+
+
+
+
         setEssence(state, action) {
-            const name = action.payload;
-            const node = getNodeAtPath(state.tree, state.selectedPath);
+            const newEss = action.payload || undefined;
+            const path = state.selectedPath;
+            const node = getNodeAtPath(state.tree, path);
             if (!node) return;
-            node.essence = name || undefined;
-            node.styles = {
-                ...(node.styles || {}),
-                background: name ? `var(--${name}Bg)` : "",
-                color: name ? `var(--${name}Txt)` : "",
-            };
-        },
-        applyEssenceTextRole(state, action) {
-            const role = action.payload;
-            const essence = closestEssenceName(state.tree, state.selectedPath);
-            const node = getNodeAtPath(state.tree, state.selectedPath);
-            if (!node) return;
+
             node.styles = { ...(node.styles || {}) };
-            if (!role) {
+
+            if (!newEss) {
+                // clear essence + related defaults/variables on the selected node
+                delete node.essence;
+                delete node.styles.background;
                 delete node.styles.color;
-                delete node.textRole;
-            } else if (essence) {
-                node.styles.color = `var(--${essence}${role})`;
-                node.textRole = role;
+                delete node.styles["--sk_bg"];
+                delete node.styles["--sk_txt"];
+            } else {
+                // set essence + default bg/txt + variables on the selected node
+                node.essence = newEss;
+                node.styles["--sk_bg"] = `var(--${newEss}Bg)`;
+                node.styles["--sk_txt"] = `var(--${newEss}Txt)`;
+                node.styles.background = `var(--sk_bg)`;
+                node.styles.color = `var(--sk_txt)`;
             }
+
+            // reapply text roles for descendants based on effective essence chain
+            const reapplyTextRoles = (n, inheritedEssence) => {
+                const effective = n.essence || inheritedEssence || null;
+
+                const role = n.textRole;
+                if (role) {
+                    n.styles = { ...(n.styles || {}) };
+                    if (effective) {
+                        n.styles["--sk_txt"] = `var(--${effective}${role})`;
+                        n.styles.color = `var(--sk_txt)`;
+                    } else {
+                        delete n.styles["--sk_txt"];
+                        delete n.styles.color;
+                    }
+                }
+
+                if (Array.isArray(n.children)) {
+                    n.children.forEach((c) => reapplyTextRoles(c, effective));
+                }
+            };
+
+            const startEss = node.essence || null;
+            reapplyTextRoles(node, startEss);
+        },
+
+
+        setEssenceTxtVariant(state, action) {
+            const role = action.payload || "";
+            const node = getNodeAtPath(state.tree, state.selectedPath);
+            if (!node) return;
+
+            const essence = closestEssenceName(state.tree, state.selectedPath);
+
+            node.styles = { ...(node.styles || {}) };
+
+            if (!role) {
+                delete node.textRole;
+                delete node.styles["--sk_txt"];
+                delete node.styles.color;
+                return;
+            }
+
+            node.textRole = role;
+
+            if (!essence) {
+                delete node.styles["--sk_txt"];
+                delete node.styles.color;
+                return;
+            }
+
+            node.styles["--sk_txt"] = `var(--${essence}${role})`;
+            node.styles.color = "var(--sk_txt)";
         },
         editClass(state, action) {
             const cls = action.payload;
@@ -232,6 +291,7 @@ export const {
     swapSiblings,
     editStyle,
     setEssence,
+    setEssenceTxtVariant,
     applyEssenceTextRole,
     editClass,
     setGenerated,
@@ -245,13 +305,19 @@ export default treeSlice.reducer;
 /* ----------------- selectors ---------------- */
 export const selectTree = (s) => s.tree.tree;
 export const selectSelectedPath = (s) => s.tree.selectedPath;
+export const selectActiveNode = createSelector(
+    [selectTree, selectSelectedPath],
+    (tree, path) => getNodeAtPath(tree, path) || tree // fall back to root if nothing selected
+);
+
+
 export const selectHoverPath = (s) => s.tree.hoverPath;
 export const selectVisualHelpers = (s) => s.tree.visualHelpers;
 
 export const selectUIStates = (s) => {
-    console.log(s.tree);
     return s.tree.uiStates
 };
+
 
 const selectGeneratedHtml = (s) => s.tree.generatedHtml;
 const selectGeneratedCss = (s) => s.tree.generatedCss;
