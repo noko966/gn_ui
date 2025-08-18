@@ -42,7 +42,7 @@ const elementLibrary = [
     type: "layout",
     el: "div",
     cn: "dg_layout",
-    styles: { display: "flex", gap: "8px", minWidth: "40px", minHeight: "40px" },
+    styles: { display: "flex", gap: "8px", minWidth: "20px", minHeight: "20px" },
     children: [],
   },
 ];

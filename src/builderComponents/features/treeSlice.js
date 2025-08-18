@@ -69,6 +69,8 @@ const getNodeAtPath = (node, path) => {
     return n;
 };
 
+const getParentPath = (path) => path.slice(0, -1);
+
 const isLayoutNode = (n) => n?.type === "layout";
 
 const closestEssenceName = (root, path) => {
@@ -180,27 +182,79 @@ const treeSlice = createSlice({
             }
         },
 
+        setPosition(state, action) {
+            const { edge = "top-left", offset = 0 } = action.payload || {};
+            const path = state.selectedPath;
+            const node = getNodeAtPath(state.tree, path);
+            if (!node) return;
 
+            // normalize offset to px (if a number)
+            const px = typeof offset === "number" ? `${offset}px` : offset;
+
+            // ensure styles object
+            node.styles = { ...(node.styles || {}) };
+
+            // set absolute positioning on the node
+            node.styles.position = "absolute";
+
+            // clear any previous anchors
+            delete node.styles.top;
+            delete node.styles.right;
+            delete node.styles.bottom;
+            delete node.styles.left;
+
+            // apply requested corner
+            switch (edge) {
+                case "top-right":
+                    node.styles.top = px;
+                    node.styles.right = px;
+                    break;
+                case "bottom-left":
+                    node.styles.bottom = px;
+                    node.styles.left = px;
+                    break;
+                case "bottom-right":
+                    node.styles.bottom = px;
+                    node.styles.right = px;
+                    break;
+                case "top-left":
+                default:
+                    node.styles.top = px;
+                    node.styles.left = px;
+                    break;
+            }
+
+            // store chosen edge/offset for UI reflection
+            node.absEdge = edge;
+            node.absOffset = px;
+
+            // ensure parent is position: relative (if static/undefined)
+            const parentPath = getParentPath(path);
+            const parent = getNodeAtPath(state.tree, parentPath);
+            if (parent) {
+                parent.styles = { ...(parent.styles || {}) };
+                if (!parent.styles.position || parent.styles.position === "static") {
+                    parent.styles.position = "relative";
+                }
+            }
+        },
 
 
         setLayoutType(state, action) {
             const node = getNodeAtPath(state.tree, state.selectedPath);
             if (!node) return;
 
-            // only allow on layout nodes (optional guard)
             if (node.type !== "layout") return;
 
-            // normalize payload: "fill" | "hug" | "fixed"  OR  { type: "...", width?: string|number }
             const payload = typeof action.payload === "string"
                 ? { type: action.payload }
                 : (action.payload || {});
 
-            const kind = payload.type || "hug";            // default to "hug" like your previous logic
+            const kind = payload.type || "hug";
             const widthPx = payload.width;
 
             node.styles = { ...(node.styles || {}) };
 
-            // clear shared props we may override below (keeps result predictable)
             delete node.styles.width;
             delete node.styles["--sk_width"];
 
@@ -348,6 +402,7 @@ export const {
     openCodeModal,
     closeCodeModal,
     setUIState,
+    setPosition
 } = treeSlice.actions;
 
 export default treeSlice.reducer;

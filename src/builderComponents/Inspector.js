@@ -3,6 +3,7 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, selectTree, selectSelectedPath } from "./features/treeSlice";
+import { PositionControl } from "./components/position";
 
 /* ---- options ---- */
 const essenceOptions = ["body", "accent", "dominant", "event"];
@@ -315,6 +316,9 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </button>
         </div>
       </div>
+
+
+      <PositionControl selectedNode={selectedNode} />
     </>
   );
 });

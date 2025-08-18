@@ -968,7 +968,7 @@ outline-color: var(--accBg3);
 }
 
 .sk_bd_canvas_elements_wrapper {
-  width: calc(100% - 400px);
+  width: calc(100% - 200px);
 }
 
 .dg_bd_layout_edit_tool_wrapper {
