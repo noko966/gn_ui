@@ -4,6 +4,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, selectTree, selectSelectedPath } from "./features/treeSlice";
 import { PositionControl } from "./components/position";
+import { DraggableNumberInput } from "draggable-number-input";
 
 /* ---- options ---- */
 const essenceOptions = ["body", "accent", "dominant", "event"];
@@ -23,6 +24,22 @@ const getNodeAtPath = (node, path) => {
   }
   return n;
 };
+
+// /* ---- small UI atoms ---- */
+// function NumberPx() {
+//   const [value, setValue] = useState(0);
+//   return (
+//     <label>
+//       <DraggableNumberInput
+
+//         modifierKeys={{
+//           default: { multiplier: 2, sensitivity: 0.5 },
+
+//         }}
+//         className="sk_bd_input" value={value} onChange={setValue} />
+//     </label>
+//   );
+// };
 
 
 /* ---- small UI atoms ---- */
@@ -273,6 +290,10 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <NumberPx value={curGap} onChange={(v) => setVarAndProp("--sk_el_custom_gap", v)} />
+{/* 
+    <DraggableNumberInput min={0} max={1000} value={curGap} onChange={(v) => setVarAndProp("--sk_el_custom_gap", (v) => ensurePx(v))} modifierKeys={{
+      default:  { multiplier: 1,    sensitivity: 1 },
+    }}/> */}
           <button
             className="sk_bd_btn_small"
             onClick={() => setVarAndProp("--sk_el_custom_gap", "")}

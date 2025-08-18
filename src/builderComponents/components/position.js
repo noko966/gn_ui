@@ -2,17 +2,9 @@ import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { selectTree, selectSelectedPath, setPosition } from "../features/treeSlice";
 import { getNum, ensurePx } from "../utils";
-import { useControls } from 'leva'
 
-function MyComponent() {
-    const { name, aNumber } = useControls({ name: 'World', aNumber: 0 })
 
-    return (
-        <div>
-            Hey {name}, hello! {aNumber}
-        </div>
-    )
-}
+
 
 export function PositionControl({ selectedNode }) {
     const dispatch = useDispatch();
@@ -97,7 +89,7 @@ export function PositionControl({ selectedNode }) {
                     px
                 </span>
             </div>
-            <MyComponent />
+
 
         </div>
     );
