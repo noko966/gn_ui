@@ -4,7 +4,8 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, selectTree, selectSelectedPath } from "./features/treeSlice";
 import { PositionControl } from "./components/position";
-import { DraggableNumberInput } from "draggable-number-input";
+import { PxDragInput } from "./components/DragInput";
+
 
 /* ---- options ---- */
 const essenceOptions = ["body", "accent", "dominant", "event"];
@@ -24,22 +25,6 @@ const getNodeAtPath = (node, path) => {
   }
   return n;
 };
-
-// /* ---- small UI atoms ---- */
-// function NumberPx() {
-//   const [value, setValue] = useState(0);
-//   return (
-//     <label>
-//       <DraggableNumberInput
-
-//         modifierKeys={{
-//           default: { multiplier: 2, sensitivity: 0.5 },
-
-//         }}
-//         className="sk_bd_input" value={value} onChange={setValue} />
-//     </label>
-//   );
-// };
 
 
 /* ---- small UI atoms ---- */
@@ -289,55 +274,44 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
         </div>
 
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          <NumberPx value={curGap} onChange={(v) => setVarAndProp("--sk_el_custom_gap", v)} />
-{/* 
-    <DraggableNumberInput min={0} max={1000} value={curGap} onChange={(v) => setVarAndProp("--sk_el_custom_gap", (v) => ensurePx(v))} modifierKeys={{
-      default:  { multiplier: 1,    sensitivity: 1 },
-    }}/> */}
-          <button
-            className="sk_bd_btn_small"
-            onClick={() => setVarAndProp("--sk_el_custom_gap", "")}
-          >
-            clear
-          </button>
+          <PxDragInput
+            value={curGap}
+            onChange={(v) => setVarAndProp("--sk_el_custom_gap", v)}
+            min={0}
+            max={64}
+          />
         </div>
       </div>
 
-      {/* padding(all) → --sk_el_custom_p */}
       <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="dg_bd_layout_edit_tool_label">
           padding
         </div>
+
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          <NumberPx value={curPad} onChange={(v) => setVarAndProp("--sk_el_custom_p", v)} />
-          <button
-            className="sk_bd_btn_small"
-            onClick={() => setVarAndProp("--sk_el_custom_p", "")}
-          >
-            clear
-          </button>
+          <PxDragInput
+            value={curPad}
+            onChange={(v) => setVarAndProp("--sk_el_custom_p", v)}
+            min={0}
+            max={64}
+          />
         </div>
       </div>
 
-      {/* ============================ FORM ============================= */}
       <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="dg_bd_layout_edit_tool_label">
-          corner radius
+          radius
         </div>
+
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          <NumberPx
+          <PxDragInput
             value={curRadius}
             onChange={(v) => setVarAndProp("--sk_el_custom_radius", v)}
+            min={0}
+            max={64}
           />
-          <button
-            className="sk_bd_btn_small"
-            onClick={() => setVarAndProp("--sk_el_custom_radius", "")}
-          >
-            clear
-          </button>
         </div>
       </div>
-
 
       <PositionControl selectedNode={selectedNode} />
     </>

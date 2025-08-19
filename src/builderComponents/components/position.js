@@ -2,6 +2,7 @@ import React from "react";
 import { useDispatch, useSelector, shallowEqual } from "react-redux";
 import { selectTree, selectSelectedPath, setPosition } from "../features/treeSlice";
 import { getNum, ensurePx } from "../utils";
+import { PxDragInput } from "./DragInput";
 
 
 
@@ -73,6 +74,22 @@ export function PositionControl({ selectedNode }) {
             </div>
 
             {/* Offset */}
+
+            <div className="dg_bd_layout_edit_tool_wrapper">
+                <div className="dg_bd_layout_edit_tool_label">
+                    offset
+                </div>
+
+                <div className="dg_bd_layout_edit_tool_wrapper_variants">
+                    <PxDragInput
+                        value={offset}
+                        onChange={(v) => setOffset(v)}
+                        min={0}
+                        max={64}
+                    />
+                </div>
+            </div>
+
             <div className="dg_bd_layout_edit_tool_wrapper_variants" style={{ marginTop: 6 }}>
                 <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
                     <input
