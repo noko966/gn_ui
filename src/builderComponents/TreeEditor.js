@@ -32,8 +32,8 @@ import { Inspector } from "./Inspector"; // ← NEW
 
 /* palette etc… keep as-is */
 const elementLibrary = [
-  { name: "flag", type: "flag", el: "div", cn: "cHFlag", children: null },
-  { name: "icon", type: "icon", el: "i", cn: "dg_icon_", children: null },
+  { name: "flag", type: "flag", styles: { '--flagSize': "24px" }, el: "div", cn: "cHFlag", children: null },
+  { name: "icon", type: "icon", styles: { '--icoSize': "24px" }, el: "i", cn: "dg_icon_", children: null },
   { name: "text", type: "text", el: "span", cn: "dg_text_", children: "text default" },
   { name: "action", type: "button", el: "button", cn: "dg_btn", children: "btn default" },
   { name: "input", type: "input", el: "input", cn: "dg_input", children: null },

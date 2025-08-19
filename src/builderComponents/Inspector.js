@@ -2,30 +2,22 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, selectTree, selectSelectedPath } from "./features/treeSlice";
+import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, editClass, selectTree, selectSelectedPath } from "./features/treeSlice";
 import { PositionControl } from "./components/position";
 import { PxDragInput } from "./components/DragInput";
-
+import { setClassName } from "./features/treeSlice";
+import { FLAGS_DATA, ICONS_DATA } from './features/data'
 
 /* ---- options ---- */
-const essenceOptions = ["body", "accent", "dominant", "event"];
+const essenceOptions = ["body", "accent", "button",  "buttonSecondary",  "navbar",  "slider",  "subHeader", "dominant", "event", "eventHeader", "eventLive",
+  "odd", "oddActive", "showMore", "marketHeader", "collapse", "tab", "tabActive", "menu_1", "menu_2", "menu_3"
+];
 const essenceTextOptions = ["Txt", "Txt2", "Txt3", "Accent", "AccentTxt"];
 
 /* ---- helpers ---- */
 const ensurePx = (v) =>
   v === "" || v == null ? "" : /^\d+$/.test(String(v)) ? `${v}px` : String(v);
 const getNum = (v) => (v ? String(v).replace(/px$/, "") : "");
-
-/* locate parent essence from tree/path */
-const getNodeAtPath = (node, path) => {
-  let n = node;
-  for (let i = 0; i < path.length; i++) {
-    if (!n.children || !n.children[path[i]]) return null;
-    n = n.children[path[i]];
-  }
-  return n;
-};
-
 
 /* ---- small UI atoms ---- */
 const NumberPx = React.memo(function NumberPx({ value, onChange, width = 80 }) {
@@ -51,6 +43,7 @@ const VAR_TO_PROP = {
   "--sk_el_custom_gap": "gap",
   "--sk_el_custom_p": "padding",
   "--sk_el_custom_radius": "borderRadius",
+  "--sk_el_custom_width": "width",
 };
 
 /* ================================================================== */
@@ -86,6 +79,9 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const curDir = readVar("--sk_el_custom_dir"); // row|column
   const curGap = readVar("--sk_el_custom_gap"); // px
   const curPad = readVar("--sk_el_custom_p"); // px
+  const curWidth = readVar("--sk_el_custom_width"); // px
+  const curFlag = readVar("--flagSize"); // px
+  const curIcon = readVar("--icoSize"); // px
   const curRadius = readVar("--sk_el_custom_radius"); // px
   const selectedEssence = selectedNode?.essence || "";
   const selectedLayoutType = selectedNode?.layoutType || "hug";
@@ -115,13 +111,24 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
   const commitWidth = () => {
     if (selectedLayoutType !== "fixed") return;
-    // dispatch with width; the reducer will normalize to px if needed
     const widthVal = w === "" ? undefined : Number.isNaN(+w) ? w : +w;
     dispatch(setLayoutType({ type: "fixed", width: widthVal }));
   };
 
   return (
     <>
+
+<div className="dg_bd_layout_edit_tool_wrapper">
+        <div className="dg_bd_layout_edit_tool_label">className</div>
+        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+          <input
+              className="sk_bd_input"
+              value={selectedNode.cn || ""}
+              onChange={(e) => dispatch(editClass(e.target.value))}
+            />
+        </div>
+        </div>
+
       {/* ============================ ESSENCE ========================== */}
       <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="dg_bd_layout_edit_tool_label">node essence</div>
@@ -182,121 +189,209 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
         </div>
       </div>
 
-      <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">size</div>
-        <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          <label className="sk_bd_input_radio">
-            <input
-              type="radio"
-              name="size_mode"
-              checked={selectedLayoutType === "fill"}
-              onChange={() => dispatch(setLayoutType("fill"))}
-            />
-            <i className="sk_bd_input_radio_imitator"></i>
-            <span className="sk_bd_input_radio_lbl">fill</span>
-          </label>
+      {selectedNode.type === "flag" && (
+        <>
 
-          <label className="sk_bd_input_radio">
-            <input
-              type="radio"
-              name="size_mode"
-              checked={selectedLayoutType === "hug"}
-              onChange={() => dispatch(setLayoutType("hug"))}
-            />
-            <i className="sk_bd_input_radio_imitator"></i>
-            <span className="sk_bd_input_radio_lbl">hug</span>
-          </label>
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <label className="dg_bd_layout_edit_tool_label">Flag Type</label>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <select
+                className="sk_bd_input"
+                value={selectedNode.cn || ""}
+                onChange={(e) =>
+                  dispatch(setClassName({ path: selectedNode, cn: e.target.value }))
+                }
+              >
+                {
+                  FLAGS_DATA.map(id => {
+                    const cn = `cHFlag f${id}`;
+                    return (
+                      <option value={cn}>{id}</option>
 
-          <label className="sk_bd_input_radio">
-            <input
-              type="radio"
-              name="size_mode"
-              checked={selectedLayoutType === "fixed"}
-              onChange={() => dispatch(setLayoutType("fixed"))}
-            />
-            <i className="sk_bd_input_radio_imitator"></i>
-            <span className="sk_bd_input_radio_lbl">fixed</span>
-          </label>
+                    )
+                  })
+                }
+              </select>
+            </div>
+          </div>
 
-          <input
-            className="sk_bd_input"
-            type="number"
-            value={w}
-            onChange={(e) => setW(e.target.value)}
-            onBlur={commitWidth}
-            onKeyDown={(e) => {
-              if (e.key === "Enter") commitWidth();
-            }}
-            disabled={selectedLayoutType !== "fixed"}
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">
+              flag size
+            </div>
 
-          />
-        </div>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <PxDragInput
+                value={curFlag}
+                onChange={(v) => setVarAndProp("--flagSize", v)}
+                min={0}
+                max={64}
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+      {selectedNode.type === "icon" && (
+        <>
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <label className="dg_bd_layout_edit_tool_label">Icon Type</label>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <select
+                className="sk_bd_input"
+
+                value={selectedNode.cn || ""}
+                onChange={(e) =>
+                  dispatch(setClassName({ path: selectedNode, cn: e.target.value }))
+                }
+              >
+                {
+                  ICONS_DATA.map(id => {
+                    const cn = `${id}`;
+                    return (
+                      <option value={cn}>{id}</option>
+                    )
+                  })
+                }
+              </select>
+            </div>
+
+          </div>
+
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">
+              icon size
+            </div>
+
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <PxDragInput
+                value={curIcon}
+                onChange={(v) => setVarAndProp("--icoSize", v)}
+                min={0}
+                max={64}
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+      {selectedNode.type === "layout" && (
+        <>
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">size</div>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name="size_mode"
+                  checked={selectedLayoutType === "fill"}
+                  onChange={() => dispatch(setLayoutType("fill"))}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">fill</span>
+              </label>
+
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name="size_mode"
+                  checked={selectedLayoutType === "hug"}
+                  onChange={() => dispatch(setLayoutType("hug"))}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">hug</span>
+              </label>
+
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name="size_mode"
+                  checked={selectedLayoutType === "fixed"}
+                  onChange={() => dispatch(setLayoutType("fixed"))}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">fixed</span>
+              </label>
+
+              <PxDragInput
+                    value={curWidth}
+                    onChange={(v) => setVarAndProp("--sk_el_custom_width", v)}
+                    min={0}
+                    max={1000}
+                  />
+
+            </div>
+
+          </div>
+
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">
+              orientation
+            </div>
 
 
-      </div>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name={`dir_${uniq}`}
+                  checked={curDir === "row"}
+                  onChange={() => setVarAndProp("--sk_el_custom_dir", "row")}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">row</span>
+              </label>
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name={`dir_${uniq}`}
+                  checked={curDir === "column"}
+                  onChange={() => setVarAndProp("--sk_el_custom_dir", "column")}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">column</span>
+              </label>
+            </div>
+          </div>
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">
+              spacing
+            </div>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <PxDragInput
+                value={curGap}
+                onChange={(v) => setVarAndProp("--sk_el_custom_gap", v)}
+                min={0}
+                max={64}
+              />
+            </div>
+          </div>
 
-      {/* ============================ LAYOUT =========================== */}
-      <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">
-          direction
-        </div>
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">
+              padding
+            </div>
+
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <PxDragInput
+                value={curPad}
+                onChange={(v) => setVarAndProp("--sk_el_custom_p", v)}
+                min={0}
+                max={64}
+              />
+            </div>
+          </div>
+        </>
+
+      )}
 
 
-        <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          <label className="sk_bd_input_radio">
-            <input
-              type="radio"
-              name={`dir_${uniq}`}
-              checked={curDir === "row"}
-              onChange={() => setVarAndProp("--sk_el_custom_dir", "row")}
-            />
-            <i className="sk_bd_input_radio_imitator"></i>
-            <span className="sk_bd_input_radio_lbl">row</span>
-          </label>
-          <label className="sk_bd_input_radio">
-            <input
-              type="radio"
-              name={`dir_${uniq}`}
-              checked={curDir === "column"}
-              onChange={() => setVarAndProp("--sk_el_custom_dir", "column")}
-            />
-            <i className="sk_bd_input_radio_imitator"></i>
-            <span className="sk_bd_input_radio_lbl">column</span>
-          </label>
-        </div>
-      </div>
+
+
 
 
       {/* gap → --sk_el_custom_gap */}
-      <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">
-          spacing
-        </div>
 
-        <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          <PxDragInput
-            value={curGap}
-            onChange={(v) => setVarAndProp("--sk_el_custom_gap", v)}
-            min={0}
-            max={64}
-          />
-        </div>
-      </div>
-
-      <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">
-          padding
-        </div>
-
-        <div className="dg_bd_layout_edit_tool_wrapper_variants">
-          <PxDragInput
-            value={curPad}
-            onChange={(v) => setVarAndProp("--sk_el_custom_p", v)}
-            min={0}
-            max={64}
-          />
-        </div>
-      </div>
 
       <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="dg_bd_layout_edit_tool_label">
@@ -314,6 +409,11 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       </div>
 
       <PositionControl selectedNode={selectedNode} />
+
+
+
+
     </>
+
   );
 });

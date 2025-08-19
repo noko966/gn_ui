@@ -69,6 +69,8 @@ const getNodeAtPath = (node, path) => {
     return n;
 };
 
+
+
 const getParentPath = (path) => path.slice(0, -1);
 
 const isLayoutNode = (n) => n?.type === "layout";
@@ -108,6 +110,17 @@ const treeSlice = createSlice({
         },
     },
     reducers: {
+        setClassName(state, action) {
+            const path = state.selectedPath;
+
+            console.log(state, action);
+            
+            const  {cn}  = action.payload;
+            const node = getNodeAtPath(state.tree, path);
+            if (node) {
+                node.cn = cn;
+            }
+        },
         setSelectedPath(state, action) {
             state.selectedPath = action.payload;
         },
@@ -402,7 +415,8 @@ export const {
     openCodeModal,
     closeCodeModal,
     setUIState,
-    setPosition
+    setPosition,
+    setClassName
 } = treeSlice.actions;
 
 export default treeSlice.reducer;

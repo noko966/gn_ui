@@ -901,7 +901,7 @@ background: var(--bg);
   color: var(--inputTxt);
   font-weight: 400;
   padding: 0 12px;
-  height: 100%;
+  height: 32px;
   background: var(--inputBg);
   color: var(--inputTxt);
   border: 1px solid var(--inputBorder);
@@ -1176,6 +1176,7 @@ outline-color: var(--accBg3);
 
 .sk_bd_input_drag {
     background: var(--bg);
+    color: var(--txt2);
     outline: 0;
     appearance: none;
     border: 0;

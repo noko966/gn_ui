@@ -1161,3 +1161,49 @@ outline-color: var(--accBg3);
 .sk_bd_state_checkbox:checked {
   opacity: 0.2;
 }
+
+.sk_bd_input_wrapper {
+    display: flex;
+    align-items: center;
+    column-gap: 8px;
+    position: relative;
+    background: var(--bg);
+    height: 24px;
+  border-radius: 4px;
+  border: 1px solid var(--bg4);
+  padding: 0 4px;
+}
+
+.sk_bd_input_drag {
+    background: var(--bg);
+    outline: 0;
+    appearance: none;
+    border: 0;
+    height: 20px;
+    padding: 0 8px;
+    width: 70px;
+}
+
+.sk_bd_btn_small{
+background: var(--bg2);
+    color: var(--txt2);
+    height: 20px;
+    border-radius: 4px;
+    border: 1px solid var(--bg4);
+    outline: 0;
+    border-radius: 2px;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 4px;
+    padding-right: 4px;
+    width: auto;
+}
+
+.sk_bd_input_measure{
+  font-size: 10px;
+  padding: 0 8px;
+}
