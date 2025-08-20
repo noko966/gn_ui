@@ -2,14 +2,14 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, editClass, selectTree, selectSelectedPath } from "./features/treeSlice";
+import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath } from "./features/treeSlice";
 import { PositionControl } from "./components/position";
 import { PxDragInput } from "./components/DragInput";
 import { setClassName } from "./features/treeSlice";
 import { FLAGS_DATA, ICONS_DATA } from './features/data'
 
 /* ---- options ---- */
-const essenceOptions = ["body", "accent", "button",  "buttonSecondary",  "navbar",  "slider",  "subHeader", "dominant", "event", "eventHeader", "eventLive",
+const essenceOptions = ["body", "accent", "button", "buttonSecondary", "navbar", "slider", "subHeader", "dominant", "event", "eventHeader", "eventLive",
   "odd", "oddActive", "showMore", "marketHeader", "collapse", "tab", "tabActive", "menu_1", "menu_2", "menu_3"
 ];
 const essenceTextOptions = ["Txt", "Txt2", "Txt3", "Accent", "AccentTxt"];
@@ -43,6 +43,7 @@ const VAR_TO_PROP = {
   "--sk_el_custom_gap": "gap",
   "--sk_el_custom_p": "padding",
   "--sk_el_custom_radius": "borderRadius",
+  "--fontSize": "fontSize",
   "--sk_el_custom_width": "width",
 };
 
@@ -82,6 +83,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const curWidth = readVar("--sk_el_custom_width"); // px
   const curFlag = readVar("--flagSize"); // px
   const curIcon = readVar("--icoSize"); // px
+  const curFontSize = readVar("--fontSize"); // px
   const curRadius = readVar("--sk_el_custom_radius"); // px
   const selectedEssence = selectedNode?.essence || "";
   const selectedLayoutType = selectedNode?.layoutType || "hug";
@@ -118,16 +120,16 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   return (
     <>
 
-<div className="dg_bd_layout_edit_tool_wrapper">
+      <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="dg_bd_layout_edit_tool_label">className</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <input
-              className="sk_bd_input"
-              value={selectedNode.cn || ""}
-              onChange={(e) => dispatch(editClass(e.target.value))}
-            />
+            className="sk_bd_input"
+            value={selectedNode.cn || ""}
+            onChange={(e) => dispatch(editClass(e.target.value))}
+          />
         </div>
-        </div>
+      </div>
 
       {/* ============================ ESSENCE ========================== */}
       <div className="dg_bd_layout_edit_tool_wrapper">
@@ -206,7 +208,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                   FLAGS_DATA.map(id => {
                     const cn = `cHFlag f${id}`;
                     return (
-                      <option value={cn}>{id}</option>
+                      <option key={id} value={cn}>{id}</option>
 
                     )
                   })
@@ -249,7 +251,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                   ICONS_DATA.map(id => {
                     const cn = `${id}`;
                     return (
-                      <option value={cn}>{id}</option>
+                      <option key={id} value={cn}>{id}</option>
                     )
                   })
                 }
@@ -267,6 +269,37 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               <PxDragInput
                 value={curIcon}
                 onChange={(v) => setVarAndProp("--icoSize", v)}
+                min={0}
+                max={64}
+              />
+            </div>
+          </div>
+        </>
+      )}
+
+
+      {selectedNode.textContent && (
+        <>
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">inner text</div>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <input
+                className="sk_bd_input"
+                value={selectedNode.textContent || ""}
+                onChange={(e) => dispatch(editTextContent(e.target.value))}
+              />
+            </div>
+          </div>
+
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">
+              font size
+            </div>
+
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <PxDragInput
+                value={curFontSize}
+                onChange={(v) => setVarAndProp("--fontSize", v)}
                 min={0}
                 max={64}
               />
@@ -314,11 +347,11 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               </label>
 
               <PxDragInput
-                    value={curWidth}
-                    onChange={(v) => setVarAndProp("--sk_el_custom_width", v)}
-                    min={0}
-                    max={1000}
-                  />
+                value={curWidth}
+                onChange={(v) => setVarAndProp("--sk_el_custom_width", v)}
+                min={0}
+                max={1000}
+              />
 
             </div>
 

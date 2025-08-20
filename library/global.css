@@ -595,6 +595,8 @@ html {
   --accBg2: #f03b6b;
   --accBg3: #9cf03b;
   --accTxt: #fff;
+
+  --sk_control_height: 32px;
 }
 
 .sk_bd_start_wrapper {
@@ -696,7 +698,7 @@ html {
   display: flex;
   --toolsWidth: 240px;
   --canvasWidth: calc(100% - var(--toolsWidth) - var(--actionsWidth));
-  --actionsWidth: 240px;
+  --actionsWidth: 420px;
   height: 100vh;
   min-width: 1200px;
 }
@@ -901,7 +903,7 @@ background: var(--bg);
   color: var(--inputTxt);
   font-weight: 400;
   padding: 0 12px;
-  height: 100%;
+  height: 32px;
   background: var(--inputBg);
   color: var(--inputTxt);
   border: 1px solid var(--inputBorder);
@@ -1030,7 +1032,7 @@ outline-color: var(--accBg3);
 .sk_bd_input {
   background: var(--bg);
   color: var(--txt);
-  height: 24px;
+  height: var(--sk_control_height);
   border-radius: 4px;
   border: 1px solid var(--bg4);
   outline: 0;
@@ -1054,6 +1056,7 @@ outline-color: var(--accBg3);
   padding: 4px 8px;
   column-gap: 4px;
   cursor: pointer;
+  height: var(--sk_control_height);
 }
 
 .sk_bd_input_radio>input {
@@ -1075,7 +1078,7 @@ outline-color: var(--accBg3);
 .sk_bd_input_radio_lbl {
   background: var(--bg);
   color: var(--txt);
-  font-size: 10px;
+  font-size: 12px;
   border-radius: 4px;
 }
 
@@ -1168,18 +1171,19 @@ outline-color: var(--accBg3);
     column-gap: 8px;
     position: relative;
     background: var(--bg);
-    height: 24px;
   border-radius: 4px;
   border: 1px solid var(--bg4);
   padding: 0 4px;
+  height: var(--sk_control_height);
 }
 
 .sk_bd_input_drag {
     background: var(--bg);
+    color: var(--txt2);
     outline: 0;
     appearance: none;
     border: 0;
-    height: 20px;
+    height: calc(var(--sk_control_height) - 2px);
     padding: 0 8px;
     width: 70px;
 }
@@ -1187,7 +1191,7 @@ outline-color: var(--accBg3);
 .sk_bd_btn_small{
 background: var(--bg2);
     color: var(--txt2);
-    height: 20px;
+    height: calc(var(--sk_control_height) - 2px);
     border-radius: 4px;
     border: 1px solid var(--bg4);
     outline: 0;
@@ -1207,3 +1211,4 @@ background: var(--bg2);
   font-size: 10px;
   padding: 0 8px;
 }
+

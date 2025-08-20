@@ -31,14 +31,14 @@ const initialTree = {
                     type: "layout",
                     el: "div",
                     cn: "dg_token_wrapper",
-                    children: [{ el: "span", type: "text", cn: "dg_text", children: "text piece 1" }],
+                    children: [{ el: "span", type: "text", cn: "dg_text", children: null, textContent: "text piece 1" }],
                 },
                 {
                     name: "layout",
                     type: "layout",
                     el: "div",
                     cn: "dg_token_wrapper",
-                    children: [{ el: "span", type: "text", cn: "dg_text", children: "text piece 2" }],
+                    children: [{ el: "span", type: "text", cn: "dg_text", children: null, textContent: "text piece 2" }],
                 },
             ],
         },
@@ -54,7 +54,7 @@ const initialTree = {
             type: "layout",
             el: "div",
             cn: "dg_token_wrapper",
-            children: [{ name: "action", type: "button", el: "button", cn: "dg_btn", children: "btn default" }],
+            children: [{ name: "action", type: "button", el: "button", cn: "dg_btn", children: null, textContent: "btn default" }],
         },
     ],
 };
@@ -114,8 +114,8 @@ const treeSlice = createSlice({
             const path = state.selectedPath;
 
             console.log(state, action);
-            
-            const  {cn}  = action.payload;
+
+            const { cn } = action.payload;
             const node = getNodeAtPath(state.tree, path);
             if (node) {
                 node.cn = cn;
@@ -383,6 +383,12 @@ const treeSlice = createSlice({
             if (!node) return;
             node.cn = cls;
         },
+        editTextContent(state, action) {
+            const txtContent = action.payload;
+            const node = getNodeAtPath(state.tree, state.selectedPath);
+            if (!txtContent) return;
+            node.textContent = txtContent;
+        },
         setGenerated(state, action) {
             const { html, css } = action.payload;
             state.generatedHtml = html;
@@ -411,6 +417,7 @@ export const {
     setEssenceTxtVariant,
     applyEssenceTextRole,
     editClass,
+    editTextContent,
     setGenerated,
     openCodeModal,
     closeCodeModal,

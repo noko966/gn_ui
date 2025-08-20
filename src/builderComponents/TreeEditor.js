@@ -34,8 +34,8 @@ import { Inspector } from "./Inspector"; // ← NEW
 const elementLibrary = [
   { name: "flag", type: "flag", styles: { '--flagSize': "24px" }, el: "div", cn: "cHFlag", children: null },
   { name: "icon", type: "icon", styles: { '--icoSize': "24px" }, el: "i", cn: "dg_icon_", children: null },
-  { name: "text", type: "text", el: "span", cn: "dg_text_", children: "text default" },
-  { name: "action", type: "button", el: "button", cn: "dg_btn", children: "btn default" },
+  { name: "text", type: "text", styles: { '--fontSize': "13px" }, el: "span", cn: "dg_text_", textContent: "lorem ipsum", children: null },
+  { name: "action", type: "button", el: "button", cn: "dg_btn", children: null, textContent: "btn default" },
   { name: "input", type: "input", el: "input", cn: "dg_input", children: null },
   {
     name: "layout",
@@ -62,7 +62,8 @@ const skify = (cls) =>
   cls
     .trim()
     .split(/\s+/)
-    .map((t) => `.sk_${t}`)
+    // .map((t) => `.sk_${t}`)
+    .map((t) => `.${t}`)
     .join("");
 const camelToKebab = (s) => s.replace(/[A-Z]/g, (m) => `-${m.toLowerCase()}`);
 const stylesToCssText = (obj) =>
@@ -71,16 +72,30 @@ const stylesToCssText = (obj) =>
     .map(([k, v]) => `${camelToKebab(k)}: ${v};`)
     .join("\n  ");
 
+
 function generateHtml(node, indent = 0, index = 1, isRootFlag = true) {
   if (!node) return "";
   const tab = "  ".repeat(indent);
   const tag = node.el || "div";
+  const isInput = tag.toLowerCase() === "input";
+
   const idxCls = idxSuffix(node, index, isRootFlag);
-  const classAttr = node.cn || idxCls.trim() ? ` className="sk_${(node.cn || "").trim()}${idxCls}"` : "";
+  const classAttr =
+    node.cn || idxCls.trim() ? ` class="${(node.cn || "").trim()}${idxCls}"` : "";
+
+  if (isInput) {
+    const attrs = [
+      classAttr.trim(),
+      `placeholder="${node.textContent}"`,
+    ].join("");
+    return `${tab}<input${attrs ? " " + attrs.trim() : ""} />\n`;
+  }
+
   const children =
     Array.isArray(node.children) && node.children.length
       ? "\n" + node.children.map((c, i) => generateHtml(c, indent + 1, i + 1, false)).join("") + tab
-      : node.children || "";
+      : (node.textContent ?? "");
+
   return `${tab}<${tag}${classAttr}>${children}</${tag}>\n`;
 }
 
@@ -296,16 +311,29 @@ export function TreeEditor() {
     const Tag = tpl.el || "div";
     const current = selectedPath.length === 0 ? tree : getNodeAtPath(tree, selectedPath);
     const canHaveChildren = isLayoutNode(current);
+
+    // textual fallback (used for non-void tags)
+    const fallbackText =
+      Array.isArray(tpl.children)
+        ? tpl.children
+        : (tpl.children ?? tpl.textContent ?? "");
+
     return (
-      <div className="sk_bd_tool_item" onClick={() => handlePaletteClick(tpl, !!current && canHaveChildren)}>
-        <Tag className={tpl.cn}>{tpl.children}</Tag>
+      <div
+        className="sk_bd_tool_item"
+        onClick={() => handlePaletteClick(tpl, !!current && canHaveChildren)}
+      >
+        {Tag === "input" ? (
+          <input className={tpl.cn} placeholder={typeof fallbackText === "string" ? fallbackText : ""} readOnly />
+        ) : (
+          <Tag className={tpl.cn}>{fallbackText}</Tag>
+        )}
       </div>
     );
   };
 
+
   const closeModal = () => dispatch(closeCodeModal());
-
-
 
 
   return (
@@ -321,7 +349,6 @@ export function TreeEditor() {
           <div className="sk_bd_layout_mid">
             <div className="sk_bd_canvas_root sk_canvas_grid">
               <div className="sk_bd_canvas_elements_wrapper">
-                {/* canvas */}
                 {(() => {
                   const renderNode = (node, path = []) => {
                     const Tag = node.el || "div";
@@ -333,7 +360,9 @@ export function TreeEditor() {
                     const children =
                       Array.isArray(node.children) && node.children.length
                         ? node.children.map((c, i) => renderNode(c, [...path, i]))
-                        : node.children;
+                        : (node.children !== null && node.children !== undefined
+                          ? node.children
+                          : (node.textContent || null));
 
                     return (
                       <Tag

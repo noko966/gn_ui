@@ -1,0 +1,44 @@
+.container {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  --sk_bg: var(--eventBg);
+  --sk_txt: var(--eventTxt);
+  background: var(--sk_bg);
+  color: var(--sk_txt);
+  --sk_el_custom_radius: 11px;
+  border-radius: var(--sk_el_custom_radius);
+  --sk_el_custom_gap: 8px;
+  gap: var(--sk_el_custom_gap);
+}
+
+.container > .dg_text_wrapper.idx_2 {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  --sk_txt: var(--eventTxt2);
+  color: var(--sk_txt);
+  flex-grow: 1;
+  min-width: 1px;
+}
+
+.container > .dg_text_.idx_3 {
+  --font-size: 7px;
+  font-size: var(--fontSize);
+  --sk_txt: var(--eventTxt3);
+  color: var(--sk_txt);
+}
+
+.container > .dg_token_wrapper.idx_4 {
+  --sk_txt: var(--eventTxt3);
+  color: var(--sk_txt);
+}
+
+.container > .dg_token_wrapper.idx_5 > .dg_btn.idx_1 {
+  --sk_bg: var(--buttonBg);
+  --sk_txt: var(--buttonTxt);
+  background: var(--sk_bg);
+  color: var(--sk_txt);
+  --sk_el_custom_radius: 20px;
+  border-radius: var(--sk_el_custom_radius);
+}
