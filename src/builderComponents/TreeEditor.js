@@ -45,7 +45,27 @@ const elementLibrary = [
     styles: { display: "flex", gap: "8px", minWidth: "20px", minHeight: "20px" },
     children: [],
   },
+  {
+    name: "layoutEqual",
+    type: "layout_equal",
+    el: "div",
+    cn: "dg_layout_equal",
+    // parent defaults (you can tweak)
+    styles: {
+      display: "flex",
+      flexWrap: "wrap",
+      columnGap: "var(--sk_el_custom_gap)",
+      rowGap: "var(--sk_el_custom_gap)",
+      minHeight: "20px",
+      minWidth: "20px",
+    },
+    // seed children count (used at insert time)
+    equalCount: 4
+  }
+
 ];
+
+
 
 const isRoot = (p) => p.length === 0;
 const getNodeAtPath = (node, path) =>
@@ -100,44 +120,112 @@ function generateHtml(node, indent = 0, index = 1, isRootFlag = true) {
 }
 
 
-function generateCss(
-  node,
-  map = {},
-  parentSel = "",
-  index = 1,
-  isRootFlag = true,
-  // ctx kept for signature compatibility but not used for essence/states anymore
-  ctx = { rootSel: "", currentEssence: null }
-) {
+function getEqualChildInline(parentNode, childIdx) {
+  if (!parentNode || parentNode.type !== "layout_equal") return null;
+
+  const count =
+    parentNode.equalCount ||
+    (Array.isArray(parentNode.children) ? parentNode.children.length : 1) ||
+    1;
+
+  // uses your design gap variable; if it's not present, fall back to 0px
+  const gapVar = "--sk_el_custom_gap";
+  const basis = `calc(100% / ${count} - (var(${gapVar}, 0px) / ${count} * ${count - 1}))`;
+
+  // Add a subtle outline so you can “see” widths in the canvas
+  return {
+    flexBasis: basis,
+    flexGrow: 0,
+    flexShrink: 0,
+    // purely visual hints; won’t be exported
+    outline: "1px dashed rgba(0,0,0,.2)",
+    minHeight: "40px",
+  };
+}
+
+// function generateCss(
+//   node,
+//   map = {},
+//   parentSel = "",
+//   index = 1,
+//   isRootFlag = true,
+//   // ctx kept for signature compatibility but not used for essence/states anymore
+//   ctx = { rootSel: "", currentEssence: null }
+// ) {
+//   if (!node) return map;
+
+//   // selector for this node
+//   let thisSel = parentSel;
+//   if (node.cn) {
+//     const idxCls = idxSuffix(node, index, isRootFlag).trim(); // e.g. "idx_2" or ""
+//     const currentSel = skify(node.cn) + (idxCls ? `.${idxCls}` : "");
+//     thisSel = parentSel ? parentSel + " > " + currentSel : currentSel;
+//     if (isRootFlag && !ctx.rootSel) ctx.rootSel = thisSel;
+//   }
+
+//   // merge explicit styles from state
+//   if (node.styles && thisSel) {
+//     map[thisSel] = { ...(map[thisSel] || {}), ...node.styles };
+//   }
+
+//   // merge additional tokens (skip background/color here – those come from styles now)
+//   if (thisSel && node.cssTokens) {
+//     const { background, color, ...restTokens } = node.cssTokens; // omit bg/color
+//     if (Object.keys(restTokens).length) {
+//       map[thisSel] = { ...(map[thisSel] || {}), ...restTokens };
+//     }
+//   }
+
+//   // recurse
+//   if (Array.isArray(node.children) && node.children.length) {
+//     node.children.forEach((c, i) =>
+//       generateCss(c, map, thisSel, i + 1, false, ctx)
+//     );
+//   }
+
+//   return map;
+// }
+
+
+function generateCss(node, map = {}, parentSel = "", index = 1, isRootFlag = true) {
   if (!node) return map;
 
-  // selector for this node
+  // build a selector for this node
   let thisSel = parentSel;
   if (node.cn) {
-    const idxCls = idxSuffix(node, index, isRootFlag).trim(); // e.g. "idx_2" or ""
+    const idxCls = idxSuffix(node, index, isRootFlag).trim();
     const currentSel = skify(node.cn) + (idxCls ? `.${idxCls}` : "");
     thisSel = parentSel ? parentSel + " > " + currentSel : currentSel;
-    if (isRootFlag && !ctx.rootSel) ctx.rootSel = thisSel;
   }
 
-  // merge explicit styles from state
+  // plain styles for this node
   if (node.styles && thisSel) {
     map[thisSel] = { ...(map[thisSel] || {}), ...node.styles };
   }
 
-  // merge additional tokens (skip background/color here – those come from styles now)
-  if (thisSel && node.cssTokens) {
-    const { background, color, ...restTokens } = node.cssTokens; // omit bg/color
-    if (Object.keys(restTokens).length) {
-      map[thisSel] = { ...(map[thisSel] || {}), ...restTokens };
-    }
+  // SPECIAL: equal columns rule (parent-only target)
+  if (node.type === "layout_equal" && thisSel) {
+    // use equalCount if set; else count layout children
+    const n =
+      node.equalCount ||
+      (Array.isArray(node.children)
+        ? node.children.filter((ch) => ch && ch.type === "layout").length
+        : 0) || 1;
+
+    const ruleSel = `${thisSel} > *`; // target all direct children (you can restrict if needed)
+    const basis = `calc(100% / ${n} - (var(--sk_el_custom_gap) / ${n} * ${n - 1}))`;
+
+    map[ruleSel] = {
+      ...(map[ruleSel] || {}),
+      flexBasis: basis,
+      flexGrow: 0,
+      flexShrink: 0,
+    };
   }
 
   // recurse
   if (Array.isArray(node.children) && node.children.length) {
-    node.children.forEach((c, i) =>
-      generateCss(c, map, thisSel, i + 1, false, ctx)
-    );
+    node.children.forEach((c, i) => generateCss(c, map, thisSel, i + 1, false));
   }
 
   return map;
@@ -258,14 +346,43 @@ export function TreeEditor() {
   // }, [dispatch]); 
 
   const handlePaletteClick = (tpl, inside = false) => {
-    const node = { ...tpl, children: tpl.children };
+    let node = { ...tpl };
+
+    // special case: layout_equal → generate N child layout nodes
+    if (tpl.type === "layout_equal") {
+      const n = tpl.equalCount || 4;
+      node = {
+        ...tpl,
+        children: Array.from({ length: n }, () => ({
+          name: "layout",
+          type: "layout",
+          el: "div",
+          cn: "dg_token_wrapper",
+          styles: { padding: "10px" },
+          children: []
+        }))
+      };
+    } else {
+      node.children = tpl.children;
+    }
+
     const current = selectedPath.length === 0 ? tree : getNodeAtPath(tree, selectedPath);
-    if (inside && isLayoutNode(current)) {
+    if (inside && current?.type === "layout") {
       dispatch(insertAsChild({ path: selectedPath, newNode: node }));
     } else {
       dispatch(insertAfter({ path: selectedPath, newNode: node }));
     }
   };
+
+  // const handlePaletteClick = (tpl, inside = false) => {
+  //   const node = { ...tpl, children: tpl.children };
+  //   const current = selectedPath.length === 0 ? tree : getNodeAtPath(tree, selectedPath);
+  //   if (inside && isLayoutNode(current)) {
+  //     dispatch(insertAsChild({ path: selectedPath, newNode: node }));
+  //   } else {
+  //     dispatch(insertAfter({ path: selectedPath, newNode: node }));
+  //   }
+  // };
   const handleRemove = () => {
     if (isRoot(selectedPath)) return;
     dispatch(removeAtPath(selectedPath));
@@ -364,12 +481,21 @@ export function TreeEditor() {
                           ? node.children
                           : (node.textContent || null));
 
+                    const parent =
+                      path.length > 0 ? getNodeAtPath(tree, path.slice(0, -1)) : null;
+                    const inlineEqualPreview = parent
+                      ? getEqualChildInline(parent, path[path.length - 1])
+                      : null;
+
                     return (
                       <Tag
                         key={path.join("-")}
                         // style={node.styles}
                         // style={getRenderStyles(node)}
-                        style={node.styles}
+                        style={{
+                          ...(node.styles || {}),
+                          ...(inlineEqualPreview || {}), // ← merged inline preview
+                        }}
                         className={
                           (node.cn || "") +
                           (visualHelpers && isLayout ? " state_helpers_on" : "") +

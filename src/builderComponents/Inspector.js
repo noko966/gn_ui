@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath } from "./features/treeSlice";
+import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount } from "./features/treeSlice";
 import { PositionControl } from "./components/position";
 import { PxDragInput } from "./components/DragInput";
 import { setClassName } from "./features/treeSlice";
@@ -117,6 +117,8 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     dispatch(setLayoutType({ type: "fixed", width: widthVal }));
   };
 
+
+
   return (
     <>
 
@@ -191,6 +193,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
         </div>
       </div>
 
+
       {selectedNode.type === "flag" && (
         <>
 
@@ -233,6 +236,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
         </>
       )}
+
 
       {selectedNode.type === "icon" && (
         <>
@@ -308,7 +312,52 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
         </>
       )}
 
-      {selectedNode.type === "layout" && (
+
+      {selectedNode.type === "layout_equal" && (
+        <>
+          <h4>Equal Columns Layout</h4>
+
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">columns</div>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <button
+                className="sk_bd_btn_small"
+                onClick={() => dispatch(setEqualChildrenCount({
+                  path: selectedPath,
+                  count: Math.max(1, (selectedNode.equalCount || selectedNode.children?.length || 1) - 1)
+                }))}
+              >−</button>
+
+              <input
+                className="sk_bd_input"
+                type="number"
+                min={1}
+                value={selectedNode.equalCount || selectedNode.children?.length || 1}
+                onChange={(e) =>
+                  dispatch(setEqualChildrenCount({
+                    path: selectedPath,
+                    count: Math.max(1, parseInt(e.target.value || "1", 10))
+                  }))
+                }
+                style={{ width: 80, textAlign: "center" }}
+              />
+
+              <button
+                className="sk_bd_btn_small"
+                onClick={() => dispatch(setEqualChildrenCount({
+                  path: selectedPath,
+                  count: (selectedNode.equalCount || selectedNode.children?.length || 1) + 1
+                }))}
+              >+</button>
+            </div>
+
+          </div>
+
+
+        </>
+      )}
+
+      {selectedNode.type === "layout" || selectedNode.type === "layout_equal" && (
         <>
           <div className="dg_bd_layout_edit_tool_wrapper">
             <div className="dg_bd_layout_edit_tool_label">size</div>
@@ -414,9 +463,13 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               />
             </div>
           </div>
+
         </>
 
       )}
+
+
+
 
 
 

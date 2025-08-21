@@ -91,6 +91,8 @@ const isNodeObj = (x) => x != null && typeof x === "object" && !Array.isArray(x)
 const hasExplicitEssence = (n) => isNodeObj(n) && n.essenceIsInherited === false;
 
 
+
+
 /* -------------------------- slice ---------------------------- */
 const treeSlice = createSlice({
     name: "tree",
@@ -194,6 +196,7 @@ const treeSlice = createSlice({
                 node.stateStyles[bucket] = { ...(node.stateStyles[bucket] || {}), [key]: value };
             }
         },
+
 
         setPosition(state, action) {
             const { edge = "top-left", offset = 0 } = action.payload || {};
@@ -400,7 +403,42 @@ const treeSlice = createSlice({
         closeCodeModal(state) {
             state.isCodeModalOpen = false;
         },
+        setEqualChildrenCount(state, action) {
+            const { path, count } = action.payload; // path = parent layout_equal
+            const n = Math.max(1, Number(count) || 1);
+
+            const parent = getNodeAtPath(state.tree, path);
+            if (!parent || parent.type !== "layout_equal") return;
+
+            parent.equalCount = n;
+
+            // only ensure children that are *layout* types
+            const children = Array.isArray(parent.children) ? parent.children : [];
+            const layoutKids = children.filter(ch => ch && ch.type === "layout");
+            const nonLayoutKids = children.filter(ch => !ch || ch.type !== "layout"); // preserve any non-layouts untouched (usually empty)
+
+            if (layoutKids.length > n) {
+                // trim from the end
+                layoutKids.length = n;
+            } else if (layoutKids.length < n) {
+                const toAdd = n - layoutKids.length;
+                for (let i = 0; i < toAdd; i++) {
+                    layoutKids.push({
+                        name: "layout",
+                        type: "layout",
+                        el: "div",
+                        cn: "dg_token_wrapper",
+                        styles: {},
+                        children: []
+                    });
+                }
+            }
+
+            parent.children = [...layoutKids, ...nonLayoutKids];
+        },
+
     },
+
 });
 
 export const {
@@ -423,7 +461,8 @@ export const {
     closeCodeModal,
     setUIState,
     setPosition,
-    setClassName
+    setClassName,
+    setEqualChildrenCount
 } = treeSlice.actions;
 
 export default treeSlice.reducer;
