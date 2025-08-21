@@ -9,7 +9,10 @@ const initialTree = {
     styles: {
         display: "flex",
         alignItems: "center",
-        padding: "10px",
+        paddingTop: "4px",
+        paddingBottom: "4px",
+        paddingRight: "8px",
+        paddingLeft: "8px",
     },
     children: [
         {
@@ -408,7 +411,7 @@ const treeSlice = createSlice({
             const n = Math.max(1, Number(count) || 1);
 
             const parent = getNodeAtPath(state.tree, path);
-            if (!parent || parent.type !== "layout_equal") return;
+            if (!parent || parent.subType !== "layout_equal") return;
 
             parent.equalCount = n;
 

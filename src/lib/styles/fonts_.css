@@ -1,17 +1,3 @@
-:root,
-:host {
-    --imageSize: 24px;
-    --icoSize: 24px;
-    --sportImageURL: url("sportImages_o.png");
-}
-
-[class*=imgSpr],
-[class^=imgSpr] {
-    background-image: unset;
-    background-size: initial;
-    background-position: initial;
-}
-
 @font-face {
     font-family: "digiSportIcons";
     src: url("./fonts/400/sportsIcons.eot?v002");
@@ -35,6 +21,20 @@
     font-style: normal;
     font-display: block;
 }
+:root,
+:host {
+    --imageSize: 24px;
+    --icoSize: 24px;
+    --sportImageURL: url("sportImages_o.png");
+}
+
+[class*=imgSpr],
+[class^=imgSpr] {
+    background-image: unset;
+    background-size: initial;
+    background-position: initial;
+}
+
 
 [class^="sport_front_icon-"]::before,
 [class*=" sport_front_icon-"]::before,
@@ -3900,4 +3900,3 @@ Glyphs list
 .dg_icon_offer_default.dg_icon_offer_default + span{
     z-index: -1 !important;
 }
-

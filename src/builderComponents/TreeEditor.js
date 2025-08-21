@@ -47,9 +47,10 @@ const elementLibrary = [
   },
   {
     name: "layoutEqual",
-    type: "layout_equal",
+    type: "layout",
+    subType: "layout_equal",
     el: "div",
-    cn: "dg_layout_equal",
+    cn: "dg_layout dg_layout_equal",
     // parent defaults (you can tweak)
     styles: {
       display: "flex",
@@ -121,7 +122,7 @@ function generateHtml(node, indent = 0, index = 1, isRootFlag = true) {
 
 
 function getEqualChildInline(parentNode, childIdx) {
-  if (!parentNode || parentNode.type !== "layout_equal") return null;
+  if (!parentNode || parentNode.subType !== "layout_equal") return null;
 
   const count =
     parentNode.equalCount ||
@@ -137,8 +138,6 @@ function getEqualChildInline(parentNode, childIdx) {
     flexBasis: basis,
     flexGrow: 0,
     flexShrink: 0,
-    // purely visual hints; won’t be exported
-    outline: "1px dashed rgba(0,0,0,.2)",
     minHeight: "40px",
   };
 }
@@ -204,7 +203,7 @@ function generateCss(node, map = {}, parentSel = "", index = 1, isRootFlag = tru
   }
 
   // SPECIAL: equal columns rule (parent-only target)
-  if (node.type === "layout_equal" && thisSel) {
+  if (node.subType === "layout_equal" && thisSel) {
     // use equalCount if set; else count layout children
     const n =
       node.equalCount ||
@@ -245,7 +244,6 @@ export function TreeEditor() {
   const exportState = useSelector(selectExport);
   const uiStates = useSelector(selectUIStates);
   console.log({ activeNode });
-
 
   const getRenderStyles = (node) => {
     // база
@@ -349,7 +347,7 @@ export function TreeEditor() {
     let node = { ...tpl };
 
     // special case: layout_equal → generate N child layout nodes
-    if (tpl.type === "layout_equal") {
+    if (tpl.subType === "layout_equal") {
       const n = tpl.equalCount || 4;
       node = {
         ...tpl,

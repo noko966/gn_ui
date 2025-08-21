@@ -2,7 +2,6 @@
 import React from "react";
 import { DraggableNumberInput } from "draggable-number-input";
 
-
 export const PxDragInput = ({
     value,
     onChange,
