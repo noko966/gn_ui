@@ -588,7 +588,7 @@ html {
   --bg3: #171E27;
   --bg4: #2F3947;
   --txt: #fff;
-  --txt2: #fff;
+  --txt2: #ffffffbc;
   --inpBg: #161E27;
   --inpBg2: #2F3947;
   --accBg: #2B98B3;
@@ -1220,3 +1220,9 @@ background: var(--bg2);
   padding: 0 8px;
 }
 
+
+.sk_bd_input_lbl {
+    margin-bottom: 7px;
+    display: block;
+    color: var(--txt2);
+}

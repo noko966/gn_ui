@@ -987,8 +987,8 @@ outline-color: var(--accBg3);
   display: flex;
   flex-wrap: wrap;
   padding: 4px 12px;
-  row-gap: 4px;
-  column-gap: 4px;
+  row-gap: 8px;
+  column-gap: 8px;
 }
 
 .sk_bd_btn {
@@ -1055,9 +1055,13 @@ outline-color: var(--accBg3);
   border-radius: 4px;
   border: 1px solid var(--bg4);
   padding: 4px 8px;
-  column-gap: 4px;
+  column-gap: 8px;
   cursor: pointer;
   height: var(--sk_control_height);
+}
+
+.sk_bd_input_radio.variant_essence{
+  width: calc(50% - 4px);
 }
 
 .sk_bd_input_radio>input {
@@ -1065,14 +1069,17 @@ outline-color: var(--accBg3);
 }
 
 .sk_bd_input_radio>.sk_bd_input_radio_imitator {
-  --size: 8px;
-  width: var(--size);
-  height: var(--size);
-  flex-shrink: 0;
-  cursor: pointer;
-  appearance: none;
-  border: 0;
-  outline: 0;
+      --size: 14px;
+    width: var(--size);
+    height: var(--size);
+    flex-shrink: 0;
+    cursor: pointer;
+    appearance: none;
+    border: 0;
+    outline: 0;
+    background: var(--bg);
+    border: 1px solid var(--bg4);
+    border-radius: 2px;
 
 }
 

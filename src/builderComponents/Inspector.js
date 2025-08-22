@@ -124,6 +124,8 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const radTR = selectedNode.styles?.borderTopRightRadius || "";
   const radBL = selectedNode.styles?.borderBottomLeftRadius || "";
   const radBR = selectedNode.styles?.borderBottomRightRadius || "";
+  const fontSize = selectedNode.styles?.fontSize || "";
+  const fontWeight = selectedNode.styles?.fontWeight || "400";
 
   const setStyle = (key, value) => {
     if (selectedNode.styles?.display !== "flex") {
@@ -336,13 +338,36 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               <PxDragInput
-                value={curFontSize}
-                onChange={(v) => setVarAndProp("--fontSize", v)}
-                min={0}
-                max={64}
-              />
+                  className="sk_bd_input"
+                  value={parseInt(fontSize) || 0}
+                  onChange={(v) => setStyle("fontSize", v)}
+                />
             </div>
           </div>
+
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="dg_bd_layout_edit_tool_label">
+              font weight
+            </div>
+
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+                {["400", "500", "700"].map((val) => (
+                <label key={val} className="sk_bd_input_radio">
+                  <input
+                    type="radio"
+                    name="dir"
+                    checked={fontWeight === val}
+                    onChange={() => setStyle("fontWeight", val)}
+                  />
+                  <i className="sk_bd_input_radio_imitator"></i>
+                  <span className="sk_bd_input_radio_lbl">{val}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+
+          
         </>
       )}
 

@@ -13,6 +13,8 @@ const initialTree = {
         paddingBottom: "6px",
         paddingRight: "8px",
         paddingLeft: "8px",
+        background: "var(--eventBg)",
+        color: "var(--eventTxt)",
     },
     children: [
         {
