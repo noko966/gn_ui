@@ -172,7 +172,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
         <div className="dg_bd_layout_edit_tool_label">node essence</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           {essenceOptions.map((ess) => (
-            <label key={`ess_${ess}_${uniq}`} className="sk_bd_input_radio" style={{ "--bge": `var(--${ess}Bg)`, "--txte": `var(--${ess}Txt)` }}>
+            <label key={`ess_${ess}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--bge": `var(--${ess}Bg)`, "--txte": `var(--${ess}Txt)` }}>
               <input
                 type="radio"
                 name={`ess_${uniq}`}
@@ -183,7 +183,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               <span className="sk_bd_input_radio_lbl">{ess}</span>
             </label>
           ))}
-          <label className="sk_bd_input_radio">
+          <label className="sk_bd_input_radio variant_essence">
             <input
               type="radio"
               name={`ess_${uniq}`}
@@ -202,7 +202,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
         <div className="dg_bd_layout_edit_tool_label">text color</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           {essenceTextOptions.map((role) => (
-            <label key={`txt_${role}_${uniq}`} className="sk_bd_input_radio">
+            <label key={`txt_${role}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--txte": `var(--${selectedEssence}${role})` }}>
               <input
                 type="radio"
                 name={`paintTxt_${uniq}`}
@@ -214,7 +214,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             </label>
           ))}
 
-          <label key={`txt_none_${uniq}`} className="sk_bd_input_radio">
+          <label key={`txt_none_${uniq}`} className="sk_bd_input_radio variant_essence">
             <input
               type="radio"
               name={`paintTxt_${uniq}`}
@@ -622,7 +622,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
 
 
-      <PositionControl selectedNode={selectedNode} />
+      {/* <PositionControl selectedNode={selectedNode} /> */}
 
     </>
 

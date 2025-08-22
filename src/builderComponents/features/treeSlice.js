@@ -9,8 +9,8 @@ const initialTree = {
     styles: {
         display: "flex",
         alignItems: "center",
-        paddingTop: "4px",
-        paddingBottom: "4px",
+        paddingTop: "6px",
+        paddingBottom: "6px",
         paddingRight: "8px",
         paddingLeft: "8px",
     },

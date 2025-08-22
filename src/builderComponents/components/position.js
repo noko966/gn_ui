@@ -90,22 +90,7 @@ export function PositionControl({ selectedNode }) {
                 </div>
             </div>
 
-            <div className="dg_bd_layout_edit_tool_wrapper_variants" style={{ marginTop: 6 }}>
-                <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-                    <input
-                        className="sk_bd_input"
-                        type="number"
-                        value={offset}
-                        onChange={(e) => setOffset(e.target.value)}
-                        onBlur={commitOffset}
-                        onKeyDown={(e) => {
-                            if (e.key === "Enter") commitOffset();
-                        }}
-                        style={{ width: 100 }}
-                    />
-                    px
-                </span>
-            </div>
+
 
 
         </div>
