@@ -338,10 +338,10 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               <PxDragInput
-                  className="sk_bd_input"
-                  value={parseInt(fontSize) || 0}
-                  onChange={(v) => setStyle("fontSize", v)}
-                />
+                className="sk_bd_input"
+                value={parseInt(fontSize) || 0}
+                onChange={(v) => setStyle("fontSize", v)}
+              />
             </div>
           </div>
 
@@ -351,7 +351,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             </div>
 
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
-                {["400", "500", "700"].map((val) => (
+              {["400", "500", "700"].map((val) => (
                 <label key={val} className="sk_bd_input_radio">
                   <input
                     type="radio"
@@ -367,7 +367,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
 
 
-          
+
         </>
       )}
 
@@ -530,66 +530,81 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             </div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
 
-              <label>
+              <div className="dg_bd_layout_edit_control">
                 <span className="sk_bd_input_lbl">column gap</span>
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(gapCol) || 0}
                   onChange={(v) => setStyle("columnGap", v)}
+                  name={"columnGap"}
+                  cssProp={"columnGap"}
+
                 />
-              </label>
-              <label>
+              </div>
+
+              <div className="dg_bd_layout_edit_control">
                 <span className="sk_bd_input_lbl">row gap</span>
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(gapRow) || 0}
                   onChange={(v) => setStyle("rowGap", v)}
+                  name={"rowGap"}
+                  cssProp={"rowGap"}
                 />
-              </label>
+              </div>
+
             </div>
 
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">
-              padding
-            </div>
+            <div className="dg_bd_layout_edit_tool_label">padding</div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
 
-              <label>
+              <div className="dg_bd_layout_edit_control">
+
                 <span className="sk_bd_input_lbl">Top</span>
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(padTop) || 0}
                   onChange={(v) => setStyle("paddingTop", v)}
+                  name={"paddingTop"}
                 />
-              </label>
-              <label>
+              </div>
+
+              <div className="dg_bd_layout_edit_control">
+
                 <span className="sk_bd_input_lbl">Right</span>
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(padRight) || 0}
                   onChange={(v) => setStyle("paddingRight", v)}
+                  name={"paddingRight"}
                 />
-              </label>
+              </div>
 
-              <label>
+
+              <div className="dg_bd_layout_edit_control">
+
                 <span className="sk_bd_input_lbl">Bottom</span>
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(padBottom) || 0}
                   onChange={(v) => setStyle("paddingBottom", v)}
+                  name={"paddingBottom"}
                 />
-              </label>
+              </div>
 
-              <label>
+              <div className="dg_bd_layout_edit_control">
+
                 <span className="sk_bd_input_lbl">Left</span>
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(padLeft) || 0}
                   onChange={(v) => setStyle("paddingLeft", v)}
+                  name={"paddingLeft"}
                 />
-              </label>
+              </div>
             </div>
           </div>
 
@@ -603,9 +618,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
 
       <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">
-          radius
-        </div>
+        <div className="dg_bd_layout_edit_tool_label">radius</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
 
           <label>
@@ -616,6 +629,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               onChange={(v) => setStyle("borderTopLeftRadius", v)}
             />
           </label>
+
           <label>
             <span className="sk_bd_input_lbl">Top right</span>
             <PxDragInput
@@ -644,8 +658,6 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </label>
         </div>
       </div>
-
-
 
       {/* <PositionControl selectedNode={selectedNode} /> */}
 
