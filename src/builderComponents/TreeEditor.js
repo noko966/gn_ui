@@ -28,7 +28,8 @@ import {
   selectUIStates,
   STATE_MAP,
 } from "./features/treeSlice";
-import { Inspector } from "./Inspector"; // ← NEW
+import { Inspector } from "./Inspector";
+import LayersPanel from "./components/LayersPanel";
 
 /* palette etc… keep as-is */
 const elementLibrary = [
@@ -443,6 +444,7 @@ export function TreeEditor() {
         ) : (
           <Tag className={tpl.cn}>{fallbackText}</Tag>
         )}
+        <span>{tpl.name}</span>
       </div>
     );
   };
@@ -456,10 +458,21 @@ export function TreeEditor() {
       <div className="sk_bd_start_wrapper">
         <div className="sk_bd_start_wrapper_inner">
           <div className="sk_bd_tools_root">
-            {elementLibrary.map((tpl) => (
-              <PaletteItem key={tpl.name} tpl={tpl} />
-            ))}
+            <div className="sk_bd_tool_elements">
+              <div className="sk_bd_header">{"components"}</div>
+
+              <div className="sk_bd_tool_elements_layout">
+                {elementLibrary.map((tpl) => (
+                  <PaletteItem key={tpl.name} tpl={tpl} />
+                ))}
+              </div></div>
+
+            <div className="sk_bd_tool_layers">
+              <LayersPanel />
+            </div>
           </div>
+
+
 
           <div className="sk_bd_layout_mid">
             <div className="sk_bd_canvas_root sk_canvas_grid">
