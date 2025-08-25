@@ -16,7 +16,8 @@ export const PxDragInput = ({
     min = 0,
     max = 200,
     showClear = true,
-    name,               // radio group name (optional)
+    name,
+    customQuickValues = ["0px", "4px", "6px", "8px"]        // radio group name (optional)
 }) => {
     const handleDragChange = (n) => {
         // n is number (or possibly empty), normalize to px string
@@ -31,7 +32,7 @@ export const PxDragInput = ({
 
     const clearValue = () => onChange("");
 
-    const quickValues = ["0px", "4px", "6px", "8px"];
+    const quickValues = customQuickValues;
     const normalizedValue = toPx(value); // ensures "8" -> "8px" if ever passed
 
     return (

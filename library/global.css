@@ -585,7 +585,7 @@ html {
   --bgRGBA: #14172183;
   --bg: #141721;
   --bg2: #161E27;
-  --bg3: #171E27;
+  --bg3: #202a37;
   --bg4: #2F3947;
   --txt: #fff;
   --txt2: #ffffffbc;
@@ -681,14 +681,9 @@ html {
   display: flex;
   flex-direction: column;
   row-gap: 8px;
-  padding: 8px;
-  background: var(--bg2);
   width: var(--toolsWidth);
   flex-shrink: 0;
   height: 100%;
-  overflow-y: auto;
-  border-radius: 8px;
-  border: 1px solid var(--bg4);
 }
 
 .sk_bd_root {
@@ -826,7 +821,7 @@ background: var(--bg);
 }
 
 .sk_bd_tool_item {
-  background-color: var(--bg2);
+  background-color: var(--bg3);
   border: 1px solid var(--bg4);
   border-radius: 4px;
   color: var(--txt);
@@ -834,6 +829,8 @@ background: var(--bg);
   padding: 6px 12px;
   display: flex;
   align-items: center;
+  flex-shrink: 0;
+  column-gap: 8px;
 }
 
 .sk_bd_canvas_controls_move_wrapper {
@@ -1183,10 +1180,10 @@ outline-color: var(--accBg3);
     column-gap: 8px;
     position: relative;
     background: var(--bg);
-  border-radius: 4px;
-  border: 1px solid var(--bg4);
-  padding: 0 4px;
-  height: var(--sk_control_height);
+    border-radius: 4px;
+    border: 1px solid var(--bg4);
+    padding: 0 6px;
+    height: var(--sk_control_height);
 }
 
 .sk_bd_input_drag {
@@ -1262,3 +1259,127 @@ color: var(--txt2);
   color: var(--txt);
   background: var(--bg4);
 }
+
+
+/* layers panel container */
+.sk_layers_root {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+}
+
+.sk_bd_header {
+  padding: 8px 10px;
+  font-weight: 600;
+}
+
+.sk_layers_scroll {
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* rows */
+.sk_layers_children{
+    display: flex;
+    flex-direction: column;
+    row-gap: 1px;
+}
+.sk_layers_row {
+  display: flex;
+  align-items: stretch;
+  flex-direction: column;
+  row-gap: 1px;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.sk_layer_item {
+  height: 32px;
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+ 
+}
+
+.sk_layers_row.state_selected {
+  background: rgba(100, 150, 255, 0.15);
+  background: linear-gradient(to right, rgba(100, 255, 134, 0), rgba(100, 255, 134, 0.15));
+}
+
+.sk_layers_row.state_hover:not(.state_selected) {
+  background: linear-gradient(to right, rgba(100, 150, 255, 0), rgba(100, 150, 255, 0.15));
+}
+
+.sk_bd_tool_elements{
+      flex: 1 1 0;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--bg4);
+    background: var(--bg2);
+  color: var(--txt);
+  min-height: 1px;
+}
+
+.sk_bd_tool_elements_layout{
+      display: flex;
+    gap: 8px;
+    flex-direction: column;
+    align-items: stretch;
+    overflow-y: auto;
+    height: calc(100% - 30px);
+}
+.sk_bd_tool_layers{
+    flex: 1 1 0;
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--bg4);
+    background: var(--bg2);
+  color: var(--txt);
+}
+
+.sk_layers_disclosure {
+    --icoSize: 16px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+}
+.sk_layers_disclosure.is_invisible {
+  visibility: hidden;
+}
+
+.sk_layers_chip {
+  font-size: 10px;
+  padding: 2px 6px;
+  border-radius: 999px;
+  opacity: 0.8;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+.chip_layout { background: rgba(80, 180, 120, 0.15); }
+.chip_elem   { background: rgba(150, 150, 150, 0.15); }
+
+.sk_layers_label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  flex: 1 1 auto;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  opacity: 0.9;
+}
+
+.sk_layers_actions {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.sk_layers_btn {
+  padding: 0 6px;
+  height: 20px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: inherit;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.sk_layers_btn:hover { background: rgba(255,255,255,0.1); }
+.sk_layers_btn.danger { color: #ff8a8a; border-color: rgba(255,138,138,0.3); }

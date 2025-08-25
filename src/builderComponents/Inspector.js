@@ -118,6 +118,8 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const padLeft = selectedNode.styles?.paddingLeft || "";
   const gapRow = selectedNode.styles?.rowGap || "";
   const gapCol = selectedNode.styles?.columnGap || "";
+  const width = selectedNode.styles?.width || "";
+  const height = selectedNode.styles?.height || "";
 
 
   const radTL = selectedNode.styles?.borderTopLeftRadius || "";
@@ -133,26 +135,6 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     }
     dispatch(editStyle({ key, value }));
   };
-
-  const initialWidth =
-    (selectedNode?.styles?.width || selectedNode?.styles?.["--sk_width"] || "")
-      .toString()
-      .replace(/px$/, "");
-
-  const [w, setW] = React.useState(st.width || "");
-  React.useEffect(() => {
-    const nw = (selectedNode?.styles?.width || selectedNode?.styles?.["--sk_width"] || "")
-      .toString()
-      .replace(/px$/, "");
-    setW(nw);
-  }, [selectedNode]);
-
-  const commitWidth = () => {
-    if (selectedLayoutType !== "fixed") return;
-    const widthVal = w === "" ? undefined : Number.isNaN(+w) ? w : +w;
-    dispatch(setLayoutType({ type: "fixed", width: widthVal }));
-  };
-
 
 
   return (
@@ -456,10 +438,23 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               </label>
 
               <PxDragInput
-                value={curWidth}
-                onChange={(v) => setVarAndProp("--sk_el_custom_width", v)}
+                value={parseInt(width) || 0}
+                onChange={(v) => setStyle("width", v)}
+                name={"width"}
+                cssProp={"width"}
                 min={0}
                 max={1000}
+                customQuickValues={["24px", "42px", "100px", "200px", "400px", "800px"]}
+              />
+
+              <PxDragInput
+                value={parseInt(height) || 0}
+                onChange={(v) => setStyle("height", v)}
+                name={"height"}
+                cssProp={"height"}
+                min={0}
+                max={1000}
+                customQuickValues={["24px", "42px", "100px", "200px", "400px", "800px"]}
               />
 
             </div>

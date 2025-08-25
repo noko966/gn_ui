@@ -75,6 +75,16 @@ const getNodeAtPath = (node, path) => {
 };
 
 
+const makeLayoutParent = (overrides = {}) => ({
+    name: "layout",
+    type: "layout",
+    el: "div",
+    cn: "dg_layout",
+    styles: { display: "flex", gap: "8px", minWidth: "20px", minHeight: "20px" },
+    children: [],
+    ...overrides,
+});
+
 
 const getParentPath = (path) => path.slice(0, -1);
 
@@ -441,6 +451,43 @@ const treeSlice = createSlice({
 
             parent.children = [...layoutKids, ...nonLayoutKids];
         },
+        wrapSelectedInLayout(state, action) {
+            // optional customization for the new parent
+            const { parentProps } = action.payload || {};
+
+            const selPath = state.selectedPath;
+            if (!Array.isArray(selPath)) return;
+
+            // Wrap ROOT
+            if (selPath.length === 0) {
+                const oldRoot = state.tree;
+                const newParent = makeLayoutParent(parentProps);
+                newParent.children = [oldRoot];
+                state.tree = newParent;
+                // Select the new wrapper (now root)
+                state.selectedPath = [];
+                state.hoverPath = [];
+                return;
+            }
+
+            // Wrap NON-ROOT
+            const parentPath = selPath.slice(0, -1);
+            const idx = selPath[selPath.length - 1];
+
+            const parent = getNodeAtPath(state.tree, parentPath);
+            if (!parent || !Array.isArray(parent.children) || !parent.children[idx]) return;
+
+            const nodeToWrap = parent.children[idx];
+            const newParent = makeLayoutParent(parentProps);
+            newParent.children = [nodeToWrap];
+
+            // Replace the original node with the new parent
+            parent.children[idx] = newParent;
+
+            // Select the new parent
+            state.selectedPath = [...parentPath, idx];
+            state.hoverPath = [...parentPath, idx];
+        },
 
     },
 
@@ -467,7 +514,8 @@ export const {
     setUIState,
     setPosition,
     setClassName,
-    setEqualChildrenCount
+    setEqualChildrenCount,
+    wrapSelectedInLayout
 } = treeSlice.actions;
 
 export default treeSlice.reducer;

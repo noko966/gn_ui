@@ -755,7 +755,7 @@ html {
 }
 
 .sk_bd_code_root {
-  width: 1000px;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -776,6 +776,21 @@ html {
   margin-inline-end: 4px;
 }
 
+.sk_bd_code_scroller{
+  height: calc(100% - 52px);
+  flex-shrink: 0;
+  overflow: auto;
+}
+
+.sk_bd_code_footer{
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+      background: var(--bg);
+}
+
 .sk_bd_code_wrapper {
   display: flex;
   align-items: stretch;
@@ -794,15 +809,12 @@ background: var(--bg);
   flex: 1;
   border-radius: 8px;
   font-size: 12px;
-  overflow-y: auto;
-  overflow-x: hidden;
   position: relative;
 }
 
 .sk_bd_code_copy_btn{
-  background: var(--bg);
+  background: var(--bg2);
     color: var(--txt);
-    height: 36px;
     border-radius: 4px;
     border: 1px solid var(--bg4);
     outline: 0;
@@ -1180,10 +1192,10 @@ outline-color: var(--accBg3);
     column-gap: 8px;
     position: relative;
     background: var(--bg);
-  border-radius: 4px;
-  border: 1px solid var(--bg4);
-  padding: 0 4px;
-  height: var(--sk_control_height);
+    border-radius: 4px;
+    border: 1px solid var(--bg4);
+    padding: 0 6px;
+    height: var(--sk_control_height);
 }
 
 .sk_bd_input_drag {

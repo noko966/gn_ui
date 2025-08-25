@@ -26,6 +26,7 @@ import {
   closeCodeModal,
   setUIState,
   selectUIStates,
+  wrapSelectedInLayout,
   STATE_MAP,
 } from "./features/treeSlice";
 import { Inspector } from "./Inspector";
@@ -203,25 +204,24 @@ function generateCss(node, map = {}, parentSel = "", index = 1, isRootFlag = tru
     map[thisSel] = { ...(map[thisSel] || {}), ...node.styles };
   }
 
-  // SPECIAL: equal columns rule (parent-only target)
-  if (node.subType === "layout_equal" && thisSel) {
-    // use equalCount if set; else count layout children
-    const n =
-      node.equalCount ||
-      (Array.isArray(node.children)
-        ? node.children.filter((ch) => ch && ch.type === "layout").length
-        : 0) || 1;
+  // if (node.subType === "layout_equal" && thisSel) {
+  //   // use equalCount if set; else count layout children
+  //   const n =
+  //     node.equalCount ||
+  //     (Array.isArray(node.children)
+  //       ? node.children.filter((ch) => ch && ch.type === "layout").length
+  //       : 0) || 1;
 
-    const ruleSel = `${thisSel} > *`; // target all direct children (you can restrict if needed)
-    const basis = `calc(100% / ${n} - (var(--sk_el_custom_gap) / ${n} * ${n - 1}))`;
+  //   const ruleSel = `${thisSel} > *`; // target all direct children (you can restrict if needed)
+  //   const basis = `calc(100% / ${n} - (var(--sk_el_custom_gap) / ${n} * ${n - 1}))`;
 
-    map[ruleSel] = {
-      ...(map[ruleSel] || {}),
-      flexBasis: basis,
-      flexGrow: 0,
-      flexShrink: 0,
-    };
-  }
+  //   map[ruleSel] = {
+  //     ...(map[ruleSel] || {}),
+  //     flexBasis: basis,
+  //     flexGrow: 0,
+  //     flexShrink: 0,
+  //   };
+  // }
 
   // recurse
   if (Array.isArray(node.children) && node.children.length) {
@@ -576,6 +576,12 @@ export function TreeEditor() {
                 </button>
               </div>
               <div className="sk_bd_tool_wrapper">
+                <button className="sk_bd_btn_default" onClick={() => dispatch(wrapSelectedInLayout())}>
+                  <i className="dg_icon_angle_right"></i>
+                </button>
+              </div>
+
+              <div className="sk_bd_tool_wrapper">
                 <button className="sk_bd_btn_default" onClick={() => dispatch(toggleVisualHelpers())}>
                   <i className="dg_icon_info"></i>
                 </button>
@@ -655,22 +661,29 @@ export function TreeEditor() {
             </div>
             <pre className="sk_bd_code_wrapper">
               <div className="sk_bd_code_copy_block">
-                <SyntaxHighlighter language="javascript" style={a11yDark}>
-                  {exportState.html}
-                </SyntaxHighlighter >
-                <ReactClipboard action="copy" text={exportState.html} onSuccess={() => { }} onError={() => { }}>
-                  <button className="sk_bd_code_copy_btn">copy</button>
-                </ReactClipboard>
+                <div className="sk_bd_code_scroller">
+                  <SyntaxHighlighter language="javascript" style={a11yDark}>
+                    {exportState.html}
+                  </SyntaxHighlighter >
+                </div>
+                <div className="sk_bd_code_footer">
+                  <ReactClipboard action="copy" text={exportState.html} onSuccess={() => { }} onError={() => { }}>
+                    <button className="sk_bd_code_copy_btn">copy</button>
+                  </ReactClipboard>
+                </div>
               </div>
 
               <div className="sk_bd_code_copy_block">
-
-                <SyntaxHighlighter language="css" style={a11yDark}>
-                  {exportState.css}
-                </SyntaxHighlighter >
-                <ReactClipboard action="copy" text={exportState.css} onSuccess={() => { }} onError={() => { }}>
-                  <button className="sk_bd_code_copy_btn">copy</button>
-                </ReactClipboard>
+                <div className="sk_bd_code_scroller">
+                  <SyntaxHighlighter language="css" style={a11yDark}>
+                    {exportState.css}
+                  </SyntaxHighlighter >
+                </div>
+                <div className="sk_bd_code_footer">
+                  <ReactClipboard action="copy" text={exportState.css} onSuccess={() => { }} onError={() => { }}>
+                    <button className="sk_bd_code_copy_btn">copy</button>
+                  </ReactClipboard>
+                </div>
               </div>
             </pre>
           </div>
