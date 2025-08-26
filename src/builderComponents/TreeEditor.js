@@ -47,24 +47,7 @@ const elementLibrary = [
     styles: { display: "flex", gap: "8px", minWidth: "20px", minHeight: "20px" },
     children: [],
   },
-  {
-    name: "layoutEqual",
-    type: "layout",
-    subType: "layout_equal",
-    el: "div",
-    cn: "dg_layout dg_layout_equal",
-    // parent defaults (you can tweak)
-    styles: {
-      display: "flex",
-      flexWrap: "wrap",
-      columnGap: "var(--sk_el_custom_gap)",
-      rowGap: "var(--sk_el_custom_gap)",
-      minHeight: "20px",
-      minWidth: "20px",
-    },
-    // seed children count (used at insert time)
-    equalCount: 4
-  }
+
 
 ];
 
@@ -577,7 +560,7 @@ export function TreeEditor() {
               </div>
               <div className="sk_bd_tool_wrapper">
                 <button className="sk_bd_btn_default" onClick={() => dispatch(wrapSelectedInLayout())}>
-                  <i className="dg_icon_angle_right"></i>
+                  <i className="dg_icon_un_dock"></i>
                 </button>
               </div>
 
@@ -587,68 +570,26 @@ export function TreeEditor() {
                 </button>
               </div>
 
-              <div className="sk_bd_state_wrapper">
-                <label className={`sk_bd_state_checkbox ${uiStates.hover ? "state_checked" : ""}`} htmlFor="chb_state_hover">
-                  <input
-                    id="chb_state_hover"
-                    type="checkbox"
-                    checked={uiStates.hover}
-                    onChange={(e) => dispatch(setUIState({ name: "hover", value: e.target.checked }))}
-                  />
-                  <i className="sk_bd_state_checkbox_imitator"></i>
-                  <span className="sk_bd_state_checkbox_lbl">{"hover"}</span>
-                </label>
 
-                <label className={`sk_bd_state_checkbox ${uiStates.active ? "state_checked" : ""}`} htmlFor="chb_state_active">
-                  <input
-                    id="chb_state_active"
-                    type="checkbox"
-                    checked={uiStates.active}
-                    onChange={(e) => dispatch(setUIState({ name: "active", value: e.target.checked }))}
-                  />
-                  <i className="sk_bd_state_checkbox_imitator"></i>
-                  <span className="sk_bd_state_checkbox_lbl">{"active"}</span>
-                </label>
-
-                <label className={`sk_bd_state_checkbox ${uiStates.inactive ? "state_checked" : ""}`} htmlFor="chb_state_inactive">
-                  <input
-                    id="chb_state_inactive"
-                    type="checkbox"
-                    checked={uiStates.inactive}
-                    onChange={(e) => dispatch(setUIState({ name: "inactive", value: e.target.checked }))}
-                  />
-                  <i className="sk_bd_state_checkbox_imitator"></i>
-                  <span className="sk_bd_state_checkbox_lbl">{"inactive"}</span>
-                </label>
-
-                <label className={`sk_bd_state_checkbox ${uiStates.loading ? "state_checked" : ""}`} htmlFor="chb_state_loading">
-                  <input
-                    id="chb_state_loading"
-
-                    type="checkbox"
-                    checked={uiStates.loading}
-                    onChange={(e) => dispatch(setUIState({ name: "loading", value: e.target.checked }))}
-                  />
-                  <i className="sk_bd_state_checkbox_imitator"></i>
-                  <span className="sk_bd_state_checkbox_lbl">{"loading"}</span>
-                </label>
+              <div className="sk_bd_canvas_controls_export_wrapper">
+                <button className="sk_bd_btn" onClick={exportHTMLCSS}>
+                  Generate Code
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
+      <div className="sk_bd_canvas_controls_root">
+        <div className="sk_bd_canvas_controls sk_bd_scroller">
+          <div className="sk_bd_canvas_controls_list">
+            <Inspector selectedNode={selectedNode} />
+          </div>
 
-      <div className="sk_bd_canvas_controls">
-        <div className="sk_bd_scroller">
-          <Inspector selectedNode={selectedNode} />
-        </div>
 
-        <div className="sk_bd_canvas_controls_export_wrapper">
-          <button className="sk_bd_btn" onClick={exportHTMLCSS}>
-            Generate Code
-          </button>
         </div>
       </div>
+
 
       {exportState.isOpen && (
         <div className="sk_bd_code_modal_backdrop" onClick={closeModal}>

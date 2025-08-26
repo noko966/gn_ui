@@ -583,15 +583,15 @@ html {
 
 .sk_bd_root {
   --bgRGBA: #14172183;
-  --bg: #141721;
-  --bg2: #161E27;
-  --bg3: #202a37;
-  --bg4: #2F3947;
-  --txt: #fff;
-  --txt2: #ffffffbc;
-  --inpBg: #161E27;
-  --inpBg2: #2F3947;
-  --accBg: #2B98B3;
+  --bg: #d4d7db;
+  --bg2: #dcdfe2;
+  --bg3: #e5e6e9;
+  --bg4: #edeef0;
+  --txt: rgba(0, 0, 0, 0.85);
+  --txt2: rgba(0, 0, 0, 0.7);
+  --inpBg: #d4d7db;
+  --inpBg2: #9ea4ab;
+  --accBg: #00aabe;
   --accBg2: #f03b6b;
   --accBg3: #9cf03b;
   --accTxt: #fff;

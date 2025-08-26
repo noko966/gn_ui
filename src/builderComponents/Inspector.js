@@ -154,7 +154,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       {/* ============================ ESSENCE ========================== */}
       <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="dg_bd_layout_edit_tool_label">node essence</div>
-        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+        <div className="dg_bd_layout_edit_tool_wrapper_variants variant_row">
           {essenceOptions.map((ess) => (
             <label key={`ess_${ess}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--bge": `var(--${ess}Bg)`, "--txte": `var(--${ess}Txt)` }}>
               <input
@@ -184,9 +184,9 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       <div className="dg_bd_layout_edit_tool_wrapper">
 
         <div className="dg_bd_layout_edit_tool_label">text color</div>
-        <div className="dg_bd_layout_edit_tool_wrapper_variants">
+        <div className="dg_bd_layout_edit_tool_wrapper_variants variant_row">
           {essenceTextOptions.map((role) => (
-            <label key={`txt_${role}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--txte": `var(--${selectedEssence}${role})` }}>
+            <label key={`txt_${role}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--bge": `var(--${selectedEssence}Bg)`, "--txte": `var(--${selectedEssence}${role})` }}>
               <input
                 type="radio"
                 name={`paintTxt_${uniq}`}
@@ -444,7 +444,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 cssProp={"width"}
                 min={0}
                 max={1000}
-                customQuickValues={["24px", "42px", "100px", "200px", "400px", "800px"]}
+                customQuickValues={["100px", "200px", "400px", "800px"]}
               />
 
               <PxDragInput
@@ -454,7 +454,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 cssProp={"height"}
                 min={0}
                 max={1000}
-                customQuickValues={["24px", "42px", "100px", "200px", "400px", "800px"]}
+                customQuickValues={["100px", "200px", "400px", "800px"]}
               />
 
             </div>
