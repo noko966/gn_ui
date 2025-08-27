@@ -422,11 +422,11 @@ export function TreeEditor() {
         className="sk_bd_tool_item"
         onClick={() => handlePaletteClick(tpl, !!current && canHaveChildren)}
       >
-        {Tag === "input" ? (
+        {/* {Tag === "input" ? (
           <input className={tpl.cn} placeholder={typeof fallbackText === "string" ? fallbackText : ""} readOnly />
         ) : (
           <Tag className={tpl.cn}>{fallbackText}</Tag>
-        )}
+        )} */}
         <span>{tpl.name}</span>
       </div>
     );
@@ -437,11 +437,11 @@ export function TreeEditor() {
 
 
   return (
-    <div className="sk_bd_root">
+    <div className="sk_bd_root ">
       <div className="sk_bd_start_wrapper">
         <div className="sk_bd_start_wrapper_inner">
           <div className="sk_bd_tools_root">
-            <div className="sk_bd_tool_elements">
+            <div className="sk_bd_tool_elements sk_bd_panel">
               <div className="sk_bd_header">{"components"}</div>
 
               <div className="sk_bd_tool_elements_layout">
@@ -450,7 +450,7 @@ export function TreeEditor() {
                 ))}
               </div></div>
 
-            <div className="sk_bd_tool_layers">
+            <div className="sk_bd_tool_layers sk_bd_panel sk_bd_panel">
               <LayersPanel />
             </div>
           </div>
@@ -529,8 +529,8 @@ export function TreeEditor() {
               </div>
             </div>
 
-            <div className="sk_bd_tools">
-
+            <div className="sk_bd_tools sk_bd_panel">
+              <div className="sk_bd_header">main</div>
 
               <div className="sk_bd_tool_wrapper">
                 <button
@@ -581,12 +581,13 @@ export function TreeEditor() {
         </div>
       </div>
       <div className="sk_bd_canvas_controls_root">
-        <div className="sk_bd_canvas_controls sk_bd_scroller">
-          <div className="sk_bd_canvas_controls_list">
-            <Inspector selectedNode={selectedNode} />
+        <div className="sk_bd_canvas_controls sk_bd_panel">
+          <div className="sk_bd_header">main</div>
+          <div className="sk_bd_scroller">
+            <div className="sk_bd_canvas_controls_list">
+              <Inspector selectedNode={selectedNode} />
+            </div>
           </div>
-
-
         </div>
       </div>
 

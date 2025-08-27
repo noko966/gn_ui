@@ -141,7 +141,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     <>
 
       <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">className</div>
+        <div className="sk_bd_input_section_lbl">className</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <input
             className="sk_bd_input"
@@ -153,7 +153,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
       {/* ============================ ESSENCE ========================== */}
       <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">node essence</div>
+        <div className="sk_bd_input_section_lbl">node essence</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants variant_row">
           {essenceOptions.map((ess) => (
             <label key={`ess_${ess}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--bge": `var(--${ess}Bg)`, "--txte": `var(--${ess}Txt)` }}>
@@ -183,7 +183,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       {/* ============================ PAINT ============================ */}
       <div className="dg_bd_layout_edit_tool_wrapper">
 
-        <div className="dg_bd_layout_edit_tool_label">text color</div>
+        <div className="sk_bd_input_section_lbl">text color</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants variant_row">
           {essenceTextOptions.map((role) => (
             <label key={`txt_${role}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--bge": `var(--${selectedEssence}Bg)`, "--txte": `var(--${selectedEssence}${role})` }}>
@@ -216,7 +216,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
         <>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <label className="dg_bd_layout_edit_tool_label">Flag Type</label>
+            <label className="sk_bd_input_section_lbl">Flag Type</label>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               <select
                 className="sk_bd_input"
@@ -239,7 +239,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">
+            <div className="sk_bd_input_section_lbl">
               flag size
             </div>
 
@@ -259,7 +259,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       {selectedNode.type === "icon" && (
         <>
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <label className="dg_bd_layout_edit_tool_label">Icon Type</label>
+            <label className="sk_bd_input_section_lbl">Icon Type</label>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               <select
                 className="sk_bd_input"
@@ -283,7 +283,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">
+            <div className="sk_bd_input_section_lbl">
               icon size
             </div>
 
@@ -303,7 +303,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       {selectedNode.textContent && (
         <>
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">inner text</div>
+            <div className="sk_bd_input_section_lbl">inner text</div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               <input
                 className="sk_bd_input"
@@ -314,7 +314,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">
+            <div className="sk_bd_input_section_lbl">
               font size
             </div>
 
@@ -328,7 +328,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">
+            <div className="sk_bd_input_section_lbl">
               font weight
             </div>
 
@@ -354,54 +354,10 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       )}
 
 
-      {selectedNode.subType === "layout_equal" && (
-        <>
-          <h4>Equal Columns Layout</h4>
-
-          <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">columns</div>
-            <div className="dg_bd_layout_edit_tool_wrapper_variants">
-              <button
-                className="sk_bd_btn_small"
-                onClick={() => dispatch(setEqualChildrenCount({
-                  path: selectedPath,
-                  count: Math.max(1, (selectedNode.equalCount || selectedNode.children?.length || 1) - 1)
-                }))}
-              >−</button>
-
-              <input
-                className="sk_bd_input"
-                type="number"
-                min={1}
-                value={selectedNode.equalCount || selectedNode.children?.length || 1}
-                onChange={(e) =>
-                  dispatch(setEqualChildrenCount({
-                    path: selectedPath,
-                    count: Math.max(1, parseInt(e.target.value || "1", 10))
-                  }))
-                }
-                style={{ width: 80, textAlign: "center" }}
-              />
-
-              <button
-                className="sk_bd_btn_small"
-                onClick={() => dispatch(setEqualChildrenCount({
-                  path: selectedPath,
-                  count: (selectedNode.equalCount || selectedNode.children?.length || 1) + 1
-                }))}
-              >+</button>
-            </div>
-
-          </div>
-
-
-        </>
-      )}
-
       {selectedNode.type === "layout" && (
         <>
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">size</div>
+            <div className="sk_bd_input_section_lbl">size</div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
 
               <label className="sk_bd_input_radio">
@@ -437,32 +393,34 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 <span className="sk_bd_input_radio_lbl">fixed</span>
               </label>
 
-              <PxDragInput
-                value={parseInt(width) || 0}
-                onChange={(v) => setStyle("width", v)}
-                name={"width"}
-                cssProp={"width"}
-                min={0}
-                max={1000}
-                customQuickValues={["100px", "200px", "400px", "800px"]}
-              />
+              <div className="dg_bd_layout_edit_control">
+                <PxDragInput
+                  value={parseInt(width) || 0}
+                  onChange={(v) => setStyle("width", v)}
+                  name={"width"}
+                  cssProp={"width"}
+                  min={0}
+                  max={1000}
+                  customQuickValues={["100px", "200px", "400px", "800px"]}
+                />
+              </div>
+              <div className="dg_bd_layout_edit_control">
+                <PxDragInput
+                  value={parseInt(height) || 0}
+                  onChange={(v) => setStyle("height", v)}
+                  name={"height"}
+                  cssProp={"height"}
+                  min={0}
+                  max={1000}
+                  customQuickValues={["100px", "200px", "400px", "800px"]}
+                />
 
-              <PxDragInput
-                value={parseInt(height) || 0}
-                onChange={(v) => setStyle("height", v)}
-                name={"height"}
-                cssProp={"height"}
-                min={0}
-                max={1000}
-                customQuickValues={["100px", "200px", "400px", "800px"]}
-              />
-
+              </div>
             </div>
-
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">
+            <div className="sk_bd_input_section_lbl">
               orientation
             </div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
@@ -483,7 +441,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
           {/* Justify Content */}
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">justify</div>
+            <div className="sk_bd_input_section_lbl">justify</div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               {["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"].map((val) => (
                 <label key={val} className="sk_bd_input_radio">
@@ -502,7 +460,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
           {/* Align Items */}
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">align</div>
+            <div className="sk_bd_input_section_lbl">align</div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               {["stretch", "flex-start", "center", "flex-end", "baseline"].map((val) => (
                 <label key={val} className="sk_bd_input_radio">
@@ -520,7 +478,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">
+            <div className="sk_bd_input_section_lbl">
               spacing
             </div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
@@ -553,7 +511,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="dg_bd_layout_edit_tool_label">padding</div>
+            <div className="sk_bd_input_section_lbl">padding</div>
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
 
               <div className="dg_bd_layout_edit_control">
@@ -613,44 +571,44 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
 
       <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="dg_bd_layout_edit_tool_label">radius</div>
+        <div className="sk_bd_input_section_lbl">radius</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
 
-          <label>
+          <div className="dg_bd_layout_edit_control">
             <span className="sk_bd_input_lbl">Top left</span>
             <PxDragInput
               className="sk_bd_input"
               value={parseInt(radTL) || 0}
               onChange={(v) => setStyle("borderTopLeftRadius", v)}
             />
-          </label>
+          </div>
 
-          <label>
+          <div className="dg_bd_layout_edit_control">
             <span className="sk_bd_input_lbl">Top right</span>
             <PxDragInput
               className="sk_bd_input"
               value={parseInt(radTR) || 0}
               onChange={(v) => setStyle("borderTopRightRadius", v)}
             />
-          </label>
+          </div>
 
-          <label>
+          <div className="dg_bd_layout_edit_control">
             <span className="sk_bd_input_lbl">Bottom left</span>
             <PxDragInput
               className="sk_bd_input"
               value={parseInt(radBL) || 0}
               onChange={(v) => setStyle("borderBottomLeftRadius", v)}
             />
-          </label>
+          </div>
 
-          <label>
+          <div className="dg_bd_layout_edit_control">
             <span className="sk_bd_input_lbl">Bottom right</span>
             <PxDragInput
               className="sk_bd_input"
               value={parseInt(radBR) || 0}
               onChange={(v) => setStyle("borderBottomRightRadius", v)}
             />
-          </label>
+          </div>
         </div>
       </div>
 

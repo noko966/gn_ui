@@ -596,14 +596,51 @@ html {
   --accBg3: #9cf03b;
   --accTxt: #fff;
 
+  --sk_dominantBg: #d4d7db;
+    --sk_dominantBgHover: #dcdfe2;
+    --sk_dominantBg2: #e5e6e9;
+    --sk_dominantBg2Hover: #edeef0;
+    --sk_dominantBg3: #f5f6f7;
+    --sk_dominantBg3Hover: #fefefe;
+    --sk_dominantTxt: rgba(0, 0, 0, 0.85);
+    --sk_dominantTxt2: rgba(0, 0, 0, 0.7);
+    --sk_dominantTxt3: rgba(0, 0, 0, 0.55);
+    --sk_dominantShadow: #9ea4ab;
+    --sk_dominantGlass: rgba(0, 0, 0, 0.5);
+    --sk_dominantGlass2: rgba(0, 0, 0, 0.5);
+    --sk_accentBg: #00aabe;
+    --sk_accentBgHover: #00b8cd;
+    --sk_accentBg2: #00c5dd;
+    --sk_accentBg2Hover: #00d3ec;
+    --sk_accentBg3: #00e1fb;
+    --sk_accentBg3Hover: #0be5ff;
+    --sk_accentTxt: rgba(255, 255, 255, 0.85);
+    --sk_accentTxt2: rgba(255, 255, 255, 0.7);
+    --sk_accentTxt3: rgba(255, 255, 255, 0.55);
+    --sk_accentShadow: #014e57;
+    --sk_accentGlass: rgba(0, 0, 0, 0.5);
+    --sk_accentGlass2: rgba(0, 0, 0, 0.5);
+    --sk_buttonBg: #dbdbdb;
+    --sk_buttonBgHover: #e3e3e3;
+    --sk_buttonBg2: #eaeaea;
+    --sk_buttonBg2Hover: #f2f2f2;
+    --sk_buttonBg3: #fafafa;
+    --sk_buttonBg3Hover: #ffffff;
+    --sk_buttonTxt: rgba(0, 0, 0, 0.85);
+    --sk_buttonTxt2: rgba(0, 0, 0, 0.7);
+    --sk_buttonTxt3: rgba(0, 0, 0, 0.55);
+    --sk_buttonShadow: #a8a8a8;
+    --sk_buttonGlass: rgba(0, 0, 0, 0.5);
+    --sk_buttonGlass2: rgba(0, 0, 0, 0.5);
+
   --sk_control_height: 32px;
 }
 
 .sk_bd_start_wrapper {
-  background: var(--bg2);
+  background: var(--sk_dominantShadow);
   flex-grow: 1;
   min-width: 1px;
-  padding: 24px;
+  /* padding: 24px; */
   display: flex;
   align-items: stretch;
   column-gap: 24px;
@@ -613,9 +650,8 @@ html {
   display: flex;
   align-items: stretch;
   column-gap: 12px;
-  background: var(--bg);
+  background: var(--sk_dominantShadow);
   width: 100%;
-  padding: 12px;
   border-radius: 12px;
 
 
@@ -634,7 +670,7 @@ html {
 }
 
 .sk_bd_canvas_root {
-  --canvasBg: var(--bg);
+  --canvasBg: var(--sk_dominantShadow);
   background-color: var(--canvasBg);
   position: relative;
   border-radius: 12px;
@@ -652,12 +688,12 @@ html {
   height: 120px;
   display: flex;
   align-items: center;
-  column-gap: 8px;
-  background: var(--bg2);
+  column-gap: 4px;
+  background: var(--sk_dominantBg);
   padding: 24px;
-  color: var(--txt);
-  border-radius: 8px;
-  border: 1px solid var(--bg4);
+  color: var(--sk_dominantTxt);
+  border: 1px solid var(--sk_dominantBgHover);
+  border-radius: 4px;
 }
 
 .sk_bd_tools>.sk_bd_tool_wrapper {}
@@ -687,8 +723,8 @@ html {
 }
 
 .sk_bd_root {
-  background: var(--bg2);
-  color: var(--txt);
+  background: var(--sk_dominantShadow);
+  color: var(--sk_dominantTxt);
   width: 100%;
   display: flex;
   --toolsWidth: 240px;
@@ -696,37 +732,38 @@ html {
   --actionsWidth: 420px;
   height: 100vh;
   min-width: 1200px;
+padding: 8px;
+column-gap: 12px;
+
+}
+
+.sk_bd_canvas_controls_root{
+width: var(--actionsWidth);
 }
 
 .sk_bd_canvas_controls {
   position: relative;
-  background: var(--bg2);
-  color: var(--txt);
+  background: var(--sk_dominantBg);
+  color: var(--sk_dominantTxt);
   display: flex;
   flex-direction: column;
   row-gap: 4px;
   align-items: stretch;
   column-gap: 6px;
-  padding: 16px;
-  width: var(--actionsWidth);
+  padding: 8px;
+  
   flex-shrink: 0;
   height: 100%;
   overflow-y: auto;
   box-shadow: 0 0 13px 6px #00000010;
-  border-left: 1px solid var(--bg4);
-  padding-bottom: 48px;
+  border: 1px solid var(--sk_dominantBgHover);
+  border-radius: 4px;
 }
 
 .sk_bd_canvas_controls_export_wrapper {
-  position: absolute;
-  bottom: 0;
-  background: var(--bg2);
   width: 100%;
-  padding: 8px;
   left: 0;
   right: 0;
-  box-shadow: 0 0 13px 6px #00000010;
-    border-top: 1px solid var(--bg4);
 
 }
 
@@ -737,6 +774,13 @@ html {
 .sk_bd_scroller{
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.sk_bd_canvas_controls_list{
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  row-gap: 6px;
 }
 
 .sk_bd_code_modal_backdrop {
@@ -755,7 +799,7 @@ html {
 }
 
 .sk_bd_code_root {
-  width: 1000px;
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -776,6 +820,21 @@ html {
   margin-inline-end: 4px;
 }
 
+.sk_bd_code_scroller{
+  height: calc(100% - 52px);
+  flex-shrink: 0;
+  overflow: auto;
+}
+
+.sk_bd_code_footer{
+  height: 52px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+      background: var(--bg);
+}
+
 .sk_bd_code_wrapper {
   display: flex;
   align-items: stretch;
@@ -794,15 +853,12 @@ background: var(--bg);
   flex: 1;
   border-radius: 8px;
   font-size: 12px;
-  overflow-y: auto;
-  overflow-x: hidden;
   position: relative;
 }
 
 .sk_bd_code_copy_btn{
-  background: var(--bg);
+  background: var(--bg2);
     color: var(--txt);
-    height: 36px;
     border-radius: 4px;
     border: 1px solid var(--bg4);
     outline: 0;
@@ -976,16 +1032,23 @@ outline-color: var(--accBg3);
   flex-direction: column;
   padding: 4px 12px;
   flex-shrink: 0;
-  background-color: var(--bg3);
   row-gap: 4px;
+  background: var(--sk_dominantBg2);
+  color: var(--sk_dominantTxt);
+  border: 1px solid var(--sk_dominantBg3);
+  border-radius: 2px;
 }
 
 .dg_bd_layout_edit_tool_wrapper_variants {
       display: flex;
     flex-wrap: wrap;
-    padding: 4px 4px;
-    row-gap: 8px;
-    column-gap: 8px;
+    padding: 2px;
+    row-gap: 4px;
+    column-gap: 4px;
+}
+
+.dg_bd_layout_edit_tool_wrapper_variants.variant_row{
+  flex-wrap: nowrap;
 }
 
 .dg_bd_layout_edit_control{
@@ -1013,11 +1076,11 @@ outline-color: var(--accBg3);
 }
 
 .sk_bd_btn_default {
-  background: var(--bg);
-  color: var(--txt);
+  background: var(--sk_dominantBg2Hover);
+  color: var(--sk_dominantTxt);
   height: 36px;
   border-radius: 4px;
-  border: 1px solid var(--bg4);
+  border: 1px solid var(--sk_dominantBg3);
   outline: 0;
   height: 36px;
   border-radius: 2px;
@@ -1032,11 +1095,11 @@ outline-color: var(--accBg3);
 }
 
 .sk_bd_input {
-  background: var(--bg);
-  color: var(--txt);
+  background: var(--sk_dominantBg);
+  color: var(--sk_dominantTxt);
   height: var(--sk_control_height);
   border-radius: 4px;
-  border: 1px solid var(--bg4);
+  border: 1px solid var(--sk_dominantShadow);
   outline: 0;
   border-radius: 2px;
   cursor: pointer;
@@ -1051,10 +1114,10 @@ outline-color: var(--accBg3);
 .sk_bd_input_radio {
   display: flex;
   align-items: center;
-  background: var(--bge);
+  background: var(--sk_dominantBg2Hover);
   color: var(--txte);
   border-radius: 4px;
-  border: 1px solid var(--bg4);
+  border: 1px solid var(--sk_dominantBg3);
   padding: 4px 8px;
   column-gap: 8px;
   cursor: pointer;
@@ -1062,7 +1125,34 @@ outline-color: var(--accBg3);
 }
 
 .sk_bd_input_radio.variant_essence{
-  width: calc(50% - 4px);
+  --size: 80px;
+  width: var(--size);
+  height:  var(--size);
+  background: none;
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.sk_bd_input_radio.variant_essence .sk_bd_input_radio_lbl{
+background: var(--bge);
+  color: var(--txte);
+  width: var(--size);
+  height:  var(--size);
+  flex-shrink: 0;
+  font-size: 10px;
+  padding: 8px;
+  flex-shrink: 0;
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.sk_bd_input_radio.variant_essence>input:checked ~ .sk_bd_input_radio_lbl {
+  opacity: 1;
+}
+
+
+.sk_bd_input_radio.variant_essence .sk_bd_input_radio_imitator{
+display: none;
 }
 
 .sk_bd_input_radio>input {
@@ -1078,8 +1168,8 @@ outline-color: var(--accBg3);
     appearance: none;
     border: 0;
     outline: 0;
-    background: var(--bg);
-    border: 1px solid var(--bg4);
+    background: var(--sk_dominantBg);
+    border: 1px solid var(--sk_dominantShadow);
     border-radius: 2px;
 
 }
@@ -1088,7 +1178,6 @@ outline-color: var(--accBg3);
   /* background: var(--bg); */
   /* color: var(--txt); */
   font-size: 12px;
-  border-radius: 4px;
 }
 
 
@@ -1103,8 +1192,8 @@ outline-color: var(--accBg3);
     --grid-strength: 1px;
     --grid-dash: 10px;
     --grid-gap: 5px;
-    --grid-color: var(--bg);
-    --paper-color: var(--bg4);
+    --grid-color: var(--sk_dominantTxt3);
+    --paper-color: var(--sk_dominantShadow);
   background-color: var(--paper-color);
   background-size: var(--grid-dash) var(--grid-dash), var(--grid-size) var(--grid-size);
   background-image:
@@ -1179,9 +1268,9 @@ outline-color: var(--accBg3);
     align-items: center;
     column-gap: 8px;
     position: relative;
-    background: var(--bg);
+    background: var(--sk_dominantBg);
     border-radius: 4px;
-    border: 1px solid var(--bg4);
+    border: 1px solid var(--sk_dominantShadow);
     padding: 0 6px;
     height: var(--sk_control_height);
 }
@@ -1230,6 +1319,11 @@ background: var(--bg2);
 
 .sk_bd_input_shortcuts_wrapper{
   display: flex;
+    border: 1px solid var(--sk_dominantShadow);
+    column-gap: 1px;
+    background: var(--sk_dominantShadow);
+    border-radius: 0 0 4px 4px;
+    overflow: hidden;
 }
 
 .sk_bd_input_radio_shortcut {
@@ -1239,16 +1333,15 @@ background: var(--bg2);
 .sk_bd_input_radio_shortcut > .sk_bd_input_radio_lbl{
   display: flex;
     align-items: center;
-    background: var(--bg);
+    background: var(--sk_dominantBg);
     color: var(--txt2);
-    border-radius: 4px;
-    border: 1px solid var(--bg4);
     padding: 4px 8px;
     column-gap: 8px;
     cursor: pointer;
     height: 20px;
 font-size: 10px;
 color: var(--txt2);
+
 }
 .sk_bd_input_radio_shortcut > input {
   display: none;
@@ -1257,7 +1350,7 @@ color: var(--txt2);
 
 .sk_bd_input_radio_shortcut > input:checked + .sk_bd_input_radio_lbl {
   color: var(--txt);
-  background: var(--bg4);
+  background: var(--sk_dominantBg2Hover);
 }
 
 
@@ -1313,10 +1406,10 @@ color: var(--txt2);
 .sk_bd_tool_elements{
       flex: 1 1 0;
     padding: 8px;
-    border-radius: 8px;
-    border: 1px solid var(--bg4);
-    background: var(--bg2);
-  color: var(--txt);
+    border-radius: 4px;
+    border: 1px solid var(--sk_dominantBg3Hover);
+    background: var(--sk_dominantBg);
+  color: var(--sk_dominantTxt);
   min-height: 1px;
 }
 
@@ -1331,10 +1424,10 @@ color: var(--txt2);
 .sk_bd_tool_layers{
     flex: 1 1 0;
     padding: 8px;
-    border-radius: 8px;
-    border: 1px solid var(--bg4);
-    background: var(--bg2);
-  color: var(--txt);
+     border-radius: 4px;
+    border: 1px solid var(--sk_dominantBg3Hover);
+    background: var(--sk_dominantBg);
+  color: var(--sk_dominantTxt);
 }
 
 .sk_layers_disclosure {
