@@ -141,13 +141,17 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     <>
 
       <div className="dg_bd_layout_edit_tool_wrapper">
-        <div className="sk_bd_input_section_lbl">className</div>
+        <div className="dg_bd_layout_edit_tool_label">custom class</div>
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <input
             className="sk_bd_input"
-            value={selectedNode.cn || ""}
+            value={selectedNode.cnUser || ""}
+            placeholder="(optional override)"
             onChange={(e) => dispatch(editClass(e.target.value))}
           />
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.6, marginTop: 2 }}>
+          base: <code>{selectedNode.baseCn}</code>
         </div>
       </div>
 

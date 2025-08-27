@@ -21,28 +21,28 @@ const initialTree = {
             name: "layout",
             type: "layout",
             el: "div",
-            cn: "dg_token_wrapper",
-            children: [{ el: "i", type: "icon", cn: "icon_4 dg_icon_", children: null }],
+            cn: "dg_layout",
+            children: [{ el: "i", type: "icon", cn: "dg_icon_1", children: null }],
         },
         {
             name: "layout",
             type: "layout",
             el: "div",
-            cn: "dg_text_wrapper",
+            cn: "dg_layout",
             styles: { display: "flex", flexDirection: "column", gap: "4px" },
             children: [
                 {
                     name: "layout",
                     type: "layout",
                     el: "div",
-                    cn: "dg_token_wrapper",
+                    cn: "dg_layout",
                     children: [{ el: "span", type: "text", cn: "dg_text", children: null, textContent: "text piece 1" }],
                 },
                 {
                     name: "layout",
                     type: "layout",
                     el: "div",
-                    cn: "dg_token_wrapper",
+                    cn: "dg_layout",
                     children: [{ el: "span", type: "text", cn: "dg_text", children: null, textContent: "text piece 2" }],
                 },
             ],
@@ -51,14 +51,14 @@ const initialTree = {
             name: "layout",
             type: "layout",
             el: "div",
-            cn: "dg_token_wrapper",
+            cn: "dg_layout",
             children: [{ el: "i", type: "icon", cn: "dg_icon_arrow_down", children: null }],
         },
         {
             name: "layout",
             type: "layout",
             el: "div",
-            cn: "dg_token_wrapper",
+            cn: "dg_layout",
             children: [{ name: "action", type: "button", el: "button", cn: "dg_btn", children: null, textContent: "btn default" }],
         },
     ],
@@ -395,12 +395,13 @@ const treeSlice = createSlice({
             node.styles["--sk_txt"] = `var(--${essence}${role})`;
             node.styles.color = "var(--sk_txt)";
         },
+        // treeSlice.js
         editClass(state, action) {
-            const cls = action.payload;
             const node = getNodeAtPath(state.tree, state.selectedPath);
             if (!node) return;
-            node.cn = cls;
+            node.cnUser = action.payload || "";
         },
+
         editTextContent(state, action) {
             const txtContent = action.payload;
             const node = getNodeAtPath(state.tree, state.selectedPath);
