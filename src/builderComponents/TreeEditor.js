@@ -44,6 +44,14 @@ const elementLibrary = [
     styles: { display: "flex", gap: "8px", minWidth: "20px", minHeight: "20px" },
     children: [],
   },
+  {
+    name: "scroller",
+    type: "layout",
+    el: "div",
+    cn: "dg_scroller",
+    styles: { overflowY: "auto",  overflowX: "hidden", height: "100%" },
+    children: [],
+  },
 ];
 
 /* ───────────────────────────── helpers (tree) ─────────────────────────── */

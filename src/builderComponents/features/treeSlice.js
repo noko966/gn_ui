@@ -318,6 +318,52 @@ const treeSlice = createSlice({
         },
 
 
+        setScrollType(state, action) {
+            const node = getNodeAtPath(state.tree, state.selectedPath);
+            if (!node) return;
+
+            if (node.type !== "layout") return;
+
+            const payload = typeof action.payload === "string"
+                ? { type: action.payload }
+                : (action.payload || {});
+
+            const currentClasses = (node.cnUser || node.cn || "").split(/\s+/).filter(Boolean);
+
+            // remove scroll classes
+            const filtered = currentClasses.filter(c => c !== "dg_scrollbar_x" && c !== "dg_scrollbar_y");
+
+            const kind = payload.type || "";
+
+            node.styles = { ...(node.styles || {}) };
+
+            switch (kind) {
+                case "horizontal":
+                    node.cnUser = [...filtered, "dg_scrollbar_x"].join(" ");
+                    node.styles.overflowX = "auto";
+                    node.styles.overflowY = "hidden";
+                    node.styles.width = "100%";
+                    break;
+
+                case "vertical":
+                    node.cnUser = [...filtered, "dg_scrollbar_y"].join(" ");
+                    node.styles.overflowX = "hidden";
+                    node.styles.overflowY = "auto";
+                    node.styles.height = "100%";
+                    break;
+                default:
+                    node.cnUser = filtered.join(" ");
+                    delete node.styles.overflowX;
+                    delete node.styles.overflowY;
+                    delete node.styles.height;
+                    delete node.styles.width;
+                    break;
+            }
+
+            node.scrollType = kind;
+        },
+
+
         setEssence(state, action) {
             const newEss = action.payload || undefined;
             const path = state.selectedPath;
@@ -504,6 +550,7 @@ export const {
     swapSiblings,
     editStyle,
     setLayoutType,
+    setScrollType,
     setEssence,
     setEssenceTxtVariant,
     applyEssenceTextRole,

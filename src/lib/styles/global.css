@@ -1607,7 +1607,55 @@ html {
   width: 4px;
 }
 
-.sk_bd_scroller::-webkit-scrollbar-thumb:hover {
+.dg_scrollbar_y::-webkit-scrollbar-thumb:hover {
   background: var(--sk_dominantBg2);
+  /* Thumb hover color */
+}
+
+
+.dg_scrollbar_y::-webkit-scrollbar {
+  width: 6px;
+  /* Scrollbar width */
+}
+
+.dg_scrollbar_y::-webkit-scrollbar-track {
+  background: var(--bodyBg);
+  /* Track color */
+}
+
+.dg_scrollbar_y::-webkit-scrollbar-thumb {
+  background: var(--eventBg);
+  /* Thumb color */
+  border-radius: 10px;
+  /* Thumb border radius */
+  width: 4px;
+}
+
+.dg_scrollbar_x::-webkit-scrollbar-thumb:hover {
+  background: var(--eventBgHover);
+  /* Thumb hover color */
+}
+
+/* ---- */
+.dg_scrollbar_x::-webkit-scrollbar {
+  width: 6px;
+  /* Scrollbar width */
+}
+
+.dg_scrollbar_x::-webkit-scrollbar-track {
+  background: var(--bodyBg);
+  /* Track color */
+}
+
+.dg_scrollbar_x::-webkit-scrollbar-thumb {
+  background: var(--eventBg);
+  /* Thumb color */
+  border-radius: 10px;
+  /* Thumb border radius */
+  height: 4px;
+}
+
+.dg_scrollbar_x::-webkit-scrollbar-thumb:hover {
+  background: var(--eventBgHover);
   /* Thumb hover color */
 }

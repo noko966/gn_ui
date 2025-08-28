@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editStyle, setLayoutType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount } from "./features/treeSlice";
+import { editStyle, setLayoutType, setScrollType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount } from "./features/treeSlice";
 import { PositionControl } from "./components/position";
 import { PxDragInput } from "./components/DragInput";
 import { setClassName } from "./features/treeSlice";
@@ -89,6 +89,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const curRadius = readVar("--sk_el_custom_radius"); // px
   const selectedEssence = selectedNode?.essence || "";
   const selectedLayoutType = selectedNode?.layoutType || "hug";
+  const selectedScrollType = selectedNode?.scrollType || "";
 
 
 
@@ -512,6 +513,50 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
             </div>
 
+          </div>
+
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="sk_bd_input_section_lbl">
+              scroll
+            </div>
+
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name="scroll_mode"
+                  checked={selectedScrollType === "horizontal"}
+                  onChange={() => dispatch(setScrollType("horizontal"))}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">{"horizontal"}</span>
+              </label>
+
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name="scroll_mode"
+                  checked={selectedScrollType === "vertical"}
+                  onChange={() => dispatch(setScrollType("vertical"))}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">{"vertical"}</span>
+              </label>
+
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name="scroll_mode"
+                  checked={selectedScrollType === ""}
+                  onChange={() => dispatch(setScrollType(""))}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">{"none"}</span>
+              </label>
+
+
+            </div>
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
