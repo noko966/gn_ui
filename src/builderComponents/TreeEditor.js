@@ -28,42 +28,8 @@ import {
 } from "./features/treeSlice";
 import { Inspector } from "./Inspector";
 import LayersPanel from "./components/LayersPanel";
+import { elementLibrary, isRoot, getNodeAtPath, isLayoutNode, pathEq, skify } from "./utils";
 
-/* ───────────────────────────────── PALETTE ───────────────────────────── */
-const elementLibrary = [
-  { name: "flag", type: "flag", styles: { "--flagSize": "24px" }, el: "div", cn: "cHFlag", children: null },
-  { name: "icon", type: "icon", styles: { "--icoSize": "24px" }, el: "i", cn: "dg_icon_", children: null },
-  { name: "text", type: "text", styles: { "--fontSize": "13px" }, el: "span", cn: "dg_text", textContent: "lorem ipsum", children: null },
-  { name: "action", type: "button", el: "button", cn: "dg_btn", children: null, textContent: "btn default" },
-  { name: "input", type: "input", el: "input", cn: "dg_input", children: null },
-  {
-    name: "layout",
-    type: "layout",
-    el: "div",
-    cn: "dg_layout",
-    styles: { display: "flex", gap: "8px", minWidth: "20px", minHeight: "20px" },
-    children: [],
-  },
-  {
-    name: "scroller",
-    type: "layout",
-    el: "div",
-    cn: "dg_scroller",
-    styles: { overflowY: "auto",  overflowX: "hidden", height: "100%" },
-    children: [],
-  },
-];
-
-/* ───────────────────────────── helpers (tree) ─────────────────────────── */
-const isRoot = (p) => p.length === 0;
-const getNodeAtPath = (node, path) =>
-  path.length === 0 ? node : getNodeAtPath(node.children[path[0]], path.slice(1));
-const isLayoutNode = (n) => n?.type === "layout";
-const pathEq = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
-
-/* ─────────────────────────── class helpers ────────────────────────────── */
-/** turn "a b c" into ".a.b.c" */
-const skify = (cls) => cls.trim().split(/\s+/).filter(Boolean).map((t) => `.${t}`).join("");
 
 /** short aliases to keep wrapper names readable */
 const ALIAS = {
@@ -105,10 +71,17 @@ function mergeClassNames(...parts) {
 
 /** final class to render/export: base + user + auto-wrapper (unique) */
 function getEffectiveClass(node) {
-  const base = (node.baseCn || node.cn || "").trim();   // keep legacy .cn as base if baseCn is missing
+
+  const base = (node.baseCn || node.cn || "").trim();
   const user = (node.cnUser || "").trim();
   const auto = node.type === "layout" ? computeAutoWrapperClass(node) : "";
-  return mergeClassNames(base, user, auto);
+  const variant = (node.variantClass || "").trim();
+  return [
+    base,
+    user,
+    auto,
+    variant
+  ].join(" ").trim().replace(/\s+/g, " ");
 }
 
 /* ───────────────────────── export helpers (CSS) ───────────────────────── */

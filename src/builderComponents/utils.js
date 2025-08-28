@@ -65,3 +65,36 @@ export function mergeClassNames(...pieces) {
     }
     return out.join(" ");
 }
+
+
+export const elementLibrary = [
+    { name: "flag", type: "flag", styles: { "--flagSize": "24px" }, el: "div", cn: "cHFlag", children: null },
+    { name: "icon", type: "icon", styles: { "--icoSize": "24px" }, el: "i", cn: "dg_icon_1", children: null },
+    { name: "text", type: "text", styles: { "--fontSize": "13px" }, el: "span", cn: "dg_text", textContent: "lorem ipsum", children: null },
+    { name: "action", type: "button", el: "button", cn: "dg_btn", children: null, textContent: "btn default" },
+    { name: "input", type: "input", el: "input", cn: "dg_input", children: null },
+    {
+        name: "layout",
+        type: "layout",
+        el: "div",
+        cn: "dg_layout",
+        styles: { display: "flex", gap: "8px", minWidth: "20px", minHeight: "20px" },
+        children: [],
+    },
+    {
+        name: "scroller",
+        type: "layout",
+        el: "div",
+        cn: "dg_scroller",
+        styles: { overflowY: "auto", overflowX: "hidden", height: "100%" },
+        children: [],
+    },
+];
+
+
+export const isRoot = (p) => p.length === 0;
+export const getNodeAtPath = (node, path) =>
+    path.length === 0 ? node : getNodeAtPath(node.children[path[0]], path.slice(1));
+export const isLayoutNode = (n) => n?.type === "layout";
+export const pathEq = (a, b) => a.length === b.length && a.every((v, i) => v === b[i]);
+export const skify = (cls) => cls.trim().split(/\s+/).filter(Boolean).map((t) => `.${t}`).join("");

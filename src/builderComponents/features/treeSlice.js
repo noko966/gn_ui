@@ -65,14 +65,99 @@ const initialTree = {
 };
 
 /* ----------------------- helpers (mutable) -------------------- */
+
+
 const getNodeAtPath = (node, path) => {
     let n = node;
     for (let i = 0; i < path.length; i++) {
-        if (!n.children || !n.children[path[i]]) return null;
+        if (!n?.children || !n.children[path[i]]) return null;
         n = n.children[path[i]];
     }
     return n;
 };
+
+function recalcVariantForNode(state, path) {
+    if (!Array.isArray(path) || path.length === 0) {
+        // No parent → root cannot have a variant
+        const root = getNodeAtPath(state.tree, []);
+        if (root) delete root.variantClass;
+        return;
+    }
+    const node = getNodeAtPath(state.tree, path);
+    const parent = getNodeAtPath(state.tree, path.slice(0, -1));
+    if (!node || !parent) return;
+
+    const base = sameBaseClass(node);
+    if (!base) {
+        delete node.variantClass;
+        return;
+    }
+
+    const group = siblingsWithSameBase(parent, base);
+    if (group.length <= 1) {
+        delete node.variantClass;
+        return;
+    }
+
+    const idxInGroup = group.findIndex((g) => g.n === node);
+    node.variantClass = computeVariantByIndex(idxInGroup, group.length);
+}
+
+const sameBaseClass = (node) => (node?.baseCn || node?.cn || "").trim();
+
+function siblingsWithSameBase(parent, base) {
+    if (!parent?.children) return [];
+    return parent.children
+        .map((n, i) => ({ n, i }))
+        .filter(({ n }) => sameBaseClass(n) === base);
+}
+
+// Compute variant by index inside the group
+function computeVariantByIndex(idx, len) {
+    if (len <= 1) return "";               // no variant if only one
+    if (idx === 0) return "variant_first";
+    if (idx === len - 1) return "variant_last";
+    return `variant_${idx + 1}`;           // middle ones get index
+}
+
+function recalcVariantForGroup(state, path) {
+    if (!Array.isArray(path) || path.length === 0) return; // skip root
+    const parentPath = path.slice(0, -1);
+    const parent = getNodeAtPath(state.tree, parentPath);
+    const node = getNodeAtPath(state.tree, path);
+    if (!parent || !node) return;
+
+    const base = sameBaseClass(node);
+    if (!base) {
+        delete node.variantClass;
+        return;
+    }
+
+    const group = siblingsWithSameBase(parent, base);
+    // if only one in the group → clear all their variantClass
+    if (group.length <= 1) {
+        group.forEach(({ n }) => delete n.variantClass);
+        return;
+    }
+
+    // assign first/last/middle consistently by DOM order
+    group.forEach(({ n, i }, idx) => {
+        const v = computeVariantByIndex(idx, group.length);
+        if (v) n.variantClass = v; else delete n.variantClass;
+    });
+}
+
+const shortSuffix = (key, value) => {
+    if (!value) return "";
+    // pick shortest token from value
+    if (typeof value === "string") {
+        // e.g. var(--accentTxt3) → txt3
+        const match = value.match(/--([a-zA-Z0-9_-]+)\)/);
+        if (match) return "_" + match[1].toLowerCase();
+        return "_" + key.slice(0, 3).toLowerCase();
+    }
+    return "_" + key.slice(0, 3).toLowerCase();
+}
 
 
 const makeLayoutParent = (overrides = {}) => ({
@@ -138,6 +223,30 @@ const treeSlice = createSlice({
                 node.cn = cn;
             }
         },
+        setIconClass(state, action) {
+            const { path, icon } = action.payload; // icon can be "dg_icon_arrow_down" or just "arrow_down"
+            const node = getNodeAtPath(state.tree, path);
+            if (!node || node.type !== "icon") return;
+
+            // const full = icon.startsWith("dg_icon_") ? icon : `dg_icon_${icon}`;
+            const full = icon;
+            node.el = "i";              // make sure it's an <i>
+            node.baseCn = full;         // render/export uses baseCn
+            delete node.variantClass;   // clear any auto-variant if you use those
+        },
+        setFlagClass(state, action) {
+
+            const { path, flag } = action.payload; // icon can be "dg_icon_arrow_down" or just "arrow_down"
+            const node = getNodeAtPath(state.tree, path);
+            console.log(node);
+
+            if (!node || node.type !== "flag") return;
+
+            // const full = icon.startsWith("dg_icon_") ? icon : `dg_icon_${icon}`;
+            node.el = "div";              // make sure it's an <i>
+            node.baseCn = flag;         // render/export uses baseCn
+            delete node.variantClass;   // clear any auto-variant if you use those
+        },
         setSelectedPath(state, action) {
             state.selectedPath = action.payload;
         },
@@ -191,25 +300,16 @@ const treeSlice = createSlice({
         },
         editStyle(state, action) {
             const { key, value } = action.payload;
-            const node = getNodeAtPath(state.tree, state.selectedPath);
+            const path = state.selectedPath;
+            const node = getNodeAtPath(state.tree, path);
             if (!node) return;
 
-            const { uiStates = {} } = state;
-            const enabled = [];
-            if (uiStates.active) enabled.push("state_active");
-            if (uiStates.hover) enabled.push("state_hover");
-            if (uiStates.inactive) enabled.push("state_inactive");
-            if (uiStates.loading) enabled.push("state_loading");
+            node.styles ||= {};
+            if (value === "" || value == null) delete node.styles[key];
+            else node.styles[key] = value;
 
-            if (enabled.length === 0) {
-                node.styles = { ...(node.styles || {}), [key]: value };
-                return;
-            }
-
-            node.stateStyles ||= {};
-            for (const bucket of enabled) {
-                node.stateStyles[bucket] = { ...(node.stateStyles[bucket] || {}), [key]: value };
-            }
+            // Recompute variant after style change
+            recalcVariantForNode(state, path);
         },
 
 
@@ -440,12 +540,21 @@ const treeSlice = createSlice({
 
             node.styles["--sk_txt"] = `var(--${essence}${role})`;
             node.styles.color = "var(--sk_txt)";
+
+            recalcVariantForGroup(state, state.selectedPath);
         },
         // treeSlice.js
         editClass(state, action) {
             const node = getNodeAtPath(state.tree, state.selectedPath);
             if (!node) return;
-            node.cnUser = action.payload || "";
+            console.log(node.cnUser, node.cn);
+
+            // If your app uses user class in this reducer:
+            if ("baseCn" in node) node.cnUser = (action.payload || "").trim();
+            else node.cn = (action.payload || "").trim();
+
+            // user typed a class → drop variant class
+            delete node.variantClass;
         },
 
         editTextContent(state, action) {
@@ -498,6 +607,16 @@ const treeSlice = createSlice({
 
             parent.children = [...layoutKids, ...nonLayoutKids];
         },
+        setUserClass(state, action) {
+            const node = getNodeAtPath(state.tree, state.selectedPath);
+            if (!node) return;
+            // support both shapes
+            if ("baseCn" in node) node.cnUser = (action.payload || "").trim();
+            else node.cn = (action.payload || "").trim();
+
+            // user took control → remove auto variant
+            delete node.variantClass;
+        },
         wrapSelectedInLayout(state, action) {
             // optional customization for the new parent
             const { parentProps } = action.payload || {};
@@ -543,6 +662,7 @@ const treeSlice = createSlice({
 export const {
     setSelectedPath,
     setHoverPath,
+    setUserClass,
     toggleVisualHelpers,
     insertAfter,
     insertAsChild,
@@ -555,6 +675,7 @@ export const {
     setEssenceTxtVariant,
     applyEssenceTextRole,
     editClass,
+    setIconClass,
     editTextContent,
     setGenerated,
     openCodeModal,
@@ -562,6 +683,7 @@ export const {
     setUIState,
     setPosition,
     setClassName,
+    setFlagClass,
     setEqualChildrenCount,
     wrapSelectedInLayout
 } = treeSlice.actions;

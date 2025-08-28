@@ -2,10 +2,9 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editStyle, setLayoutType, setScrollType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount } from "./features/treeSlice";
+import { editStyle, setLayoutType, setScrollType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount, setIconClass, setFlagClass } from "./features/treeSlice";
 import { PositionControl } from "./components/position";
 import { PxDragInput } from "./components/DragInput";
-import { setClassName } from "./features/treeSlice";
 import { FLAGS_DATA, ICONS_DATA } from './features/data'
 
 /* ---- options ---- */
@@ -146,14 +145,12 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
         <div className="dg_bd_layout_edit_tool_wrapper_variants">
           <input
             className="sk_bd_input"
-            value={selectedNode.cnUser || ""}
-            placeholder="(optional override)"
-            onChange={(e) => dispatch(editClass(e.target.value))}
+            value={selectedNode.cnUser ?? selectedNode.cn ?? ""} // shows user class or legacy cn
+            onChange={(e) => dispatch(editClass(e.target.value))} // or setUserClass(...)
+            placeholder="optional class"
           />
         </div>
-        <div style={{ fontSize: 12, opacity: 0.6, marginTop: 2 }}>
-          base: <code>{selectedNode.baseCn}</code>
-        </div>
+
       </div>
 
       {/* ============================ ESSENCE ========================== */}
@@ -225,9 +222,9 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               <select
                 className="sk_bd_input"
-                value={selectedNode.cn || ""}
+                value={selectedNode.baseCn || ""}
                 onChange={(e) =>
-                  dispatch(setClassName({ path: selectedNode, cn: e.target.value }))
+                  dispatch(setFlagClass({ path: selectedPath, flag: e.target.value }))
                 }
               >
                 {
@@ -239,6 +236,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                     )
                   })
                 }
+
               </select>
             </div>
           </div>
@@ -268,20 +266,21 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <div className="dg_bd_layout_edit_tool_wrapper_variants">
               <select
                 className="sk_bd_input"
-
-                value={selectedNode.cn || ""}
+                value={selectedNode.baseCn || ""}   // <- current icon class
                 onChange={(e) =>
-                  dispatch(setClassName({ path: selectedNode, cn: e.target.value }))
+                  dispatch(setIconClass({ path: selectedPath, icon: e.target.value }))
                 }
               >
-                {
-                  ICONS_DATA.map(id => {
-                    const cn = `${id}`;
-                    return (
-                      <option key={id} value={cn}>{id}</option>
-                    )
-                  })
-                }
+                {ICONS_DATA.map(id => {
+                  // const value = id.startsWith("dg_icon_") ? id : `dg_icon_${id}`;
+                  const value = id;
+                  const label = id.replace(/^dg_icon_/, "");
+                  return (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  );
+                })}
               </select>
             </div>
 
