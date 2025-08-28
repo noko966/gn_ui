@@ -863,7 +863,6 @@ html {
 }
 
 .sk_bd_code_scroller {
-  flex-shrink: 0;
   overflow: auto;
   flex-grow: 1;
   min-width: 1px;
@@ -889,7 +888,6 @@ html {
   align-items: stretch;
   column-gap: 8px;
   width: 100%;
-  flex-grow: 1;
   height: calc(100% - 32px);
 }
 
@@ -905,7 +903,8 @@ html {
   position: relative;
   display: flex;
   flex-direction: column;
-
+    flex: 1 1 0;
+    min-width: 1px;
 }
 
 .sk_bd_code_copy_btn {
@@ -1102,6 +1101,7 @@ html {
 
 .dg_bd_layout_edit_tool_wrapper_variants.variant_row {
   flex-wrap: nowrap;
+  overflow-x: auto;
 }
 
 .dg_bd_layout_edit_control {
@@ -1607,7 +1607,55 @@ html {
   width: 4px;
 }
 
-.sk_bd_scroller::-webkit-scrollbar-thumb:hover {
+.dg_scrollbar_y::-webkit-scrollbar-thumb:hover {
   background: var(--sk_dominantBg2);
+  /* Thumb hover color */
+}
+
+
+.dg_scrollbar_y::-webkit-scrollbar {
+  width: 6px;
+  /* Scrollbar width */
+}
+
+.dg_scrollbar_y::-webkit-scrollbar-track {
+  background: var(--bodyBg);
+  /* Track color */
+}
+
+.dg_scrollbar_y::-webkit-scrollbar-thumb {
+  background: var(--eventBg);
+  /* Thumb color */
+  border-radius: 10px;
+  /* Thumb border radius */
+  width: 4px;
+}
+
+.dg_scrollbar_x::-webkit-scrollbar-thumb:hover {
+  background: var(--eventBgHover);
+  /* Thumb hover color */
+}
+
+/* ---- */
+.dg_scrollbar_x::-webkit-scrollbar {
+  width: 6px;
+  /* Scrollbar width */
+}
+
+.dg_scrollbar_x::-webkit-scrollbar-track {
+  background: var(--bodyBg);
+  /* Track color */
+}
+
+.dg_scrollbar_x::-webkit-scrollbar-thumb {
+  background: var(--eventBg);
+  /* Thumb color */
+  border-radius: 10px;
+  /* Thumb border radius */
+  height: 4px;
+}
+
+.dg_scrollbar_x::-webkit-scrollbar-thumb:hover {
+  background: var(--eventBgHover);
   /* Thumb hover color */
 }
