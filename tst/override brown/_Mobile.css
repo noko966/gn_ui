@@ -2,35 +2,57 @@ div.ms_root,
 :host:host,
 .dg_bs_root_holder {
 
+    --success: #00e9ce;
+  --error: #e0373c;
+  --background_1: #0C243E;
+    --background_2: #0A1D31;
+    --background_3: #0A1525;
+    --background_4: #0A1D31;
+    --background_5: #243C51;
+    --background_6: #1c3044;
+    --background_7: #21323B;
+    --background_tab_active: #193c62;
 
-  --error: #ff6060;
-  --background_1: #102a32;
-  --background_2: #12313a;
-  --background_3: #1e5b6c;
-  --background_4: #163E4A;
-  --background_5: #1D5261;
-  --background_6: #18424e;
-  --background_rgba: #102B3344;
-  --background_rgba_skeleton: #1e5b6c80;
-  --background_rgba2: #163E4A77;
-  --background_rgba3: #163E4A88;
+    --background_bets: #0f2036;
+    --background_bets_2: #243C51;
+    --background_bets_3: #29455d;
+    --background_bets_stroke: #15355c;
+    --background_rgba: #0A1D3144;
+    --background_rgba_skeleton: #0A1D3180;
 
-  --text_1: #fff;
-  --text_2: rgba(255, 255, 255, 0.8);
-  --text_3: rgba(255, 255, 255, 0.5);
+    --text_1: #fff;
+    --text_2: rgba(255, 255, 255, 0.8);
+    --text_3: rgba(255, 255, 255, 0.5);
+    
+    --accent_1: #F2A241;
+    --accent_1_txt: #051525;
+    --accent_2: #F2A241;
+    --accent_2_txt: #051525;
+    --accent_3: #61C1B6;
+    --accent_3_txt: #fff;
 
-  --accent_1: #00FF86;
-  --accent_1_txt: #102B33;
-  --accent_2: #00FF86;
-  --accent_2_txt: #102B33;
-  --accent_3: #00FF86;
-  --accent_3_txt: #102B33;
+    --accent_5: #61C1B6;
+    --accent_5_txt: #102B33;
 
-  --accent_5: #009952;
-  --accent_5_txt: #102B33;
+    --accent_4: #F2A241;
+    --accent_4_txt: #102B33;
 
-  --accent_4: #f49622;
-  --accent_4_txt: #102B33;
+    --accent_5_txt: #102B33;
+
+    --oddG: var(--background_5);
+  --oddBg: var(--background_5);
+  --oddBg2: var(--background_5);
+  --oddBg3: var(--background_5);
+  --oddBgHover: var(--background_6);
+  --oddBg2Hover: var(--background_5);
+  --oddBg3Hover: var(--background_5);
+  --oddTxt: var(--text_1);
+  --oddTxt2: var(--text_2);
+  --oddTxt3: var(--text_3);
+  --oddAccent: var(--text_1);
+  --oddAccentTxt: var(--background_5);
+  --oddRadius: 2px;
+  --oddBorder: var(--background_5);
 
   --oddG: var(--background_5);
   --oddBg: var(--background_5);
@@ -46,6 +68,22 @@ div.ms_root,
   --oddAccentTxt: var(--background_5);
   --oddRadius: 2px;
   --oddBorder: var(--background_5);
+  
+
+  --tabActiveG: var(--background_tab_active);
+  --tabActiveBg: var(--background_tab_active);
+  --tabActiveBg2: var(--background_tab_active);
+  --tabActiveBg3: var(--background_tab_active);
+  --tabActiveBgHover: var(--background_tab_active);
+  --tabActiveBg2Hover: var(--background_tab_active);
+  --tabActiveBg3Hover: var(--background_tab_active);
+  --tabActiveTxt: var(--text_1);
+  --tabActiveTxt2: var(--text_2);
+  --tabActiveTxt3: var(--text_3);
+  --tabActiveAccent: var(--accent_1);
+  --tabActiveAccentTxt: var(--accent_1_txt);
+  --tabActiveRadius: 2px;
+  --tabActiveBorder: var(--background_tab_active);
 }
 
 /* .ai_event_scores .ai_event_score:first-child{

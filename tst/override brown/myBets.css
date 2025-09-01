@@ -1,10 +1,10 @@
 .bh_root.bh_root{
-    --lost: #ff615b;
-    --lost2: #ff615b;
-    --pending: #ffbc00;
-    --won: #25c196;
-    --success: #25c196;
-    --won2: #25c19699;
+    --lost: #e0373c;
+    --lost2: #9e272a;
+    --pending: var(--accent_1);
+    --won: #00e9ce;
+    --success: #00e9ce;
+    --won2: #008f7f;
     --shadow_1: 1px 1px 7px rgba(0,0,0,0.25);
 }
 
@@ -23,12 +23,13 @@
 }
 
 .bh_card.bh_card {
-    box-shadow: inset 0 0 0 1px var(--background_3);
+    box-shadow: inset 0 0 0 1px var(--background_bets_stroke);
     border-top: none !important;
   margin-bottom: 0;
+  --eventBg: var(--background_bets);
 }
 .bh_card.bh_card.active {
-  --border_1: #24ff8a;
+  --border_1: var(--success);
   box-shadow: 0 0 0 2px var(--border_1);
 }
 
@@ -172,14 +173,14 @@
 
 .bh_card_cashout_btn_wrap--grid,
 .bh_card_cashout_btn_wrap--list {
-  --buttonSecondaryBg: var(--accent_2);
-  --buttonSecondaryBg2Hover: var(--accent_2);
-  --buttonSecondaryTxt: var(--accent_2_txt);
-  --cashoutMainBtnHighlight: var(--accent_2_txt);
+  --buttonSecondaryBg: var(--background_bets_2);
+  --buttonSecondaryBg2Hover: var(--background_bets_2);
+  --buttonSecondaryTxt: var(--text_1);
+  --cashoutMainBtnHighlight: var(--text_1);
   --eventAccent: var(--text_1);
   --accentBg: var(--accent_2);
-  --accentTxt: var(--accent_2_txt);
-  --buttonAccent: var(--accent_2_txt);
+  --accentTxt: var(--text_1);
+  --buttonAccent: var(--text_1);
 }
 
 .bh_card_cashout_btn_wrap--list .bh_list_cashout_btn:hover {
@@ -190,20 +191,20 @@
 }
 
 .bh_card_cashout_btn--highlight {
-  --cashoutMainBtnHighlight: var(--accent_2_txt);
+  --cashoutMainBtnHighlight: var(--text_1);
 }
 
 .bh_card_cashout_btn_wrap--grid.bh_card_cashout_btn_wrap--toggle,
 .bh_card_cashout_btn_wrap--list.bh_card_cashout_btn_wrap--toggle {
-  --accent_1: #00d974;
-  --accentBg: var(--accent_1);
-  --buttonSecondaryBg: var(--accent_1);
-  --buttonSecondaryBgHover: var(--accent_1);
-  --buttonSecondaryBg2Hover: var(--accent_1);
-  --accentBgHover: var(--accent_1);
-  --buttonSecondaryTxt: var(--accent_1_txt);
-  --accentTxt: var(--accent_1_txt);
-  --cashoutMainBtnHighlight: var(--accent_1_txt);
+  --accent_1: var(--background_bets_3);
+  --accentBg: var(--background_bets_3);
+  --buttonSecondaryBg: var(--background_bets_3);
+  --buttonSecondaryBgHover: var(--background_bets_3);
+  --buttonSecondaryBg2Hover: var(--background_bets_3);
+  --accentBgHover: var(--background_bets_3);
+  --buttonSecondaryTxt: var(--text_1);
+  --accentTxt: var(--text_1);
+  --cashoutMainBtnHighlight: var(--text_1);
 }
 
 .bh_card_cashout_btn_wrap--toggle.bh_card_cashout_btn_wrap--list .bh_list_cashout_btn:hover {
@@ -508,4 +509,9 @@
     transform: translateX(-50%);
     border: 1px solid var(--background_3);
     background: var(--background_4);
+}
+
+.dg_bs_stake_header a{
+  text-decoration: none;
+
 }

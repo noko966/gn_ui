@@ -4,7 +4,8 @@
 
 .lv_main_container.lv_main_container.lv_main_container,
 :host:host:host {
-  font-family: "Roboto", sans-serif;
+  /* font-family: "Roboto", sans-serif; */
+  font-family: "Arial";
 }
 
 .lv_info--container.lv_info--container {
@@ -207,20 +208,20 @@
   --tabRadius: 2px;
   --tabBorder: var(--background_3);
 
-  --tabActiveG: var(--background_4);
-  --tabActiveBg: var(--background_4);
-  --tabActiveBg2: var(--background_4);
-  --tabActiveBg3: var(--background_4);
-  --tabActiveBgHover: var(--background_4);
-  --tabActiveBg2Hover: var(--background_4);
-  --tabActiveBg3Hover: var(--background_4);
+  --tabActiveG: var(--background_5);
+  --tabActiveBg: var(--background_5);
+  --tabActiveBg2: var(--background_5);
+  --tabActiveBg3: var(--background_5);
+  --tabActiveBgHover: var(--background_5);
+  --tabActiveBg2Hover: var(--background_5);
+  --tabActiveBg3Hover: var(--background_5);
   --tabActiveTxt: var(--text_1);
   --tabActiveTxt2: var(--text_2);
   --tabActiveTxt3: var(--text_3);
   --tabActiveAccent: var(--accent_1);
   --tabActiveAccentTxt: var(--accent_1_txt);
   --tabActiveRadius: 2px;
-  --tabActiveBorder: var(--background_4);
+  --tabActiveBorder: var(--background_5);
 
   --menu_1G: var(--background_1);
   --menu_1Bg: var(--background_1);

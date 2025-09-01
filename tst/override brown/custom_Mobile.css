@@ -3,8 +3,10 @@
 @import url("./myBets.css");
 
 .lv_main_container.lv_main_container.lv_main_container,
-:host:host:host {
-  font-family: "Roboto", sans-serif;
+:host:host:host,
+#sport-mobile {
+  /* font-family: "Roboto", sans-serif; */
+  font-family: "Arial";
 }
 
 .dg_mobile_x_slider_wrapper_holder {
@@ -965,7 +967,7 @@ div.ms_root,
 }
 
 #dm-main-container#dm-main-container .dm__tabs_container .dm__tabs__item.dm__tabs__item.dm__tabs__item-active{
-  background: var(--background_4);
+  background: var(--background_tab_active);
   color: var(--text_1);
 }
 
@@ -976,7 +978,7 @@ div.ms_root,
 }
 
 #dm-main-container#dm-main-container .dm--tabs-event .dm__tabs__item.dm__tabs__item.dm__tabs__item-active {
-  background: var(--background_4);
+  background: var(--background_tab_active);
   color: var(--text_1);
 }
 
@@ -1481,14 +1483,14 @@ div.ms_root,
 #dm-main-container.dg_sport_images [class*="imgSpr"]::after,
 #dm-main-container.dg_sport_images[class^="imgSpr"]::after,
 #dm-main-container.dg_sport_images[class*="imgSpr"]::after {
-  display: inline-flex;
+  display: none;
 }
 
 #dm-main-container.dg_sport_images [class^="imgSpr"]::before,
 #dm-main-container.dg_sport_images [class*="imgSpr"]::before,
 #dm-main-container.dg_sport_images[class^="imgSpr"]::before,
 #dm-main-container.dg_sport_images[class*="imgSpr"]::before {
-  display: none;
+  display: inline-flex;
   font-weight: 100;
 }
 
@@ -1497,19 +1499,9 @@ div.ms_root,
   display: inline-flex;
 }
 
-:is(#dm-main-container) .dgm_slider_item [class*="imgSpr"]::after,
-:is(#dm-main-container) .ai_filterTab [class*="imgSpr"]::after {
-  display: none;
-}
-
 :is(#dm-main-container) .dgm_slider_item.dgm_slider_item_active [class*="imgSpr"]::before,
 :is(#dm-main-container) .ai_filterTab.ai_filterTab-active [class*="imgSpr"]::before {
-  display: none;
-}
-
-:is(#dm-main-container) .dgm_slider_item.dgm_slider_item_active [class*="imgSpr"]::after,
-:is(#dm-main-container) .ai_filterTab.ai_filterTab-active [class*="imgSpr"]::after {
-  display: inline-flex;
+  color: var(--accent_1);
 }
 
 .dgm_slider_root.dg_mobile_x_slider_wrapper {
@@ -1702,7 +1694,7 @@ div.ms_root,
 }
 
 .ai_event_scores.ai_event_scores{
-  --eventAccent: var(--accent_2);
+  --eventAccent: var(--success);
 }
 .dm__image_header__tooltip--comment.dm__image_header__tooltip--comment{
   width: 100%;

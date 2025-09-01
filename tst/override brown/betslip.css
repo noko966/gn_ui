@@ -16,7 +16,9 @@
 }
 
 .dg_bs_root_holder {
-  --bs_red: #ff1717;
+    --bs_orange: #f88543;
+    --bs_green: #00e9ce;
+  --bs_red: #e0373c;
   --bodyBg: var(--background_1);
   --bodyBg2: var(--background_1);
   --bodyBg3: var(--background_1);
@@ -442,9 +444,7 @@
 
 }
 
-.dg_bs_betamount_fav_wrap {
-  --eventBg3: var(--background_3);
-}
+
 
 .dg_bs_header_tab--active.dg_bs_header_tab--active {
   border-bottom: unset;
@@ -675,9 +675,6 @@
   opacity: 0.8;
 }
 
-.dg_bs_betplaced_svg {
-  --bs_green: var(--accent_1)
-}
 
 .dg_bs_betamount_fav_wrap_in {
   opacity: 1;
@@ -893,7 +890,8 @@
 }
 
 .dg_bs_wrapper{
- --bodyBg: #091D32;
+ --bodyBg: var(--background_1);
+ --eventBorder: var(--background_3);
 }
 
 .dg_bs_sharebet_events_wrapper .dg_bs_stake_selection_wrap.dg_bs_stake_col {
@@ -902,4 +900,21 @@
 
 .dg_bs_sharebet_events_wrapper .dg_bs_stake_selection{
     line-height: 14px;
+}
+
+.dg_bs_stake {
+--eventBgHover: var(--background_3);
+}
+
+.dg_bs_betamount_fav_wrap {
+  --eventBg3: var(--text_3);
+}
+
+.dg_bs_root--onboarding--header:before, .dg_bs_root--onboarding--settings .dg_bs_page_wrap:before, .dg_bs_root--onboarding.dg_bs_root--ios .dg_bs_header:before {
+  background: var(--background_rgba) !important;
+}
+
+.dg_bs_stake_selection_arg--change.dg_bs_stake_selection_arg--change {
+    background-color: var(--bs_green);
+    color: var(--accent_1_txt);
 }

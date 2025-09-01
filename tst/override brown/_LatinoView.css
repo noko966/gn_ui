@@ -10,6 +10,10 @@
     --background_5: #243C51;
     --background_6: #1c3044;
     --background_7: #21323B;
+    --background_bets: #0f2036;
+    --background_bets_2: #243C51;
+    --background_bets_3: #29455d;
+    --background_bets_stroke: #15355c;
     --background_rgba: #0A1D3144;
     --background_rgba_skeleton: #0A1D3180;
 
@@ -61,6 +65,22 @@
   --oddAccentTxt: var(--background_5);
   --oddRadius: 2px;
   --oddBorder: var(--background_5);
+  
+
+  --tabActiveG: var(--background_1);
+  --tabActiveBg: var(--background_1);
+  --tabActiveBg2: var(--background_1);
+  --tabActiveBg3: var(--background_1);
+  --tabActiveBgHover: var(--background_1);
+  --tabActiveBg2Hover: var(--background_1);
+  --tabActiveBg3Hover: var(--background_1);
+  --tabActiveTxt: var(--text_1);
+  --tabActiveTxt2: var(--text_2);
+  --tabActiveTxt3: var(--text_3);
+  --tabActiveAccent: var(--accent_1);
+  --tabActiveAccentTxt: var(--accent_1_txt);
+  --tabActiveRadius: 2px;
+  --tabActiveBorder: var(--background_1);
   }
   
 /* 
