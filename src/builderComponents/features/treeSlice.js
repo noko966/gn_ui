@@ -463,6 +463,46 @@ const treeSlice = createSlice({
             node.scrollType = kind;
         },
 
+        setTruncateType(state, action) {
+            const node = getNodeAtPath(state.tree, state.selectedPath);
+            if (!node) return;
+
+            if (node.type !== "text") return;
+
+            const payload = typeof action.payload === "string"
+                ? { type: action.payload }
+                : (action.payload || {});
+
+            const currentClasses = (node.cnUser || node.cn || "").split(/\s+/).filter(Boolean);
+
+            // remove scroll classes
+            const filtered = currentClasses.filter(c => c !== "dg_truncate_row");
+
+            const kind = payload.type || "";
+
+            node.styles = { ...(node.styles || {}) };
+
+            switch (kind) {
+                case "row":
+                    node.cnUser = [...filtered, "dg_truncate_row"].join(" ");
+                    node.styles.overflow = "hidden";
+                    node.styles.textOverflow = "ellipsis";
+                    node.styles.whiteSpace = "nowrap";
+                    node.styles.width = "100%";
+                    break;
+
+                default:
+                    node.cnUser = filtered.join(" ");
+                    delete node.styles.overflow;
+                    delete node.styles.textOverflow;
+                    delete node.styles.whiteSpace;
+                    delete node.styles.width;
+                    break;
+            }
+
+            node.truncationType = kind;
+        },
+
 
         setEssence(state, action) {
             const newEss = action.payload || undefined;
@@ -671,6 +711,7 @@ export const {
     editStyle,
     setLayoutType,
     setScrollType,
+    setTruncateType,
     setEssence,
     setEssenceTxtVariant,
     applyEssenceTextRole,

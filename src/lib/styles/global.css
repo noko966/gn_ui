@@ -1614,7 +1614,7 @@ html {
 
 
 .dg_scrollbar_y::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
   /* Scrollbar width */
 }
 
@@ -1638,7 +1638,7 @@ html {
 
 /* ---- */
 .dg_scrollbar_x::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
   /* Scrollbar width */
 }
 

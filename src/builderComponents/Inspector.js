@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editStyle, setLayoutType, setScrollType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount, setIconClass, setFlagClass } from "./features/treeSlice";
+import { editStyle, setLayoutType, setScrollType, setTruncateType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount, setIconClass, setFlagClass } from "./features/treeSlice";
 import { PositionControl } from "./components/position";
 import { PxDragInput } from "./components/DragInput";
 import { FLAGS_DATA, ICONS_DATA } from './features/data'
@@ -89,6 +89,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const selectedEssence = selectedNode?.essence || "";
   const selectedLayoutType = selectedNode?.layoutType || "hug";
   const selectedScrollType = selectedNode?.scrollType || "";
+  const selectedTruncationType = selectedNode?.truncationType || "";
 
 
 
@@ -354,6 +355,42 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
 
 
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="sk_bd_input_section_lbl">
+              truncate
+            </div>
+
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name="truncation_mode"
+                  checked={selectedTruncationType === "row"}
+                  onChange={() => dispatch(setTruncateType("row"))}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">{"row"}</span>
+              </label>
+
+
+              <label className="sk_bd_input_radio">
+                <input
+                  type="radio"
+                  name="truncation_mode"
+                  checked={selectedScrollType === ""}
+                  onChange={() => dispatch(setTruncateType(""))}
+                />
+                <i className="sk_bd_input_radio_imitator"></i>
+                <span className="sk_bd_input_radio_lbl">{"none"}</span>
+              </label>
+
+
+            </div>
+          </div>
+
+
+
         </>
       )}
 
@@ -397,6 +434,9 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 <span className="sk_bd_input_radio_lbl">fixed</span>
               </label>
 
+
+            </div>
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
               <div className="dg_bd_layout_edit_control">
                 <PxDragInput
                   value={parseInt(width) || 0}
