@@ -1,0 +1,511 @@
+.bh_root.bh_root{
+    --lost: #ff615b;
+    --lost2: #ff615b;
+    --pending: #ffbc00;
+    --won: #25c196;
+    --success: #25c196;
+    --won2: #25c19699;
+    --shadow_1: 1px 1px 7px rgba(0,0,0,0.25);
+}
+
+.bh_root.middle .bh_main_content.bh_main_content{
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+.bh_root.bh_root {
+  --return: var(--background_3);
+}
+
+.bh_root .bh_grid_view_wrapper{
+  column-gap: 8px;
+  row-gap: 8px;
+}
+
+.bh_card.bh_card {
+    box-shadow: inset 0 0 0 1px var(--background_3);
+    border-top: none !important;
+  margin-bottom: 0;
+}
+.bh_card.bh_card.active {
+  --border_1: #24ff8a;
+  box-shadow: 0 0 0 2px var(--border_1);
+}
+
+.bh_root.mobile .bh_card.bh_card.active {
+  box-shadow: inset 0 0 0 1px var(--background_3);
+}
+
+.bh_root.middle .bh_card.active,
+.bh_root.middle .bh_card:hover,
+.bh_root.middle .bh_list_view_item.active {
+  --eventBg2: var(--background_4);
+}
+
+.bh_root.middle .bh_aside_content .bh_card:hover {
+  --eventBg2: var(--background_4);
+}
+
+.bh_aside_content .bh_card_footer{
+  border-top: 0 !important;
+}
+
+.bh_card.OR,
+.bh_list_view_item.OR,
+.bh_card_header_info_dot_status-OR+.bh_card_header_info_status {
+  --status_color: var(--pending);
+  --status_text: var(--pendingTxt);
+}
+
+.bh_card.GR,
+.bh_list_view_item.GR,
+.bh_card_header_info_dot_status-GR+.bh_card_header_info_status {
+  --status_color: var(--won);
+  --status_text: var(--wonTxt);
+}
+
+.bh_card.RD,
+.bh_list_view_item.RD,
+.bh_card_header_info_dot_status-RD+.bh_card_header_info_status {
+  --status_color: var(--lost);
+  --status_text: var(--lostTxt);
+}
+
+.bh_card.GY,
+.bh_list_view_item.GY,
+.bh_card_header_info_dot_status-GY+.bh_card_header_info_status {
+  --status_color: var(--return);
+  --status_text: #fff;
+}
+
+.bh_list_view_item {
+  box-shadow: 0 0 0 1px var(--background_3);
+}
+.bh_list_view_item.active {
+  box-shadow: 0 0 0 1px var(--accent_1);
+}
+
+.bh_root .sport_front_icon-cash-out.sport_front_icon-cash-out.sport_front_icon-cash-out{
+  width: auto;
+  height: auto;
+}
+
+.bh_root .sport_front_icon-bonus_modern.sport_front_icon-bonus_modern.sport_front_icon-bonus_modern:before {
+  content: "\E1D5";
+  color: var(--accent_1);
+}
+
+.bh_card.bh_card .bh_card_winning_new_wrap_amount {
+  font-size: 16px;
+  --eventTxt3: var(--text_1);
+  line-height: 16px;
+}
+
+.bh_card.bh_card .bh_card_winning_new_wrap--lost .bh_card_winning_new_wrap_amount {
+  font-weight: normal;
+}
+
+.bh_wrapper .bh_tab {
+  --bodyBg: var(--background_2);
+  --tabTxt: var(--text_2);
+
+}
+
+.bh_wrapper .bh_tab.active {
+  --tabBg: var(--accent_1);
+  --tabTxt: var(--accent_1_txt);
+}
+
+
+.bh_wrapper .bh_aside_end .bh_tab {
+  --bodyBg: var(--background_1);
+  --tabTxt: var(--text_2);
+
+}
+
+.bh_wrapper .bh_aside_end .bh_tab.active {
+  --tabBg: var(--background_4);
+  --tabTxt: var(--text_1);
+}
+
+.bh_tab_wrapper_scroll.bh_tab_wrapper_scroll .bh_tab:not(:last-child) {
+  margin-inline-end: 8px;
+}
+
+.bh_tab_wrapper.bh_tab_wrapper .tg_btn_filters.tg_btn_filters,
+.bh_tab_wrapper.bh_tab_wrapper .tg_btn_filters.tg_btn_filters.tg_btn_filters_filtered {
+  --bodyBg: var(--background_4);
+  --bodyTxt: var(--text_2);
+  --tabBg: var(--background_4);
+}
+
+.bh_view_switch_wrapper .bh_tab.bh_tab {
+  background-color: var(--background_2);
+  --tabBg: var(--background_4);
+  --tabTxt: var(--text_2);
+}
+
+.bh_view_switch_wrapper .bh_tab.bh_tab.active {
+  --tabBg: var(--background_4);
+  background-color: var(--background_4);
+  --tabTxt: var(--text_1);
+}
+
+.bh_card_winning_new_wrap--cashedOut,
+.bh_card_winning_new_wrap--lost {
+  --eventBg2Hover: var(--text_3);
+}
+
+.bh_aside_end {
+  --bodyBg: var(--background_1);
+}
+
+.bh_aside_end .dg_mobile_header{
+  --bodyBgHover: var(--background_4);
+}
+
+/*cashout states*/
+.bh_card_footer_sum_amount_details,
+.bh_card_footer_sum_amount_num_win {
+  --accentBg: var(--text_1);
+}
+
+.bh_card_cashout_btn_wrap--grid,
+.bh_card_cashout_btn_wrap--list {
+  --buttonSecondaryBg: var(--accent_2);
+  --buttonSecondaryBg2Hover: var(--accent_2);
+  --buttonSecondaryTxt: var(--accent_2_txt);
+  --cashoutMainBtnHighlight: var(--accent_2_txt);
+  --eventAccent: var(--text_1);
+  --accentBg: var(--accent_2);
+  --accentTxt: var(--accent_2_txt);
+  --buttonAccent: var(--accent_2_txt);
+}
+
+.bh_card_cashout_btn_wrap--list .bh_list_cashout_btn:hover {
+  --buttonAccent: var(--accent_2);
+  --buttonAccentTxt: var(--accent_2_txt);
+  --buttonSecondaryBgHover: var(--accent_2);
+  --buttonSecondaryTxt: var(--accent_2_txt);
+}
+
+.bh_card_cashout_btn--highlight {
+  --cashoutMainBtnHighlight: var(--accent_2_txt);
+}
+
+.bh_card_cashout_btn_wrap--grid.bh_card_cashout_btn_wrap--toggle,
+.bh_card_cashout_btn_wrap--list.bh_card_cashout_btn_wrap--toggle {
+  --accent_1: #00d974;
+  --accentBg: var(--accent_1);
+  --buttonSecondaryBg: var(--accent_1);
+  --buttonSecondaryBgHover: var(--accent_1);
+  --buttonSecondaryBg2Hover: var(--accent_1);
+  --accentBgHover: var(--accent_1);
+  --buttonSecondaryTxt: var(--accent_1_txt);
+  --accentTxt: var(--accent_1_txt);
+  --cashoutMainBtnHighlight: var(--accent_1_txt);
+}
+
+.bh_card_cashout_btn_wrap--toggle.bh_card_cashout_btn_wrap--list .bh_list_cashout_btn:hover {
+  --buttonAccent: var(--accent_1);
+  --buttonAccentTxt: var(--accent_1_txt);
+  --buttonSecondaryBgHover: var(--accent_1);
+  --buttonSecondaryTxt: var(--accent_1_txt);
+}
+
+.bh_card_cashout_btn_wrap--list.bh_card_cashout_btn_wrap--toggle .bh_list_cashout_btn--main {
+  --buttonAccent: var(--accent_1);
+  --buttonAccentHover: var(--accent_1_txt);
+}
+
+.bh_card_cashout_btn_wrap--grid.bh_card_cashout_btn_wrap--loading,
+.bh_card_cashout_btn_wrap--grid.bh_card_cashout_btn_wrap--toggle.bh_card_cashout_btn_wrap--loading,
+.bh_card_cashout_btn_wrap--list.bh_card_cashout_btn_wrap--loading,
+.bh_card_cashout_btn_wrap--list.bh_card_cashout_btn_wrap--toggle.bh_card_cashout_btn_wrap--loading {
+  --buttonSecondaryBg: var(--background_3);
+  --buttonSecondaryBg2Hover: var(--background_3);
+  --accentBgHover: var(--background_3);
+  --buttonSecondaryTxt: var(--text_1);
+  --buttonAccentTxt: var(--text_1);
+  --accentBg: var(--background_3);
+  --accentBgHover: var(--background_3);
+  --accentTxt: var(--text_1);
+  --cashoutMainBtnHighlight: var(--text_1);
+
+
+}
+
+.bh_card_cashout_btn_wrap--grid.bh_card_cashout_btn_wrap--loading .bh_card_cashout_btn--main,
+.bh_card_cashout_btn_wrap--list.bh_card_cashout_btn_wrap--loading .bh_list_cashout_btn--main {
+  box-shadow: inset 0 0 0 1px #2a415b;
+  --buttonAccent: #2a415b;
+  --buttonAccentHover: var(--text_1);
+}
+
+.bh_card_cashout_btn_wrap--list.bh_card_cashout_btn_wrap--loading .bh_list_cashout_btn--main {
+  border-radius: inherit;
+}
+
+.bh_card_winning_new_wrap--cashedOut.bh_card_winning_new_wrap--cashedOut {
+    justify-content: space-between;
+}
+
+.bh_card_winning_new_wrap--cashedOut.bh_card_winning_new_wrap--cashedOut .dg_icon {
+    display: none;
+}
+
+.bh_card_winning_new_wrap--cashedOut .bh_card_winning_new_wrap_title.bh_card_winning_new_wrap_title{
+    color: var(--text_2);
+    font-weight: 400;
+}
+
+.bh_card_winning_new_wrap.bh_card_winning_new_wrap--lost,
+.bh_card_winning_new_wrap.bh_card_winning_new_wrap--win {
+  border-color: var(--background_3);
+}
+
+/*cashout*/
+.bh_modal_btn_cashout{
+  --buttonAccent: var(--accent_2);
+  --buttonAccentTxt: var(--accent_2_txt);
+  --buttonBg: var(--accent_2);
+  --buttonTxt: var(--accent_2_txt);
+  --buttonTxt2: var(--accent_2_txt);
+}
+
+.bh_modal_btn_cashout:hover{
+  --accentBgHover: var(--accent_2);
+  --buttonAccentTxt: var(--accent_2_txt);
+  --buttonBgHover: var(--accent_2);
+  --buttonTxt: var(--accent_2_txt);
+  --buttonTxt2: var(--accent_2_txt);
+}
+
+.bh_modal_input_holder.bh_modal_input_holder{
+  --modalBgHover: var(--background_1);
+}
+
+.bh_modal_cashout_wrapper .bh_modal_input.bh_modal_input{
+  --inputBg: var(--background_4);
+  border-color: var(--text_3);
+}
+
+.bh_modal_toggle.bh_modal_toggle{
+  --bodyBg: var(--background_1);
+  --bh_toggle_inner_bg: var(--background_3);
+}
+
+.bh_modal_btn_cashout_remove.bh_modal_btn_cashout_remove{
+  background: var(--background_4);
+  border-color: var(--text_3);
+}
+
+.bh_modal_btn_cashout_remove.bh_modal_btn_cashout_remove:hover{
+  background: var(--background_4);
+  border-color: var(--text_3);
+}
+
+
+.bh_modal_cashout_tab.bh_modal_cashout_tab{
+  --tabActiveBg: var(--background_3);
+  --tabTxt: var(--text_2);
+}
+
+.bh_modal_cashout_tab.bh_modal_cashout_tab:hover{
+  --tabActiveBg: var(--background_3);
+  --tabTxt: var(--text_1);
+}
+
+.bh_modal_cashout_tab.bh_modal_cashout_tab.bh_modal_cashout_tab--active{
+  --tabActiveBg: var(--background_4);
+  --tabTxt: var(--text_1);
+}
+
+
+.bh_card_cashout_btn_indicator{
+--accent_3: #25c196;
+--eventAccent: var(--accent_3);
+}
+
+.bh_aside_content .bh_details_status_row{
+  row-gap: 4px;
+}
+
+.bh_details_status.bh_details_status{
+  font-size: 12px;
+  line-height: normal;
+  margin-bottom: 0;
+      min-height: auto;
+}
+
+.bh_collapse{
+  --filterBg: var(--background_3);
+  --subHeaderBg: var(--background_3);
+}
+
+
+.bh_total_cashout_wrapper {
+  --subHeaderBg: var(--background_3);
+}
+
+.bh_total_cashout_item:not(:first-child) {
+  --subHeaderBg: var(--background_3);
+}
+
+.bh_root.mobile {
+  background: var(--background_2);
+}
+
+/*calendar*/
+.bh_datepicker_wrapper .react-datepicker.react-datepicker {
+  background-color: inherit;
+}
+
+.bh_datepicker_wrapper.bh_datepicker_wrapper .react-datepicker__day--range-end:before,
+.bh_datepicker_wrapper.bh_datepicker_wrapper .react-datepicker__day--selected:before {
+  background-color: var(--accent_1);
+}
+
+.bh_reset.bh_reset {
+  color: var(--accent_1);
+}
+
+.bh_calendar_button.bh_calendar_button>button {
+  background-color: var(--accent_2);
+}
+
+.bh_datepicker_wrapper>.dg_bh_range_wrapper {
+  --accentBg: var(--accent_1);
+}
+
+.bh_tab_floating_wrapper{
+  box-shadow: none !important;
+}
+
+.agreement_block_cashout_warning svg > path{
+  fill: var(--accent_2);
+}
+
+.dg_range_bullet_info:before{
+  --tooltipBg3: var(--text_3);
+}
+
+.bh_root.mobile .bh_tab_wrapper_scroll .bh_tab:not(:last-child) {
+  margin-inline-end: 8px;
+}
+
+.bh_root.mobile .bh_tab_wrapper .tg_btn_filters {
+  border: 0;
+}
+.bh_root.mobile .bh_wrapper .tg_btn_filters.tg_btn_filters_filtered>i:after {
+  background-color: var(--accent_1);
+}
+
+.bh_root.mobile .bh_aside_content .bh_card_footer {
+  --eventBg2: var(--background_1);
+}
+
+.bh_root.mobile .bh_details_status {
+  --bodyBg3: var(--text_3);
+}
+
+.bh_root.mobile .dg_offers_badge.bh_details_status {
+  --eventBg3: var(--text_3);
+}
+.bh_root.mobile .bh_aside_content.bh_aside_content>.bh_collapse_wrapper>.bh_collapse.bh_collapse {
+  background-color: var(--accent_1);
+  color: var(--accent_1_txt);
+}
+
+.bh_root.mobile .bh_aside_content.bh_aside_content>.bh_collapse_wrapper>.bh_total_cashout_wrapper {
+  border-color: var(--accent_1);
+}
+
+.bh_root.mobile .bh_wrapper .bh_tab.active,
+.bh_root.mobile .bh_wrapper .tg_btn_filters.tg_btn_filters_active {
+  --tabBg: var(--accent_1);
+  --tabTxt: var(--accent_1_txt);
+}
+
+.bh_modal_datepicker{
+  --tooltipBg: var(--background_4);
+}
+
+.bh_modal_datepicker_range_section{
+  --tooltipBgHover: var(--background_3);
+}
+
+.bh_modal_datepicker_range_section_wrapper>.bh_tab{
+  --tooltipBgHover: var(--background_3);
+}
+
+.bh_dropdown_content{
+  --tooltipBg: var(--background_4);
+ box-shadow: var(--shadow_1);
+}
+
+.bh_modal_datepicker{
+ box-shadow: var(--shadow_1);
+}
+
+.bh_live:before{
+  --accentBg: var(--accent_2);
+}
+
+@keyframes liveDot {
+    0% {
+        opacity: 1
+    }
+
+    50% {
+        opacity: 0
+    }
+
+    to {
+        opacity: 1
+    }
+}
+
+.bh_datepicker_search_wrapper .bh_modal_input{
+  --tooltipBgHover: var(--background_4);
+  --tooltipBg2: var(--text_3);
+}
+
+.dg_bh_double{
+  padding: 0 !important;
+  cursor: pointer;
+  border: 0 !important;
+}
+
+.bh_root .sport_front_icon-cash-out.sport_front_icon-cash-out.sport_front_icon-cash-out:before{
+    --icoSize: 24px;
+    content: "\E198";
+    color: var(--accent_1);
+    width: var(--icoSize);
+    height: var(--icoSize);
+    line-height: var(--icoSize);
+    font-size: 42px;
+}
+
+.dg_bh_root.dg_bh_root_double {
+  --tooltipBg: var(--background_4);
+  top: 16px;
+}
+
+.dg_bh_root.dg_bh_root_double:after{
+    right: 32px;
+    top: 10px;
+    border-width: 7px !important;
+}
+
+.bh_card_footer .bh_card_footer_sum_amount .bh_details_amount.bh_details_amount{
+  color: var(--text_2);
+}
+
+.bh_aside_content .bh_details_item_content .tooltip_tip.offers_tooltip {
+    left: 50%;
+    top: auto;
+    transform: translateX(-50%);
+    border: 1px solid var(--background_3);
+    background: var(--background_4);
+}

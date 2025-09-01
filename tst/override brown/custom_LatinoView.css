@@ -1,0 +1,1811 @@
+@import url("../../../assets/background-sport-x/sportsBgImages.css");
+@import url("./betslip.css");
+@import url("./myBets.css");
+
+.lv_main_container.lv_main_container.lv_main_container,
+:host:host:host {
+  font-family: "Roboto", sans-serif;
+}
+
+.lv_info--container.lv_info--container {
+  align-items: center;
+}
+
+#sport-latino-view,
+:host:host {
+  --bodyBg: var(--background_1);
+  --bodyBg2: var(--background_1);
+  --bodyBg3: var(--background_1);
+  --bodyBgHover: var(--background_1);
+  --bodyBg2Hover: var(--background_1);
+  --bodyBg3Hover: var(--background_1);
+  --bodyRGBA: var(--background_1);
+  --bodyRGBA2: var(--background_1);
+  --bodyRGBA3: var(--background_1);
+  --bodyTxt: var(--text_1);
+  --bodyTxt2: var(--text_2);
+  --bodyTxt3: var(--text_3);
+  --bodyAccent: var(--accent_1);
+  --bodyAccentTxt: var(--accent_1_txt);
+  --bodyBorder: var(--background_1);
+  --bodyRadius: 2px;
+
+  --dominantG: var(--background_1);
+  --dominantRGBA: var(--background_1);
+  --dominantRGBA2: var(--background_1);
+  --dominantRGBA3: var(--background_1);
+  --dominantBg: var(--background_1);
+  --dominantBg2: var(--background_1);
+  --dominantBg3: var(--background_1);
+  --dominantBgHover: var(--background_1);
+  --dominantBg2Hover: var(--background_1);
+  --dominantBg3Hover: var(--background_1);
+  --dominantTxt: var(--text_1);
+  --dominantTxt2: var(--text_2);
+  --dominantTxt3: var(--text_3);
+  --dominantBorder: var(--background_1);
+  --dominantRadius: 2px;
+
+  --accentBg: var(--accent_1);
+  --accentBg2: var(--accent_1);
+  --accentBg3: var(--accent_1);
+  --accentBgHover: var(--accent_1);
+  --accentBg2Hover: var(--accent_1);
+  --accentBg3Hover: var(--accent_1);
+  --accentG: var(--accent_1);
+  --accentTxt: var(--accent_1_txt);
+  --accentTxt2: var(--accent_1_txt);
+  --accentTxt3: var(--accent_1_txt);
+
+  --buttonG: var(--accent_2);
+  --buttonBg: var(--accent_2);
+  --buttonBg2: var(--accent_2);
+  --buttonBg3: var(--accent_2);
+  --buttonBgHover: var(--accent_2);
+  --buttonBg2Hover: var(--accent_2);
+  --buttonBg3Hover: var(--accent_2);
+  --buttonTxt: var(--accent_2_txt);
+  --buttonTxt2: var(--accent_2_txt);
+  --buttonTxt3: var(--accent_2_txt);
+  --buttonAccent: var(--accent_2);
+  --buttonAccentTxt: var(--accent_2_txt);
+  --buttonBorder: var(--accent_2);
+  --buttonRadius: 2px;
+
+  --buttonSecondaryG: var(--background_3);
+  --buttonSecondaryBg: var(--background_3);
+  --buttonSecondaryBg2: var(--background_3);
+  --buttonSecondaryBg3: var(--background_3);
+  --buttonSecondaryBgHover: var(--background_3);
+  --buttonSecondaryBg2Hover: var(--background_3);
+  --buttonSecondaryBg3Hover: var(--background_3);
+  --buttonSecondaryTxt: var(--text_1);
+  --buttonSecondaryTxt2: var(--text_2);
+  --buttonSecondaryTxt3: var(--text_3);
+  --buttonSecondaryAccent: var(--accent_1);
+  --buttonSecondaryAccentTxt: var(--accent_1_txt);
+  --buttonSecondaryBorder: var(--background_3);
+  --buttonSecondaryRadius: 2px;
+
+  --inputG: var(--background_3);
+  --inputBg: var(--background_3);
+  --inputBg2: var(--background_3);
+  --inputBg3: var(--background_3);
+  --inputBgHover: var(--background_3);
+  --inputBg2Hover: var(--background_3);
+  --inputBg3Hover: var(--background_3);
+  --inputTxt: var(--text_1);
+  --inputTxt2: var(--text_2);
+  --inputTxt3: var(--text_3);
+  --inputAccent: var(--accent_1);
+  --inputAccentTxt: var(--accent_1_txt);
+  --inputRadius: 2px;
+  --inputBorder: var(--background_3);
+
+  --inputSecondaryG: var(--background_3);
+  --inputSecondaryBg: var(--background_3);
+  --inputSecondaryBg2: var(--background_3);
+  --inputSecondaryBg3: var(--background_3);
+  --inputSecondaryBgHover: var(--background_3);
+  --inputSecondaryBg2Hover: var(--background_3);
+  --inputSecondaryBg3Hover: var(--background_3);
+  --inputSecondaryTxt: var(--text_1);
+  --inputSecondaryTxt2: var(--text_2);
+  --inputSecondaryTxt3: var(--text_3);
+  --inputSecondaryAccent: var(--accent_1);
+  --inputSecondaryAccentTxt: var(--accent_1_txt);
+  --inputSecondaryRadius: 2px;
+  --inputSecondaryBorder: var(--background_3);
+
+  --headerG: var(--background_3);
+  --headerBg: var(--background_3);
+  --headerBg2: var(--background_3);
+  --headerBg3: var(--background_3);
+  --headerBgHover: var(--background_3);
+  --headerBg2Hover: var(--background_3);
+  --headerBg3Hover: var(--background_3);
+  --headerTxt: var(--text_1);
+  --headerTxt2: var(--text_2);
+  --headerTxt3: var(--text_3);
+  --headerAccent: var(--accent_1);
+  --headerAccentTxt: var(--accent_1_txt);
+  --headerBorder: var(--background_3);
+  --headerRadius: 2px;
+
+  --subHeaderG: var(--background_3);
+  --subHeaderBg: var(--background_3);
+  --subHeaderBg2: var(--background_3);
+  --subHeaderBg3: var(--background_3);
+  --subHeaderBgHover: var(--background_3);
+  --subHeaderBg2Hover: var(--background_3);
+  --subHeaderBg3Hover: var(--background_3);
+  --subHeaderTxt: var(--text_1);
+  --subHeaderTxt2: var(--text_2);
+  --subHeaderTxt3: var(--text_3);
+  --subHeaderAccent: var(--accent_1);
+  --subHeaderAccentTxt: var(--accent_1_txt);
+  --subHeaderBorder: var(--background_3);
+  --subHeaderRadius: 2px;
+
+  --eventG: var(--background_4);
+  --eventBg: var(--background_4);
+  --eventBg2: var(--background_4);
+  --eventBg3: var(--background_4);
+  --eventBgHover: var(--background_4);
+  --eventBg2Hover: var(--background_4);
+  --eventBg3Hover: var(--background_4);
+  --eventTxt: var(--text_1);
+  --eventTxt2: var(--text_2);
+  --eventTxt3: var(--text_3);
+  --eventAccent: var(--accent_1);
+  --eventAccentTxt: var(--accent_1_txt);
+  --eventBorder: var(--background_1);
+  --eventRadius: 2px;
+
+  --oddG: var(--background_1);
+  --oddBg: var(--background_1);
+  --oddBg2: var(--background_1);
+  --oddBg3: var(--background_1);
+  --oddBgHover: var(--background_1);
+  --oddBg2Hover: var(--background_1);
+  --oddBg3Hover: var(--background_1);
+  --oddTxt: var(--text_1);
+  --oddTxt2: var(--text_2);
+  --oddTxt3: var(--text_3);
+  --oddAccent: var(--text_1);
+  --oddAccentTxt: var(--background_1);
+  --oddRadius: 2px;
+  --oddBorder: var(--background_1);
+
+  --oddActiveG: var(--accent_1);
+  --oddActiveBg: var(--accent_1);
+  --oddActiveBg2: var(--accent_1);
+  --oddActiveBg3: var(--accent_1);
+  --oddActiveBgHover: var(--accent_1);
+  --oddActiveBg2Hover: var(--accent_1);
+  --oddActiveBg3Hover: var(--accent_1);
+  --oddActiveTxt: var(--accent_1_txt);
+  --oddActiveTxt2: var(--accent_1_txt);
+  --oddActiveTxt3: var(--accent_1_txt);
+  --oddActiveAccent: var(--accent_1_txt);
+  --oddActiveAccentTxt: var(--accent_1);
+  --oddActiveRadius: 2px;
+  --oddActiveBorder: var(--accent_1);
+
+  --tabG: var(--background_3);
+  --tabBg: var(--background_3);
+  --tabBg2: var(--background_3);
+  --tabBg3: var(--background_3);
+  --tabBgHover: var(--background_3);
+  --tabBg2Hover: var(--background_3);
+  --tabBg3Hover: var(--background_3);
+  --tabTxt: var(--text_1);
+  --tabTxt2: var(--text_2);
+  --tabTxt3: var(--text_3);
+  --tabAccent: var(--accent_1);
+  --tabAccentTxt: var(--accent_1_txt);
+  --tabRadius: 2px;
+  --tabBorder: var(--background_3);
+
+  --tabActiveG: var(--background_4);
+  --tabActiveBg: var(--background_4);
+  --tabActiveBg2: var(--background_4);
+  --tabActiveBg3: var(--background_4);
+  --tabActiveBgHover: var(--background_4);
+  --tabActiveBg2Hover: var(--background_4);
+  --tabActiveBg3Hover: var(--background_4);
+  --tabActiveTxt: var(--text_1);
+  --tabActiveTxt2: var(--text_2);
+  --tabActiveTxt3: var(--text_3);
+  --tabActiveAccent: var(--accent_1);
+  --tabActiveAccentTxt: var(--accent_1_txt);
+  --tabActiveRadius: 2px;
+  --tabActiveBorder: var(--background_4);
+
+  --menu_1G: var(--background_1);
+  --menu_1Bg: var(--background_1);
+  --menu_1Bg2: var(--background_1);
+  --menu_1Bg3: var(--background_1);
+  --menu_1BgHover: var(--background_1);
+  --menu_1Bg2Hover: var(--background_1);
+  --menu_1Bg3Hover: var(--background_1);
+  --menu_1Txt: var(--text_1);
+  --menu_1Txt2: var(--text_2);
+  --menu_1Txt3: var(--text_3);
+  --menu_1Accent: var(--accent_1);
+  --menu_1AccentTxt: var(--accent_1_txt);
+  --menu_1Radius: 8px;
+  --menu_1Border: var(--background_1);
+
+  --menu_2G: var(--background_2);
+  --menu_2Bg: var(--background_2);
+  --menu_2Bg2: var(--background_2);
+  --menu_2Bg3: var(--background_2);
+  --menu_2BgHover: var(--background_2);
+  --menu_2Bg2Hover: var(--background_2);
+  --menu_2Bg3Hover: var(--background_2);
+  --menu_2Txt: var(--text_1);
+  --menu_2Txt2: var(--text_2);
+  --menu_2Txt3: var(--text_3);
+  --menu_2Accent: var(--accent_1);
+  --menu_2AccentTxt: var(--accent_1_txt);
+  --menu_2Radius: 8px;
+  --menu_2Border: var(--background_2);
+
+  --menu_3G: var(--background_3);
+  --menu_3Bg: var(--background_3);
+  --menu_3Bg2: var(--background_3);
+  --menu_3Bg3: var(--background_3);
+  --menu_3BgHover: var(--background_3);
+  --menu_3Bg2Hover: var(--background_3);
+  --menu_3Bg3Hover: var(--background_3);
+  --menu_3Txt: var(--text_1);
+  --menu_3Txt2: var(--text_2);
+  --menu_3Txt3: var(--text_3);
+  --menu_3Accent: var(--accent_1);
+  --menu_3AccentTxt: var(--accent_1_txt);
+  --menu_3Radius: 8px;
+  --menu_3Border: var(--background_3);
+
+  --modalG: var(--background_4);
+  --modalBg: var(--background_4);
+  --modalBg2: var(--background_4);
+  --modalBg3: var(--background_4);
+  --modalBgHover: var(--background_4);
+  --modalBg2Hover: var(--background_4);
+  --modalBg3Hover: var(--background_4);
+  --modalTxt: var(--text_1);
+  --modalTxt2: var(--text_2);
+  --modalTxt3: var(--text_3);
+  --modalAccent: var(--accent_1);
+  --modalAccentTxt: var(--accent_1_txt);
+  --modalRadius: 2px;
+  --modalBorder: var(--background_4);
+
+  --filterG: var(--background_1);
+  --filterBg: var(--background_1);
+  --filterBg2: var(--background_1);
+  --filterBg3: var(--background_1);
+  --filterBgHover: var(--background_1);
+  --filterBg2Hover: var(--background_1);
+  --filterBg3Hover: var(--background_1);
+  --filterTxt: var(--text_1);
+  --filterTxt2: var(--text_2);
+  --filterTxt3: var(--text_3);
+  --filterAccent: var(--accent_1);
+  --filterAccentTxt: var(--accent_1_txt);
+  --filterRadius: 2px;
+  --filterBorder: var(--background_1);
+
+  --tooltipG: var(--background_1);
+  --tooltipBg: var(--background_1);
+  --tooltipBg2: var(--background_1);
+  --tooltipBg3: var(--background_1);
+  --tooltipBgHover: var(--background_1);
+  --tooltipBg2Hover: var(--background_1);
+  --tooltipBg3Hover: var(--background_1);
+  --tooltipTxt: var(--text_1);
+  --tooltipTxt2: var(--text_2);
+  --tooltipTxt3: var(--text_3);
+  --tooltipAccent: var(--accent_1);
+  --tooltipAccentTxt: var(--accent_1_txt);
+  --tooltipRadius: 2px;
+  --tooltipBorder: var(--background_1);
+
+  --custom_height: 40px;
+  --custom_height2: 48px;
+  --custom_chb_size: 20px;
+  --custom_pad_x: 16px;
+  --custom_font-size: 14px;
+
+  --custom_space_1: 4px;
+  --custom_space_2: 8px;
+  --custom_space_3: 16px;
+}
+
+/*sidebar*/
+.lv_menu_item {
+  background-color: var(--background_4);
+  color: var(--text_2);
+  padding: 0 var(--custom_pad_x);
+  border-bottom-color: var(--background_1);
+  --menu_1BgHover: var(--background_6);
+}
+
+.lv_menu_item.lv_menu_item:hover {
+  background-color: var(--background_4);
+  color: var(--text_1);
+  border-bottom-color: var(--background_1);
+}
+
+.lv_menu_item.lv_menu_item-sport.lv_menu_item-selected,
+.lv_menu_item.lv_menu_item-sport.lv_menu_item-selected:hover {
+  background-color: var(--background_6);
+  color: var(--text_1);
+  border-left-color: var(--accent_2);
+  border-bottom-color: var(--background_1);
+}
+
+.lv_menu_item.lv_menu_item-country.lv_menu_item.lv_menu_item-country
+  .sport_front_icon-arrow-down {
+  color: var(--text_3);
+}
+
+.lv_menu_item.lv_menu_item-country {
+  background-color: var(--background_2);
+  color: var(--text_2);
+  border-color: var(--background_1);
+}
+
+.lv_menu_item.lv_menu_item-country:hover,
+.lv_menu_item.lv_menu_item-selected {
+  background-color: var(--background_2);
+  color: var(--text_1);
+  border-color: var(--background_1);
+}
+
+.lv_menu_item_showMore.lv_menu_item_showMore.lv_menu_item_showMore {
+  background-color: var(--background_1);
+  color: var(--text_2);
+  border-color: var(--background_3);
+}
+
+.lv_menu_item_showMore.lv_menu_item_showMore.lv_menu_item_showMore
+  .sport_front_icon-arrow-down {
+  color: var(--text_3);
+}
+
+.lv_menu_subItem {
+  height: var(--custom_height);
+  --menu_1Bg: var(--background_3);
+  background-color: var(--background_3);
+  column-gap: var(--custom_space_2);
+}
+
+.lv_menu_subItem_end.lv_menu_subItem_end {
+  color: var(--text_3);
+}
+
+.jackpot_min_amount_txt,
+.jackpot_min_amount_currency {
+  opacity: 1 !important;
+  color: var(--text_3) !important;
+}
+
+.jackpot_name_txt {
+  color: var(--text_3) !important;
+}
+
+.lv_main_container .lv_main_panel > div:not(:last-child) {
+  border-bottom-color: var(--background_1);
+}
+
+.jackpot_item {
+  box-shadow: none !important;
+}
+
+.lv_menu_subItem .lv_item_text {
+  margin: 0;
+}
+
+.lv_chb {
+  background-color: inherit;
+  color: transparent;
+  border-color: var(--text_3);
+  width: var(--custom_chb_size);
+  height: var(--custom_chb_size);
+}
+
+.lv_chb-checked,
+.lv_chb-checked-partial {
+  background-color: var(--accent_1);
+  color: var(--accent_1_txt);
+  border-color: var(--accent_1);
+}
+
+.lv_subItem_group {
+  padding-top: var(--custom_space_1);
+  padding-bottom: var(--custom_space_1);
+}
+
+.lv_subItem_group:empty {
+  display: none;
+}
+
+.lv_markets_wrapper .lv_market .lv_stakes_wrapper.lv_blocker_wrapper:after {
+  background-color: var(--background_3);
+  opacity: 0.4;
+}
+
+/*sidebar filter*/
+.lv_filter_tab {
+  height: 32px;
+  padding: 0 8px;
+}
+
+.lv_prematch_filter {
+  --tabActiveBg: var(--background_1);
+  --tabTxt: var(--accent_1);
+  overflow-y: hidden;
+  padding: 8px 16px;
+  border-bottom-color: var(--background_1) !important;
+}
+
+.lv_prematch_filter .lv_filter_tab.lv_filter_tab-selected {
+  --tabBg: var(--accent_1);
+  --tabTxt: var(--accent_1_txt);
+}
+
+.lv_filter_tab.lv_filter_tab-selected {
+  --tabBg: var(--background_4);
+}
+
+/*event*/
+.lv_events_widget_header
+  .lv_sliderBar_wrapper
+  .lv_sportsBar
+  .lv_sportTab:not(:last-child),
+.lv_events_widget_header
+  .lv_sliderBar_wrapper.lv_has_slider
+  .lv_sportsBar
+  .lv_sportTab:last-child {
+  border-right: none !important;
+}
+
+.dg_multibet_widget_main_wrapper
+  .ai_widget_wrapper
+  .ai_widget_slide
+  .dg_multibet_widget_events
+  .dg_multibet_widget_event_item
+  .dg_multibet_widget_event_icon:before {
+  background-color: var(--text_2) !important;
+}
+
+.lv_events_widget_header .lv_sliderBar_wrapper .lv_sportsBar {
+  background-color: var(--background_1);
+  column-gap: 1px;
+}
+
+.lv_sportTab.lv_sportTab-selected,
+.lv_sportTab:hover {
+  background-color: var(--background_4);
+}
+
+/*subheader*/
+
+.lv_stake {
+  font-weight: 700;
+}
+
+/*game*/
+.lv_events_widget_subHeader.lv_events_fix_subHeader {
+  --bodyBg: var(--background_2);
+}
+
+.lv_search_page .lv_events_widget {
+  --bodyBorder: var(--background_3);
+}
+
+.lv_events_widget_header {
+  border-bottom-color: var(--background_1);
+  --headerBg: var(--background_3);
+}
+
+.lv_sliderBar_wrapper.lv_sliderBar_wrapper {
+  background: var(--background_4);
+  column-gap: 1px;
+}
+
+.lv_sliderBar_wrapper.lv_sliderBar_wrapper .lv_sliderBar_btn {
+  background-color: var(--background_3);
+}
+
+.sr-content .lv_sliderBar_wrapper.lv_sliderBar_wrapper {
+  --background_4: var(--background_2);
+}
+
+.sr-content .lv_sliderBar_wrapper.lv_sliderBar_wrapper .lv_sliderBar_btn {
+  --background_3: var(--background_2);
+}
+
+.sr-content .lv_events_widget_header .lv_sliderBar_wrapper .lv_sportsBar {
+  --background_1: var(--background_2);
+}
+.sr-content .lv_sportTab {
+  --tabBg: var(--background_2);
+}
+.sr-content .lv_sportTab.lv_sportTab-selected,
+.sr-content .lv_sportTab:hover {
+  --background_4: var(--background_2);
+}
+
+.sr-content .collapse-container {
+  transition: grid-template-rows 0.2s;
+}
+.sr-content .collapse-container.collapse-opened {
+  border-top: 1px solid var(--background_2);
+}
+
+.lv_markets_wrapper .lv_market {
+  --bodyBg2: var(--background_1);
+}
+
+.lv_markets_wrapper .lv_market.lv_market-closed {
+  --headerBg: var(--background_4);
+}
+
+.lv_markets_wrapper
+  .lv_market
+  .lv_stakes_wrapper
+  .lv_marketStake
+  .lv_stake_factor {
+  font-weight: 700;
+}
+
+.lv_markets_wrapper .lv_market.lv_market-closed:hover {
+  --headerBgHover: var(--background_4);
+}
+
+.lv_sideBar .lv_search_input_new {
+  --menu_1Bg: var(--background_4);
+}
+
+.lv_sideBar .lv_treeWrapper .lv_subItem_group {
+  background-color: var(--background_3);
+  border-color: var(--background_1);
+}
+
+.lv_main_container .lv_aside .dg_bet_generator_header {
+  border-top: 0 !important;
+}
+
+.dg_bet_generator_content_btn,
+.dg_bet_generator_content_btn:hover,
+.dg_bet_checker_btn {
+  height: 36px !important;
+  background-color: var(--accent_2) !important;
+  color: var(--accent_2_txt) !important;
+  border-radius: 8px;
+}
+
+.dg_bet_checker_input {
+  border-radius: 8px;
+}
+
+.dg_bet_checker_btn:disabled,
+.dg_bet_checker_btn[disabled="disabled"],
+.dg_bet_checker_btn[disabled] {
+  opacity: 0.5 !important;
+}
+
+.lv_event_row .lv_event_details_wrapper .lv_event_details .lv_event_score {
+  --accent_2: var(--success);
+  --eventAccent: var(--accent_2);
+  font-weight: 500;
+}
+
+.dg_boosted_bicolor_icon.dg_boosted_bicolor_icon {
+  --bg: var(--eventBgHover);
+}
+
+/*mobile*/
+.dg_bs_root_holder .dg_bs_collapsed_mob_circle {
+  background-color: var(--accent_1);
+  color: var(--accent_1_txt) !important;
+}
+
+.dg_bs_root_holder .dg_bs_collapsed_mob_content {
+  border-color: var(--accent_1);
+}
+
+.lv_events_list_subHeader {
+  --bodyBg2: var(--background_3);
+}
+
+.dg_multibet_widget_main_wrapper .ai_widget_wrapper {
+  --accentBg2: var(--accent_3);
+}
+
+.ai_multiBet_widget_footer
+  .ai_widget_footer_content
+  .ai_widget_bet_info
+  .ai_widget_info_row
+  > button {
+  --buttonG: var(--accent_3);
+  --buttonTxt: var(--accent_3_txt);
+  padding: 0 16px !important;
+  border-radius: 8px !important;
+}
+
+.ai_multiBet_widget_footer
+  .ai_widget_footer_content
+  .ai_widget_bet_info
+  .ai_widget_info_row
+  > button
+  > i {
+  display: inline-flex;
+  --icoSize: 36px;
+}
+
+.dg_multibet_widget_header .dg_multibet_widget_button_wrapper > button {
+  --bodyBgHover: var(--background_3);
+}
+
+.lv_tabsBar .lv_tab {
+  border-width: 2px;
+}
+
+.lv_topNav.lv_topNav {
+  background-color: var(--background_1);
+}
+
+.lv_topNav.lv_topNav > .lv_input_wrapper input {
+  background-color: var(--background_4);
+  --headerTxt2: var(--text_2);
+}
+
+.lv_topNav.lv_topNav.isSearchOpened {
+  --background_1: var(--background_1);
+}
+
+.lv_topNav_inner > .lv_topNav_item {
+  padding: 0 !important;
+}
+
+.lv_topNav_separator {
+  margin: 0 12px !important;
+  opacity: 1 !important;
+}
+
+.lv_topNav .lv_topNav_item:hover {
+  color: var(--text_1) !important;
+}
+
+.lv_tabsBar .lv_tab {
+  height: 48px;
+  padding: 0 16px;
+}
+
+.lv_aside .dg_bet_generator_header {
+  text-transform: uppercase;
+}
+
+/*Jackpot*/
+.jackpot_items_wrapper {
+  padding: var(--custom_space_3) !important;
+}
+
+.jackpot_slider_wrapper.jackpot_slider_wrapper-type-special {
+  background-color: var(--background_1) !important;
+}
+
+.jackpot_slider_wrapper.jackpot_slider_wrapper-type-special
+  .jackpot_slider
+  .jackpot_items_wrapper
+  .jackpot_item {
+  background-color: var(--background_4) !important;
+  color: var(--text_1) !important;
+  border: 1px solid var(--accent_3) !important;
+}
+
+@media only screen and (min-width: 1201px) {
+  .jackpot_slider_wrapper {
+    height: 118px !important;
+  }
+}
+
+@media only screen and (min-width: 1201px) {
+  .jackpot_slider_wrapper.jackpot_slider_wrapper-type-special
+    .jackpot_slider
+    .jackpot_items_wrapper
+    .jackpot_item
+    .jackpot_item_content {
+    padding: var(--custom_space_3) !important;
+  }
+
+  .jackpot_slider_wrapper.jackpot_slider_wrapper-type-special
+    .jackpot_slider
+    .jackpot_items_wrapper
+    .jackpot_item {
+    height: 86px;
+  }
+
+  .jackpot_slider_wrapper.jackpot_slider_wrapper-type-special
+    .jackpot_slider
+    .jackpot_items_wrapper
+    .jackpot_item
+    .jackpot_item_content
+    .jackpot_min_amount {
+    font-weight: 700 !important;
+  }
+
+  .jackpot_slider_wrapper.jackpot_slider_wrapper-type-special
+    .jackpot_slider
+    .jackpot_items_wrapper
+    .jackpot_item
+    .jackpot_item_content
+    .jackpot_amount
+    .jackpot_amount_number {
+    font-size: 22px !important;
+  }
+
+  .jackpot_slider_wrapper.jackpot_slider_wrapper-type-special
+    .jackpot_slider
+    .jackpot_items_wrapper
+    .jackpot_item
+    .jackpot_item_content
+    .jackpot_amount
+    .jackpot_amount_currency {
+    opacity: 1 !important;
+  }
+}
+
+/*multi vet of the day*/
+.ai_header_wrapper .ai_header_content {
+  padding-left: var(--custom_space_3) !important;
+  padding-right: var(--custom_space_3) !important;
+}
+
+.lv_horizontal_scroll {
+  overflow: hidden;
+  overflow-x: auto;
+}
+
+.ai_header_wrapper {
+  border-radius: 0 !important;
+  padding: 0 !important;
+  border-top: 0 !important;
+}
+
+.ai_widget_container .ai_header_wrapper .ai_header_content .ai_header_txt {
+  padding: 0 !important;
+}
+
+.dg_multibet_widget_header .dg_multibet_widget_button_wrapper {
+  border-color: var(--background_3) !important;
+}
+
+.jackpot_slider_wrapper.jackpot_slider_wrapper-type-special
+  .jackpot_slider
+  .jackpot_items_wrapper
+  .jackpot_item
+  .jackpot_item_content_wrapper
+  .jackpot_item_content
+  .jackpot_name
+  .jackpot_name_txt {
+  margin: 0 6px !important;
+}
+
+/*headers*/
+.lv_main_container .lv_aside .dg_live_stream_header,
+.lv_main_container .lv_aside .dg_bet_generator_header {
+  height: 40px !important;
+  padding: 0 16px !important;
+  background-color: var(--background_3) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+}
+
+.lv_aside .dg_widget_root .ai_header_wrapper,
+.lv_aside .dg_widget_root .ai_header_wrapper:hover {
+  background-color: var(--background_3) !important;
+}
+
+.lv_collapse_header > span,
+.dg_bet_generator_header_title,
+.ai_widget_container .ai_header_wrapper .ai_header_content .ai_header_txt {
+  padding: 0 !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  font-size: 14px;
+}
+
+.dg_live_stream_header.dg_live_stream_header:hover {
+  opacity: initial;
+}
+
+.lv_main_container
+  .lv_aside
+  .dg_bet_generator_header
+  .dg_bet_generator_header_icon {
+  padding: 0 !important;
+}
+
+.lv_event_row .lv_event_actions {
+  row-gap: 0 !important;
+}
+
+.lv_event_row .lv_event_actions > .lv_event_action {
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lv_menu_item .lv_count {
+  font-size: 14px;
+}
+
+.ai_switcher {
+  --aiSwitcherPos: 2px;
+  --aiSwitcherW: 40px;
+  --aiSwitcherH: 24px;
+  background-color: var(--background_4);
+}
+
+.ai_switcher.ai_switcher--active {
+  background-color: var(--background_4);
+  --aiSwitcherPos: 16px;
+}
+
+.ai_switcher > .ai_switcher_checkmark {
+  background-color: var(--background_3);
+  width: 20px;
+  height: 20px;
+  color: var(--text_2);
+}
+
+.ai_switcher.ai_switcher--active > .ai_switcher_checkmark {
+  background-color: var(--accent_1);
+  color: var(--accent_1_txt);
+}
+
+.lv_sportTab {
+  --tabBg: var(--headerBg);
+}
+
+.sport_front_icon-ai::before {
+  content: "\E1B2" !important;
+  font-size: 37px !important;
+}
+
+.lv_events_widget .lv_showMore {
+  --bodyBg2: var(--background_4);
+  --bodyBg3: var(--background_4);
+}
+
+.lv_main_container .lv_aside {
+  --bodyBg: var(--background_1);
+}
+
+.lv_main_container
+  .lv_aside
+  .dg_widget_root
+  .dg_filter_tabs_group
+  .dg_filter_tab {
+  --tabActiveG: var(--background_3);
+}
+
+.lv_main_container
+  .lv_aside
+  .dg_widget_root
+  .dg_filter_tabs_group
+  .dg_filter_tab.dg_filter_tab-active {
+  --tabActiveG: var(--background_4);
+}
+
+.ai_subHeader {
+  --subHeaderG: var(--eventBg);
+  --subHeaderBgHover: var(--eventBg);
+  --subHeaderBg: var(--eventBg);
+  --subHeaderTxt: var(--eventTxt);
+}
+
+.ai_event_game_info_wrapper .ai_event_game_separator,
+.ai_event_game_info_wrapper .ai_vent_game_type {
+  display: none !important;
+}
+
+.dg_widget_root .dg_widget_group {
+  border-radius: 8px;
+}
+
+.dg_bet_generator_content_wrapper:not(.mobile_content) {
+  --bodyBgHover: var(--eventBg);
+}
+
+.search_market {
+  --inputBg: var(--background_4);
+}
+
+.dg_bet_checker_container {
+  background-color: var(--background_1) !important;
+}
+
+.dg_bet_checker_input {
+  --inputBg: var(--eventBg);
+  --inputTxt: var(--eventTxt);
+}
+
+.lv_liveInfo .lv_event_data .lv_live_scores .lv_live_scores_column .lv_score {
+  --accentBg: var(--accent_2);
+}
+
+.lv_event_row .lv_event_stakes .lv_event_market.lv_market-overUnder .lv_argument_popup.lv_argument_popup{
+  box-shadow: 1px 1px 7px rgba(0,0,0,0.25);
+}
+
+.sport_front_icon-cashout_lt,
+.dg_icon_link {
+  display: none !important;
+}
+
+.lv_header_data > i:first-of-type {
+  display: none;
+}
+
+.lv_event_hero_background {
+  display: none;
+}
+
+.lv_event_row
+  .lv_event_stakes
+  .lv_event_market.lv_market-overUnder
+  .lv_argument_popup
+  .lv_argument_popup_content
+  .selected_row {
+  background: var(--background_2);
+}
+
+.lv_event_row
+  .lv_event_stakes
+  .lv_event_market.lv_market-overUnder
+  .lv_argument_popup
+  .lv_argument_popup_content
+  .selected_row
+  .lv_stake:not(.lv_stake-selected) {
+  background: var(--oddBg);
+  color: var(--oddTxt);
+}
+
+#sport-latino-view .dg_icon_offer_default::before {
+  content: "\E193";
+  height: 24px;
+  line-height: 23px;
+  font-size: 44px;
+}
+
+#sport-latino-view .sport_front_icon-badge-00:before {
+  height: 24px;
+  line-height: 23px;
+  font-size: 44px;
+}
+
+#sport-latino-view .dg_market_offers_head > i {
+  width: 24px;
+  height: 24px;
+  color: var(--marketHeaderTxt);
+}
+
+#sport-latino-view .dg_market_offer_icon > span {
+  display: none;
+}
+
+#sport-latino-view .sport_front_icon-statistics-modern::before {
+  content: "\E110";
+}
+
+#sport-latino-view .lv_markets_wrapper .dg_boosted_odds_popup,
+#sport-latino-view .lv_markets_wrapper .dg_market_popup {
+  border: 1px solid var(--modalBgHover);
+  color: var(--modalTxt);
+  padding: 8px 16px;
+}
+
+.lv_events_list_header,
+.lv_events_list_subHeader {
+  --headerBg: var(--background_3);
+  --headerBgHover: var(--background_3);
+  --bodyBg2: var(--background_1);
+}
+
+.lv_infoPanel {
+  align-items: center;
+  background: var(--background_1);
+  border-bottom: 0;
+}
+
+.lv_market_filter {
+  --tabActiveBg: var(--background_3);
+  --bodyBg2: var(--background_1);
+}
+
+/*tournament*/
+.tr-card-header {
+  --digiTournamentItemHeaderBg: #dee5ed;
+}
+
+.tr-main-content {
+  --digiTournamentManiBg: #eef0f2;
+}
+
+.tr-card-body {
+  --digiTournamentItemBg: #fff;
+}
+
+.tr-tab.active {
+  --digiTournamentTabActiveBg: #fff;
+}
+
+.tr-title.tr-title {
+  --digiTournamentTitleBg: #eef1f4;
+  --digiTournamentTitleBorder: #cbd3d8;
+  border: 1px solid var(--digiTournamentTitleBorder);
+}
+
+.dg_bet_race_leader_board_wrapper header {
+  --eventBg2: var(--background_3);
+}
+
+.dg_bet_race_leader_board_content {
+  --eventBg: var(--background_4);
+}
+
+.dg_bet_race_leader_board_prize_item_separator {
+  --eventBg: var(--background_3);
+}
+
+.lv_main_panel .dg_favorites_content {
+  --bodyBg3: var(--background_2);
+  --bodyBgHover: var(--background_2);
+}
+
+.lv_main_panel .dg_favorites_content_events_item_accordion {
+  --eventBg: var(--background_4);
+}
+
+.lv_main_panel .dg_favorites_wrapper .lv_events_widget_subHeader {
+  --eventBg: var(--background_4);
+  --bodyBg3: var(--background_1);
+}
+
+.lv_main_panel .dg_favorites_details .lv_event_row {
+  --bodyBg3: var(--background_1);
+}
+
+.dg_market_popup_item .dg_market_popup_item_head > span {
+  font-size: 16px !important;
+  font-weight: 500 !important;
+}
+
+.dg_market_popup_item .dg_market_popup_item_body {
+  font-size: 12px !important;
+  font-weight: 400 !important;
+}
+
+.lv_main_panel .dg_favorites_tabs {
+  background-color: var(--background_2);
+}
+
+.lv_main_panel .dg_favorites_tabs_item,
+.lv_main_panel .dg_favorites_tabs_item:hover {
+  --tabBg: var(--background_2);
+  color: var(--text_2) !important;
+}
+
+.lv_main_panel .dg_favorites_tabs_item.tab_active {
+  --tabBg: var(--accent_1);
+  color: var(--accent_1_txt) !important;
+}
+
+.lv_results_widget .lv_results_widget_sub_header {
+  --subHeaderG: var(--background_1);
+  border-bottom: none !important;
+}
+
+.lv_results_widget_row {
+  --bodyBg2: var(--background_1);
+}
+
+.lv_results_widget .lv_results_comments_items {
+  --bodyBg2: var(--background_1);
+}
+
+.lv_results_widget .lv_results_comments_items {
+  --eventBg2: var(--background_2);
+}
+
+.sr_tab_wrapper_modernized.sr_tab_wrapper_modernized {
+  --bodyBg: var(--background_2);
+  --tabBorder: var(--background_2);
+  border-bottom: 0;
+}
+
+.sr_tab_wrapper_modernized .sr-tab.sr-tab {
+  --tabBg: var(--background_2);
+}
+
+.sr-content.sr-content_new {
+  --bodyBgHover: var(--background_2);
+}
+.sr-content.sr-content_new.sr_league_new {
+  border-bottom-color: var(--background_3);
+}
+
+.sr_tab_wrapper_modernized .sr-tab.sr-tab.active {
+  --tabActiveBg: var(--accent_1);
+  --tabActiveTxt: var(--accent_1_txt);
+}
+
+.lv_search_page .sr-container .lv_events_list_groupedHeader,
+.lv_search_page .sr-container .sr-dropdown-toggle {
+  --subHeaderBg: var(--background_4);
+}
+
+.sr-content .lv_events_widget_header.lv_events_widget_header {
+  border: none;
+}
+
+.sr-content .lv_event_row.lv_event_row {
+  --eventBorder: var(--background_1);
+}
+
+.sr-tab-wrapper {
+  column-gap: 12px;
+}
+
+.sr-content_new.sr-content_new
+  .sr-matches-wrapper
+  .sr-match-item
+  > div:last-child {
+  background: unset;
+}
+
+.sr-content_new .sr_match_subheader {
+  background: var(--background_4);
+}
+
+.dg_bet_builder_button_yes {
+  background-color: var(--accent_2);
+}
+
+.lv_stake.lv_stake::before,
+.lv_stake.lv_stake::after,
+.lv_stakes_wrapper.lv_stakes_wrapper
+  > .lv_marketStake.lv_marketStake.lv_marketStake::before,
+.lv_stakes_wrapper.lv_stakes_wrapper
+  > .lv_marketStake.lv_marketStake.lv_marketStake::after {
+  content: "";
+  transition: opacity 0.2s;
+  top: 0;
+  height: 12px;
+  position: absolute;
+  right: 0;
+  transform: translate(50%, -50%) rotate(45deg);
+  width: 12px;
+  opacity: 0;
+
+  box-shadow: 0 0 0 1px var(--eventBg);
+}
+
+.lv_stake.lv_stake::before,
+.lv_stakes_wrapper.lv_stakes_wrapper
+  > .lv_marketStake.lv_marketStake.lv_marketStake::before {
+  top: 0;
+  background-color: var(--success);
+}
+
+.lv_stake.lv_stake::after,
+.lv_stakes_wrapper.lv_stakes_wrapper
+  > .lv_marketStake.lv_marketStake.lv_marketStake::after {
+  background-color: var(--error);
+  top: 100%;
+}
+
+.lv_stakes_wrapper.lv_stakes_wrapper
+  > .lv_marketStake.lv_marketStake.lv_marketStake.lv_stake-increment
+  > .lv_stake_factor {
+  color: var(--success);
+}
+
+.lv_stakes_wrapper.lv_stakes_wrapper
+  > .lv_marketStake.lv_marketStake.lv_marketStake.lv_stake-decrement
+  > .lv_stake_factor {
+  color: var(--error);
+}
+
+.lv_stake.lv_stake.lv_stake-increment {
+  color: var(--success);
+}
+
+.lv_stake.lv_stake.lv_stake-decrement {
+  color: var(--error);
+}
+
+.lv_stake.lv_stake.lv_stake-increment::before,
+.lv_stakes_wrapper.lv_stakes_wrapper
+  > .lv_marketStake.lv_marketStake.lv_marketStake.lv_stake-increment::before {
+  opacity: 1;
+}
+
+.lv_stake.lv_stake.lv_stake-decrement::after,
+.lv_stakes_wrapper.lv_stakes_wrapper
+  > .lv_marketStake.lv_marketStake.lv_marketStake.lv_stake-decrement::after {
+  opacity: 1;
+}
+
+.lv_markets_wrapper
+  .lv_market
+  .lv_stakes_wrapper
+  .lv_marketStake.lv_marketStake.lv_selected {
+  background-color: var(--oddActiveG);
+  color: var(--oddActiveTxt);
+}
+
+.lv_markets_wrapper
+  .lv_market
+  .lv_stakes_wrapper
+  .lv_marketStake.lv_marketStake.lv_selected
+  .lv_stake_factor,
+.lv_markets_wrapper
+  .lv_market
+  .lv_stakes_wrapper
+  .lv_marketStake.lv_marketStake.lv_selected
+  .lv_stake_holder {
+  color: var(--oddActiveTxt);
+}
+
+@keyframes increment_custom {
+  0% {
+    background-color: var(--oddBg);
+  }
+
+  50% {
+    background-color: #da291c40;
+  }
+
+  to {
+    background-color: var(--error-light);
+  }
+}
+
+.lv_stake.lv_stake.lv_stake.lv_stake-selected {
+  color: var(--oddActiveTxt);
+}
+
+.lv_stake.lv_stake-increment,
+.lv_stake.lv_stake-decrement,
+.lv_markets_wrapper
+  .lv_market
+  .lv_stakes_wrapper
+  .lv_marketStake.lv_stake-increment,
+.lv_markets_wrapper
+  .lv_market
+  .lv_stakes_wrapper
+  .lv_marketStake.lv_stake-decrement {
+  animation: none !important;
+}
+
+.lv_horizontal_scroll.lv_horizontal_scroll::-webkit-scrollbar-thumb {
+  background-color: var(--dominantBg);
+}
+
+.sr-content_new.sr-content_new
+  .lv_stake:not(.lv_stake-empty):not(.lv_stake--vertical) {
+  background-color: none;
+}
+
+.dg_bs_stake_selection_arg.dg_bs_stake_selection_arg {
+  font-size: 13px;
+}
+
+.ai_root .collapse-wrapper {
+  background-color: var(--background_1);
+}
+
+.ai_root .ai_filterTabs_wrapper,
+.ai_root .dg_multibet_widget_header {
+  background: inherit;
+}
+
+.dg_bet_generator_wrapper.dg_bet_generator_wrapper .collapse-container {
+  --bodyBg: var(--background_1);
+}
+
+.lv_collapse_header.lv_collapse_header {
+  --dominantBg2: var(--background_3);
+}
+
+.dg_widget_root .dg_filter_tabs_wrapper {
+  --bodyBg: var(--background_1);
+}
+
+.dg_multibet_widget_main_wrapper .ai_widget_content .ai_widget_body {
+  background: var(--background_4);
+}
+
+.lv_main_panel.lv_main_panel .dg_favorites_content > div {
+  --bodyBg2: var(--background_3);
+}
+
+.lv_main_panel.lv_main_panel .dg_favorites_content > div:first-child {
+  border-top: 0 !important;
+}
+
+.lv_results_widget .lv_results_filter_widget {
+  --filterBg: var(--background_1);
+  --inputBg: var(--background_4);
+  --inputG: var(--background_4);
+}
+
+.dg_filters_bar_wrapper .dg_bonus_filter_wrapper {
+  --filterBg: var(--background_1);
+  --filterBg2: var(--background_1);
+  --inputBg: var(--background_4);
+  --inputG: var(--background_4);
+}
+
+.lv_sideBar .lv_treeWrapper .lv_subItem_group .lv_favorite_base {
+  background: var(--background_3);
+}
+
+.lv_main_panel
+  .dg_favorites_content_events_item_accordion
+  .dg_favorites_content_events_item_accordion_header {
+  --headerBg: var(--background_4);
+}
+
+/*custom widget*/
+.dg_promotion_widgets {
+  --bodyBgHover: var(--background_1);
+  --bodyTxt: var(--text_1);
+  --bodyTxt2: var(--text_2);
+}
+
+/*team details*/
+.lv_teamDetails_banner {
+  --bodyBg: var(--background_3);
+}
+
+.lv_main_panel
+  .dg_favorites_details
+  .dg_favorites_details_content_info_widgets {
+  border: 0;
+  margin: 0 -16px;
+}
+
+/*bonus history*/
+.dg_filters_bar_wrapper
+  .dg_bonus_filter_block.dg-av-bonuses__btn-show
+  .show_bonus_btn.show_bonus_btn {
+  height: 36px;
+}
+
+.dg_bonus_table_wrapper
+  .dg_bonus_table_content
+  .dg_bonus_table_cell.dg_bonus_table_cell_web {
+  --dominantBg: var(--background_4);
+  --bodyBg2: var(--background_1);
+}
+
+.dg_bonus_table_wrapper .dg_bonus_table_scroller {
+  --dominantTxt3: var(--text_3);
+}
+
+/*outrights*/
+.lv_events_widget_subHeader-special .lv_event_stakes .lv_event_stakes_tab {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.lv_events_widget_subHeader-special
+  .lv_event_stakes
+  .lv_event_stakes_tab.active {
+  border-bottom: 1px solid var(--accent_1);
+}
+
+.lv_main_container.lv_main_container .lv_aside_btn_wrapper_inner {
+  --asideBtnBg: #0009;
+  width: 1px;
+  background: var(--headerBg);
+}
+
+.lv_main_container.lv_main_container .lv_aside_btn_wrapper_inner:hover {
+  --asideBtnBg: #0009;
+}
+
+.lv_main_container.lv_main_container .lv_aside_btn {
+  --icoSize: 32px;
+  width: 32px;
+  height: 72px;
+  color: #f2f2f2;
+  border-radius: 2px 0 0 2px;
+  right: 1px;
+}
+
+.lv_main_container.lv_main_container .lv_aside_btn svg {
+  display: none;
+}
+
+.lv_main_container.lv_main_container
+  .lv_aside_btn_wrapper_inner
+  .lv_aside_btn_icon:before {
+  transition: all 0.3s ease-in-out;
+}
+
+.lv_main_container.lv_main_container
+  .lv_aside_btn_wrapper_inner:hover
+  .lv_aside_btn_icon:before {
+  transform: translateX(-12%);
+}
+
+/*images or icons logick*/
+.lv_main_container.dg_sport_images [class^="imgSpr"]::after,
+.lv_main_container.dg_sport_images [class*="imgSpr"]::after,
+.lv_main_container.dg_sport_images[class^="imgSpr"]::after,
+.lv_main_container.dg_sport_images[class*="imgSpr"]::after {
+  display: none;
+}
+
+.lv_main_container.dg_sport_images [class^="imgSpr"]::before,
+.lv_main_container.dg_sport_images [class*="imgSpr"]::before,
+.lv_main_container.dg_sport_images[class^="imgSpr"]::before,
+.lv_main_container.dg_sport_images[class*="imgSpr"]::before {
+  display: inline-flex;
+  font-weight: 100;
+}
+
+:is(.lv_main_container) .lv_menu_item [class*="imgSpr"]::before,
+:is(.lv_main_container) .lv_sportTab [class*="imgSpr"]::before,
+:is(.lv_main_container)
+  .dg_promotion_widgets_header_slide_item
+  [class*="imgSpr"]::before {
+  display: inline-flex;
+}
+
+:is(.lv_main_container) .lv_menu_item [class*="imgSpr"]::after,
+:is(.lv_main_container) .lv_sportTab [class*="imgSpr"]::after,
+:is(.lv_main_container)
+  .dg_promotion_widgets_header_slide_item
+  [class*="imgSpr"]::after {
+  display: none;
+}
+
+:is(.lv_main_container)
+  .lv_menu_item.lv_menu_item-selected
+  [class*="imgSpr"]::before,
+:is(.lv_main_container)
+  .lv_sportTab.lv_sportTab-selected
+  [class*="imgSpr"]::before,
+:is(.lv_main_container)
+  .dg_promotion_widgets_header_slide_item.tab_active
+  [class*="imgSpr"]::before {
+  display: inline-flex;
+  color: var(--accent_1);
+}
+
+.dg_icon_bet_builder_negative.dg_icon_bet_builder_negative::before {
+  content: "\E1C1";
+}
+
+.dg_icon_bet_builder_circle.dg_icon_bet_builder_circle::before {
+  content: "\E1B6";
+}
+
+/*search icon*/
+.sport_front_icon-search.sport_front_icon-search:before {
+  content: "\E1CF";
+}
+
+.sport_front_icon-live-stream.sport_front_icon-live-stream:before {
+  content: "\E15D";
+}
+
+.sport_front_icon-live_center.sport_front_icon-live_center {
+  display: none !important;
+}
+
+.lv_sideBar .lv_search_input_new.lv_search_input_new > i {
+  --menu_1Txt: var(--text_2);
+}
+
+/*banner*/
+.dgb_swiper_wrapper-standard.dgb_swiper_wrapper-standard .swiper-button-prev,
+.dgb_swiper_wrapper-standard.dgb_swiper_wrapper-standard .swiper-button-next {
+  background: none !important;
+  opacity: 0.8;
+}
+
+.dgb_banner.dg_multi_main_banner .dgb_swiper_wrapper .swiper-button-prev:hover,
+.dgb_banner.dg_multi_main_banner .dgb_swiper_wrapper .swiper-button-next:hover {
+  opacity: 1;
+}
+
+/*sidenav*/
+.lv_sideNav_wrapper {
+  --bodyBg: var(--background_4);
+  --bodyTxt: var(--text_1);
+}
+
+.lv_back_btn {
+  --headerBg: var(--background_4);
+  --headerTxt2: var(--text_2);
+  --bodyBg2: var(--background_4);
+}
+
+.lv_back_btn:hover {
+  --headerBgHover: var(--background_4);
+  --headerTxt2: var(--text_2);
+}
+
+.lv_sideNav_wrapper
+  .lv_sideNav
+  .lv_sideNav_groups_wrapper
+  .lv_sideNav_items_group
+  .lv_sideNav_item.lv_sideNav_item {
+  background: var(--background_4);
+  --headerTxt2: var(--text_2);
+  border-bottom-color: var(--background_2);
+}
+
+.lv_sideNav_wrapper
+  .lv_sideNav
+  .lv_sideNav_groups_wrapper
+  .lv_sideNav_items_group
+  .lv_sideNav_item.lv_sideNav_item.lv_sideNav_item-selected {
+  --menu_1BgHover: var(--background_4);
+  --menu_1Txt: var(--text_1);
+  --accentBg: var(--accent_2);
+}
+
+.dgb_banner_base.state_no_image + .dgb_slide_media {
+  --accentBg: var(--accent_2);
+}
+
+.lv_event_row.lv_event_row
+  .lv_event_stakes
+  .lv_event_market.lv_blocker_wrapper
+  .lv_stake:not(.lv_stake-empty) {
+  background-color: var(--background_2);
+  --oddTxt: var(--text_3);
+}
+
+/*pages*/
+.search_page.lv_main_container {
+  --bodyBg2: var(--background_4);
+  --bodyBgHover: var(--background_4);
+}
+
+.search_page .lv_topNav.lv_topNav {
+  --background_1: var(--background_3);
+}
+
+.lv_filter_tab.lv_tab_new_badge_wrapper .lv_tab_new_badge.lv_tab_new_badge {
+  color: #fff;
+}
+
+.lv_main_container.minor .lv_main_panel {
+  --bodyBg: var(--background_2);
+}
+
+.lv_results_filter_widget
+  .lv_results_filters_wrapper
+  .lv_results_filter
+  .lv_results_filter_label {
+  --filterTxt: var(--filterTxt2);
+}
+
+.lv_results_filter_widget
+  .lv_results_filters_wrapper.lv_results_filters_wrapper {
+  flex-grow: 0;
+}
+.lv_results_filter_widget .lv_results_btn_wrapper.lv_results_btn_wrapper {
+  margin-inline-start: unset;
+}
+
+.sport_front_icon-arrow-down.sport_front_icon-arrow-down::before {
+  content: "\E0B8";
+  font-size: calc(var(--icoSize) + 11px);
+}
+
+.sport_front_icon-arrow-up.sport_front_icon-arrow-up::before{
+  font-size: calc(var(--icoSize) + 11px);
+}
+
+.search_market.search_market > input {
+  border-radius: 4px;
+}
+
+.dgb_banner {
+  --bodyRGBA: var(--background_rgba);
+}
+
+.dgb_banner.dg_multi_main_banner
+  .dgb_swiper_wrapper.dgb_swiper_wrapper
+  .swiper-button-prev:after {
+  content: "\E12A";
+}
+
+.dgb_banner.dg_multi_main_banner
+  .dgb_swiper_wrapper.dgb_swiper_wrapper
+  .swiper-button-next:after {
+  content: "\E12B";
+}
+
+.dgb_banner_multi .dgb_banner_base .dg_icon_enhanced_odd {
+  --oddAccent: var(--accent_3);
+}
+
+.dgb_banner_multi .dgb_banner_base.variant_dense .dg_icon_enhanced_odd {
+  --oddAccent: var(--accent_1);
+}
+
+.lv_menu_item_arrow:hover {
+  --menuItemArrowBg: inherit;
+}
+
+@keyframes skeleton_animation_custom {
+    0% {
+        background-position: -1000% 0;
+    }
+
+    to {
+        background-position: 1000% 0;
+    }
+}
+
+.react-loading-skeleton.react-loading-skeleton.react-loading-skeleton {
+   --base-color: var(--background_4);
+   --highlight-color: var(--background_rgba_skeleton);
+   background-image: linear-gradient(90deg, var(--base-color), var(--highlight-color), var(--base-color));
+   background-color: var(--background_4);
+   background-size: 200% 100%;
+   background-repeat: repeat-x;
+   margin-bottom: 1px !important;
+   animation: skeleton_animation_custom 15s linear 99 !important;
+   animation-direction: reverse !important;
+}
+
+.lv_main_panel .lv_main_panel--loading  .react-loading-skeleton {
+   margin-bottom: 0px !important;
+
+}
+
+.lv_builder_content_skeleton.lv_builder_content_skeleton{
+    background-color: var(--background_rgba);
+    opacity: 0.4;
+}
+
+.jackpot_items_wrapper{
+  --jackpot_bg_1: #ECCD79;
+  --jackpot_bg_2: #c7c7c7;
+  --jackpot_bg_3: #ddbea3;
+  --jackpot_bg_4: #e08f7c;
+
+  --jackpot_bg_rgba_1: #ECCD7988;
+  --jackpot_bg_rgba_2: #c7c7c788;
+  --jackpot_bg_rgba_3: #ddbea388;
+  --jackpot_bg_rgba_4: #e08f7c88;
+}
+.jackpot_items_wrapper.jackpot_items_wrapper  .jackpot_item.jackpot_item.jackpot_item.jackpot_item:after{
+  display: none !important;
+}
+.jackpot_items_wrapper.jackpot_items_wrapper  .jackpot_item.jackpot_item.jackpot_item.jackpot_item:nth-child(1) {
+  border-color: var(--jackpot_bg_1) !important;
+}
+.jackpot_items_wrapper.jackpot_items_wrapper  .jackpot_item.jackpot_item.jackpot_item.jackpot_item:nth-child(2) {
+  border-color: var(--jackpot_bg_2) !important;
+}
+.jackpot_items_wrapper.jackpot_items_wrapper  .jackpot_item.jackpot_item.jackpot_item.jackpot_item:nth-child(3) {
+  border-color: var(--jackpot_bg_3) !important;
+}
+.jackpot_items_wrapper.jackpot_items_wrapper  .jackpot_item.jackpot_item.jackpot_item.jackpot_item:nth-child(4) {
+  border-color: var(--jackpot_bg_4) !important;
+}
+.jackpot_info_wrapper .jackpot_info-no_winners,
+.jackpot_info_wrapper{
+  opacity: 1 !important;
+}
+
+@media only screen and (max-width: 1200px) {
+  .jackpot_slider_wrapper .jackpot_slider .jackpot_items_wrapper .jackpot_item.jackpot_item {
+        background: none;
+        height: 58px;
+        padding: 0px;
+  }
+}
+
+/*results*/
+.lv_dropdown .lv_dropdown_content {
+  --inputBg2: var(--background_2);
+}
+
+.lv_dropdown .lv_dropdown_item.lv_dropdown_item-selected,
+.lv_dropdown .lv_dropdown_item:hover {
+  --inputBgHover: var(--background_1);
+}
+
+
+.react-datepicker__tab-loop .react-datepicker{
+  --datePickerBg: var(--background_2);
+  box-shadow: 0 1px 4px 1px #0003 !important;
+}
+
+.lv_filter_tab.lv_tab_new_badge_wrapper .lv_tab_new_badge.lv_tab_new_badge{
+  background: #ff1717;
+}
+
+
+#dm-main-container .dm__loader-cont.dm__loader-cont{
+    background-color: var(--background_rgba);
+}
+#dm-main-container .dm__loader.dm__loader div:first-child {
+    border-color: var(--accent_2);
+}
+
+#dm-main-container .dm__loader.dm__loader div:nth-child(2) {
+    border-color: var(--accent_2);
+}
+
+.jackpot_confirm_btn.jackpot_confirm_btn.jackpot_confirm_btn.jackpot_confirm_btn{
+  --accentBg: var(--accent_2);
+  --accentTxt: var(--accent_2_txt);
+}
+
+/*event detail enchanced icons*/
+.dg_market_offer .dg_market_offers_head > i,
+.dg_market_offer .dg_offers_text_content > i,
+.dg_market_popup .dg_market_popup_item_head > i,
+.dg_market_popup .dg_offers_text_content > i,
+.lv_market_header .lv_boosted_odds .dg_boosted_monochrome_icon > i{
+  color: var(--text_1) !important;
+}
+
+/*statuses*/
+.lv_filter_tab.lv_tab_new_badge_wrapper .lv_tab_new_badge.lv_tab_new_badge,
+.dg_promotion_widgets_content_item.super_boost .super_boost_badge.super_boost_badge{
+  background: #ca0238;
+}
+
+
+.lv_stake.lv_stake-empty {
+  --background_1: var(--background_5);
+  background-color: var(--background_1);
+  --oddBorder: var(--background_3);
+}
+
+.lv_blocker_wrapper.lv_blocker_wrapper > .lv_stake.lv_stake-empty{
+      background-color: var(--background_2);
+    --oddTxt: var(--text_3);
+    opacity: 0.6;
+}
+
+.dg_promotion_widgets_content_item--bb {
+  --accentBg:  var(--accent_1);
+}
+
+.dg_promotion_widgets.dg_promotion_widgets {
+    --success_color: var(--accent_5)
+}
+
+@media screen and (max-width: 1400px) {
+    .lv_liveInfo .lv_event_data .lv_team {
+        flex-direction:column-reverse;
+        text-align: center;
+        row-gap: 4px;
+    }
+  }

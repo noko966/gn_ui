@@ -1,0 +1,95 @@
+#sport-latino-view, :host:host, .dg_bs_root_holder {
+    --error: #e0373c;
+    --success: #00e9ce;
+
+    /* 152328 */
+    --background_1: #0C243E;
+    --background_2: #0A1D31;
+    --background_3: #0A1525;
+    --background_4: #0A1D31;
+    --background_5: #243C51;
+    --background_6: #1c3044;
+    --background_7: #21323B;
+    --background_rgba: #0A1D3144;
+    --background_rgba_skeleton: #0A1D3180;
+
+    --text_1: #fff;
+    --text_2: rgba(255, 255, 255, 0.8);
+    --text_3: rgba(255, 255, 255, 0.5);
+    
+    --accent_1: #F2A241;
+    --accent_1_txt: #051525;
+    --accent_2: #F2A241;
+    --accent_2_txt: #051525;
+    --accent_3: #61C1B6;
+    --accent_3_txt: #fff;
+
+    --accent_5: #61C1B6;
+    --accent_5_txt: #102B33;
+
+    --accent_4: #F2A241;
+    --accent_4_txt: #102B33;
+
+    --accent_5_txt: #102B33;
+
+    --oddG: var(--background_5);
+  --oddBg: var(--background_5);
+  --oddBg2: var(--background_5);
+  --oddBg3: var(--background_5);
+  --oddBgHover: var(--background_6);
+  --oddBg2Hover: var(--background_5);
+  --oddBg3Hover: var(--background_5);
+  --oddTxt: var(--text_1);
+  --oddTxt2: var(--text_2);
+  --oddTxt3: var(--text_3);
+  --oddAccent: var(--text_1);
+  --oddAccentTxt: var(--background_5);
+  --oddRadius: 2px;
+  --oddBorder: var(--background_5);
+
+  --oddG: var(--background_5);
+  --oddBg: var(--background_5);
+  --oddBg2: var(--background_5);
+  --oddBg3: var(--background_5);
+  --oddBgHover: var(--background_6);
+  --oddBg2Hover: var(--background_5);
+  --oddBg3Hover: var(--background_5);
+  --oddTxt: var(--text_1);
+  --oddTxt2: var(--text_2);
+  --oddTxt3: var(--text_3);
+  --oddAccent: var(--text_1);
+  --oddAccentTxt: var(--background_5);
+  --oddRadius: 2px;
+  --oddBorder: var(--background_5);
+  }
+  
+/* 
+  .dg_promotion_widgets_content_item.dg_promotion_widgets_content_item{
+    border-color: var(--accent_4);
+} */
+
+  /*scores*/
+
+  /* .lv_event_row .lv_event_details_wrapper .lv_event_details .lv_event_score{
+      --accent_2: var(--accent_4);
+  } */
+
+  /* inactive */
+  .lv_event_row.lv_event_row
+  .lv_event_stakes
+  .lv_event_market.lv_blocker_wrapper
+  .lv_stake:not(.lv_stake-empty) {
+  background-color: var(--background_7);
+  --oddTxt: var(--text_3);
+  opacity: 0.6;
+}
+
+/* banners */
+.dgb_banner_base.state_no_image+.dgb_slide_media{
+  --accentBg: var(--accent_5);
+}
+
+.dg_bet_generator_content_info:before{
+  mask-image: unset !important;
+}
+

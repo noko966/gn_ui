@@ -1,0 +1,34 @@
+:host:host:host,.dg_bs_root_holder {
+  --background_1: #07161D;
+  --background_2: #0a1d27;
+  --background_3: #133A4D;
+  --background_4: #0B212D;
+  --background_5: #122D3A;
+  --background_6: #1a2737;
+  --background_rgba: #0B212D44;
+  --text_1: #ffffff;
+  --text_2: rgba(255, 255, 255, 0.6);
+  --text_3: rgba(255, 255, 255, 0.4);
+  --accent_1: #03FF85;
+  --accent_1_txt: #102B33;
+  --accent_2: #03FF85;
+  --accent_2_txt: #102B33;
+  --accent_3: #03FF85;
+  --accent_3_txt: #102B33;
+
+  --oddG: var(--background_5);
+  --oddBg: var(--background_5);
+  --oddBg2: var(--background_5);
+  --oddBg3: var(--background_5);
+  --oddBgHover: var(--background_5);
+  --oddBg2Hover: var(--background_5);
+  --oddBg3Hover: var(--background_5);
+  --oddTxt: var(--text_1);
+  --oddTxt2: var(--text_2);
+  --oddTxt3: var(--text_3);
+  --oddAccent: var(--text_1);
+  --oddAccentTxt: var(--background_5);
+  --oddRadius: 2px;
+  --oddBorder: var(--background_5);
+  }
+  

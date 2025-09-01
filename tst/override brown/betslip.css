@@ -1,0 +1,905 @@
+@import url("./myBets.css");
+
+.dg_bs_stake_group_wrapper.dg_bs_stake_group_wrapper:only-child:not(.dg_bs_stake_group--highlight) {
+  margin: 0;
+  padding: 0;
+  background-color: unset;
+}
+
+.dg_bs_stake_header_icon {
+  --imageSize: 20px;
+}
+
+.dg_bs_wrapper.dg_bs_wrapper {
+  border: 1px solid var(--accentBg);
+  border-bottom: 0;
+}
+
+.dg_bs_root_holder {
+  --bs_red: #ff1717;
+  --bodyBg: var(--background_1);
+  --bodyBg2: var(--background_1);
+  --bodyBg3: var(--background_1);
+  --bodyBgHover: var(--background_1);
+  --bodyBg2Hover: var(--background_1);
+  --bodyBg3Hover: var(--background_1);
+  --bodyRGBA: var(--background_1);
+  --bodyRGBA2: var(--background_1);
+  --bodyRGBA3: var(--background_1);
+  --bodyTxt: var(--text_1);
+  --bodyTxt2: var(--text_2);
+  --bodyTxt3: var(--text_3);
+  --bodyAccent: var(--accent_1);
+  --bodyAccentTxt: var(--accent_1_txt);
+  --bodyBorder: var(--background_1);
+  --bodyRadius: 2px;
+
+  --dominantG: var(--background_1);
+  --dominantRGBA: var(--background_1);
+  --dominantRGBA2: var(--background_1);
+  --dominantRGBA3: var(--background_1);
+  --dominantBg: var(--background_1);
+  --dominantBg2: var(--background_1);
+  --dominantBg3: var(--background_1);
+  --dominantBgHover: var(--background_1);
+  --dominantBg2Hover: var(--background_1);
+  --dominantBg3Hover: var(--background_1);
+  --dominantTxt: var(--text_1);
+  --dominantTxt2: var(--text_2);
+  --dominantTxt3: var(--text_3);
+  --dominantBorder: var(--background_1);
+  --dominantRadius: 2px;
+
+  --accentBg: var(--accent_1);
+  --accentBg2: var(--accent_1);
+  --accentBg3: var(--accent_1);
+  --accentBgHover: var(--accent_1);
+  --accentBg2Hover: var(--accent_1);
+  --accentBg3Hover: var(--accent_1);
+  --accentG: var(--accent_1);
+  --accentTxt: var(--accent_1_txt);
+  --accentTxt2: var(--accent_1_txt);
+  --accentTxt3: var(--accent_1_txt);
+
+  --navbarG: var(--background_3);
+  --navbarBg: var(--background_3);
+  --navbarBg2: var(--background_3);
+  --navbarBg3: var(--background_3);
+  --navbarBgHover: var(--background_3);
+  --navbarBg2Hover: var(--background_3);
+  --navbarBg3Hover: var(--background_3);
+  --navbarTxt: var(--text_1);
+  --navbarTxt2: var(--text_2);
+  --navbarTxt3: var(--text_3);
+  --navbarRGBA: var(--background_3);
+  --navbarAccent: var(--accent_1);
+  --navbarAccentTxt: var(--accent_1_txt);
+  --navbarBorder: var(--background_3);
+  --navbarRadius: 2px;
+
+  --sliderG: var(--background_1);
+  --sliderBg: var(--background_1);
+  --sliderBg2: var(--background_1);
+  --sliderBg3: var(--background_1);
+  --sliderBgHover: var(--background_1);
+  --sliderBg2Hover: var(--background_1);
+  --sliderBg3Hover: var(--background_1);
+  --sliderTxt: var(--text_1);
+  --sliderTxt2: var(--text_2);
+  --sliderTxt3: var(--text_3);
+  --sliderRGBA: var(--background_1);
+  --sliderBorder: var(--background_1);
+  --sliderAccent: var(--accent_1);
+  --sliderAccentTxt: var(--accent_1_txt);
+  --sliderRadius: 2px;
+
+  --collapseG: var(--background_3);
+  --collapseBg: var(--background_3);
+  --collapseBg2: var(--background_3);
+  --collapseBg3: var(--background_3);
+  --collapseBgHover: var(--background_3);
+  --collapseBg2Hover: var(--background_3);
+  --collapseBg3Hover: var(--background_3);
+  --collapseTxt: var(--text_1);
+  --collapseTxt2: var(--text_2);
+  --collapseTxt3: var(--text_3);
+  --collapseRGBA: var(--background_3);
+  --collapseBorder: var(--background_3);
+  --collapseAccent: var(--accent_1);
+  --collapseAccentTxt: var(--accent_1_txt);
+  --collapseRadius: 2px;
+
+  --buttonG: var(--accent_2);
+  --buttonBg: var(--accent_2);
+  --buttonBg2: var(--accent_2);
+  --buttonBg3: var(--accent_2);
+  --buttonBgHover: var(--accent_2);
+  --buttonBg2Hover: var(--accent_2);
+  --buttonBg3Hover: var(--accent_2);
+  --buttonTxt: var(--accent_2_txt);
+  --buttonTxt2: var(--accent_2_txt);
+  --buttonTxt3: var(--accent_2_txt);
+  --buttonAccent: var(--accent_2_txt);
+  --buttonAccentTxt: var(--accent_2);
+  --buttonBorder: var(--accent_2);
+  --buttonRadius: 2px;
+
+  --buttonSecondaryG: var(--background_2);
+  --buttonSecondaryBg: var(--background_2);
+  --buttonSecondaryBg2: var(--background_2);
+  --buttonSecondaryBg3: var(--background_2);
+  --buttonSecondaryBgHover: var(--background_2);
+  --buttonSecondaryBg2Hover: var(--background_2);
+  --buttonSecondaryBg3Hover: var(--background_2);
+  --buttonSecondaryTxt: var(--text_1);
+  --buttonSecondaryTxt2: var(--text_2);
+  --buttonSecondaryTxt3: var(--text_3);
+  --buttonSecondaryAccent: var(--accent_1);
+  --buttonSecondaryAccentTxt: var(--accent_1_txt);
+  --buttonSecondaryBorder: var(--background_2);
+  --buttonSecondaryRadius: 2px;
+
+  --inputG: var(--background_3);
+  --inputBg: var(--background_3);
+  --inputBg2: var(--background_3);
+  --inputBg3: var(--background_3);
+  --inputBgHover: var(--background_3);
+  --inputBg2Hover: var(--background_3);
+  --inputBg3Hover: var(--background_3);
+  --inputTxt: var(--text_1);
+  --inputTxt2: var(--text_2);
+  --inputTxt3: var(--text_3);
+  --inputAccent: var(--accent_1);
+  --inputAccentTxt: var(--accent_1_txt);
+  --inputRadius: 2px;
+  --inputBorder: var(--background_3);
+
+  --inputSecondaryG: var(--background_3);
+  --inputSecondaryBg: var(--background_3);
+  --inputSecondaryBg2: var(--background_3);
+  --inputSecondaryBg3: var(--background_3);
+  --inputSecondaryBgHover: var(--background_3);
+  --inputSecondaryBg2Hover: var(--background_3);
+  --inputSecondaryBg3Hover: var(--background_3);
+  --inputSecondaryTxt: var(--text_1);
+  --inputSecondaryTxt2: var(--text_2);
+  --inputSecondaryTxt3: var(--text_3);
+  --inputSecondaryAccent: var(--accent_1);
+  --inputSecondaryAccentTxt: var(--accent_1_txt);
+  --inputSecondaryRadius: 2px;
+  --inputSecondaryBorder: var(--background_3);
+
+  --headerG: var(--background_3);
+  --headerBg: var(--background_3);
+  --headerBg2: var(--background_3);
+  --headerBg3: var(--background_3);
+  --headerBgHover: var(--background_3);
+  --headerBg2Hover: var(--background_3);
+  --headerBg3Hover: var(--background_3);
+  --headerTxt: var(--text_1);
+  --headerTxt2: var(--text_2);
+  --headerTxt3: var(--text_3);
+  --headerAccent: var(--accent_1);
+  --headerAccentTxt: var(--accent_1_txt);
+  --headerBorder: var(--background_3);
+  --headerRadius: 2px;
+
+  --subHeaderG: var(--background_3);
+  --subHeaderBg: var(--background_3);
+  --subHeaderBg2: var(--background_3);
+  --subHeaderBg3: var(--background_3);
+  --subHeaderBgHover: var(--background_3);
+  --subHeaderBg2Hover: var(--background_3);
+  --subHeaderBg3Hover: var(--background_3);
+  --subHeaderTxt: var(--text_1);
+  --subHeaderTxt2: var(--text_2);
+  --subHeaderTxt3: var(--text_3);
+  --subHeaderAccent: var(--accent_1);
+  --subHeaderAccentTxt: var(--accent_1_txt);
+  --subHeaderBorder: var(--background_3);
+  --subHeaderRadius: 2px;
+
+  --eventG: var(--background_4);
+  --eventBg: var(--background_4);
+  --eventBg2: var(--background_4);
+  --eventBg3: var(--background_4);
+  --eventBgHover: var(--background_4);
+  --eventBg2Hover: var(--background_4);
+  --eventBg3Hover: var(--background_4);
+  --eventTxt: var(--text_1);
+  --eventTxt2: var(--text_2);
+  --eventTxt3: var(--text_3);
+  --eventAccent: var(--accent_1);
+  --eventAccentTxt: var(--accent_1_txt);
+  --eventBorder: var(--background_4);
+  --eventRadius: 2px;
+
+  --oddG: var(--background_1);
+  --oddBg: var(--background_1);
+  --oddBg2: var(--background_1);
+  --oddBg3: var(--background_1);
+  --oddBgHover: var(--background_1);
+  --oddBg2Hover: var(--background_1);
+  --oddBg3Hover: var(--background_1);
+  --oddTxt: var(--text_1);
+  --oddTxt2: var(--text_2);
+  --oddTxt3: var(--text_3);
+  --oddAccent: var(--text_1);
+  --oddAccentTxt: var(--background_1);
+  --oddRadius: 2px;
+  --oddBorder: var(--background_1);
+
+  --oddActiveG: var(--accent_1);
+  --oddActiveBg: var(--accent_1);
+  --oddActiveBg2: var(--accent_1);
+  --oddActiveBg3: var(--accent_1);
+  --oddActiveBgHover: var(--accent_1);
+  --oddActiveBg2Hover: var(--accent_1);
+  --oddActiveBg3Hover: var(--accent_1);
+  --oddActiveTxt: var(--accent_1_txt);
+  --oddActiveTxt2: var(--accent_1_txt);
+  --oddActiveTxt3: var(--accent_1_txt);
+  --oddActiveAccent: var(--accent_1_txt);
+  --oddActiveAccentTxt: var(--accent_1);
+  --oddActiveRadius: 2px;
+  --oddActiveBorder: var(--accent_1);
+
+  --tabG: var(--background_3);
+  --tabBg: var(--background_3);
+  --tabBg2: var(--background_3);
+  --tabBg3: var(--background_3);
+  --tabBgHover: var(--background_3);
+  --tabBg2Hover: var(--background_3);
+  --tabBg3Hover: var(--background_3);
+  --tabTxt: var(--text_1);
+  --tabTxt2: var(--text_2);
+  --tabTxt3: var(--text_3);
+  --tabAccent: var(--accent_1);
+  --tabAccentTxt: var(--accent_1_txt);
+  --tabRadius: 2px;
+  --tabBorder: var(--background_3);
+
+  --tabActiveG: var(--background_4);
+  --tabActiveBg: var(--background_4);
+  --tabActiveBg2: var(--background_4);
+  --tabActiveBg3: var(--background_4);
+  --tabActiveBgHover: var(--background_4);
+  --tabActiveBg2Hover: var(--background_4);
+  --tabActiveBg3Hover: var(--background_4);
+  --tabActiveTxt: var(--text_1);
+  --tabActiveTxt2: var(--text_2);
+  --tabActiveTxt3: var(--text_3);
+  --tabActiveAccent: var(--accent_1);
+  --tabActiveAccentTxt: var(--accent_1_txt);
+  --tabActiveRadius: 2px;
+  --tabActiveBorder: var(--background_4);
+
+
+  --menu_1G: var(--background_1);
+  --menu_1Bg: var(--background_1);
+  --menu_1Bg2: var(--background_1);
+  --menu_1Bg3: var(--background_1);
+  --menu_1BgHover: var(--background_1);
+  --menu_1Bg2Hover: var(--background_1);
+  --menu_1Bg3Hover: var(--background_1);
+  --menu_1Txt: var(--text_1);
+  --menu_1Txt2: var(--text_2);
+  --menu_1Txt3: var(--text_3);
+  --menu_1Accent: var(--accent_1);
+  --menu_1AccentTxt: var(--accent_1_txt);
+  --menu_1Radius: 8px;
+  --menu_1Border: var(--background_1);
+
+  --menu_2G: var(--background_2);
+  --menu_2Bg: var(--background_2);
+  --menu_2Bg2: var(--background_2);
+  --menu_2Bg3: var(--background_2);
+  --menu_2BgHover: var(--background_2);
+  --menu_2Bg2Hover: var(--background_2);
+  --menu_2Bg3Hover: var(--background_2);
+  --menu_2Txt: var(--text_1);
+  --menu_2Txt2: var(--text_2);
+  --menu_2Txt3: var(--text_3);
+  --menu_2Accent: var(--accent_1);
+  --menu_2AccentTxt: var(--accent_1_txt);
+  --menu_2Radius: 8px;
+  --menu_2Border: var(--background_2);
+
+  --menu_3G: var(--background_3);
+  --menu_3Bg: var(--background_3);
+  --menu_3Bg2: var(--background_3);
+  --menu_3Bg3: var(--background_3);
+  --menu_3BgHover: var(--background_3);
+  --menu_3Bg2Hover: var(--background_3);
+  --menu_3Bg3Hover: var(--background_3);
+  --menu_3Txt: var(--text_1);
+  --menu_3Txt2: var(--text_2);
+  --menu_3Txt3: var(--text_3);
+  --menu_3Accent: var(--accent_1);
+  --menu_3AccentTxt: var(--accent_1_txt);
+  --menu_3Radius: 8px;
+  --menu_3Border: var(--background_3);
+
+  --modalG: var(--background_4);
+  --modalBg: var(--background_4);
+  --modalBg2: var(--background_4);
+  --modalBg3: var(--background_4);
+  --modalBgHover: var(--background_4);
+  --modalBg2Hover: var(--background_4);
+  --modalBg3Hover: var(--background_4);
+  --modalTxt: var(--text_1);
+  --modalTxt2: var(--text_2);
+  --modalTxt3: var(--text_3);
+  --modalAccent: var(--accent_1);
+  --modalAccentTxt: var(--accent_1_txt);
+  --modalRadius: 2px;
+  --modalBorder: var(--background_4);
+
+
+  --filterG: var(--background_1);
+  --filterBg: var(--background_1);
+  --filterBg2: var(--background_1);
+  --filterBg3: var(--background_1);
+  --filterBgHover: var(--background_1);
+  --filterBg2Hover: var(--background_1);
+  --filterBg3Hover: var(--background_1);
+  --filterTxt: var(--text_1);
+  --filterTxt2: var(--text_2);
+  --filterTxt3: var(--text_3);
+  --filterAccent: var(--accent_1);
+  --filterAccentTxt: var(--accent_1_txt);
+  --filterRadius: 2px;
+  --filterBorder: var(--background_1);
+
+  --tooltipG: var(--background_3);
+  --tooltipBg: var(--background_3);
+  --tooltipBg2: var(--background_3);
+  --tooltipBg3: var(--background_3);
+  --tooltipBgHover: var(--background_3);
+  --tooltipBg2Hover: var(--background_3);
+  --tooltipBg3Hover: var(--background_3);
+  --tooltipTxt: var(--text_1);
+  --tooltipTxt2: var(--text_2);
+  --tooltipTxt3: var(--text_3);
+  --tooltipAccent: var(--accent_1);
+  --tooltipAccentTxt: var(--accent_1_txt);
+  --tooltipRadius: 2px;
+  --tooltipBorder: var(--background_3);
+
+
+
+
+  --marketHeaderG: var(--background_4);
+  --marketHeaderBg: var(--background_4);
+  --marketHeaderBg2: var(--background_4);
+  --marketHeaderBg3: var(--background_4);
+  --marketHeaderBgHover: var(--background_4);
+  --marketHeaderBg2Hover: var(--background_4);
+  --marketHeaderBg3Hover: var(--background_4);
+  --marketHeaderTxt: var(--text_1);
+  --marketHeaderTxt2: var(--text_2);
+  --marketHeaderTxt3: var(--text_3);
+  --marketHeaderAccent: var(--accent_1);
+  --marketHeaderAccentTxt: var(--accent_1_txt);
+  --marketHeaderRGBA: var(--background_4);
+  --marketHeaderRGBA2: var(--background_4);
+  --marketHeaderRGBA3: var(--background_4);
+  --marketHeaderRadius: 8px;
+  --marketHeaderBorder: var(--background_4);
+
+}
+
+.dg_bs_header_tab_in {
+  --headerBg2: var(--background_4);
+}
+
+
+.dg_bs_page_wrap.dg_bs_page_wrap .dg_bs_toggle_input:checked+.dg_bs_toggle.dg_bs_toggle:before {
+  background-color: #3f97b6;
+}
+
+.dg_bs_page_wrap.dg_bs_page_wrap.dg_bs_page_wrap--sharebet {
+  margin: 0;
+  row-gap: 8px;
+}
+
+.dg_bs_page_wrap.dg_bs_page_wrap.dg_bs_page_wrap--sharebet>.dg_bs_page_header {
+  margin-left: -12px;
+  margin-right: -12px;
+  padding: 4px 16px;
+}
+
+.dg_bs_stake_group_wrapper.dg_bs_stake_group_wrapper {
+  row-gap: 8px;
+  --bodyBg: var(--background_3);
+}
+
+.dg_bs_stake_group.dg_bs_stake_group {
+  --bs_group_bg: var(--background_3);
+  border-color: var(--background_1);
+}
+
+.dg_bs_betamount_input {
+  --inputBg: var(--background_4);
+  --inputBg3: var(--background_3);
+  --inputBgHover: var(--background_1);
+  --inputBorder: var(--text_3);
+}
+
+.dg_bs_betamount_input.dg_bs_betamount_input:hover {
+  border-color: var(--text_3);
+}
+
+.dg_bs_tabs_in.dg_bs_tabs_in {
+  --tabActiveBg: var(--background_4);
+  --tabActiveTxt: var(--text_1);
+}
+
+.dg_bs_betamount_system_dropdown_btn,
+.dg_bs_betamount_system_dropdown_select {
+  --inputBg: var(--background_4);
+  --inputBgHover: var(--background_3);
+
+}
+
+.dg_bs_betamount_fav_wrap {
+  --eventBg3: var(--background_3);
+}
+
+.dg_bs_header_tab--active.dg_bs_header_tab--active {
+  border-bottom: unset;
+}
+
+.dg_bs_checkbox_imit.dg_bs_checkbox_imit {
+  border-color: var(--text_3);
+}
+
+.dg_bs_betamount_col:last-child {
+  --eventBg2: var(--background_3);
+}
+
+.dg_bs_stake_sport_type {
+  --imageSize: 20px;
+}
+
+.dg_bs_stakes_infobar_total_odds.dg_bs_stakes_infobar_total_odds {
+  font-weight: 400;
+}
+
+.dg_system_calculator_row_checkbox>input:checked+i {
+  --accentBg: #67bd81;
+  --accentTxt: #fff;
+}
+
+.dg_bs_stakes_infobar_btn--remove.dg_bs_stakes_infobar_btn--remove,
+.dg_bs_stakes_infobar_btn--remove.dg_bs_stakes_infobar_btn--remove .dg_bs_stakes_infobar_btn_icon {
+  color: #767879;
+}
+
+.dg_bs_btn,
+.dg_bs_root .dg_system_calculator_btn_action {
+  --buttonG: var(--accent_2);
+}
+
+.dg_bs_stake_selection_arg.dg_bs_stake_selection_arg {
+  font-size: 13px;
+}
+
+.dg_bs_stake_msg {
+  background: none !important;
+}
+
+.dg_bs_stake_header_live_indicator.dg_bs_stake_header_live_indicator {
+  --accentBg: var(--accent_2);
+}
+
+.dg_bs_empty_actions.dg_bs_empty_actions {
+  box-shadow: none;
+}
+
+.dg_bs_stake_group--bonus.dg_bs_stake_group--bonus {
+  border: 0;
+  padding: 0 4px 4px;
+  border-color: var(--background_3);
+}
+
+.dg_bs_stake_group--highlight.dg_bs_stake_group--highlight {
+  border-color: var(--background_3);
+}
+
+.dg_bs_toggle {
+  --bs_toggle_inner_bg: var(--background_3);
+  --eventBg: var(--background_4);
+  --inputBg: var(--background_4);
+}
+
+.dg_bs_root:not(.dg_bs_root--mobile) .dg_bs_toggle:hover {
+  --bs_toggle_inner_bg: var(--background_3);
+}
+
+.dg_bs_toggle_input:checked~.dg_bs_toggle {
+  --accentBg: var(--accent_1);
+}
+
+.dg_bs_root:not(.dg_bs_root--mobile) .dg_bs_toggle_input:checked~.dg_bs_toggle:hover {
+  --bs_toggle_inner_bg: var(--accent_1_txt);
+}
+
+.dg_bs_stake_bonus_header_freebet_icon_wrapper {
+  --eventAccent: var(--accent_1);
+}
+
+.dg_bs_betamount_fav_btn {
+  --eventTxt: var(--text_2);
+}
+
+.dg_bs_betamount_fav_wrap_in {
+  opacity: 0.5;
+}
+
+.dg_bs_body_actions {
+  margin: auto -12px 0;
+  max-width: calc(100% + 24px);
+  --bodyBg: var(--background_1);
+  box-shadow: 0 -6px 6px 0 rgba(0, 0, 0, 0.03);
+}
+
+.dg_bs_btn.dg_bs_btn,
+.dg_bs_root .dg_system_calculator_btn_action {
+  --buttonG: var(--accent_2);
+  border-color: var(--accent_2);
+  --buttonTxt: var(--accent_2_txt);
+}
+
+.dg_bs_btn--outline.dg_bs_btn--outline {
+  --buttonSecondaryBg2Hover: var(--background_3);
+  --buttonSecondaryBg: var(--background_3);
+  border-color: var(--text_3);
+}
+
+.dg_bs_btn--share.dg_bs_btn--share {
+  border-color: var(--text_3);
+  --buttonSecondaryBg: var(--background_1);
+  --buttonSecondaryTxt: var(--text_1);
+}
+
+.dg_bs_betamount_system_calculator_btn.dg_bs_betamount_system_calculator_btn {
+  background-color: var(--background_4);
+  color: var(--text_1);
+  border-radius: 8px;
+}
+
+.dg_bs_betamount_system_dropdown_wrap {
+  background-color: var(--background_4);
+  color: var(--text_1);
+  border-radius: 8px;
+  padding-inline-start: 12px;
+  padding-inline-end: 8px;
+}
+
+.dg_bs_page_wrap--system.dg_bs_page_wrap--system {
+  background: var(--background_3);
+  border: 1px solid var(--text_3);
+  --bs_page_bg: var(--background_3);
+}
+
+.dg_bs_page_wrap--system.dg_bs_page_wrap--system .dg_bs_page_header {
+  margin-bottom: 0;
+  border-bottom: 1px solid var(--background_4);
+}
+
+.dg_dropdown_panel.dg_dropdown_panel {
+  --dominantBg: var(--background_1);
+  --dominantBgHover: var(--background_1);
+  --dominantBg2: var(--background_1);
+  --dominantBg2Hover: var(--background_1);
+  --dominantBg3: var(--text_3);
+  --dominantBg3Hover: var(--background_1);
+  --dominantTxt: var(--text_1);
+  --dominantTxt2: var(--text_2);
+  --dominantTxt3: var(--text_3);
+}
+
+.dg_system_calculator_input_bet_amount_wrapper.dg_system_calculator_input_bet_amount_wrapper {
+  --inputBg: var(--background_1);
+  --inputBgHover: var(--background_1);
+  --inputBg2: var(--background_1);
+  --inputBg2Hover: var(--background_1);
+  --inputBg3: var(--background_1);
+  --inputBg3Hover: var(--background_1);
+  --inputBorder: var(--text_3);
+  --inputTxt: var(--text_1);
+  --inputTxt2: var(--text_2);
+  --inputTxt3: var(--text_3);
+}
+
+.dg_system_calculator_row_input_wrapper.dg_system_calculator_row_input_wrapper>input {
+  --inputBg: var(--background_1);
+  --inputBgHover: var(--background_1);
+  --inputBg2: var(--text_3);
+  --inputBg2Hover: var(--background_1);
+  --inputBorder: var(--text_3);
+  --inputTxt: var(--text_1);
+  --inputTxt2: var(--text_2);
+  --inputTxt3: var(--text_3);
+}
+
+.dg_system_calculator_row_checkbox>i {
+  --dominantBg2: var(--background_4);
+}
+
+.dg_bs_stakes_infobar_wrap {
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.dg_bs_stake_bonus_collapse.dg_bs_stake_bonus_collapse {
+  margin: 0;
+}
+
+.dg_bs_betamount_txt--total {
+  color: var(--accent_1);
+}
+
+.dg_bs_preview_stake_event.dg_bs_preview_stake_event {
+  --eventBgHover: var(--background_1);
+  border-color: var(--background_1);
+}
+
+.dg_bs_preview_stake_wrap_footer.dg_bs_preview_stake_wrap_footer {
+  --eventBgHover: var(--background_1);
+}
+
+.dg_bs_preview_stake_wrap_footer_wrapper {
+  border-radius: 12px;
+  margin: 4px -12px 0;
+}
+
+.dg_bs_preview_stake_wrap.dg_bs_preview_stake_wrap {
+  border-bottom: 1px solid var(--background_4);
+}
+
+.dg_bs_preview_footer_btn--back.dg_bs_preview_footer_btn--back {
+  border-color: var(--text_3);
+  background: var(--background_2);
+  --bodyTxt: var(--text_1);
+}
+
+.dg_bs_preview_footer_btn--close.dg_bs_preview_footer_btn--close {
+  --accentBg: var(--accent_2);
+  --accentTxt: var(--accent_2_txt);
+  --accentBgHover: var(--accent_2);
+}
+
+.dg_bs_preview_footer_btn--close.dg_bs_preview_footer_btn--close:hover {
+  opacity: 0.8;
+}
+
+.dg_bs_betplaced_svg {
+  --bs_green: var(--accent_1)
+}
+
+.dg_bs_betamount_fav_wrap_in {
+  opacity: 1;
+}
+
+.dg_bs_root .hg-button.hg-button-bksp>span,
+.dg_bs_root .hg-button.hg-standardBtn>span,
+.dg_bs_root .dg_betslip_keyboard_btn_close.dg_betslip_keyboard_btn_close>span {
+  background-color: var(--background_4);
+  color: var(--dominantTxt2);
+}
+
+.dg_bs_header_tab_count.dg_bs_header_tab_count {
+  min-width: auto;
+  padding: 0 6px;
+  --bs_br: 9px;
+}
+
+.dg_bs_betamount_fav_btn.dg_bs_betamount_fav_btn:after {
+  --eventBg3: var(--text_3);
+}
+
+.dg_bs_header_tab--active .dg_bs_header_tab_in {
+  border-bottom: 1px solid var(--accent_1);
+}
+
+.dg_bs_header_tab:first-child:not(.dg_bs_header_tab--sm) .dg_bs_header_tab_in.dg_bs_header_tab_in {
+  border-bottom: none;
+}
+
+.dg_bs_balance_wrap {
+  display: none !important;
+}
+
+.dg_bs_tab.dg_bs_tab,
+.dg_bs_root:not(.dg_bs_root--mobile) .dg_bs_tab.dg_bs_tab:hover {
+  background: var(--tabBg);
+  color: var(--text_2);
+}
+
+.dg_bs_root:not(.dg_bs_root--mobile) .dg_bs_tab.dg_bs_tab:hover {
+  background: var(--tabBg);
+  color: var(--text_1);
+}
+
+.dg_bs_tab.dg_bs_tab.dg_bs_tab.dg_bs_tab--active.dg_bs_tab--active {
+  background: var(--background_4);
+  color: var(--text_1);
+}
+
+.sport_front_icon-settings.sport_front_icon-settings:before {
+  content: "\E1D3";
+}
+
+.dg_icon_remove_bet.dg_icon_remove_bet:before {
+  content: "\E1D1";
+}
+
+.dg_icon_calculator.dg_icon_calculator:before {
+  content: "\E1D2";
+}
+
+.dg_bs_bonus_dropdown_content .dg_bs_bonus_dropdown_actions .dg_bs_btn--text {
+  height: 32px;
+  padding: 0 16px;
+  border-radius: 8px;
+  border-color: var(--text_3);
+}
+
+.dg_bs_sharebet_events_wrapper .dg_bs_stake {
+  --bs-col-bg: var(--background_4);
+  border: 1px solid var(--text_3);
+  background: var(--background_4);
+}
+
+
+.dg_range_bullet_info {
+  --tooltipBg2: var(--background_1);
+  border-color: var(--text_3);
+  --tooltipTxt2: var(--text_1);
+}
+
+.dg_bs_stake_bb_list_item {
+  --bs_bb_indicator: var(--text_3);
+}
+
+.dg_bs_scrollbar {
+  --dominantBg: var(--background_2);
+  --dominantBg3Hover: var(--background_4);
+}
+
+.dg_bs_scrollbar.dg_bs_scrollbar,
+.dg_bs_body_scroller_grid_row.dg_bs_body_scroller_grid_row,
+.bh_my_bets.bh_root .bh_main_content {
+  scrollbar-width: none;
+}
+
+/* .dg_bs_root_holder--active .dg_bs_root--mobile .dg_bs_wrapper{
+  border-top-left-radius: 12px;
+  border-top-right-radius: 12px;
+} */
+
+.dg_bs_onboarding.dg_bs_onboarding {
+  /* animation: dg_bs_onboarding_anim var(--bs_timing) ease-in-out forwards;
+    animation-delay: .3s;
+    animation-iteration-count: 1; */
+  --tooltipBg: var(--background_4);
+}
+
+.dg_bs_onboarding_btn.dg_bs_onboarding_btn.dg_bs_onboarding_btn--secondary {
+  border: 1px solid var(--text_3);
+}
+
+.dg_bs_onboarding_footer {
+  column-gap: 4px;
+}
+
+.lv_market_filter .lv_onboarding_message_wrapper .lv_onboarding_message_content {
+  --tooltipBg: var(--background_4);
+}
+
+.lv_market_filter .lv_onboarding_message_wrapper .lv_onboarding_message_content .lv_onboarding_message_footer button.lv_onboarding_message_btn {
+  --accentBg: var(--accent_2);
+  --accentTxt: var(--accent_2_txt);
+}
+
+.lv_market_filter .lv_onboarding_message_wrapper .lv_onboarding_message_content .lv_onboarding_message_footer button:first-child {
+  height: 32px;
+  margin-inline-end: 8px;
+  padding: 0 16px;
+  border: 1px solid var(--text_3);
+}
+
+.lv_filter_tab.lv_onboarding_message_bet_builder_wrapper.lv_tab_onboarding_message:after {
+  --tooltipBg: var(--background_4);
+}
+
+.dg_bs_sharebet_footer_link_input,
+.dg_bs_sharebet_footer_link_btn {
+  --dg-bs-sharebet-footer-border: var(--text_3);
+}
+
+/*betslip badge*/
+.dg_bs_collapsed_mob_circle.dg_bs_collapsed_mob_circle {
+  border-color: var(--background_3);
+  box-shadow: 2px 0px 2px 0 rgb(0 0 0 / 20%);
+
+}
+
+.dg_bs_collapsed_mob_odds_wrap.dg_bs_collapsed_mob_odds_wrap {
+  max-width: none;
+  width: 100%;
+}
+
+.dg_bs_collapsed_mob_content.dg_bs_collapsed_mob_content {
+  width: 96px;
+  --bs_white: var(--background_3);
+  --bs_black: var(--text_1);
+}
+
+.dg_bs_collapsed_mob_odds.dg_bs_collapsed_mob_odds {
+  color: var(--text_2);
+  font-size: 10px;
+  font-weight: 400;
+}
+
+.dg_bs_collapsed_mob_odds_count.dg_bs_collapsed_mob_odds_count {
+  font-weight: 500;
+  font-size: 12px;
+  width: 100%;
+}
+
+.dg_bs_collapsed_mob_odds_count.dg_bs_collapsed_mob_odds_count>span {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.dg_bs_stake_selection_odd:only-child {
+  --eventTxt2: var(--text_1);
+}
+
+.bh_boost_row.bh_boost_row {
+  margin-bottom: 8px;
+}
+
+/* bonuses switch */
+.dg_bs_bonuses_header .dg_bs_bonuses_toggler {
+  --bodyBg3: var(--background_2);
+}
+
+.dg_bs_bonuses_popup_content__item {
+  background: var(--background_1);
+  border-color: var(--background_3);
+}
+
+.dg_bs_bonuses_popup_content__content .separator {
+    --eventBg2Hover: var(--text_3);
+}
+
+.dg_bs_bonuses_popup_content__title a:hover,
+.dg_bs_bonuses_popup_content__title a:not(.collapsed) {
+  background: unset;
+}
+
+.dg_bs_bonuses.active .dg_bs_bonuses_body_content_text.dg_bs_slider_wrapper .slider_steps:has(.slider_wrapper_item.active) .slider_wrapper_item.active ~ .slider_wrapper_item .slider_wrapper_item_progress:before {
+  background: var(--background_3);
+}
+
+.dg_bs_stake_event_score{
+ --eventAccent: var(--success);
+}
+
+.dg_bs_wrapper{
+ --bodyBg: #091D32;
+}
+
+.dg_bs_sharebet_events_wrapper .dg_bs_stake_selection_wrap.dg_bs_stake_col {
+  flex-wrap: nowrap;
+}
+
+.dg_bs_sharebet_events_wrapper .dg_bs_stake_selection{
+    line-height: 14px;
+}

@@ -1,0 +1,59 @@
+div.ms_root,
+:host:host,
+.dg_bs_root_holder {
+
+
+  --error: #ff6060;
+  --background_1: #102a32;
+  --background_2: #12313a;
+  --background_3: #1e5b6c;
+  --background_4: #163E4A;
+  --background_5: #1D5261;
+  --background_6: #18424e;
+  --background_rgba: #102B3344;
+  --background_rgba_skeleton: #1e5b6c80;
+  --background_rgba2: #163E4A77;
+  --background_rgba3: #163E4A88;
+
+  --text_1: #fff;
+  --text_2: rgba(255, 255, 255, 0.8);
+  --text_3: rgba(255, 255, 255, 0.5);
+
+  --accent_1: #00FF86;
+  --accent_1_txt: #102B33;
+  --accent_2: #00FF86;
+  --accent_2_txt: #102B33;
+  --accent_3: #00FF86;
+  --accent_3_txt: #102B33;
+
+  --accent_5: #009952;
+  --accent_5_txt: #102B33;
+
+  --accent_4: #f49622;
+  --accent_4_txt: #102B33;
+
+  --oddG: var(--background_5);
+  --oddBg: var(--background_5);
+  --oddBg2: var(--background_5);
+  --oddBg3: var(--background_5);
+  --oddBgHover: var(--background_6);
+  --oddBg2Hover: var(--background_5);
+  --oddBg3Hover: var(--background_5);
+  --oddTxt: var(--text_1);
+  --oddTxt2: var(--text_2);
+  --oddTxt3: var(--text_3);
+  --oddAccent: var(--text_1);
+  --oddAccentTxt: var(--background_5);
+  --oddRadius: 2px;
+  --oddBorder: var(--background_5);
+}
+
+/* .ai_event_scores .ai_event_score:first-child{
+  --eventAccent: var(--accent_4);
+} */
+
+/*event details banner*/
+.dm_event_banner_score.dm_event_banner_score {
+  --bodyRGBA2: var(--background_rgba);
+  background: rgba(0, 0, 0, 0.3);
+}
