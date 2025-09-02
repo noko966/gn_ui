@@ -3,7 +3,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editStyle, setLayoutType, setScrollType, setTruncateType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount, setIconClass, setFlagClass } from "./features/treeSlice";
-import { PositionControl } from "./components/position";
 import { PxDragInput } from "./components/DragInput";
 import { FLAGS_DATA, ICONS_DATA } from './features/data'
 
@@ -12,27 +11,6 @@ const essenceOptions = ["body", "accent", "button", "buttonSecondary", "navbar",
   "odd", "oddActive", "showMore", "marketHeader", "collapse", "tab", "tabActive", "menu_1", "menu_2", "menu_3"
 ];
 const essenceTextOptions = ["Txt", "Txt2", "Txt3", "Accent", "AccentTxt"];
-
-/* ---- helpers ---- */
-const ensurePx = (v) =>
-  v === "" || v == null ? "" : /^\d+$/.test(String(v)) ? `${v}px` : String(v);
-const getNum = (v) => (v ? String(v).replace(/px$/, "") : "");
-
-/* ---- small UI atoms ---- */
-const NumberPx = React.memo(function NumberPx({ value, onChange, width = 80 }) {
-  return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 6 }}>
-      <input
-        className="sk_bd_input"
-        type="number"
-        value={getNum(value)}
-        onChange={(e) => onChange(ensurePx(e.target.value))}
-        style={{ width }}
-      />
-      px
-    </span>
-  );
-});
 
 /* map var → css property name (React style keys) */
 const VAR_TO_PROP = {
@@ -46,6 +24,11 @@ const VAR_TO_PROP = {
   "--sk_el_custom_width": "width",
 };
 
+// width/height unit (derive from current value)
+
+
+
+
 /* ================================================================== */
 /*                         I N S P E C T O R                          */
 /* ================================================================== */
@@ -54,6 +37,50 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const dispatch = useDispatch();
   const tree = useSelector(selectTree);
   const selectedPath = useSelector(selectSelectedPath);
+
+  // Locks for padding/radius
+  const [lockPadding, setLockPadding] = React.useState(false);
+  const [lockRadius, setLockRadius] = React.useState(false);
+
+  // padding setters (respect lock)
+  const setPaddingTop = (v) => {
+    if (lockPadding) {
+      ["Top", "Right", "Bottom", "Left"].forEach(side =>
+        dispatch(editStyle({ key: `padding${side}`, value: v }))
+      );
+    } else {
+      dispatch(editStyle({ key: "paddingTop", value: v }));
+    }
+  };
+  const setPaddingRight = (v) => lockPadding
+    ? ["Top", "Right", "Bottom", "Left"].forEach(side => dispatch(editStyle({ key: `padding${side}`, value: v })))
+    : dispatch(editStyle({ key: "paddingRight", value: v }));
+  const setPaddingBottom = (v) => lockPadding
+    ? ["Top", "Right", "Bottom", "Left"].forEach(side => dispatch(editStyle({ key: `padding${side}`, value: v })))
+    : dispatch(editStyle({ key: "paddingBottom", value: v }));
+  const setPaddingLeft = (v) => lockPadding
+    ? ["Top", "Right", "Bottom", "Left"].forEach(side => dispatch(editStyle({ key: `padding${side}`, value: v })))
+    : dispatch(editStyle({ key: "paddingLeft", value: v }));
+
+  // radius setters (respect lock)
+  const setRadiusTL = (v) => {
+    if (lockRadius) {
+      ["TopLeft", "TopRight", "BottomRight", "BottomLeft"].forEach(corner =>
+        dispatch(editStyle({ key: `border${corner}Radius`, value: v }))
+      );
+    } else {
+      dispatch(editStyle({ key: "borderTopLeftRadius", value: v }));
+    }
+  };
+  const setRadiusTR = (v) => lockRadius
+    ? ["TopLeft", "TopRight", "BottomRight", "BottomLeft"].forEach(corner => dispatch(editStyle({ key: `border${corner}Radius`, value: v })))
+    : dispatch(editStyle({ key: "borderTopRightRadius", value: v }));
+  const setRadiusBR = (v) => lockRadius
+    ? ["TopLeft", "TopRight", "BottomRight", "BottomLeft"].forEach(corner => dispatch(editStyle({ key: `border${corner}Radius`, value: v })))
+    : dispatch(editStyle({ key: "borderBottomRightRadius", value: v }));
+  const setRadiusBL = (v) => lockRadius
+    ? ["TopLeft", "TopRight", "BottomRight", "BottomLeft"].forEach(corner => dispatch(editStyle({ key: `border${corner}Radius`, value: v })))
+    : dispatch(editStyle({ key: "borderBottomLeftRadius", value: v }));
 
   if (!selectedNode) return <em>Select a node</em>;
 
@@ -73,19 +100,9 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
     }
   };
 
-
-
   // current values
-  const curBgVar = readVar("--sk_el_custom_bg"); // var(--<ess>Bg)
-  const curTxtVar = readVar("--sk_el_custom_txt"); // var(--<parentEss><Role>)
-  const curDir = readVar("--sk_el_custom_dir"); // row|column
-  const curGap = readVar("--sk_el_custom_gap"); // px
-  const curPad = readVar("--sk_el_custom_p"); // px
-  const curWidth = readVar("--sk_el_custom_width"); // px
   const curFlag = readVar("--flagSize"); // px
   const curIcon = readVar("--icoSize"); // px
-  const curFontSize = readVar("--fontSize"); // px
-  const curRadius = readVar("--sk_el_custom_radius"); // px
   const selectedEssence = selectedNode?.essence || "";
   const selectedLayoutType = selectedNode?.layoutType || "hug";
   const selectedScrollType = selectedNode?.scrollType || "";
@@ -100,14 +117,6 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
 
   const st = selectedNode.styles || {};
-  const currentDirection = st.flexDirection || "row";
-  const setDirection = (value) => {
-    // make sure it's flex layout (optional safety)
-    if (selectedNode.styles?.display !== "flex") {
-      dispatch(editStyle({ key: "display", value: "flex" }));
-    }
-    dispatch(editStyle({ key: "flexDirection", value }));
-  };
 
 
   const direction = selectedNode.styles?.flexDirection || "row";
@@ -608,7 +617,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(padTop) || 0}
-                  onChange={(v) => setStyle("paddingTop", v)}
+                  onChange={setPaddingTop}
                   name={"paddingTop"}
                 />
               </div>
@@ -619,7 +628,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(padRight) || 0}
-                  onChange={(v) => setStyle("paddingRight", v)}
+                  onChange={setPaddingRight}
                   name={"paddingRight"}
                 />
               </div>
@@ -631,7 +640,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(padBottom) || 0}
-                  onChange={(v) => setStyle("paddingBottom", v)}
+                  onChange={setPaddingBottom}
                   name={"paddingBottom"}
                 />
               </div>
@@ -642,10 +651,18 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 <PxDragInput
                   className="sk_bd_input"
                   value={parseInt(padLeft) || 0}
-                  onChange={(v) => setStyle("paddingLeft", v)}
+                  onChange={setPaddingLeft}
                   name={"paddingLeft"}
                 />
               </div>
+
+              <button
+                className={`sk_bd_btn_lock ${lockPadding ? "state_checked" : ""}`}
+                onClick={() => setLockPadding((v) => !v)}
+                title={lockPadding ? "Unlock padding" : "Lock padding (edit all sides)"}
+              >
+                {lockPadding ? <i className="sport_front_icon-lock" /> : <i className="sport_front_icon-lock-off" />}
+              </button>
             </div>
           </div>
 
@@ -667,7 +684,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <PxDragInput
               className="sk_bd_input"
               value={parseInt(radTL) || 0}
-              onChange={(v) => setStyle("borderTopLeftRadius", v)}
+              onChange={setRadiusTL}
             />
           </div>
 
@@ -676,7 +693,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <PxDragInput
               className="sk_bd_input"
               value={parseInt(radTR) || 0}
-              onChange={(v) => setStyle("borderTopRightRadius", v)}
+              onChange={setRadiusTR}
             />
           </div>
 
@@ -685,7 +702,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <PxDragInput
               className="sk_bd_input"
               value={parseInt(radBL) || 0}
-              onChange={(v) => setStyle("borderBottomLeftRadius", v)}
+              onChange={setRadiusBL}
             />
           </div>
 
@@ -694,9 +711,17 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <PxDragInput
               className="sk_bd_input"
               value={parseInt(radBR) || 0}
-              onChange={(v) => setStyle("borderBottomRightRadius", v)}
+              onChange={setRadiusBR}
             />
           </div>
+
+          <button
+            className={`sk_bd_btn_lock ${lockRadius ? "state_checked" : ""}`}
+            onClick={() => setLockRadius((v) => !v)}
+            title={lockRadius ? "Unlock radius" : "Lock radius (edit all corners)"}
+          >
+            {lockRadius ? <i className="sport_front_icon-lock" /> : <i className="sport_front_icon-lock-off" />}
+          </button>
         </div>
       </div>
 

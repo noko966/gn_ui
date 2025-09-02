@@ -927,6 +927,8 @@ html {
   width: 100%;
 }
 
+
+
 .sk_bd_tool_item {
   background-color: var(--sk_dominantBg2);
   border: 1px solid var(--sk_dominantBg3);
@@ -1614,7 +1616,7 @@ html {
 
 
 .dg_scrollbar_y::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
   /* Scrollbar width */
 }
 
@@ -1638,7 +1640,7 @@ html {
 
 /* ---- */
 .dg_scrollbar_x::-webkit-scrollbar {
-  width: 6px;
+  width: 4px;
   /* Scrollbar width */
 }
 

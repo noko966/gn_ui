@@ -1566,6 +1566,26 @@ html {
   gap: 4px;
 }
 
+.sk_bd_btn_lock {
+    background: var(--sk_dominantBg2Hover);
+    color: var(--sk_dominantTxt2);
+    border: 1px solid var(--sk_dominantBg);
+    outline: 0;
+    height: 24px;
+    --icoSize: 18px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 24px;
+}
+
 .sk_layers_btn {
   padding: 0 6px;
   height: 20px;

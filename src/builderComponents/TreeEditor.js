@@ -151,6 +151,7 @@ async function fetchBinaryOrNull(path) {
   }
 }
 
+
 // ------ build a full HTML doc around your generated body ------
 function buildHtmlDocument(bodyHtml) {
   // Feel free to tweak <head> as you like. We link external CSS
@@ -282,65 +283,136 @@ export function TreeEditor() {
   };
 
   /* plus/minus navigation (keyboard & canvas-only wheel) */
-  useEffect(() => {
-    const goUp = (path) => {
-      let p = path.slice(0, -1);
-      while (p.length >= 0) {
-        const n = p.length ? getNodeAtPath(tree, p) : tree;
-        if (n && isLayoutNode(n)) return p;
-        if (p.length === 0) break;
-        p = p.slice(0, -1);
-      }
-      return null;
-    };
+useEffect(() => {
+  const goUp = (path) => {
+    let p = path.slice(0, -1);
+    while (p.length >= 0) {
+      const n = p.length ? getNodeAtPath(tree, p) : tree;
+      if (n && isLayoutNode(n)) return p;
+      if (p.length === 0) break;
+      p = p.slice(0, -1);
+    }
+    return null;
+  };
 
-    const goDownFirstChild = (path) => {
-      const n = path.length ? getNodeAtPath(tree, path) : tree;
-      if (!n || !Array.isArray(n.children) || n.children.length === 0) return null;
-      return [...path, 0];
-    };
+  const goDownFirstChild = (path) => {
+    const n = path.length ? getNodeAtPath(tree, path) : tree;
+    if (!n || !Array.isArray(n.children) || n.children.length === 0) return null;
+    return [...path, 0];
+  };
 
-    const basePath = () =>
-      Array.isArray(hoverPath) && hoverPath.length ? hoverPath : Array.isArray(selectedPath) ? selectedPath : [];
+  const basePath = () =>
+    Array.isArray(hoverPath) && hoverPath.length ? hoverPath
+      : Array.isArray(selectedPath) ? selectedPath
+        : [];
 
-    const handlePlus = () => {
-      const down = goDownFirstChild(basePath());
-      if (down) {
-        dispatch(setHoverPath(down));
-        dispatch(setSelectedPath(down));
-      }
-    };
+  const handlePlus = () => {
+    const down = goDownFirstChild(basePath());
+    if (down) {
+      dispatch(setHoverPath(down));
+      dispatch(setSelectedPath(down));
+    }
+  };
 
-    const handleMinus = () => {
-      const up = goUp(basePath());
-      if (up) {
-        dispatch(setHoverPath(up));
-        dispatch(setSelectedPath(up));
-      }
-    };
+  const handleMinus = () => {
+    const up = goUp(basePath());
+    if (up) {
+      dispatch(setHoverPath(up));
+      dispatch(setSelectedPath(up));
+    }
+  };
 
-    const onKey = (e) => {
-      const isMinus = e.key === "-" || e.key === "Subtract";
-      const isPlus = e.key === "+" || (e.key === "=" && e.shiftKey) || e.key === "Add";
-      if (isMinus) handleMinus();
-      if (isPlus) handlePlus();
-    };
+  const handleDeleteSelected = () => {
+    if (!isRoot(selectedPath)) {
+      dispatch(removeAtPath(selectedPath));
+    }
+  };
 
-    const canvasRoot = document.querySelector(".sk_bd_canvas_root");
-    if (!canvasRoot) return;
+  const handleMove = (dir) => {
+    if (!isRoot(selectedPath)) {
+      dispatch(swapSiblings({ path: selectedPath, dir }));
+    }
+  };
 
-    const onWheel = (e) => {
-      if (e.deltaY < 0) handleMinus();
-      else if (e.deltaY > 0) handlePlus();
-    };
+  const handleWrap = () => {
+    if (!isRoot(selectedPath)) {
+      dispatch(wrapSelectedInLayout());
+    }
+  };
 
-    window.addEventListener("keydown", onKey);
-    canvasRoot.addEventListener("wheel", onWheel, { passive: true });
-    return () => {
-      window.removeEventListener("keydown", onKey);
-      canvasRoot.removeEventListener("wheel", onWheel);
-    };
-  }, [dispatch, hoverPath, selectedPath, tree]);
+  const isTypingTarget = (el) => {
+    if (!el) return false;
+    const tag = (el.tagName || "").toLowerCase();
+    const editable = el.isContentEditable;
+    return editable || tag === "input" || tag === "textarea" || tag === "select";
+  };
+
+  const onKey = (e) => {
+    // Don’t hijack keys while the user is typing in a field
+    if (isTypingTarget(e.target)) return;
+
+    const key = (e.key || "").toLowerCase();
+
+    // +/- navigation
+    if (key === "-" || key === "subtract") {
+      e.preventDefault();
+      handleMinus();
+      return;
+    }
+    if (key === "+" || (key === "=" && e.shiftKey) || key === "add") {
+      e.preventDefault();
+      handlePlus();
+      return;
+    }
+
+    // Delete node
+    if (key === "delete" || key === "backspace") {
+      e.preventDefault();
+      handleDeleteSelected();
+      return;
+    }
+
+    // Move node with arrows
+    if (key === "arrowleft") {
+      e.preventDefault();
+      handleMove(-1);
+      return;
+    }
+    if (key === "arrowright") {
+      e.preventDefault();
+      handleMove(1);
+      return;
+    }
+
+    // Wrap into layout: Shift + A
+    if (key === "a" && e.shiftKey) {
+      e.preventDefault();
+      handleWrap();
+      return;
+    }
+
+    if (e.key.toLowerCase() === "c" && e.shiftKey) {
+    duplicateSelected();
+  }
+  };
+
+  const canvasRoot = document.querySelector(".sk_bd_canvas_root");
+  if (!canvasRoot) return;
+
+  const onWheel = (e) => {
+    if (e.deltaY < 0) handleMinus();
+    else if (e.deltaY > 0) handlePlus();
+  };
+
+  window.addEventListener("keydown", onKey);
+  canvasRoot.addEventListener("wheel", onWheel, { passive: true });
+
+  return () => {
+    window.removeEventListener("keydown", onKey);
+    canvasRoot.removeEventListener("wheel", onWheel);
+  };
+}, [dispatch, hoverPath, selectedPath, tree]);
+
 
   /* palette -> insert node (store baseCn + cnUser) */
   const handlePaletteClick = (tpl, inside = false) => {
