@@ -115,8 +115,8 @@ function siblingsWithSameBase(parent, base) {
 // Compute variant by index inside the group
 function computeVariantByIndex(idx, len) {
     if (len <= 1) return "";               // no variant if only one
-    if (idx === 0) return "variant_first";
-    if (idx === len - 1) return "variant_last";
+    // if (idx === 0) return "variant_first";
+    // if (idx === len - 1) return "variant_last";
     return `variant_${idx + 1}`;           // middle ones get index
 }
 

@@ -89,7 +89,7 @@ function NodeRow({
                             onMoveUp(path);
                         }}
                     >
-                        ↑
+                        <i style={{transform: "rotate(180deg)"}} className="dg_icon_arrow_down"/>
                     </button>
                     <button
                         className="sk_layers_btn"
@@ -99,7 +99,7 @@ function NodeRow({
                             onMoveDown(path);
                         }}
                     >
-                        ↓
+                        <i className="dg_icon_arrow_down"/>
                     </button>
                     {path.length > 0 && (
                         <button
@@ -110,7 +110,7 @@ function NodeRow({
                                 onRemove(path);
                             }}
                         >
-                            ✕
+                           <i className="dg_icon_close"/>
                         </button>
                     )}
                 </span>

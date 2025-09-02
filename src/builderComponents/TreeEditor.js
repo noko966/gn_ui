@@ -71,7 +71,6 @@ function mergeClassNames(...parts) {
 
 /** final class to render/export: base + user + auto-wrapper (unique) */
 function getEffectiveClass(node) {
-
   const base = (node.baseCn || node.cn || "").trim();
   const user = (node.cnUser || "").trim();
   const auto = node.type === "layout" ? computeAutoWrapperClass(node) : "";
@@ -283,135 +282,135 @@ export function TreeEditor() {
   };
 
   /* plus/minus navigation (keyboard & canvas-only wheel) */
-useEffect(() => {
-  const goUp = (path) => {
-    let p = path.slice(0, -1);
-    while (p.length >= 0) {
-      const n = p.length ? getNodeAtPath(tree, p) : tree;
-      if (n && isLayoutNode(n)) return p;
-      if (p.length === 0) break;
-      p = p.slice(0, -1);
-    }
-    return null;
-  };
+  useEffect(() => {
+    const goUp = (path) => {
+      let p = path.slice(0, -1);
+      while (p.length >= 0) {
+        const n = p.length ? getNodeAtPath(tree, p) : tree;
+        if (n && isLayoutNode(n)) return p;
+        if (p.length === 0) break;
+        p = p.slice(0, -1);
+      }
+      return null;
+    };
 
-  const goDownFirstChild = (path) => {
-    const n = path.length ? getNodeAtPath(tree, path) : tree;
-    if (!n || !Array.isArray(n.children) || n.children.length === 0) return null;
-    return [...path, 0];
-  };
+    const goDownFirstChild = (path) => {
+      const n = path.length ? getNodeAtPath(tree, path) : tree;
+      if (!n || !Array.isArray(n.children) || n.children.length === 0) return null;
+      return [...path, 0];
+    };
 
-  const basePath = () =>
-    Array.isArray(hoverPath) && hoverPath.length ? hoverPath
-      : Array.isArray(selectedPath) ? selectedPath
-        : [];
+    const basePath = () =>
+      Array.isArray(hoverPath) && hoverPath.length ? hoverPath
+        : Array.isArray(selectedPath) ? selectedPath
+          : [];
 
-  const handlePlus = () => {
-    const down = goDownFirstChild(basePath());
-    if (down) {
-      dispatch(setHoverPath(down));
-      dispatch(setSelectedPath(down));
-    }
-  };
+    const handlePlus = () => {
+      const down = goDownFirstChild(basePath());
+      if (down) {
+        dispatch(setHoverPath(down));
+        dispatch(setSelectedPath(down));
+      }
+    };
 
-  const handleMinus = () => {
-    const up = goUp(basePath());
-    if (up) {
-      dispatch(setHoverPath(up));
-      dispatch(setSelectedPath(up));
-    }
-  };
+    const handleMinus = () => {
+      const up = goUp(basePath());
+      if (up) {
+        dispatch(setHoverPath(up));
+        dispatch(setSelectedPath(up));
+      }
+    };
 
-  const handleDeleteSelected = () => {
-    if (!isRoot(selectedPath)) {
-      dispatch(removeAtPath(selectedPath));
-    }
-  };
+    const handleDeleteSelected = () => {
+      if (!isRoot(selectedPath)) {
+        dispatch(removeAtPath(selectedPath));
+      }
+    };
 
-  const handleMove = (dir) => {
-    if (!isRoot(selectedPath)) {
-      dispatch(swapSiblings({ path: selectedPath, dir }));
-    }
-  };
+    const handleMove = (dir) => {
+      if (!isRoot(selectedPath)) {
+        dispatch(swapSiblings({ path: selectedPath, dir }));
+      }
+    };
 
-  const handleWrap = () => {
-    if (!isRoot(selectedPath)) {
-      dispatch(wrapSelectedInLayout());
-    }
-  };
+    const handleWrap = () => {
+      if (!isRoot(selectedPath)) {
+        dispatch(wrapSelectedInLayout());
+      }
+    };
 
-  const isTypingTarget = (el) => {
-    if (!el) return false;
-    const tag = (el.tagName || "").toLowerCase();
-    const editable = el.isContentEditable;
-    return editable || tag === "input" || tag === "textarea" || tag === "select";
-  };
+    const isTypingTarget = (el) => {
+      if (!el) return false;
+      const tag = (el.tagName || "").toLowerCase();
+      const editable = el.isContentEditable;
+      return editable || tag === "input" || tag === "textarea" || tag === "select";
+    };
 
-  const onKey = (e) => {
-    // Don’t hijack keys while the user is typing in a field
-    if (isTypingTarget(e.target)) return;
+    const onKey = (e) => {
+      // Don’t hijack keys while the user is typing in a field
+      if (isTypingTarget(e.target)) return;
 
-    const key = (e.key || "").toLowerCase();
+      const key = (e.key || "").toLowerCase();
 
-    // +/- navigation
-    if (key === "-" || key === "subtract") {
-      e.preventDefault();
-      handleMinus();
-      return;
-    }
-    if (key === "+" || (key === "=" && e.shiftKey) || key === "add") {
-      e.preventDefault();
-      handlePlus();
-      return;
-    }
+      // +/- navigation
+      if (key === "-" || key === "subtract") {
+        e.preventDefault();
+        handleMinus();
+        return;
+      }
+      if (key === "+" || (key === "=" && e.shiftKey) || key === "add") {
+        e.preventDefault();
+        handlePlus();
+        return;
+      }
 
-    // Delete node
-    if (key === "delete" || key === "backspace") {
-      e.preventDefault();
-      handleDeleteSelected();
-      return;
-    }
+      // Delete node
+      if (key === "delete" || key === "backspace") {
+        e.preventDefault();
+        handleDeleteSelected();
+        return;
+      }
 
-    // Move node with arrows
-    if (key === "arrowleft") {
-      e.preventDefault();
-      handleMove(-1);
-      return;
-    }
-    if (key === "arrowright") {
-      e.preventDefault();
-      handleMove(1);
-      return;
-    }
+      // Move node with arrows
+      if (key === "arrowleft") {
+        e.preventDefault();
+        handleMove(-1);
+        return;
+      }
+      if (key === "arrowright") {
+        e.preventDefault();
+        handleMove(1);
+        return;
+      }
 
-    // Wrap into layout: Shift + A
-    if (key === "a" && e.shiftKey) {
-      e.preventDefault();
-      handleWrap();
-      return;
-    }
+      // Wrap into layout: Shift + A
+      if (key === "a" && e.shiftKey) {
+        e.preventDefault();
+        handleWrap();
+        return;
+      }
 
-    if (e.key.toLowerCase() === "c" && e.shiftKey) {
-    duplicateSelected();
-  }
-  };
+      if (e.key.toLowerCase() === "c" && e.shiftKey) {
+        duplicateSelected();
+      }
+    };
 
-  const canvasRoot = document.querySelector(".sk_bd_canvas_root");
-  if (!canvasRoot) return;
+    const canvasRoot = document.querySelector(".sk_bd_canvas_root");
+    if (!canvasRoot) return;
 
-  const onWheel = (e) => {
-    if (e.deltaY < 0) handleMinus();
-    else if (e.deltaY > 0) handlePlus();
-  };
+    const onWheel = (e) => {
+      if (e.deltaY < 0) handleMinus();
+      else if (e.deltaY > 0) handlePlus();
+    };
 
-  window.addEventListener("keydown", onKey);
-  canvasRoot.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("keydown", onKey);
+    canvasRoot.addEventListener("wheel", onWheel, { passive: true });
 
-  return () => {
-    window.removeEventListener("keydown", onKey);
-    canvasRoot.removeEventListener("wheel", onWheel);
-  };
-}, [dispatch, hoverPath, selectedPath, tree]);
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      canvasRoot.removeEventListener("wheel", onWheel);
+    };
+  }, [dispatch, hoverPath, selectedPath, tree]);
 
 
   /* palette -> insert node (store baseCn + cnUser) */
@@ -472,10 +471,14 @@ useEffect(() => {
   );
 
   const closeModal = () => dispatch(closeCodeModal());
+  const themes = ["default", "dark"];
+  const [theme, setTheme] = React.useState("default");
+
+  const rootClassName = `sk_bd_root state_${theme}`
 
   /* ─────────────────────────────── render ─────────────────────────────── */
   return (
-    <div className="sk_bd_root ">
+    <div className={rootClassName}>
       <div className="sk_bd_start_wrapper">
         <div className="sk_bd_start_wrapper_inner">
           <div className="sk_bd_tools_root">
@@ -582,19 +585,43 @@ useEffect(() => {
                 </button>
               </div>
 
-              <div className="sk_bd_canvas_controls_export_wrapper">
-                <button className="sk_bd_btn" onClick={exportHTMLCSS}>
-                  Generate Code
-                </button>
+
+              <div className="sk_bd_themes_wrapper">
+                {themes.map((t) => (
+                  <label key={t} className={`sk_bd_theme_control variant_${t}`}>
+                    <input
+                      type="radio"
+                      name="theme"
+                      value={t}
+                      checked={theme === t}
+                      onChange={() => setTheme(t)}
+                    />
+                    <i></i>
+                    <span>{t}</span>
+                  </label>
+                ))}
               </div>
-              <div className="sk_bd_canvas_controls_export_wrapper">
-                <button
-                  className="sk_bd_btn"
-                  onClick={() => downloadZip(tree, generateHtml, generateCssBuckets)}
-                >
-                  Export ZIP
-                </button>
+
+              <div className="sk_bd_actions_row">
+                <div className="sk_bd_canvas_controls_export_wrapper">
+                  <button className="sk_bd_btn" onClick={exportHTMLCSS}>
+                    Generate Code
+                  </button>
+                </div>
+                <div className="sk_bd_canvas_controls_export_wrapper">
+                  <button
+                    className="sk_bd_btn"
+                    onClick={() => downloadZip(tree, generateHtml, generateCssBuckets)}
+                  >
+                    Export ZIP
+                  </button>
+                </div>
               </div>
+
+
+
+              {/* Radio buttons */}
+
             </div>
           </div>
         </div>
