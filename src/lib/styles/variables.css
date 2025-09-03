@@ -31,7 +31,7 @@
   --accentTxt: #f1f2ff;
   --accentTxt2: #e3e5ff;
   --accentTxt3: #d5d9ff;
-  --accentAccent: #000000;
+  --accentAccent: #0c101b;
   --accentAccentTxt: rgba(255, 255, 255, 0.9);
   --accentRGBA: rgba(116, 127, 255, 0.7);
   --accentRGBA2: rgba(116, 127, 255, 0.5);
@@ -67,7 +67,7 @@
   --buttonTxt: #0d0e1a;
   --buttonTxt2: #1a1c33;
   --buttonTxt3: #272a4d;
-  --buttonAccent: #747fff;
+  --buttonAccent: #0c101b;
   --buttonAccentTxt: rgba(255, 255, 255, 0.9);
   --buttonRGBA: rgba(131, 141, 255, 0.7);
   --buttonRGBA2: rgba(131, 141, 255, 0.5);

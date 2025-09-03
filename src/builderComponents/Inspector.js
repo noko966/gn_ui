@@ -2,14 +2,16 @@
 
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { editStyle, setLayoutType, setScrollType, setTruncateType, setEssence, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount, setIconClass, setFlagClass } from "./features/treeSlice";
+import { editStyle, setLayoutType, setScrollType, setTruncateType, setEssence, setEssenceBgVariant, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount, setIconClass, setFlagClass } from "./features/treeSlice";
 import { PxDragInput } from "./components/DragInput";
+import { HScrollRow } from "./components/HScroll";
 import { FLAGS_DATA, ICONS_DATA } from './features/data'
 
 /* ---- options ---- */
 const essenceOptions = ["body", "accent", "button", "buttonSecondary", "navbar", "slider", "subHeader", "dominant", "event", "eventHeader", "eventLive",
   "odd", "oddActive", "showMore", "marketHeader", "collapse", "tab", "tabActive", "menu_1", "menu_2", "menu_3"
 ];
+const essenceBackgroundOptions = ["Bg", "BgHover", "Bg2", "Bg2Hover", "Bg3", "Bg3Hover", "Accent", "AccentTxt", "RGBA", "RGBA2", "RGBA3"];
 const essenceTextOptions = ["Txt", "Txt2", "Txt3", "Accent", "AccentTxt"];
 
 /* map var → css property name (React style keys) */
@@ -23,10 +25,6 @@ const VAR_TO_PROP = {
   "--fontSize": "fontSize",
   "--sk_el_custom_width": "width",
 };
-
-// width/height unit (derive from current value)
-
-
 
 
 /* ================================================================== */
@@ -111,6 +109,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
 
   const curTxtRole = selectedNode?.textRole || "";
+  const curBgRole = selectedNode?.bgRole || "";
 
   // unique radio grouping per node
   const uniq = selectedPath?.length ? selectedPath.join("_") : "root";
@@ -121,7 +120,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
   const direction = selectedNode.styles?.flexDirection || "row";
   const justify = selectedNode.styles?.justifyContent || "flex-start";
-  const align = selectedNode.styles?.alignItems || "stretch";
+  const align = selectedNode.styles?.alignItems || "center";
   const padTop = selectedNode.styles?.paddingTop || "";
   const padRight = selectedNode.styles?.paddingRight || "";
   const padBottom = selectedNode.styles?.paddingBottom || "";
@@ -166,7 +165,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
       {/* ============================ ESSENCE ========================== */}
       <div className="dg_bd_layout_edit_tool_wrapper">
         <div className="sk_bd_input_section_lbl">node essence</div>
-        <div className="dg_bd_layout_edit_tool_wrapper_variants variant_row">
+        <HScrollRow>
           {essenceOptions.map((ess) => (
             <label key={`ess_${ess}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--bge": `var(--${ess}Bg)`, "--txte": `var(--${ess}Txt)` }}>
               <input
@@ -189,14 +188,45 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">none</span>
           </label>
-        </div>
+        </HScrollRow>
       </div>
 
       {/* ============================ PAINT ============================ */}
+
+      <div className="dg_bd_layout_edit_tool_wrapper">
+
+        <div className="sk_bd_input_section_lbl">background color</div>
+        <HScrollRow>
+          {essenceBackgroundOptions.map((role) => (
+            <label key={`bg_${role}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--bge": `var(--${selectedEssence}${role})`, "--txte": `var(--${selectedEssence}Txt)` }}>
+              <input
+                type="radio"
+                name={`paintBg_${uniq}`}
+                checked={curBgRole === role}
+                onChange={() => dispatch(setEssenceBgVariant(role))}
+              />
+              <i className="sk_bd_input_radio_imitator"></i>
+              <span className="sk_bd_input_radio_lbl">{role}</span>
+            </label>
+          ))}
+
+          <label key={`bg_none_${uniq}`} className="sk_bd_input_radio variant_essence">
+            <input
+              type="radio"
+              name={`paintBg_${uniq}`}
+              checked={!curBgRole}
+              onChange={() => dispatch(setEssenceBgVariant(""))}
+            />
+            <i className="sk_bd_input_radio_imitator"></i>
+            <span className="sk_bd_input_radio_lbl">none</span>
+          </label>
+        </HScrollRow>
+      </div>
+
       <div className="dg_bd_layout_edit_tool_wrapper">
 
         <div className="sk_bd_input_section_lbl">text color</div>
-        <div className="dg_bd_layout_edit_tool_wrapper_variants variant_row">
+        <HScrollRow>
           {essenceTextOptions.map((role) => (
             <label key={`txt_${role}_${uniq}`} className="sk_bd_input_radio variant_essence" style={{ "--bge": `var(--${selectedEssence}Bg)`, "--txte": `var(--${selectedEssence}${role})` }}>
               <input
@@ -220,7 +250,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">none</span>
           </label>
-        </div>
+         </HScrollRow>
       </div>
 
 

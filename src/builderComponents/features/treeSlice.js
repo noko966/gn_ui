@@ -517,15 +517,11 @@ const treeSlice = createSlice({
                 delete node.essence;
                 delete node.styles.background;
                 delete node.styles.color;
-                delete node.styles["--sk_bg"];
-                delete node.styles["--sk_txt"];
             } else {
                 // set essence + default bg/txt + variables on the selected node
                 node.essence = newEss;
-                node.styles["--sk_bg"] = `var(--${newEss}Bg)`;
-                node.styles["--sk_txt"] = `var(--${newEss}Txt)`;
-                node.styles.background = `var(--sk_bg)`;
-                node.styles.color = `var(--sk_txt)`;
+                node.styles.background = `var(--${newEss}Bg)`;
+                node.styles.color = `var(--${newEss}Txt)`;
             }
 
             // reapply text roles for descendants based on effective essence chain
@@ -536,10 +532,8 @@ const treeSlice = createSlice({
                 if (role) {
                     n.styles = { ...(n.styles || {}) };
                     if (effective) {
-                        n.styles["--sk_txt"] = `var(--${effective}${role})`;
-                        n.styles.color = `var(--sk_txt)`;
+                        n.styles.color = `var(--${effective}${role})`;
                     } else {
-                        delete n.styles["--sk_txt"];
                         delete n.styles.color;
                     }
                 }
@@ -549,8 +543,54 @@ const treeSlice = createSlice({
                 }
             };
 
+            const reapplyBgRoles = (n, inheritedEssence) => {
+                const effective = n.essence || inheritedEssence || null;
+
+                const role = n.bgRole;
+                if (role) {
+                    n.styles = { ...(n.styles || {}) };
+                    if (effective) {
+                        n.styles.background = `var(--${effective}${role})`;
+                    } else {
+                        delete n.styles.background;
+                    }
+                }
+
+                if (Array.isArray(n.children)) {
+                    n.children.forEach((c) => reapplyBgRoles(c, effective));
+                }
+            };
+
             const startEss = node.essence || null;
+            reapplyBgRoles(node, startEss);
             reapplyTextRoles(node, startEss);
+        },
+
+        setEssenceBgVariant(state, action) {
+            const role = action.payload || "";
+            const node = getNodeAtPath(state.tree, state.selectedPath);
+            if (!node) return;
+
+            const essence = closestEssenceName(state.tree, state.selectedPath);
+
+            node.styles = { ...(node.styles || {}) };
+
+            if (!role) {
+                delete node.bgRole;
+                delete node.styles.background;
+                return;
+            }
+
+            node.bgRole = role;
+
+            if (!essence) {
+                delete node.styles.background;
+                return;
+            }
+
+            node.styles.background = `var(--${essence}${role})`;
+
+            recalcVariantForGroup(state, state.selectedPath);
         },
 
 
@@ -565,7 +605,6 @@ const treeSlice = createSlice({
 
             if (!role) {
                 delete node.textRole;
-                delete node.styles["--sk_txt"];
                 delete node.styles.color;
                 return;
             }
@@ -573,13 +612,11 @@ const treeSlice = createSlice({
             node.textRole = role;
 
             if (!essence) {
-                delete node.styles["--sk_txt"];
                 delete node.styles.color;
                 return;
             }
 
-            node.styles["--sk_txt"] = `var(--${essence}${role})`;
-            node.styles.color = "var(--sk_txt)";
+            node.styles.color = `var(--${essence}${role})`;
 
             recalcVariantForGroup(state, state.selectedPath);
         },
@@ -714,6 +751,7 @@ export const {
     setTruncateType,
     setEssence,
     setEssenceTxtVariant,
+    setEssenceBgVariant,
     applyEssenceTextRole,
     editClass,
     setIconClass,

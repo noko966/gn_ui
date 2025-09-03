@@ -64,11 +64,6 @@ function computeAutoWrapperClass(node) {
   return `dg_${shortened.join("_")}_wrapper`;
 }
 
-/** merge unique class parts */
-function mergeClassNames(...parts) {
-  return [...new Set(parts.join(" ").trim().split(/\s+/).filter(Boolean))].join(" ");
-}
-
 /** final class to render/export: base + user + auto-wrapper (unique) */
 function getEffectiveClass(node) {
   const base = (node.baseCn || node.cn || "").trim();
@@ -83,7 +78,6 @@ function getEffectiveClass(node) {
   ].join(" ").trim().replace(/\s+/g, " ");
 }
 
-/* ───────────────────────── export helpers (CSS) ───────────────────────── */
 /** stable key for style object */
 const stableStyleKey = (styleObj = {}) => {
   const keys = Object.keys(styleObj).sort();

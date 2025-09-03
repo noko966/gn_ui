@@ -927,8 +927,6 @@ html {
   width: 100%;
 }
 
-
-
 .sk_bd_tool_item {
   background-color: var(--sk_dominantBg2);
   border: 1px solid var(--sk_dominantBg3);
@@ -1315,6 +1313,54 @@ html {
   opacity: 0.2;
 }
 
+
+.sk_bd_theme_control{
+  --bg: #fff;
+  display: flex;
+  align-items: center;
+  background: var(--sk_dominantBg2);
+  color: var(--sk_dominantTxt);
+  border-radius: 4px;
+  border: 1px solid var(--sk_dominantBg3);
+  padding: 0 4px;
+  column-gap: 8px;
+  cursor: pointer;
+  height: 24px;
+  
+}
+
+.sk_bd_theme_control.variant_dark{
+  --bg: #000;
+}
+
+.sk_bd_theme_control > input {
+  display: none;
+}
+
+.sk_bd_theme_control > i {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.7;
+  background: var(--bg);
+}
+
+.sk_bd_theme_control > input:checked + i {
+  opacity: 1;
+}
+
+.sk_bd_themes_wrapper{
+  display: flex;
+  align-items: center;
+  column-gap: 1px;
+}
+
+.sk_bd_actions_row{
+  display: flex;
+  align-items: center;
+  column-gap: 8px;
+}
 .sk_bd_input_wrapper {
   display: flex;
   align-items: center;
@@ -1523,6 +1569,7 @@ html {
   background: var(--sk_dominantBg);
   color: var(--sk_dominantTxt);
   position: relative;
+  min-height: 1px;
 }
 
 .sk_layers_disclosure {
@@ -1568,8 +1615,28 @@ html {
   gap: 4px;
 }
 
+.sk_bd_btn_lock {
+    background: var(--sk_dominantBg2Hover);
+    color: var(--sk_dominantTxt2);
+    border: 1px solid var(--sk_dominantBg);
+    outline: 0;
+    height: 24px;
+    --icoSize: 18px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 8px;
+    padding-right: 8px;
+    width: 24px;
+}
+
 .sk_layers_btn {
-  padding: 0 6px;
+  width: 20px;
   height: 20px;
   background: var(--sk_dominantBg2Hover);
   color: var(--sk_dominantTxt);
@@ -1578,7 +1645,10 @@ html {
   color: inherit;
   border-radius: 4px;
   cursor: pointer;
-
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  --icoSize: 20px;
 }
 
 .sk_layers_btn:hover {
