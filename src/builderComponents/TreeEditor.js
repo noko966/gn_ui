@@ -460,7 +460,10 @@ export function TreeEditor() {
   /* palette item */
   const PaletteItem = ({ tpl }) => (
     <div className="sk_bd_tool_item" onClick={() => handlePaletteClick(tpl, true)}>
-      <span>{tpl.name}</span>
+      <span className="sk_bd_tool_item_name">{tpl.name}</span>
+      {tpl.preview && (
+      <span className="sk_bd_tool_preview">{tpl.preview()}</span>
+    )}
     </div>
   );
 
@@ -546,39 +549,40 @@ export function TreeEditor() {
             <div className="sk_bd_tools sk_bd_panel">
               <div className="sk_bd_header">main</div>
 
-              <div className="sk_bd_tool_wrapper">
-                <button className="sk_bd_btn_default" onClick={duplicateSelected} disabled={isRoot(selectedPath)} title="Duplicate selected">
-                  <i className="dg_icon_copy"></i>
-                </button>
-              </div>
+              <div className="sk_bd_actions_row variant_node">
+                <div className="sk_bd_tool_wrapper">
+                  <button className="sk_bd_btn_default" onClick={duplicateSelected} disabled={isRoot(selectedPath)} title="Duplicate selected">
+                    <i className="dg_icon_copy"></i>
+                  </button>
+                </div>
 
-              <div className="sk_bd_tool_wrapper">
-                <button className="sk_bd_btn_default" onClick={handleRemove} disabled={isRoot(selectedPath)}>
-                  <i className="dg_icon_close"></i>
-                </button>
-              </div>
-              <div className="sk_bd_tool_wrapper">
-                <button className="sk_bd_btn_default" onClick={() => moveNode(-1)}>
-                  <i className="dg_icon_angle_left"></i>
-                </button>
-              </div>
-              <div className="sk_bd_tool_wrapper">
-                <button className="sk_bd_btn_default" onClick={() => moveNode(1)}>
-                  <i className="dg_icon_angle_right"></i>
-                </button>
-              </div>
-              <div className="sk_bd_tool_wrapper">
-                <button className="sk_bd_btn_default" onClick={() => dispatch(wrapSelectedInLayout())}>
-                  <i className="dg_icon_un_dock"></i>
-                </button>
-              </div>
+                <div className="sk_bd_tool_wrapper">
+                  <button className="sk_bd_btn_default" onClick={handleRemove} disabled={isRoot(selectedPath)}>
+                    <i className="dg_icon_close"></i>
+                  </button>
+                </div>
+                <div className="sk_bd_tool_wrapper">
+                  <button className="sk_bd_btn_default" onClick={() => moveNode(-1)}>
+                    <i className="dg_icon_angle_left"></i>
+                  </button>
+                </div>
+                <div className="sk_bd_tool_wrapper">
+                  <button className="sk_bd_btn_default" onClick={() => moveNode(1)}>
+                    <i className="dg_icon_angle_right"></i>
+                  </button>
+                </div>
+                <div className="sk_bd_tool_wrapper">
+                  <button className="sk_bd_btn_default" onClick={() => dispatch(wrapSelectedInLayout())}>
+                    <i className="dg_icon_un_dock"></i>
+                  </button>
+                </div>
 
-              <div className="sk_bd_tool_wrapper">
-                <button className="sk_bd_btn_default" onClick={() => dispatch(toggleVisualHelpers())}>
-                  <i className="dg_icon_info"></i>
-                </button>
+                <div className="sk_bd_tool_wrapper">
+                  <button className="sk_bd_btn_default" onClick={() => dispatch(toggleVisualHelpers())}>
+                    <i className="dg_icon_info"></i>
+                  </button>
+                </div>
               </div>
-
 
               <div className="sk_bd_themes_wrapper">
                 {themes.map((t) => (
@@ -590,8 +594,10 @@ export function TreeEditor() {
                       checked={theme === t}
                       onChange={() => setTheme(t)}
                     />
-                    <i></i>
-                    <span>{t}</span>
+                    <div className="sk_bd_theme_control_imit">
+                      <i></i>
+                      {/* <span>{t}</span> */}
+                    </div>
                   </label>
                 ))}
               </div>
