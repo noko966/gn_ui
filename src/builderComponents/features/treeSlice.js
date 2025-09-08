@@ -694,6 +694,58 @@ const treeSlice = createSlice({
             // user took control → remove auto variant
             delete node.variantClass;
         },
+        unlayoutSelected(state) {
+            const selPath = state.selectedPath;
+            if (!Array.isArray(selPath)) return;
+
+            // ───────── Корень ─────────
+            if (selPath.length === 0) {
+                const root = state.tree;
+                if (!isLayoutNode(root)) return;
+
+                const kids = Array.isArray(root.children) ? root.children : [];
+
+                // нельзя оставить дерево без корня или с несколькими корнями
+                if (kids.length === 1) {
+                    // поднимаем единственного ребёнка в корень
+                    state.tree = kids[0];
+                    state.selectedPath = [];
+                    state.hoverPath = [];
+                } else {
+                    // 0 или >1 — корректного единственного корня не получится
+                    // просто ничего не делаем
+                    return;
+                }
+                return;
+            }
+
+            // ───────── Не корень ─────────
+            const parentPath = selPath.slice(0, -1);
+            const idx = selPath[selPath.length - 1];
+
+            const parent = getNodeAtPath(state.tree, parentPath);
+            if (!parent || !Array.isArray(parent.children) || !parent.children[idx]) return;
+
+            const target = parent.children[idx];
+            if (!isLayoutNode(target)) return;
+
+            const kids = Array.isArray(target.children) ? target.children : [];
+
+            if (kids.length === 0) {
+                // у layout нет детей — просто удаляем узел
+                parent.children.splice(idx, 1);
+                state.selectedPath = [...parentPath];
+                state.hoverPath = [...parentPath];
+                return;
+            }
+
+            // заменяем layout его детьми «на месте»
+            parent.children.splice(idx, 1, ...kids);
+
+            // выбрать первый из вставленных детей
+            state.selectedPath = [...parentPath, idx];
+            state.hoverPath = [...parentPath, idx];
+        },
         wrapSelectedInLayout(state, action) {
             // optional customization for the new parent
             const { parentProps } = action.payload || {};
@@ -764,7 +816,8 @@ export const {
     setClassName,
     setFlagClass,
     setEqualChildrenCount,
-    wrapSelectedInLayout
+    wrapSelectedInLayout,
+    unlayoutSelected
 } = treeSlice.actions;
 
 export default treeSlice.reducer;

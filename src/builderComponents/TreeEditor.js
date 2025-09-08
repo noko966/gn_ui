@@ -25,6 +25,7 @@ import {
   closeCodeModal,
   selectUIStates,
   wrapSelectedInLayout,
+  unlayoutSelected,
 } from "./features/treeSlice";
 import { Inspector } from "./Inspector";
 import LayersPanel from "./components/LayersPanel";
@@ -333,6 +334,12 @@ export function TreeEditor() {
       }
     };
 
+    const handleUnWrap = () => {
+      if (!isRoot(selectedPath)) {
+        dispatch(unlayoutSelected());
+      }
+    };
+
     const isTypingTarget = (el) => {
       if (!el) return false;
       const tag = (el.tagName || "").toLowerCase();
@@ -381,6 +388,13 @@ export function TreeEditor() {
       if (key === "a" && e.shiftKey) {
         e.preventDefault();
         handleWrap();
+        return;
+      }
+
+      // Wrap into layout: Shift + A
+      if (key === "g" && e.shiftKey) {
+        e.preventDefault();
+        handleUnWrap();
         return;
       }
 
@@ -462,8 +476,8 @@ export function TreeEditor() {
     <div className="sk_bd_tool_item" onClick={() => handlePaletteClick(tpl, true)}>
       <span className="sk_bd_tool_item_name">{tpl.name}</span>
       {tpl.preview && (
-      <span className="sk_bd_tool_preview">{tpl.preview()}</span>
-    )}
+        <span className="sk_bd_tool_preview">{tpl.preview()}</span>
+      )}
     </div>
   );
 
@@ -573,6 +587,12 @@ export function TreeEditor() {
                 </div>
                 <div className="sk_bd_tool_wrapper">
                   <button className="sk_bd_btn_default" onClick={() => dispatch(wrapSelectedInLayout())}>
+                    <i className="dg_icon_un_dock"></i>
+                  </button>
+                </div>
+
+                <div className="sk_bd_tool_wrapper">
+                  <button className="sk_bd_btn_default" onClick={() => dispatch(unlayoutSelected())}>
                     <i className="dg_icon_un_dock"></i>
                   </button>
                 </div>
