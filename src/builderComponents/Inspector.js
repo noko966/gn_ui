@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { editStyle, setLayoutType, setScrollType, setTruncateType, setEssence, setEssenceBgVariant, setEssenceTxtVariant, editClass, editTextContent, selectTree, selectSelectedPath, setEqualChildrenCount, setIconClass, setFlagClass } from "./features/treeSlice";
 import { PxDragInput } from "./components/DragInput";
 import { HScrollRow } from "./components/HScroll";
+import { ContentControl } from "./components/ContentControl";
 import { FLAGS_DATA, ICONS_DATA } from './features/data'
+
 
 /* ---- options ---- */
 const essenceOptions = ["body", "accent", "button", "buttonSecondary", "navbar", "slider", "subHeader", "dominant", "event", "eventHeader", "eventLive",
@@ -137,6 +139,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
   const radBR = selectedNode.styles?.borderBottomRightRadius || "";
   const fontSize = selectedNode.styles?.fontSize || "";
   const fontWeight = selectedNode.styles?.fontWeight || "400";
+  const textTransform = selectedNode.styles?.textTransform || "none";
 
   const setStyle = (key, value) => {
     if (selectedNode.styles?.display !== "flex") {
@@ -250,7 +253,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             <i className="sk_bd_input_radio_imitator"></i>
             <span className="sk_bd_input_radio_lbl">none</span>
           </label>
-         </HScrollRow>
+        </HScrollRow>
       </div>
 
 
@@ -367,6 +370,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 className="sk_bd_input"
                 value={parseInt(fontSize) || 0}
                 onChange={(v) => setStyle("fontSize", v)}
+                customQuickValues={["8px", "10px", "12px", "14px"]}
               />
             </div>
           </div>
@@ -384,6 +388,27 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                     name="dir"
                     checked={fontWeight === val}
                     onChange={() => setStyle("fontWeight", val)}
+                  />
+                  <i className="sk_bd_input_radio_imitator"></i>
+                  <span className="sk_bd_input_radio_lbl">{val}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="sk_bd_input_section_lbl">
+              text transform
+            </div>
+
+            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              {["none", "uppercase", "lowercase", "capitalize"].map((val) => (
+                <label key={val} className="sk_bd_input_radio">
+                  <input
+                    type="radio"
+                    name="textTransform"
+                    checked={textTransform === val}
+                    onChange={() => setStyle("textTransform", val)}
                   />
                   <i className="sk_bd_input_radio_imitator"></i>
                   <span className="sk_bd_input_radio_lbl">{val}</span>
@@ -427,9 +452,6 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
             </div>
           </div>
-
-
-
         </>
       )}
 
@@ -503,10 +525,8 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           </div>
 
           <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="sk_bd_input_section_lbl">
-              orientation
-            </div>
-            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+            <div className="sk_bd_input_section_lbl">layout</div>
+            <div className="dg_bd_layout_edit_tool_wrapper_logical_group">
               {["row", "column"].map((val) => (
                 <label key={val} className="sk_bd_input_radio">
                   <input
@@ -519,79 +539,44 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                   <span className="sk_bd_input_radio_lbl">{val}</span>
                 </label>
               ))}
-            </div>
-          </div>
-
-          {/* Justify Content */}
-          <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="sk_bd_input_section_lbl">justify</div>
-            <div className="dg_bd_layout_edit_tool_wrapper_variants">
-              {["flex-start", "center", "flex-end", "space-between", "space-around", "space-evenly"].map((val) => (
-                <label key={val} className="sk_bd_input_radio">
-                  <input
-                    type="radio"
-                    name="justify"
-                    checked={justify === val}
-                    onChange={() => setStyle("justifyContent", val)}
-                  />
-                  <i className="sk_bd_input_radio_imitator"></i>
-                  <span className="sk_bd_input_radio_lbl">{val}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          {/* Align Items */}
-          <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="sk_bd_input_section_lbl">align</div>
-            <div className="dg_bd_layout_edit_tool_wrapper_variants">
-              {["stretch", "flex-start", "center", "flex-end", "baseline"].map((val) => (
-                <label key={val} className="sk_bd_input_radio">
-                  <input
-                    type="radio"
-                    name="align"
-                    checked={align === val}
-                    onChange={() => setStyle("alignItems", val)}
-                  />
-                  <i className="sk_bd_input_radio_imitator"></i>
-                  <span className="sk_bd_input_radio_lbl">{val}</span>
-                </label>
-              ))}
-            </div>
-          </div>
-
-          <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="sk_bd_input_section_lbl">
-              spacing
-            </div>
-            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+              <ContentControl
+                direction={direction}       // "row" | "column"
+                justify={justify}
+                align={align}
+                onChange={(nextJustify, nextAlign) => {
+                  setStyle("justifyContent", nextJustify);
+                  setStyle("alignItems", nextAlign);
+                }}
+              />
 
               <div className="dg_bd_layout_edit_control">
-                <span className="sk_bd_input_lbl">column gap</span>
+                <span className="sk_bd_input_lbl">
+                  {direction === "row" ? "gap (columns)" : "gap (rows)"}
+                </span>
                 <PxDragInput
                   className="sk_bd_input"
-                  value={parseInt(gapCol) || 0}
-                  onChange={(v) => setStyle("columnGap", v)}
-                  name={"columnGap"}
-                  cssProp={"columnGap"}
-
-                />
-              </div>
-
-              <div className="dg_bd_layout_edit_control">
-                <span className="sk_bd_input_lbl">row gap</span>
-                <PxDragInput
-                  className="sk_bd_input"
-                  value={parseInt(gapRow) || 0}
-                  onChange={(v) => setStyle("rowGap", v)}
-                  name={"rowGap"}
-                  cssProp={"rowGap"}
+                  value={
+                    direction === "row"
+                      ? (parseInt(gapCol) || 0)
+                      : (parseInt(gapRow) || 0)
+                  }
+                  onChange={(v) =>
+                    setStyle(direction === "row" ? "columnGap" : "rowGap", v)
+                  }
+                  name={direction === "row" ? "columnGap" : "rowGap"}
+                  cssProp={direction === "row" ? "columnGap" : "rowGap"}
                 />
               </div>
 
             </div>
 
           </div>
+
+
+
+
+
+
 
           <div className="dg_bd_layout_edit_tool_wrapper">
             <div className="sk_bd_input_section_lbl">
