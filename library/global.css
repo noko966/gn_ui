@@ -1772,3 +1772,25 @@ html {
   background: var(--eventBgHover);
   /* Thumb hover color */
 }
+
+.flex-align-control { display: grid; gap: 8px; }
+.flex-align-toolbar { display: flex; align-items: center; gap: 8px; }
+.flex-align-toolbar .fac_hint { opacity: .7; font-size: 12px; }
+
+.flex-align-grid { display: grid; gap: 6px; }
+.fac_row { display: grid; grid-template-columns: repeat(3, 28px); gap: 6px; }
+
+.fac_cell {
+  width: 28px; height: 28px; border-radius: 6px; border: 1px solid var(--sk_dominantBg3);
+  background: var(--sk_dominantBg2Hover); display: grid; place-items: center; cursor: pointer;
+}
+
+.fac_dot {
+  width: 14px; height: 14px; border-radius: 2px;
+  background: var(--sk_dominantBg);
+      border: 1px solid var(--sk_dominantShadow);
+}
+
+.fac_cell.state_selected .fac_dot{
+  --sk_dominantBg: var(--sk_accentBg);
+}

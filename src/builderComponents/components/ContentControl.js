@@ -73,17 +73,8 @@ export const ContentControl = ({
     const colsLbl = ["left", "center", "right"];
 
     return (
-        <div className="flex-align-control">
-            <div className="flex-align-toolbar">
-                <button
-                    type="button"
-                    className={`sk_bd_btn_lock  ${isStretch ? "state_checked" : ""}`}
-                    onClick={toggleStretch}
-                    title="Toggle cross-axis stretch"
-                >
-                    {isStretch ? <i className="sport_front_icon-lock" /> : <i className="sport_front_icon-lock-off" />}
-                </button>
-            </div>
+        <div className={`dg_bd_layout_edit_tool_grid_2_cont variant_${direction}`}>
+
 
             <div className="flex-align-grid">
                 {AXIS_POS.map((_, r) => (
@@ -102,6 +93,15 @@ export const ContentControl = ({
                     </div>
                 ))}
             </div>
+
+            <button
+                type="button"
+                className={`sk_bd_btn_icon variant_stretch  ${isStretch ? "state_checked" : ""}`}
+                onClick={toggleStretch}
+                title="Toggle cross-axis stretch"
+            >
+                {isStretch ? <i className="sport_front_icon-lock" /> : <i className="sport_front_icon-lock-off" />}
+            </button>
         </div>
     );
 };

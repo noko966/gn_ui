@@ -178,7 +178,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 onChange={() => dispatch(setEssence(ess))}
               />
               <i className="sk_bd_input_radio_imitator"></i>
-              <span className="sk_bd_input_radio_lbl">{ess}</span>
+              <span className="sk_bd_input_radio_lbl"><div className="sk_bd_essence_name">{ess}</div></span>
             </label>
           ))}
           <label className="sk_bd_input_radio variant_essence">
@@ -209,7 +209,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 onChange={() => dispatch(setEssenceBgVariant(role))}
               />
               <i className="sk_bd_input_radio_imitator"></i>
-              <span className="sk_bd_input_radio_lbl">{role}</span>
+              <span className="sk_bd_input_radio_lbl"><div className="sk_bd_essence_name">{role}</div></span>
             </label>
           ))}
 
@@ -239,7 +239,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 onChange={() => dispatch(setEssenceTxtVariant(role))}
               />
               <i className="sk_bd_input_radio_imitator"></i>
-              <span className="sk_bd_input_radio_lbl">{role}</span>
+              <span className="sk_bd_input_radio_lbl"><div className="sk_bd_essence_name">{role}</div></span>
             </label>
           ))}
 
@@ -497,8 +497,9 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
 
 
             </div>
-            <div className="dg_bd_layout_edit_tool_wrapper_variants">
+            <div className="dg_bd_layout_edit_tool_grid_2">
               <div className="dg_bd_layout_edit_control">
+                <div className="sk_bd_input_lbl">width</div>
                 <PxDragInput
                   value={parseInt(width) || 0}
                   onChange={(v) => setStyle("width", v)}
@@ -510,6 +511,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
                 />
               </div>
               <div className="dg_bd_layout_edit_control">
+                <div className="sk_bd_input_lbl">height</div>
                 <PxDragInput
                   value={parseInt(height) || 0}
                   onChange={(v) => setStyle("height", v)}
@@ -527,55 +529,126 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
           <div className="dg_bd_layout_edit_tool_wrapper">
             <div className="sk_bd_input_section_lbl">layout</div>
             <div className="dg_bd_layout_edit_tool_wrapper_logical_group">
-              {["row", "column"].map((val) => (
-                <label key={val} className="sk_bd_input_radio">
-                  <input
-                    type="radio"
-                    name="dir"
-                    checked={direction === val}
-                    onChange={() => setStyle("flexDirection", val)}
-                  />
-                  <i className="sk_bd_input_radio_imitator"></i>
-                  <span className="sk_bd_input_radio_lbl">{val}</span>
-                </label>
-              ))}
-              <ContentControl
-                direction={direction}       // "row" | "column"
-                justify={justify}
-                align={align}
-                onChange={(nextJustify, nextAlign) => {
-                  setStyle("justifyContent", nextJustify);
-                  setStyle("alignItems", nextAlign);
-                }}
-              />
-
-              <div className="dg_bd_layout_edit_control">
-                <span className="sk_bd_input_lbl">
-                  {direction === "row" ? "gap (columns)" : "gap (rows)"}
-                </span>
-                <PxDragInput
-                  className="sk_bd_input"
-                  value={
-                    direction === "row"
-                      ? (parseInt(gapCol) || 0)
-                      : (parseInt(gapRow) || 0)
-                  }
-                  onChange={(v) =>
-                    setStyle(direction === "row" ? "columnGap" : "rowGap", v)
-                  }
-                  name={direction === "row" ? "columnGap" : "rowGap"}
-                  cssProp={direction === "row" ? "columnGap" : "rowGap"}
-                />
+              <div className="dg_bd_layout_edit_tool_grid_2_dir">
+                {["row", "column"].map((val) => (
+                  <label key={val} className="sk_bd_input_radio">
+                    <input
+                      type="radio"
+                      name="dir"
+                      checked={direction === val}
+                      onChange={() => setStyle("flexDirection", val)}
+                    />
+                    <i className="sk_bd_input_radio_imitator"></i>
+                    <span className="sk_bd_input_radio_lbl">{val}</span>
+                  </label>
+                ))}
               </div>
+              <div className="dg_bd_layout_edit_tool_grid_2_dir">
+                <ContentControl
+                  direction={direction}
+                  justify={justify}
+                  align={align}
+                  onChange={(nextJustify, nextAlign) => {
+                    setStyle("justifyContent", nextJustify);
+                    setStyle("alignItems", nextAlign);
+                  }}
+                />
 
+                <div className="dg_bd_layout_edit_control">
+                  <span className="sk_bd_input_lbl">
+                    {direction === "row" ? "gap x" : "gap y"}
+                  </span>
+                  <PxDragInput
+                    className="sk_bd_input"
+                    value={
+                      direction === "row"
+                        ? (parseInt(gapCol) || 0)
+                        : (parseInt(gapRow) || 0)
+                    }
+                    onChange={(v) =>
+                      setStyle(direction === "row" ? "columnGap" : "rowGap", v)
+                    }
+                    name={direction === "row" ? "columnGap" : "rowGap"}
+                    cssProp={direction === "row" ? "columnGap" : "rowGap"}
+                  />
+                </div>
+              </div>
             </div>
 
           </div>
 
 
+          <div className="dg_bd_layout_edit_tool_wrapper">
+            <div className="sk_bd_input_section_lbl">padding</div>
+            <div className="dg_bd_layout_edit_tool_grid_1_pad">
+
+
+              <div className="dg_bd_layout_edit_control">
+
+                <span className="sk_bd_input_lbl">Top</span>
+                <PxDragInput
+                  className="sk_bd_input"
+                  value={parseInt(padTop) || 0}
+                  onChange={setPaddingTop}
+                  name={"paddingTop"}
+                />
+              </div>
+
+
+            </div>
+            <div className="dg_bd_layout_edit_tool_grid_2_pad">
+              <div className="dg_bd_layout_edit_control">
+
+                <span className="sk_bd_input_lbl">Left</span>
+                <PxDragInput
+                  className="sk_bd_input"
+                  value={parseInt(padLeft) || 0}
+                  onChange={setPaddingLeft}
+                  name={"paddingLeft"}
+                />
+              </div>
+              <button
+                className={`sk_bd_btn_lock ${lockPadding ? "state_checked" : ""}`}
+                onClick={() => setLockPadding((v) => !v)}
+                title={lockPadding ? "Unlock padding" : "Lock padding (edit all sides)"}
+              >
+                {lockPadding ? <i className="sport_front_icon-lock" /> : <i className="sport_front_icon-lock-off" />}
+              </button>
+              <div className="dg_bd_layout_edit_control">
+
+                <span className="sk_bd_input_lbl">Right</span>
+                <PxDragInput
+                  className="sk_bd_input"
+                  value={parseInt(padRight) || 0}
+                  onChange={setPaddingRight}
+                  name={"paddingRight"}
+                />
+              </div>
 
 
 
+            </div>
+
+            <div className="dg_bd_layout_edit_tool_grid_1_pad">
+
+
+
+
+              <div className="dg_bd_layout_edit_control">
+
+                <span className="sk_bd_input_lbl">Bottom</span>
+                <PxDragInput
+                  className="sk_bd_input"
+                  value={parseInt(padBottom) || 0}
+                  onChange={setPaddingBottom}
+                  name={"paddingBottom"}
+                />
+              </div>
+            </div>
+
+
+
+          </div>
 
 
           <div className="dg_bd_layout_edit_tool_wrapper">
@@ -622,78 +695,19 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             </div>
           </div>
 
-          <div className="dg_bd_layout_edit_tool_wrapper">
-            <div className="sk_bd_input_section_lbl">padding</div>
-            <div className="dg_bd_layout_edit_tool_wrapper_variants">
-
-              <div className="dg_bd_layout_edit_control">
-
-                <span className="sk_bd_input_lbl">Top</span>
-                <PxDragInput
-                  className="sk_bd_input"
-                  value={parseInt(padTop) || 0}
-                  onChange={setPaddingTop}
-                  name={"paddingTop"}
-                />
-              </div>
-
-              <div className="dg_bd_layout_edit_control">
-
-                <span className="sk_bd_input_lbl">Right</span>
-                <PxDragInput
-                  className="sk_bd_input"
-                  value={parseInt(padRight) || 0}
-                  onChange={setPaddingRight}
-                  name={"paddingRight"}
-                />
-              </div>
-
-
-              <div className="dg_bd_layout_edit_control">
-
-                <span className="sk_bd_input_lbl">Bottom</span>
-                <PxDragInput
-                  className="sk_bd_input"
-                  value={parseInt(padBottom) || 0}
-                  onChange={setPaddingBottom}
-                  name={"paddingBottom"}
-                />
-              </div>
-
-              <div className="dg_bd_layout_edit_control">
-
-                <span className="sk_bd_input_lbl">Left</span>
-                <PxDragInput
-                  className="sk_bd_input"
-                  value={parseInt(padLeft) || 0}
-                  onChange={setPaddingLeft}
-                  name={"paddingLeft"}
-                />
-              </div>
-
-              <button
-                className={`sk_bd_btn_lock ${lockPadding ? "state_checked" : ""}`}
-                onClick={() => setLockPadding((v) => !v)}
-                title={lockPadding ? "Unlock padding" : "Lock padding (edit all sides)"}
-              >
-                {lockPadding ? <i className="sport_front_icon-lock" /> : <i className="sport_front_icon-lock-off" />}
-              </button>
-            </div>
-          </div>
-
         </>
 
-      )}
+      )
+      }
 
 
 
       {/* gap → --sk_el_custom_gap */}
 
 
-      <div className="dg_bd_layout_edit_tool_wrapper">
+      < div className="dg_bd_layout_edit_tool_wrapper" >
         <div className="sk_bd_input_section_lbl">radius</div>
-        <div className="dg_bd_layout_edit_tool_wrapper_variants">
-
+        <div className="dg_bd_layout_edit_tool_grid_2_rad">
           <div className="dg_bd_layout_edit_control">
             <span className="sk_bd_input_lbl">Top left</span>
             <PxDragInput
@@ -702,7 +716,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               onChange={setRadiusTL}
             />
           </div>
-
+          <div></div>
           <div className="dg_bd_layout_edit_control">
             <span className="sk_bd_input_lbl">Top right</span>
             <PxDragInput
@@ -711,7 +725,19 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               onChange={setRadiusTR}
             />
           </div>
+        </div>
+        <div className="dg_bd_layout_edit_tool_grid_2_rad">
+          <button
+            className={`sk_bd_btn_lock variant_radius ${lockRadius ? "state_checked" : ""}`}
+            onClick={() => setLockRadius((v) => !v)}
+            title={lockRadius ? "Unlock radius" : "Lock radius (edit all corners)"}
+          >
+            {lockRadius ? <i className="sport_front_icon-lock" /> : <i className="sport_front_icon-lock-off" />}
+          </button>
+        </div>
 
+
+        <div className="dg_bd_layout_edit_tool_grid_2_rad">
           <div className="dg_bd_layout_edit_control">
             <span className="sk_bd_input_lbl">Bottom left</span>
             <PxDragInput
@@ -720,7 +746,7 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
               onChange={setRadiusBL}
             />
           </div>
-
+          <div></div>
           <div className="dg_bd_layout_edit_control">
             <span className="sk_bd_input_lbl">Bottom right</span>
             <PxDragInput
@@ -730,17 +756,10 @@ export const Inspector = React.memo(function Inspector({ selectedNode }) {
             />
           </div>
 
-          <button
-            className={`sk_bd_btn_lock ${lockRadius ? "state_checked" : ""}`}
-            onClick={() => setLockRadius((v) => !v)}
-            title={lockRadius ? "Unlock radius" : "Lock radius (edit all corners)"}
-          >
-            {lockRadius ? <i className="sport_front_icon-lock" /> : <i className="sport_front_icon-lock-off" />}
-          </button>
+
         </div>
       </div>
 
-      {/* <PositionControl selectedNode={selectedNode} /> */}
 
     </>
 
