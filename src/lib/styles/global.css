@@ -596,88 +596,105 @@ html {
   --accBg3: #9cf03b;
   --accTxt: #fff;
 
-  --sk_dominantBg: #d4d7db;
-  --sk_dominantBgHover: #dcdfe2;
-  --sk_dominantBg2: #e5e6e9;
-  --sk_dominantBg2Hover: #edeef0;
-  --sk_dominantBg3: #f5f6f7;
-  --sk_dominantBg3Hover: #fefefe;
+  --sk_dominantBg: #F9FAFB;
+  --sk_dominantBgHover: #F3F4F6;
+  --sk_dominantBg2: #FFFFFF;
+  --sk_dominantBg2Hover: #F7F8FA;
+  --sk_dominantBg3: #F0F2F5;
+  --sk_dominantBg3Hover: #E5E7EB;
   --sk_dominantTxt: rgba(0, 0, 0, 0.85);
-  --sk_dominantTxt2: rgba(0, 0, 0, 0.7);
-  --sk_dominantTxt3: rgba(0, 0, 0, 0.55);
-  --sk_dominantShadow: #9ea4ab;
-  --sk_dominantShadow2: #969a9e;
+  --sk_dominantTxt2: rgba(0, 0, 0, 0.65);
+  --sk_dominantTxt3: rgba(0, 0, 0, 0.45);
+  --sk_dominantShadow: #D1D5DB;
+  --sk_dominantShadow2: #E5E7EB;
+  --sk_dominantGlass: rgba(255, 255, 255, 0.6);
+  --sk_dominantGlass2: rgba(255, 255, 255, 0.4);
 
-  --sk_dominantGlass: rgba(0, 0, 0, 0.5);
-  --sk_dominantGlass2: rgba(0, 0, 0, 0.5);
-  --sk_accentBg: #0092be;
-  --sk_accentBgHover: #00b8cd;
-  --sk_accentBg2: #00c5dd;
-  --sk_accentBg2Hover: #00d3ec;
-  --sk_accentBg3: #00e1fb;
-  --sk_accentBg3Hover: #0be5ff;
-  --sk_accentTxt: rgba(255, 255, 255, 0.85);
-  --sk_accentTxt2: rgba(255, 255, 255, 0.7);
-  --sk_accentTxt3: rgba(255, 255, 255, 0.55);
-  --sk_accentShadow: #014e57;
-  --sk_accentGlass: rgba(0, 0, 0, 0.5);
-  --sk_accentGlass2: rgba(0, 0, 0, 0.5);
-  --sk_buttonBg: #dbdbdb;
-  --sk_buttonBgHover: #e3e3e3;
-  --sk_buttonBg2: #eaeaea;
-  --sk_buttonBg2Hover: #f2f2f2;
-  --sk_buttonBg3: #fafafa;
-  --sk_buttonBg3Hover: #ffffff;
+--sk_accentBg: #4568D4;        
+--sk_accentBgHover: #3E5FC3;   
+
+--sk_accentBg2: #0D9488;       
+--sk_accentBg2Hover: #0B857A;  
+
+--sk_accentBg3: #C026D3;       
+--sk_accentBg3Hover: #A81DB8;  
+
+--sk_accentTxt: rgba(255, 255, 255, 0.9);
+--sk_accentTxt2: rgba(255, 255, 255, 0.7);
+--sk_accentTxt3: rgba(255, 255, 255, 0.55);
+
+--sk_accentShadow: #9CA3AF;  
+--sk_accentGlass: rgba(0, 0, 0, 0.08);
+--sk_accentGlass2: rgba(0, 0, 0, 0.04);
+
+
+  /* BUTTONS (Light) */
+  --sk_buttonBg: #F3F4F6;
+  --sk_buttonBgHover: #E5E7EB;
+  --sk_buttonBg2: #EAECEF;
+  --sk_buttonBg2Hover: #E0E2E6;
+  --sk_buttonBg3: #DFE2E6;
+  --sk_buttonBg3Hover: #D1D5DB;
   --sk_buttonTxt: rgba(0, 0, 0, 0.85);
-  --sk_buttonTxt2: rgba(0, 0, 0, 0.7);
-  --sk_buttonTxt3: rgba(0, 0, 0, 0.55);
-  --sk_buttonShadow: #a8a8a8;
-  --sk_buttonGlass: rgba(0, 0, 0, 0.5);
-  --sk_buttonGlass2: rgba(0, 0, 0, 0.5);
+  --sk_buttonTxt2: rgba(0, 0, 0, 0.65);
+  --sk_buttonTxt3: rgba(0, 0, 0, 0.45);
+  --sk_buttonShadow: #D1D5DB;
+  --sk_buttonShadow2: #E5E7EB;
+  --sk_buttonGlass: rgba(255, 255, 255, 0.6);
+  --sk_buttonGlass2: rgba(255, 255, 255, 0.4);
+
 
   --sk_control_height: 24px;
 }
 
 
 .sk_bd_root.state_dark {
-  --sk_dominantBg: #2f2f2f;
-  --sk_dominantBgHover: #373737;
-  --sk_dominantBg2: #3e3e3e;
-  --sk_dominantBg2Hover: #464646;
-  --sk_dominantBg3: #4e4e4e;
-  --sk_dominantBg3Hover: #555555;
+  --sk_dominantBg: #191C20;
+  --sk_dominantBgHover: #1D1E22;
+  --sk_dominantBg2: #222228;
+  --sk_dominantBg2Hover: #222328;
+  --sk_dominantBg3: #292C32;
+  --sk_dominantBg3Hover: #2f323a;
   --sk_dominantTxt: rgba(255, 255, 255, 0.85);
   --sk_dominantTxt2: rgba(255, 255, 255, 0.7);
   --sk_dominantTxt3: rgba(255, 255, 255, 0.55);
-  --sk_dominantShadow: #000000;
-  --sk_dominantShadow2: #161616;
+  --sk_dominantShadow: #0D0E13;
+  --sk_dominantShadow2: #131419;
   --sk_dominantGlass: rgba(0, 0, 0, 0.5);
   --sk_dominantGlass2: rgba(0, 0, 0, 0.5);
-  --sk_accentBg: #0092be;
-  --sk_accentBgHover: #00b8cd;
-  --sk_accentBg2: #00c5dd;
-  --sk_accentBg2Hover: #00d3ec;
-  --sk_accentBg3: #00e1fb;
-  --sk_accentBg3Hover: #0be5ff;
-  --sk_accentTxt: rgba(255, 255, 255, 0.85);
-  --sk_accentTxt2: rgba(255, 255, 255, 0.7);
-  --sk_accentTxt3: rgba(255, 255, 255, 0.55);
-  --sk_accentShadow: #014e57;
-  --sk_accentGlass: rgba(0, 0, 0, 0.5);
-  --sk_accentGlass2: rgba(0, 0, 0, 0.5);
+--sk_accentBg: #4568D4;        
+--sk_accentBgHover: #3E5FC3;   
+
+--sk_accentBg2: #0D9488;       
+--sk_accentBg2Hover: #0B857A;  
+
+--sk_accentBg3: #C026D3;       
+--sk_accentBg3Hover: #A81DB8;  
+
+--sk_accentTxt: rgba(255, 255, 255, 0.85);
+--sk_accentTxt2: rgba(255, 255, 255, 0.7);
+--sk_accentTxt3: rgba(255, 255, 255, 0.55);
+
+--sk_accentShadow: #203163;
+--sk_accentGlass: rgba(0, 0, 0, 0.5);
+--sk_accentGlass2: rgba(0, 0, 0, 0.35);
+
+
+  /* BUTTONS */
   --sk_buttonBg: #282828;
   --sk_buttonBgHover: #303030;
   --sk_buttonBg2: #373737;
-  --sk_buttonBg2Hover: #3f3f3f;
+  --sk_buttonBg2Hover: #3F3F3F;
   --sk_buttonBg3: #474747;
-  --sk_buttonBg3Hover: #4e4e4e;
+  --sk_buttonBg3Hover: #4E4E4E;
   --sk_buttonTxt: rgba(255, 255, 255, 0.85);
   --sk_buttonTxt2: rgba(255, 255, 255, 0.7);
   --sk_buttonTxt3: rgba(255, 255, 255, 0.55);
   --sk_buttonShadow: #000000;
   --sk_buttonShadow2: #161616;
   --sk_buttonGlass: rgba(0, 0, 0, 0.5);
-  --sk_buttonGlass2: rgba(0, 0, 0, 0.5);
+  --sk_buttonGlass2: rgba(0, 0, 0, 0.35);
+
 }
 
 .sk_bd_start_wrapper {
@@ -744,11 +761,11 @@ html {
 }
 
 .state_selected_node {
-  box-shadow: 0px 0 3px 2px var(--accBg);
+  box-shadow: 0px 0 3px 2px var(--sk_accentBg);
 }
 
 .state_selected_node.variant_layout {
-  box-shadow: 0px 0 2px 2px var(--accBg2);
+  box-shadow: 0px 0 2px 2px var(--sk_accentBg2);
 }
 
 
@@ -1063,21 +1080,21 @@ html {
 .state_hover_layout {
   outline: 2px dashed;
   outline-offset: 2px;
-  outline-color: var(--accBg);
+  outline-color: var(--sk_accentBg);
 
 }
 
 .state_hover_element {
   outline: 2px dashed;
   outline-offset: 2px;
-  outline-color: var(--accBg2);
+  outline-color: var(--sk_accentBg2);
 }
 
 
 .state_selected_layout {
   outline: 1px dashed;
   outline-offset: 1px;
-  outline-color: var(--accBg3);
+  outline-color: var(--sk_accentBg3);
 }
 
 
@@ -1281,7 +1298,7 @@ html {
 
 
 .sk_bd_input_radio>input:checked+.sk_bd_input_radio_imitator {
-  background: var(--accBg);
+  background: var(--sk_accentBg);
 }
 
 
@@ -1354,7 +1371,7 @@ html {
 
 
 .sk_bd_state_checkbox>input:checked+.sk_bd_state_checkbox_imitator {
-  background: var(--accBg);
+  background: var(--sk_accentBg);
 }
 
 .sk_bd_state_checkbox:checked {
@@ -1588,12 +1605,12 @@ html {
 }
 
 .sk_layers_row.state_selected {
-  background: rgba(100, 150, 255, 0.15);
-  background: linear-gradient(to right, rgba(100, 255, 134, 0), rgba(100, 255, 134, 0.15));
+  background: var(--sk_dominantBg2);
+  /* background: linear-gradient(to right, rgba(100, 255, 134, 0), rgba(100, 255, 134, 0.15)); */
 }
 
 .sk_layers_row.state_hover:not(.state_selected) {
-  background: linear-gradient(to right, rgba(100, 150, 255, 0), rgba(100, 150, 255, 0.15));
+  background: var(--sk_dominantBg3);
 }
 
 .sk_bd_tool_elements {
@@ -1618,6 +1635,8 @@ html {
   align-items: stretch;
   overflow-y: auto;
   height: calc(100% - 30px);
+  padding-inline-end: 2px;
+  background: var(--sk_dominantBg);
 }
 
 .sk_bd_tool_layers {
@@ -1719,8 +1738,6 @@ html {
   border-color: var(--sk_dominantBg3);
 }
 
-
-
 .sk_bd_scroller::-webkit-scrollbar {
   width: 6px;
   /* Scrollbar width */
@@ -1732,15 +1749,15 @@ html {
 }
 
 .sk_bd_scroller::-webkit-scrollbar-thumb {
-  background: var(--sk_dominantBg2);
   /* Thumb color */
-  border-radius: 10px;
+  border-radius: 1px;
+  background: var(--sk_dominantBg3);
+  border-radius: 1px;
+  border: 2px solid var(--sk_dominantBg);
   /* Thumb border radius */
-  width: 4px;
 }
 
 .dg_scrollbar_y::-webkit-scrollbar-thumb:hover {
-  background: var(--sk_dominantBg2);
   /* Thumb hover color */
 }
 

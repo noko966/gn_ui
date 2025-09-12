@@ -356,7 +356,7 @@ export function TreeEditor() {
             <div className="sk_bd_tool_elements sk_bd_panel">
               <div className="sk_bd_header">{"components"}</div>
 
-              <div className="sk_bd_tool_elements_layout">
+              <div className="sk_bd_tool_elements_layout ">
                 {elementLibrary.map((tpl) => (
                   <PaletteItem key={tpl.name} tpl={tpl} />
                 ))}

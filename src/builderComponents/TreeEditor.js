@@ -483,7 +483,7 @@ export function TreeEditor() {
 
   const closeModal = () => dispatch(closeCodeModal());
   const themes = ["default", "dark"];
-  const [theme, setTheme] = React.useState("default");
+  const [theme, setTheme] = React.useState("dark");
 
   const rootClassName = `sk_bd_root state_${theme}`
 
@@ -495,7 +495,7 @@ export function TreeEditor() {
           <div className="sk_bd_tools_root">
             <div className="sk_bd_tool_elements sk_bd_panel">
               <div className="sk_bd_header">{"components"}</div>
-              <div className="sk_bd_tool_elements_layout">
+              <div className="sk_bd_tool_elements_layout sk_bd_scroller">
                 {elementLibrary.map((tpl) => (
                   <PaletteItem key={tpl.name} tpl={tpl} />
                 ))}
