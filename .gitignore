@@ -134,4 +134,12 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-./library
+library/
+dist/
+builder/
+src/presentation
+
+bun.lock
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
