@@ -1,6 +1,6 @@
 {
     "name": "clbuilder",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "description": "",
     "type": "module",
     "main": "dist/library/digi-library.umd.js",
@@ -32,7 +32,6 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "peerDependencies": {},
     "dependencies": {
         "@reduxjs/toolkit": "^2.8.2",
         "classnames": "^2.5.1",
@@ -66,7 +65,7 @@
         "file-loader": "^6.2.0",
         "sass": "^1.92.1",
         "storybook": "9.1.7",
-        "vite": "npm:rolldown-vite@latest",
+        "vite": "^6.0.0",
         "vite-plugin-static-copy": "^3.1.2"
     },
     "trustedDependencies": [
