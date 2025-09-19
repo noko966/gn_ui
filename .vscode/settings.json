@@ -1,1 +1,4 @@
-{}
+{
+    "github.copilot.chat.customInstructionsInSystemMessage": true,
+    "cSpell.words": ["clbuilder", "digi", "registrator"]
+}

@@ -1,2 +1,6 @@
+telemetry = false
+jsx = "react"
+
+
 [run]
 bun = true
